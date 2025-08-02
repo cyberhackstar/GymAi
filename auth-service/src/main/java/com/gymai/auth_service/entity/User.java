@@ -1,0 +1,1 @@
+// User entity with email verification
