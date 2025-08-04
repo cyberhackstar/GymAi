@@ -1,0 +1,15 @@
+notification-service/
+├── controller/
+│   └── TestController.java
+├── service/
+│   └── EmailService.java
+├── kafka/
+│   └── NotificationListener.java
+├── scheduler/
+│   └── ReminderScheduler.java
+├── dto/
+│   └── NotificationDTO.java
+├── config/
+│   └── EmailConfig.java
+├── NotificationApplication.java
+└── application.yml

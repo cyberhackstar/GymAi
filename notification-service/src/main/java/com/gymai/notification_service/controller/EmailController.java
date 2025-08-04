@@ -1,11 +1,12 @@
+package com.gymai.notification_service.controller;
 
-package com.gym.notification.controller;
 
-import com.gym.notification.dto.EmailRequest;
-import com.gym.notification.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.gymai.notification_service.dto.EmailRequest;
+import com.gymai.notification_service.service.EmailService;
 
 @RestController
 @RequestMapping("/api/notify")

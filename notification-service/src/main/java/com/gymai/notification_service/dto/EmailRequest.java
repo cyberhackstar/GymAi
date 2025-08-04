@@ -1,5 +1,4 @@
-
-package com.gym.notification.dto;
+package com.gymai.notification_service.dto;
 
 import lombok.Data;
 

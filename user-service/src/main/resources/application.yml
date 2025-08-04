@@ -1,0 +1,54 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: user-service
+  cloud:
+  
+    bus:
+      enabled: false
+
+    config:
+      enabled: false
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gym_ai
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+jwt:
+  secret: 7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc
+  expiration: 3600000 # 1 hour in ms
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+logging:
+  file:
+    name: logs/user-service.log
+  level:
+    root: INFO
+    com.gymai.user_service: DEBUG  # Changed from auth_service to user_service
+
+feign:
+  client:
+    config:
+      auth-service:
+        url: http://localhost:8081  # Assuming auth-service runs on 8081
+
+kafka:
+  user-topic: user-events
