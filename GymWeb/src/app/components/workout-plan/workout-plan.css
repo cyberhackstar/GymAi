@@ -1,0 +1,44 @@
+.class-timetable-section {
+  padding: 60px 0;
+  background: #f5f5f5;
+}
+.section-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.section-title h2 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+}
+.class-timetable table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+.class-timetable th,
+.class-timetable td {
+  border: 1px solid #ddd;
+  padding: 15px;
+}
+.class-time {
+  font-weight: bold;
+}
+.hover-bg {
+  background-color: #f1f1f1;
+  transition: 0.3s;
+}
+.hover-bg:hover {
+  background-color: #ddd;
+}
+.blank-td {
+  background-color: #e0e0e0;
+}
+.ts-meta.fitness {
+  background-color: #6bcb77;
+}
+.ts-meta.workout {
+  background-color: #4d96ff;
+}
+.ts-meta.motivation {
+  background-color: #ff6b6b;
+}

@@ -1,0 +1,16 @@
+h2 {
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 300px;
+}
+
+button {
+  padding: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+}

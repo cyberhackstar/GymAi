@@ -1,0 +1,23 @@
+.stats-container {
+  display: flex;
+  gap: 20px;
+  margin: 2rem 0;
+}
+
+.stat-card {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.admin-controls {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #e9f5ff;
+  border: 1px solid #b3d8ff;
+  border-radius: 8px;
+}

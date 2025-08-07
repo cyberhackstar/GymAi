@@ -1,0 +1,38 @@
+<section class="class-timetable-section spad">
+  <div class="container">
+    <div class="section-title">
+      <span>Workout Schedule</span>
+      <h2>Weekly Workout Plan</h2>
+    </div>
+    <div class="class-timetable">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th *ngFor="let day of days">{{ day }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let time of times">
+            <td class="class-time">{{ time }}</td>
+            <td *ngFor="let day of days">
+              <div
+                *ngIf="workoutSchedule[time][day]; else emptySlot"
+                [ngClass]="
+                  getCategoryClass(workoutSchedule[time][day]?.category ?? '')
+                "
+                class="hover-bg dark-bg"
+              >
+                <h5>{{ workoutSchedule[time][day]?.title }}</h5>
+                <span>{{ workoutSchedule[time][day]?.trainer }}</span>
+              </div>
+              <ng-template #emptySlot>
+                <div class="blank-td dark-bg"></div>
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

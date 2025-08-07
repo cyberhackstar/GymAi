@@ -1,0 +1,20 @@
+<h2>Your Subscription Plan 💳</h2>
+<p>
+  Current Plan: <strong>{{ currentPlan }}</strong>
+</p>
+
+<div class="plans-container">
+  <div class="plan-card" *ngFor="let plan of plans">
+    <h3>{{ plan.name }}</h3>
+    <p class="price">{{ plan.price }}</p>
+    <ul>
+      <li *ngFor="let feature of plan.features">{{ feature }}</li>
+    </ul>
+    <button
+      (click)="subscribe(plan.name)"
+      [disabled]="plan.name === currentPlan"
+    >
+      {{ plan.name === currentPlan ? "Active" : "Subscribe" }}
+    </button>
+  </div>
+</div>
