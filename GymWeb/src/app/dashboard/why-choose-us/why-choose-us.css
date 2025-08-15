@@ -1,0 +1,75 @@
+.choseus-section {
+  padding: 80px 0;
+  background: #0d0d0d; /* dark background */
+  text-align: center;
+  color: #e0e0e0;
+}
+
+.section-title span {
+  color: #ff4c4c;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  display: block;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  margin-top: 10px;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 50px;
+  margin-top: 50px;
+}
+
+.cs-item {
+  background: #1a1a1a;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+.cs-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(255, 255, 255, 0.4);
+}
+
+.cs-item span {
+  font-size: 48px;
+  color: #ff4c4c;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.cs-item h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.cs-item p {
+  font-size: 14px;
+  color: #bbbbbb;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .choseus-section {
+    padding: 50px 20px;
+  }
+
+  .section-title h2 {
+    font-size: 26px;
+  }
+
+  .cs-item {
+    padding: 25px 15px;
+  }
+}

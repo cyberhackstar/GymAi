@@ -6,17 +6,35 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { Router, RouterModule } from '@angular/router';
+import { Token } from '../../core/services/token';
+import { AuthService } from '../../core/services/auth';
+import {
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+} from '../../models/auth.model';
 
 @Component({
   selector: 'app-register',
-  imports: [CommonModule, ReactiveFormsModule],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule, RouterModule],
   templateUrl: './register.html',
-  styleUrl: './register.css',
+  styleUrls: ['./register.css'],
 })
 export class Register {
   registerForm: FormGroup;
+  errorMessage = '';
+  showPassword = false;
+  showConfirmPassword = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private tokenService: Token,
+    private router: Router
+  ) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -25,11 +43,51 @@ export class Register {
     });
   }
 
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPassword() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
   onSubmit(): void {
-    if (this.registerForm.valid) {
-      const { confirmPassword, ...userData } = this.registerForm.value;
-      console.log('Register Data:', userData);
-      // TODO: call registration service here
+    if (this.registerForm.invalid) {
+      this.errorMessage = 'Please fill out all required fields.';
+      return;
     }
+
+    const { password, confirmPassword, email, name } = this.registerForm.value;
+    if (password !== confirmPassword) {
+      this.errorMessage = 'Passwords do not match.';
+      return;
+    }
+
+    const payload: RegisterRequest = { name, email, password };
+
+    // Step 1: Register the user
+    this.authService.register(payload).subscribe({
+      next: () => {
+        // Step 2: Auto-login after successful registration
+        const loginPayload: LoginRequest = { email, password };
+        this.authService.login(loginPayload).subscribe({
+          next: (res: LoginResponse) => {
+            this.tokenService.setToken(res.accessToken);
+            this.tokenService.setRefreshToken(res.refreshToken);
+            this.router.navigate(['/dashboard']);
+          },
+          error: (err) => {
+            console.error('Auto-login error:', err);
+            this.errorMessage = 'Registration succeeded but auto-login failed.';
+            this.router.navigate(['/login']);
+          },
+        });
+      },
+      error: (err) => {
+        console.error('Registration error:', err);
+        this.errorMessage =
+          err?.error?.message || 'Registration failed. Try again.';
+      },
+    });
   }
 }

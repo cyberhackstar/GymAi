@@ -1,20 +1,27 @@
-<h2>Your Subscription Plan 💳</h2>
-<p>
-  Current Plan: <strong>{{ currentPlan }}</strong>
-</p>
+<section class="pricing-section">
+  <div class="container-fluid">
+    <div class="section-title text-center mb-5">
+      <span>Our Plans</span>
+      <h2>Train Hard. Train Smart. Pick Your Plan.</h2>
+    </div>
 
-<div class="plans-container">
-  <div class="plan-card" *ngFor="let plan of plans">
-    <h3>{{ plan.name }}</h3>
-    <p class="price">{{ plan.price }}</p>
-    <ul>
-      <li *ngFor="let feature of plan.features">{{ feature }}</li>
-    </ul>
-    <button
-      (click)="subscribe(plan.name)"
-      [disabled]="plan.name === currentPlan"
-    >
-      {{ plan.name === currentPlan ? "Active" : "Subscribe" }}
-    </button>
+    <div class="row g-4 px-5">
+      <div class="col-12 col-sm-6 col-lg-4 d-flex" *ngFor="let plan of plans">
+        <div class="ps-item w-100">
+          <h3>{{ plan.title }}</h3>
+          <div class="pi-price">
+            <h2>$ {{ plan.price.toFixed(1) }}</h2>
+            <span>{{ plan.label }}</span>
+          </div>
+          <ul>
+            <li *ngFor="let feature of plan.features">{{ feature }}</li>
+          </ul>
+          <div class="button-group">
+            <a href="#" class="primary-btn pricing-btn">Enroll Now</a>
+            <!-- <a href="#" class="thumb-icon"><i class="fa fa-picture-o"></i></a> -->
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>

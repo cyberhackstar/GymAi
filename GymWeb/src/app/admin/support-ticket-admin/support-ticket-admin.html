@@ -1,0 +1,24 @@
+<div class="choseus-section">
+  <h2>Support Tickets</h2>
+
+  <div class="tickets-list">
+    <div
+      class="ticket-card"
+      *ngFor="let ticket of tickets"
+      (click)="selectTicket(ticket)"
+      [class.selected]="ticket === selectedTicket"
+    >
+      <h3>{{ ticket.title }}</h3>
+      <p>{{ ticket.description }}</p>
+      <span class="status">{{ ticket.status }}</span>
+    </div>
+  </div>
+
+  <div class="ticket-details" *ngIf="selectedTicket">
+    <h3>Selected Ticket</h3>
+    <p><strong>Title:</strong> {{ selectedTicket.title }}</p>
+    <p><strong>Description:</strong> {{ selectedTicket.description }}</p>
+    <p><strong>Status:</strong> {{ getTicketStatus() }}</p>
+    <button class="close-btn" (click)="closeTicket()">Close Ticket</button>
+  </div>
+</div>

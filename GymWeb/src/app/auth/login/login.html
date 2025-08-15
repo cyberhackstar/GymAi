@@ -1,41 +1,82 @@
-<div class="login-container">
-  <h2>Login to GymAI</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label>Email</label>
-      <input
-        formControlName="email"
-        type="email"
-        placeholder="Enter your email"
-      />
-      <div
-        class="error"
-        *ngIf="
-          loginForm.get('email')?.invalid && loginForm.get('email')?.touched
-        "
-      >
-        Valid email required
-      </div>
+<div class="login-wrapper">
+  <!-- Left side with background image and motivational text -->
+  <div class="login-left">
+    <div class="overlay-content">
+      <h1 class="trade-winds-regular">Gym<span>AI</span></h1>
+      <p class="tagline">Smarter workouts. Faster results.</p>
+      <blockquote>
+        "Push yourself, because no one else is going to do it for you."
+      </blockquote>
     </div>
+  </div>
 
-    <div class="form-group">
-      <label>Password</label>
-      <input
-        formControlName="password"
-        type="password"
-        placeholder="Enter your password"
-      />
-      <div
-        class="error"
-        *ngIf="
-          loginForm.get('password')?.invalid &&
-          loginForm.get('password')?.touched
-        "
-      >
-        Password must be at least 6 characters
-      </div>
+  <!-- Right side with login form -->
+  <div class="login-right">
+    <div class="login-container">
+      <h2>Login to <span>GymAI</span></h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Email</label>
+          <div class="input-icon">
+            <mat-icon>mail</mat-icon>
+            <input
+              formControlName="email"
+              type="email"
+              placeholder="Enter your email"
+            />
+          </div>
+          <div
+            class="error"
+            *ngIf="
+              loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+            "
+          >
+            Valid email required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-icon">
+            <mat-icon>lock</mat-icon>
+            <input
+              formControlName="password"
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="Enter your password"
+            />
+            <button
+              type="button"
+              class="show-toggle"
+              (click)="togglePassword()"
+            >
+              <mat-icon>{{
+                showPassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+          </div>
+          <div
+            class="error"
+            *ngIf="
+              loginForm.get('password')?.invalid &&
+              loginForm.get('password')?.touched
+            "
+          >
+            Password must be at least 8 characters
+          </div>
+        </div>
+
+        <div class="forgot-password">
+          <a routerLink="/forgot-password">Forgot password?</a>
+        </div>
+
+        <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+        <div class="signup-hint">
+          Don’t have an account?
+          <a routerLink="/register">Create one</a>
+        </div>
+      </form>
     </div>
-
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
-  </form>
+  </div>
 </div>

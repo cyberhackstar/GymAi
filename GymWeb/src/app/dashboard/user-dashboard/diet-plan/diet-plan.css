@@ -1,0 +1,259 @@
+.diet-container {
+  padding: 20px;
+  background: #0d0d0d;
+  color: #fff;
+}
+
+.diet-heading {
+  font-size: 2rem;
+  color: #ff4c4c;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+.day-card {
+  background: #1a1a1a;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(255, 76, 76, 0.1);
+}
+
+.day-title {
+  font-size: 1.4rem;
+  color: #ff4c4c;
+  margin-bottom: 10px;
+}
+
+.progress-container {
+  margin-bottom: 15px;
+}
+
+.calorie-text {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.progress-bar {
+  background: #333;
+  height: 10px;
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out;
+}
+
+.meal-table-wrapper {
+  overflow-x: auto;
+}
+
+.meal-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.meal-table th,
+.meal-table td {
+  padding: 8px;
+  text-align: center;
+}
+
+.meal-table th {
+  background: #262626;
+  font-weight: bold;
+  color: #ff4c4c;
+}
+
+.meal-table tr:nth-child(even) {
+  background: #1f1f1f;
+}
+
+.table-meal-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Mobile swipe carousel */
+.swipe-container {
+  position: relative;
+  overflow: hidden;
+  height: 250px;
+}
+
+.meals-wrapper {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+  width: 100%;
+}
+
+.meal-card {
+  flex: 0 0 100%;
+  background: rgba(26, 26, 26, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(255, 76, 76, 0.15);
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+}
+
+.meal-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 12px;
+  height: 100%;
+}
+
+.meal-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.meal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.meal-time {
+  font-weight: bold;
+  color: #ff4c4c;
+}
+
+.meal-name {
+  margin-top: 8px;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.meal-nutrients p {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin: 3px 0;
+}
+
+.meal-nutrients span {
+  color: #ff4c4c;
+  font-weight: 500;
+}
+
+.meal-image {
+  flex-shrink: 0;
+  width: 120px;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.meal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.meal-time-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(255, 76, 76, 0.85);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.dots-container {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  background-color: #666;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.active-dot {
+  background-color: #ff4c4c;
+  transform: scale(1.2);
+}
+
+/* Responsive toggle */
+@media (max-width: 768px) {
+  .desktop-view {
+    display: none;
+  }
+  .mobile-view {
+    display: block;
+  }
+}
+@media (min-width: 769px) {
+  .desktop-view {
+    display: block;
+  }
+  .mobile-view {
+    display: none;
+  }
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.lightbox-img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+}
+
+/* Expand button */
+.expand-btn-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.expand-btn {
+  background: #ff4c4c;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.expand-btn:hover {
+  background: #e64545;
+}

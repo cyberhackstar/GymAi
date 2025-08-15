@@ -1,0 +1,182 @@
+/* Futuristic animated background */
+.gymai-page {
+  min-height: 100vh;
+  padding: 20px;
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(-45deg, #0d0d0d, #1a1a1a, #111, #0d0d0d);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gymai-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #ff4c4c;
+}
+
+/* Ticket form */
+.ticket-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.gymai-input {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 10px;
+  color: white;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.gymai-btn-primary {
+  background: #ff4c4c;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.gymai-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px #ff4c4c;
+}
+
+/* Table styles */
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.gymai-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(20, 20, 20, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.gymai-table th,
+.gymai-table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.gymai-table tbody tr {
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.gymai-table tbody tr:hover {
+  background: rgba(255, 76, 76, 0.1);
+}
+
+/* Status badge glow animation */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  animation: pulseGlow 2s infinite;
+}
+.status-badge.Open {
+  background: rgba(255, 76, 76, 0.2);
+  color: #ff4c4c;
+  box-shadow: 0 0 6px #ff4c4c;
+}
+
+.status-badge[data-status="In Progress"] {
+  background: rgba(255, 215, 0, 0.2);
+  color: #ffd700;
+  box-shadow: 0 0 6px #ffd700;
+}
+
+.status-badge.Resolved {
+  background: rgba(0, 255, 150, 0.2);
+  color: #00ff96;
+  box-shadow: 0 0 6px #00ff96;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 6px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 16px currentColor;
+  }
+}
+
+/* Modal with blur + scale-up 3D */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 15, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 76, 76, 0.5);
+  transform: scale(0.8) perspective(600px) translateZ(0px);
+  animation: popIn 0.4s ease forwards;
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) perspective(600px) translateZ(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) perspective(600px) translateZ(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .gymai-title {
+    font-size: 1.5rem;
+  }
+  .gymai-input,
+  .gymai-btn-primary {
+    font-size: 0.9rem;
+  }
+}

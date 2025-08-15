@@ -1,0 +1,86 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: plan-service
+    # cloud:
+    #   openfeign:
+    #     jackson:
+    #       enabled: true
+
+    # bus:
+    #   enabled: false
+
+    # config:
+    #   enabled: false
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gym_ai
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+jwt:
+  secret: 7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc
+  expiration: 3600000 # 1 hour in ms
+
+# eureka:
+#   client:
+#     service-url:
+#       defaultZone: http://localhost:8761/eureka
+#     register-with-eureka: true
+#     fetch-registry: true
+
+logging:
+  file:
+    name: logs/plan-service.log
+  level:
+    root: INFO
+    # com.gymai.user_service: DEBUG  # Changed from auth_service to user_service
+    # com.gymai.plan_service.feign.SpoonacularClient: DEBUG
+    # feign: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
+    org.springframework.http: TRACE
+
+# feign:
+#   client:
+#     config:
+#       default:
+#         decode404: true
+#   httpclient:
+#     enabled: true
+
+ai:
+  service:
+    url: http://localhost:8000
+user:
+  service:
+    url: http://localhost:8082
+
+wger:
+  api-url: https://wger.de/api/v2
+
+spoonacular:
+  api-url: https://api.spoonacular.com
+  api:
+    key: 37dbf57de68f4d79967bf7ac9c0490e5
+# kafka:
+#   consumer:
+#     bootstrap-servers: localhost:9092
+#     group-id: plan-service-group
+#     auto-offset-reset: earliest
+#     key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#     value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+

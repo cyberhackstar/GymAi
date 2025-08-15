@@ -1,34 +1,130 @@
-<h2>Register</h2>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <label>
-    Name:
-    <input type="text" formControlName="name" />
-  </label>
-
-  <label>
-    Email:
-    <input type="email" formControlName="email" />
-  </label>
-
-  <label>
-    Password:
-    <input type="password" formControlName="password" />
-  </label>
-
-  <label>
-    Confirm Password:
-    <input type="password" formControlName="confirmPassword" />
-  </label>
-
-  <button type="submit" [disabled]="registerForm.invalid">Register</button>
-</form>
-<div class="error" *ngIf="registerForm.invalid && registerForm.touched">
-  <div *ngIf="registerForm.get('name')?.invalid">Name is required</div>
-  <div *ngIf="registerForm.get('email')?.invalid">Valid email is required</div>
-  <div *ngIf="registerForm.get('password')?.invalid">
-    Password must be at least 6 characters
+<div class="register-wrapper">
+  <div class="register-left">
+    <div class="overlay-content">
+      <h1 class="trade-winds-regular">Gym<span>AI</span></h1>
+      <p class="tagline">Smarter workouts. Faster results.</p>
+      <blockquote>
+        "Every expert was once a beginner. Start your journey today."
+      </blockquote>
+    </div>
   </div>
-  <div *ngIf="registerForm.get('confirmPassword')?.invalid">
-    Passwords must match
+
+  <div class="register-right">
+    <div class="register-container">
+      <h2>Create Your Account</h2>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Name</label>
+          <div class="input-icon">
+            <mat-icon>person</mat-icon>
+            <input
+              type="text"
+              formControlName="name"
+              placeholder="Your full name"
+            />
+          </div>
+          <div
+            class="error"
+            *ngIf="
+              registerForm.get('name')?.invalid &&
+              registerForm.get('name')?.touched
+            "
+          >
+            Name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <div class="input-icon">
+            <mat-icon>mail</mat-icon>
+            <input
+              type="email"
+              formControlName="email"
+              placeholder="Your email address"
+            />
+          </div>
+          <div
+            class="error"
+            *ngIf="
+              registerForm.get('email')?.invalid &&
+              registerForm.get('email')?.touched
+            "
+          >
+            Valid email is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-icon">
+            <mat-icon>lock</mat-icon>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="Create password"
+            />
+            <button
+              type="button"
+              class="show-toggle"
+              (click)="togglePassword()"
+            >
+              <mat-icon>{{
+                showPassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+          </div>
+          <div
+            class="error"
+            *ngIf="
+              registerForm.get('password')?.invalid &&
+              registerForm.get('password')?.touched
+            "
+          >
+            Password must be at least 6 characters
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <div class="input-icon">
+            <mat-icon>lock</mat-icon>
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              placeholder="Re-enter password"
+            />
+            <button
+              type="button"
+              class="show-toggle"
+              (click)="toggleConfirmPassword()"
+            >
+              <mat-icon>{{
+                showConfirmPassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+          </div>
+          <div
+            class="error"
+            *ngIf="
+              registerForm.get('confirmPassword')?.invalid &&
+              registerForm.get('confirmPassword')?.touched
+            "
+          >
+            Passwords must match
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="registerForm.invalid">
+          Register
+        </button>
+
+        <div class="login-hint">
+          Already have an account?
+          <a routerLink="/login">Login here</a>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

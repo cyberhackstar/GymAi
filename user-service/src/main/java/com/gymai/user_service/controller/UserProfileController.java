@@ -59,6 +59,17 @@ public class UserProfileController {
                 });
     }
 
+    @GetMapping("/profile/check")
+    public ResponseEntity<Boolean> isProfileCompleted(HttpServletRequest request) {
+        String token = extractTokenFromHeader(request);
+        Long userId = jwtService.extractUserId(token);
+
+        boolean exists = profileRepository.existsById(userId);
+        log.info("📌 Profile completion check for userId {} → {}", userId, exists);
+
+        return ResponseEntity.ok(exists);
+    }
+
     private String extractTokenFromHeader(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
         if (header == null || !header.startsWith("Bearer ")) {

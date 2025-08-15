@@ -1,0 +1,160 @@
+<div class="workout-container">
+  <h2 class="workout-heading">💪 Weekly Workout Plan</h2>
+
+  <!-- User Info -->
+  <div class="user-info-card" *ngIf="userProfile">
+    <p>
+      <strong>Name:</strong> {{ userProfile.name }} ({{ userProfile.gender }},
+      {{ userProfile.age }}y)
+    </p>
+    <p>
+      <strong>Height:</strong> {{ userProfile.height }} cm |
+      <strong>Weight:</strong> {{ userProfile.weight }} kg
+    </p>
+    <p>
+      <strong>Goal:</strong> {{ userProfile.goal }} |
+      <strong>Activity Level:</strong> {{ userProfile.activityLevel }}
+    </p>
+    <p><strong>Preference:</strong> {{ userProfile.preference }}</p>
+  </div>
+
+  <!-- Always show first day -->
+  <div *ngIf="workoutPlan.length" class="day-card">
+    <ng-container
+      *ngTemplateOutlet="dayTemplate; context: { $implicit: workoutPlan[0] }"
+    ></ng-container>
+  </div>
+
+  <!-- Show other days if expanded -->
+  <div *ngIf="showAllDays">
+    <div *ngFor="let day of workoutPlan.slice(1)" class="day-card">
+      <ng-container
+        *ngTemplateOutlet="dayTemplate; context: { $implicit: day }"
+      ></ng-container>
+    </div>
+  </div>
+
+  <!-- Expand / Collapse button -->
+  <div class="expand-btn-container">
+    <button class="expand-btn" (click)="toggleDays()">
+      {{ showAllDays ? "Collapse Days ▲" : "Expand Days ▼" }}
+    </button>
+  </div>
+
+  <!-- Template for a day's plan -->
+  <ng-template #dayTemplate let-day>
+    <h3 class="day-title">{{ day.day }}</h3>
+
+    <div class="progress-container">
+      <p class="calorie-text">
+        {{ day.caloriesBurnedTaken }} / {{ day.totalCaloriesBurned }} kcal ({{
+          day.progressPercent
+        }}%)
+      </p>
+      <div class="progress-bar">
+        <div
+          class="progress"
+          [style.width.%]="day.progressPercent"
+          [style.backgroundColor]="day.progressColor"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Desktop Table -->
+    <div class="exercise-table-wrapper desktop-view">
+      <table class="exercise-table">
+        <thead>
+          <tr>
+            <th>✓</th>
+            <th>Exercise</th>
+            <th>Sets</th>
+            <th>Reps</th>
+            <th>Calories Burned</th>
+            <th>Image</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ex of day.exercises">
+            <td>
+              <input
+                type="checkbox"
+                [(ngModel)]="ex.completed"
+                (change)="updateDayProgress(day)"
+              />
+            </td>
+            <td>{{ ex.name }}</td>
+            <td>{{ ex.sets }}</td>
+            <td>{{ ex.reps }}</td>
+            <td>{{ ex.caloriesBurned }}</td>
+            <td>
+              <img
+                [src]="ex.image"
+                alt="{{ ex.name }}"
+                class="table-exercise-image"
+                (click)="openLightbox(ex.image)"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile Swipe View -->
+    <div
+      class="mobile-view swipe-container"
+      (swipeleft)="nextExercise(day)"
+      (swiperight)="prevExercise(day)"
+    >
+      <div
+        class="exercises-wrapper"
+        [style.transform]="
+          'translateX(-' + day.activeExerciseIndex * 100 + '%)'
+        "
+      >
+        <div class="exercise-card" *ngFor="let ex of day.exercises">
+          <div class="exercise-details">
+            <div class="exercise-header">
+              <input
+                type="checkbox"
+                [(ngModel)]="ex.completed"
+                (change)="updateDayProgress(day)"
+              />
+              <span class="exercise-name">{{ ex.name }}</span>
+            </div>
+            <p>
+              Sets: <span>{{ ex.sets }}</span>
+            </p>
+            <p>
+              Reps: <span>{{ ex.reps }}</span>
+            </p>
+            <p>
+              Calories: <span>{{ ex.caloriesBurned }}</span>
+            </p>
+          </div>
+          <div class="exercise-image">
+            <img
+              [src]="ex.image"
+              alt="{{ ex.name }}"
+              (click)="openLightbox(ex.image)"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination dots -->
+      <div class="dots-container">
+        <span
+          *ngFor="let ex of day.exercises; let i = index"
+          class="dot"
+          [class.active-dot]="i === day.activeExerciseIndex"
+          (click)="goToExercise(day, i)"
+        ></span>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Lightbox -->
+  <div class="lightbox" *ngIf="lightboxImage" (click)="closeLightbox()">
+    <img [src]="lightboxImage" alt="Exercise" class="lightbox-img" />
+  </div>
+</div>

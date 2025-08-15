@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+.trade-winds-regular {
+  font-family: "Trade Winds", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

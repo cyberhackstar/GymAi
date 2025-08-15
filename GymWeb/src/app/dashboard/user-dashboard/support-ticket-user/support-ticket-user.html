@@ -1,0 +1,68 @@
+<div class="gymai-page">
+  <h1 class="gymai-title">My Support Tickets</h1>
+
+  <!-- New Ticket Form -->
+  <div class="gymai-bar ticket-form">
+    <input
+      class="gymai-input"
+      [(ngModel)]="newTicket.subject"
+      placeholder="Subject"
+    />
+    <textarea
+      class="gymai-input"
+      [(ngModel)]="newTicket.description"
+      placeholder="Describe your issue"
+    ></textarea>
+    <button class="gymai-btn gymai-btn-primary" (click)="submitTicket()">
+      Submit Ticket
+    </button>
+  </div>
+
+  <!-- Ticket List -->
+  <div class="table-container">
+    <table class="gymai-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Subject</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ticket of tickets" (click)="openTicket(ticket)">
+          <td>{{ ticket.id }}</td>
+          <td>{{ ticket.subject }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="ticket.status">
+              {{ ticket.status }}
+            </span>
+          </td>
+          <td>{{ ticket.date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal-overlay"
+    *ngIf="selectedTicket"
+    (click)="closeModal($event)"
+  >
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Ticket #{{ selectedTicket.id }}</h2>
+      <p><strong>Subject:</strong> {{ selectedTicket.subject }}</p>
+      <p><strong>Status:</strong> {{ selectedTicket.status }}</p>
+      <p><strong>Date:</strong> {{ selectedTicket.date }}</p>
+      <p><strong>Description:</strong></p>
+      <p>{{ selectedTicket.description }}</p>
+      <button
+        class="gymai-btn gymai-btn-primary"
+        (click)="selectedTicket = null"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>

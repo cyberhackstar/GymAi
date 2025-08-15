@@ -1,1 +1,38 @@
-<p>user-management works!</p>
+<div class="search-bar">
+  <input type="text" placeholder="Search users..." />
+  <button>Add User</button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Goal</th>
+      <th>Activity</th>
+      <th>Preference</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.age }}</td>
+      <td>{{ user.gender }}</td>
+      <td>{{ user.goal }}</td>
+      <td>{{ user.activityLevel }}</td>
+      <td>{{ user.preference }}</td>
+      <td>
+        <button class="action-btn view-btn" (click)="viewProfile(user)">
+          View
+        </button>
+        <button class="action-btn suspend-btn" (click)="suspendUser(user)">
+          Suspend
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

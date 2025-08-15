@@ -1,11 +1,15 @@
 import { Routes } from '@angular/router';
 import { Login } from './auth/login/login';
 import { Register } from './auth/register/register';
-import { Dashboard } from './dashboard/dashboard/dashboard';
 import { Plan } from './plan/plan/plan';
 import { Progress } from './progress/progress/progress';
 import { Pricing } from './subscription/pricing/pricing';
 import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
+import { ForgotPassword } from './auth/forgot-password/forgot-password';
+import { CompleteProfile } from './user/complete-profile/complete-profile';
+import { UserDashboard } from './dashboard/user-dashboard/user-dashboard';
+import { BmiCalculator } from './bmi-calculator/bmi-calculator';
+import { Contact } from './contact/contact';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -13,12 +17,16 @@ export const routes: Routes = [
   // Public Routes
   { path: 'login', component: Login },
   { path: 'register', component: Register },
+  { path: 'forgot-password', component: ForgotPassword },
+  { path: 'calculator', component: BmiCalculator },
+  { path: 'contact', component: Contact },
 
   // User Routes (Protected in real setup)
-  { path: 'dashboard', component: Dashboard },
+  { path: 'dashboard', component: UserDashboard },
   { path: 'plan', component: Plan },
   { path: 'progress', component: Progress },
   { path: 'subscription', component: Pricing },
+  { path: 'complete-profile', component: CompleteProfile },
 
   // Admin Routes (Also protected in real setup)
   { path: 'admin', component: AdminDashboard },

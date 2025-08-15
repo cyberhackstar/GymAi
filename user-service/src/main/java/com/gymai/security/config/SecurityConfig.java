@@ -13,11 +13,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@Slf4j // ✅ Enables logging
+@Slf4j
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
@@ -25,13 +30,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        log.info("Initializing Security Filter Chain...");
+        log.info("Initializing Security Filter Chain with global CORS...");
 
-        http.csrf().disable()
+        http
+                .csrf().disable()
+                .cors().configurationSource(corsConfigurationSource()) // ✅ Enable global CORS
+                .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/public/**", "/actuator/**").permitAll()
                 .anyRequest().authenticated()
-
                 .and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()
@@ -39,16 +46,25 @@ public class SecurityConfig {
                 .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
-        log.info("Security filter chain setup completed.");
-        log.info("JWT Authentication Filter registered.");
-        log.info("Authentication entry point set to: {}", entryPoint.getClass().getSimpleName());
-
         return http.build();
     }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        log.info("AuthenticationManager bean initialized.");
         return config.getAuthenticationManager();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        log.info("Setting up global CORS configuration...");
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:4200", "http://localhost:3000"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 }

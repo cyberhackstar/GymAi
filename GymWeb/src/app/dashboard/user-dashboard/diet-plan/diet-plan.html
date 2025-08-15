@@ -1,0 +1,159 @@
+<div class="diet-container">
+  <h2 class="diet-heading">🍽️ Diet & Meals Plan</h2>
+
+  <!-- Always show first day -->
+  <div *ngIf="dietPlan.length" class="day-card">
+    <ng-container
+      *ngTemplateOutlet="dayTemplate; context: { $implicit: dietPlan[0] }"
+    ></ng-container>
+  </div>
+
+  <!-- Show other days if expanded -->
+  <div *ngIf="showAllDays">
+    <div *ngFor="let dayPlan of dietPlan.slice(1)" class="day-card">
+      <ng-container
+        *ngTemplateOutlet="dayTemplate; context: { $implicit: dayPlan }"
+      ></ng-container>
+    </div>
+  </div>
+
+  <!-- Expand / Collapse button -->
+  <div class="expand-btn-container">
+    <button class="expand-btn" (click)="toggleDays()">
+      {{ showAllDays ? "Collapse Days ▲" : "Expand Days ▼" }}
+    </button>
+  </div>
+
+  <!-- Template for one day's content -->
+  <ng-template #dayTemplate let-dayPlan>
+    <h3 class="day-title">{{ dayPlan.day }}</h3>
+
+    <div class="progress-container">
+      <p class="calorie-text">
+        {{ dayPlan.dailyCaloriesTaken }} / {{ dayPlan.dailyCalories }} kcal ({{
+          dayPlan.progressPercent
+        }}%)
+      </p>
+      <div class="progress-bar">
+        <div
+          class="progress"
+          [style.width.%]="dayPlan.progressPercent"
+          [style.backgroundColor]="dayPlan.progressColor"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Desktop table -->
+    <div class="meal-table-wrapper desktop-view">
+      <table class="meal-table">
+        <thead>
+          <tr>
+            <th>✓</th>
+            <th>Time</th>
+            <th>Meal</th>
+            <th>Protein (g)</th>
+            <th>Carbs (g)</th>
+            <th>Fat (g)</th>
+            <th>Calories</th>
+            <th>Image</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let meal of dayPlan.meals">
+            <td>
+              <input
+                type="checkbox"
+                [(ngModel)]="meal.taken"
+                (change)="updateCalories(); updateDailyProgress(dayPlan)"
+              />
+            </td>
+            <td>{{ meal.time }}</td>
+            <td>{{ meal.meal }}</td>
+            <td>{{ meal.protein }}</td>
+            <td>{{ meal.carbs }}</td>
+            <td>{{ meal.fat }}</td>
+            <td>{{ meal.calories }}</td>
+            <td>
+              <img
+                [src]="meal.image"
+                alt="{{ meal.meal }}"
+                class="table-meal-image"
+                (click)="openLightbox(meal.image)"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile swipe carousel -->
+    <div
+      class="mobile-view swipe-container"
+      (swipeleft)="nextMeal(dayPlan)"
+      (swiperight)="prevMeal(dayPlan)"
+    >
+      <div
+        class="meals-wrapper"
+        [style.transform]="
+          'translateX(-' + dayPlan.activeMealIndex * 100 + '%)'
+        "
+      >
+        <div class="meal-card" *ngFor="let meal of dayPlan.meals">
+          <div class="meal-content-wrapper">
+            <!-- LEFT: Details -->
+            <div class="meal-details">
+              <div class="meal-header">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="meal.taken"
+                  (change)="updateCalories(); updateDailyProgress(dayPlan)"
+                />
+                <span class="meal-time">{{ meal.time }}</span>
+              </div>
+              <h4 class="meal-name">{{ meal.meal }}</h4>
+              <div class="meal-nutrients">
+                <p>
+                  Protein: <span>{{ meal.protein }}</span> g
+                </p>
+                <p>
+                  Carbs: <span>{{ meal.carbs }}</span> g
+                </p>
+                <p>
+                  Fat: <span>{{ meal.fat }}</span> g
+                </p>
+                <p>
+                  Calories: <span>{{ meal.calories }}</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- RIGHT: Image -->
+            <div class="meal-image">
+              <img
+                [src]="meal.image"
+                alt="{{ meal.meal }}"
+                (click)="openLightbox(meal.image)"
+              />
+              <span class="meal-time-badge">{{ meal.time }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination dots -->
+      <div class="dots-container">
+        <span
+          *ngFor="let meal of dayPlan.meals; let i = index"
+          class="dot"
+          [class.active-dot]="i === dayPlan.activeMealIndex"
+          (click)="goToMeal(dayPlan, i)"
+        ></span>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Lightbox -->
+  <div class="lightbox" *ngIf="lightboxImage" (click)="closeLightbox()">
+    <img [src]="lightboxImage" alt="Meal" class="lightbox-img" />
+  </div>
+</div>

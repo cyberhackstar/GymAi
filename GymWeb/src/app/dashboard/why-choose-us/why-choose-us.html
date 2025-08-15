@@ -1,0 +1,15 @@
+<section class="choseus-section">
+  <div class="container">
+    <div class="section-title">
+      <span>Why Choose GymAI?</span>
+      <h2>UNLOCK YOUR POTENTIAL WITH AI POWER</h2>
+    </div>
+    <div class="features-grid">
+      <div class="cs-item" *ngFor="let benefit of benefits">
+        <span [class]="benefit.icon"></span>
+        <h4>{{ benefit.title }}</h4>
+        <p>{{ benefit.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>

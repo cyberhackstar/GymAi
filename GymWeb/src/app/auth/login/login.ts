@@ -5,45 +5,85 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Auth } from '../../core/services/auth';
 import { Token } from '../../core/services/token';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../core/services/auth';
+import { LoginRequest, LoginResponse } from '../../models/auth.model';
+import { UserProfileService } from '../../core/services/user';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatIconModule,
+    RouterModule,
+  ],
   templateUrl: './login.html',
-  styleUrl: './login.css',
+  styleUrls: ['./login.css'],
 })
 export class Login {
   loginForm: FormGroup;
   errorMessage = '';
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
-    private authService: Auth,
+    private authService: AuthService,
     private tokenService: Token,
+    private userService: UserProfileService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required, Validators.minLength(6)],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
-  onSubmit(): void {
-    if (this.loginForm.invalid) return;
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
 
-    this.authService.login(this.loginForm.value).subscribe({
-      next: (res) => {
-        this.tokenService.setToken(res.token);
-        this.router.navigate(['/dashboard']);
+  onSubmit(): void {
+    if (this.loginForm.invalid) {
+      this.errorMessage = 'Please enter a valid email and password.';
+      return;
+    }
+
+    const payload: LoginRequest = this.loginForm.value;
+
+    this.authService.login(payload).subscribe({
+      next: (res: LoginResponse) => {
+        if (res && res.accessToken && res.refreshToken) {
+          // ✅ Save both tokens
+          this.tokenService.setToken(res.accessToken);
+          this.tokenService.setRefreshToken(res.refreshToken);
+
+          // ✅ Check if profile is completed
+          this.userService.isProfileCompleted().subscribe({
+            next: (completed) => {
+              if (completed) {
+                this.router.navigate(['/dashboard']);
+              } else {
+                this.router.navigate(['/complete-profile']);
+              }
+            },
+            error: () => {
+              this.router.navigate(['/complete-profile']);
+            },
+          });
+        } else {
+          this.errorMessage = 'Login failed: Tokens not received.';
+        }
       },
       error: (err) => {
-        this.errorMessage = 'Invalid credentials';
-        console.error(err);
+        console.error('Login error:', err);
+        this.errorMessage = 'Invalid credentials. Please try again.';
       },
     });
   }

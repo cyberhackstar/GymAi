@@ -19,10 +19,19 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     open-in-view: false
+
+    kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
 jwt:
   secret: 7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc
-  expiration: 3600000 # 1 hour in ms
-
+  access:
+    expiration: 900000 # 15 minutes in ms
+  refresh:
+    expiration: 604800000 # 7 days in ms
 
 eureka:
   client:
@@ -34,4 +43,5 @@ logging:
     name: logs/auth-service.log
   level:
     root: INFO
-    com.gymai.auth_service: DEBUG  # (Optional: Customize your package log level)
+    com.gymai.auth_service: DEBUG # (Optional: Customize your package log level)
+

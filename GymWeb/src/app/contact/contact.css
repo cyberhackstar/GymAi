@@ -1,0 +1,86 @@
+.contact-section {
+  padding: 80px 0;
+  background: #0d0d0d;
+  color: #e0e0e0;
+}
+
+.contact-title span {
+  color: #ff4c4c;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.contact-title h2 {
+  margin-top: 10px;
+  color: #ffffff;
+  font-size: 32px;
+}
+
+.contact-widget .cw-text {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #d0d0d0;
+}
+
+.cw-text i {
+  font-size: 20px;
+  color: #ff4c4c;
+  margin-right: 15px;
+}
+
+.cw-text ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cw-text p,
+.cw-text li {
+  color: #cccccc;
+}
+
+.leave-comment form input,
+.leave-comment form textarea {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-size: 16px;
+  box-shadow: none;
+  transition: border 0.3s ease;
+}
+
+.leave-comment form input:focus,
+.leave-comment form textarea:focus {
+  border: 1px solid #ff4c4c;
+  outline: none;
+}
+
+.leave-comment form button {
+  background-color: #ff4c4c;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leave-comment form button:hover {
+  background-color: #d42d2d;
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+}
+
+.map iframe {
+  border: none;
+  width: 100%;
+  filter: grayscale(20%) brightness(0.9);
+}

@@ -1,0 +1,541 @@
+<section class="gymai-section">
+  <div class="container">
+    <!-- Top Bar: Tool tabs + Unit switch -->
+    <div class="topbar">
+      <div class="tool-tabs" role="tablist" aria-label="Pick calculator">
+        <button
+          type="button"
+          class="tab"
+          [class.active]="currentTool === 'bmi'"
+          (click)="selectTool('bmi')"
+          role="tab"
+          [attr.aria-selected]="currentTool === 'bmi'"
+        >
+          BMI
+        </button>
+        <button
+          type="button"
+          class="tab"
+          [class.active]="currentTool === 'bodyfat'"
+          (click)="selectTool('bodyfat')"
+          role="tab"
+          [attr.aria-selected]="currentTool === 'bodyfat'"
+        >
+          Body&nbsp;Fat
+        </button>
+        <button
+          type="button"
+          class="tab"
+          [class.active]="currentTool === 'calories'"
+          (click)="selectTool('calories')"
+          role="tab"
+          [attr.aria-selected]="currentTool === 'calories'"
+        >
+          Calories
+        </button>
+      </div>
+
+      <div class="unit-toggle" role="group" aria-label="Unit system">
+        <button
+          class="chip"
+          [class.active]="unitSystem === 'metric'"
+          (click)="switchUnits('metric')"
+          type="button"
+          [attr.aria-pressed]="unitSystem === 'metric'"
+        >
+          Metric (kg, cm)
+        </button>
+        <button
+          class="chip"
+          [class.active]="unitSystem === 'us'"
+          (click)="switchUnits('us')"
+          type="button"
+          [attr.aria-pressed]="unitSystem === 'us'"
+        >
+          US (lb, ft/in)
+        </button>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+      <div class="title-block">
+        <span class="eyebrow">Fitness & Health</span>
+        <h2 class="title">GymAI Health Tools</h2>
+        <!-- <p class="subtitle">
+          Calculate your <strong>BMI</strong>, estimate
+          <strong>Body Fat</strong> (U.S. Navy & BMI), and get daily
+          <strong>Calories</strong> (BMR/TDEE).
+        </p> -->
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="grid">
+      <!-- BMI -->
+      <div class="card" *ngIf="currentTool === 'bmi'">
+        <div class="card-header">
+          <h3 class="card-title">BMI Calculator</h3>
+          <p class="card-desc">
+            Quickly check your Body Mass Index and category.
+          </p>
+        </div>
+
+        <form (ngSubmit)="calculateBMI()" #bmiForm="ngForm" class="form">
+          <div class="row">
+            <ng-container *ngIf="unitSystem === 'metric'; else usBMI">
+              <div class="field">
+                <label>Height (cm)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  name="heightCm"
+                  [(ngModel)]="heightCm"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label>Weight (kg)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  name="weightKg"
+                  [(ngModel)]="weightKg"
+                  required
+                />
+              </div>
+            </ng-container>
+            <ng-template #usBMI>
+              <div class="field">
+                <label>Height</label>
+                <div class="inline">
+                  <input
+                    type="number"
+                    min="0"
+                    name="heightFt"
+                    [(ngModel)]="heightFt"
+                    placeholder="ft"
+                  />
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.1"
+                    name="heightIn"
+                    [(ngModel)]="heightIn"
+                    placeholder="in"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label>Weight (lb)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  name="weightLb"
+                  [(ngModel)]="weightLb"
+                />
+              </div>
+            </ng-template>
+          </div>
+
+          <button type="submit" class="btn">Calculate</button>
+
+          <div class="result" *ngIf="bmiResult">
+            <div class="result-line">
+              Your BMI: <strong>{{ bmiResult }}</strong>
+            </div>
+            <div class="result-line">
+              Status: <strong>{{ bmiCategory }}</strong>
+            </div>
+            <details class="note">
+              <summary>Formulas shown</summary>
+              <div class="note-body">
+                <div>
+                  <b>USC</b>: BMI = 703 × mass(lbs) / height(in)<sup>2</sup>
+                </div>
+                <div><b>SI</b>: BMI = mass(kg) / height(m)<sup>2</sup></div>
+                <div class="example">
+                  Example (5'10", 160 lb): 703 × 160 / 70² = 23.0
+                </div>
+                <div class="example">Metric: 72.57 / 1.778² = 23.0</div>
+              </div>
+            </details>
+          </div>
+
+          <div class="bmi-table-wrap">
+            <table class="bmi-table">
+              <thead>
+                <tr>
+                  <th>BMI</th>
+                  <th>Weight Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Below 18.5</td>
+                  <td>Underweight</td>
+                </tr>
+                <tr>
+                  <td>18.5 - 24.9</td>
+                  <td>Healthy</td>
+                </tr>
+                <tr>
+                  <td>25.0 - 29.9</td>
+                  <td>Overweight</td>
+                </tr>
+                <tr>
+                  <td>30.0 and Above</td>
+                  <td>Obese</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+
+      <!-- BODY FAT -->
+      <div class="card" *ngIf="currentTool === 'bodyfat'">
+        <div class="card-header">
+          <h3 class="card-title">Body Fat Calculator</h3>
+          <p class="card-desc">U.S. Navy method + BMI method estimate.</p>
+        </div>
+
+        <form (ngSubmit)="calculateBodyFat()" #bfForm="ngForm" class="form">
+          <div class="row">
+            <div class="field">
+              <label>Gender</label>
+              <select name="bfGender" [(ngModel)]="bfGender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Age</label>
+              <input
+                type="number"
+                min="15"
+                max="80"
+                name="bfAge"
+                [(ngModel)]="bfAge"
+              />
+            </div>
+          </div>
+
+          <div class="row" *ngIf="unitSystem === 'metric'; else usBF">
+            <div class="field">
+              <label>Height (cm)</label>
+              <input
+                type="number"
+                step="0.1"
+                name="bfHeightCm"
+                [(ngModel)]="bfHeightCm"
+              />
+            </div>
+            <div class="field">
+              <label>Neck (cm)</label>
+              <input
+                type="number"
+                step="0.1"
+                name="bfNeckCm"
+                [(ngModel)]="bfNeckCm"
+              />
+            </div>
+            <div class="field">
+              <label>Waist (cm)</label>
+              <input
+                type="number"
+                step="0.1"
+                name="bfWaistCm"
+                [(ngModel)]="bfWaistCm"
+              />
+            </div>
+            <div class="field" *ngIf="bfGender === 'female'">
+              <label>Hip (cm)</label>
+              <input
+                type="number"
+                step="0.1"
+                name="bfHipCm"
+                [(ngModel)]="bfHipCm"
+              />
+            </div>
+            <div class="field">
+              <label>Weight (kg)</label>
+              <input
+                type="number"
+                step="0.1"
+                name="bfWeightKg"
+                [(ngModel)]="bfWeightKg"
+              />
+            </div>
+          </div>
+
+          <ng-template #usBF>
+            <div class="row">
+              <div class="field">
+                <label>Height (in)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  name="bfHeightIn"
+                  [(ngModel)]="bfHeightIn"
+                />
+              </div>
+              <div class="field">
+                <label>Neck (in)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  name="bfNeckIn"
+                  [(ngModel)]="bfNeckIn"
+                />
+              </div>
+              <div class="field">
+                <label>Waist (in)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  name="bfWaistIn"
+                  [(ngModel)]="bfWaistIn"
+                />
+              </div>
+              <div class="field" *ngIf="bfGender === 'female'">
+                <label>Hip (in)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  name="bfHipIn"
+                  [(ngModel)]="bfHipIn"
+                />
+              </div>
+              <div class="field">
+                <label>Weight (lb)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  name="bfWeightLb"
+                  [(ngModel)]="bfWeightLb"
+                />
+              </div>
+            </div>
+          </ng-template>
+
+          <button type="submit" class="btn">Calculate</button>
+
+          <div class="result" *ngIf="bodyFatNavy !== undefined">
+            <div class="result-line">
+              Body Fat (U.S. Navy): <strong>{{ bodyFatNavy }}%</strong>
+            </div>
+            <div class="result-line" *ngIf="bodyFatBmiMethod !== undefined">
+              Body Fat (BMI method): <strong>{{ bodyFatBmiMethod }}%</strong>
+            </div>
+            <div class="result-line">
+              Category: <strong>{{ bodyFatCategory }}</strong>
+            </div>
+            <div class="result-grid">
+              <div class="chip stat">
+                Fat Mass: <strong>{{ bodyFatMassKg }} kg</strong>
+              </div>
+              <div class="chip stat">
+                Lean Mass: <strong>{{ leanMassKg }} kg</strong>
+              </div>
+              <div class="chip stat" *ngIf="idealBfPercent !== undefined">
+                Ideal BF (J&P): <strong>{{ idealBfPercent }}%</strong>
+              </div>
+              <div class="chip stat" *ngIf="bfToLoseKg !== undefined">
+                To Lose to Ideal: <strong>{{ bfToLoseKg }} kg</strong>
+              </div>
+            </div>
+
+            <details class="note">
+              <summary>Measurement guide & formulas</summary>
+              <div class="note-body">
+                <ul>
+                  <li>
+                    Men: measure <b>waist</b> at navel level and
+                    <b>neck</b> below larynx.
+                  </li>
+                  <li>
+                    Women: measure <b>waist</b> at smallest width,
+                    <b>hips</b> at largest width, and <b>neck</b> below larynx.
+                  </li>
+                </ul>
+                <div>
+                  <b>Male (SI)</b>: BF% = 495 / (1.0324 − 0.19077·log₁₀(waist −
+                  neck) + 0.15456·log₁₀(height)) − 450
+                </div>
+                <div>
+                  <b>Female (SI)</b>: BF% = 495 / (1.29579 − 0.35004·log₁₀(waist
+                  + hip − neck) + 0.22100·log₁₀(height)) − 450
+                </div>
+                <div>
+                  <b>BMI method</b>: BF% = 1.20·BMI + 0.23·Age − 10.8·Sex − 5.4
+                  (Sex: male=1, female=0)
+                </div>
+              </div>
+            </details>
+          </div>
+        </form>
+      </div>
+
+      <!-- CALORIES -->
+      <div class="card" *ngIf="currentTool === 'calories'">
+        <div class="card-header">
+          <h3 class="card-title">Calorie Calculator</h3>
+          <p class="card-desc">BMR + daily energy needs (TDEE).</p>
+        </div>
+
+        <form (ngSubmit)="calculateCalories()" #calForm="ngForm" class="form">
+          <div class="row">
+            <div class="field">
+              <label>Gender</label>
+              <select name="calGender" [(ngModel)]="calGender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Age</label>
+              <input
+                type="number"
+                min="15"
+                max="80"
+                name="calAge"
+                [(ngModel)]="calAge"
+              />
+            </div>
+          </div>
+
+          <div class="row" *ngIf="unitSystem === 'metric'; else usCal">
+            <div class="field">
+              <label>Height (cm)</label>
+              <input
+                type="number"
+                step="0.1"
+                name="calHeightCm"
+                [(ngModel)]="calHeightCm"
+              />
+            </div>
+            <div class="field">
+              <label>Weight (kg)</label>
+              <input
+                type="number"
+                step="0.1"
+                name="calWeightKg"
+                [(ngModel)]="calWeightKg"
+              />
+            </div>
+          </div>
+
+          <ng-template #usCal>
+            <div class="row">
+              <div class="field">
+                <label>Height</label>
+                <div class="inline">
+                  <input
+                    type="number"
+                    min="0"
+                    name="calHeightFt"
+                    [(ngModel)]="calHeightFt"
+                    placeholder="ft"
+                  />
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.1"
+                    name="calHeightIn"
+                    [(ngModel)]="calHeightIn"
+                    placeholder="in"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label>Weight (lb)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  name="calWeightLb"
+                  [(ngModel)]="calWeightLb"
+                />
+              </div>
+            </div>
+          </ng-template>
+
+          <div class="row">
+            <div class="field">
+              <label>Activity</label>
+              <select name="calActivity" [(ngModel)]="calActivity">
+                <option value="sedentary">
+                  Sedentary (little/no exercise)
+                </option>
+                <option value="light">Light (1–3 days/week)</option>
+                <option value="moderate">Moderate (4–5 days/week)</option>
+                <option value="very_active">Very Active (6–7 days/week)</option>
+                <option value="extra_active">
+                  Extra Active (hard exercise/phys job)
+                </option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Equation</label>
+              <select
+                name="calEq"
+                [(ngModel)]="calEq"
+                title="Katch requires body fat %"
+              >
+                <option value="mifflin">
+                  Mifflin-St Jeor (most accurate general)
+                </option>
+                <option value="harris">Revised Harris-Benedict</option>
+                <option value="katch">Katch-McArdle (requires BF%)</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn">Calculate</button>
+
+          <div class="result" *ngIf="calBmr !== undefined">
+            <div class="result-line">
+              BMR: <strong>{{ calBmr }} kcal/day</strong>
+            </div>
+            <div class="result-line">
+              Maintenance (TDEE): <strong>{{ calTdee }} kcal/day</strong>
+            </div>
+            <div class="result-grid">
+              <div class="chip stat">
+                Cut (~−500): <strong>{{ calCut }} kcal</strong>
+              </div>
+              <div class="chip stat">
+                Bulk (~+500): <strong>{{ calBulk }} kcal</strong>
+              </div>
+            </div>
+            <details class="note">
+              <summary>Equations & notes</summary>
+              <div class="note-body">
+                <div>
+                  <b>Mifflin-St Jeor</b>: M: 10W + 6.25H − 5A + 5 | F: 10W +
+                  6.25H − 5A − 161
+                </div>
+                <div>
+                  <b>Revised Harris-Benedict</b>: M: 13.397W + 4.799H − 5.677A +
+                  88.362 | F: 9.247W + 3.098H − 4.330A + 447.593
+                </div>
+                <div>
+                  <b>Katch-McArdle</b>: BMR = 370 + 21.6(1 − F)W, where F is
+                  body fat fraction
+                </div>
+                <p>
+                  Multiply BMR by an activity factor (1.2–1.9) to estimate TDEE.
+                </p>
+              </div>
+            </details>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <p class="footnote">
+      These tools provide estimates and are not a substitute for professional
+      medical advice.
+    </p>
+  </div>
+</section>

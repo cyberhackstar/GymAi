@@ -1,33 +1,232 @@
-.navbar {
+/* RESET */
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+/* HEADER SECTION */
+.header-section {
+  background: #111;
+  padding: 15px 0;
+  position: relative;
+  z-index: 100;
+}
+
+.header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #121212;
+  flex-wrap: wrap;
+}
+
+/* LOGO */
+.logo a {
+  display: flex;
+  align-items: center;
+  font-size: 24px; /* Slightly larger logo font */
+  font-weight: bold;
   color: white;
-  padding: 1rem;
+  gap: 5px;
+}
+.logo span {
+  font-family: "Trade Winds", cursive;
+}
 
-  .brand {
-    font-weight: bold;
-    font-size: 1.5rem;
-    cursor: pointer;
+/* NAVIGATION MENU */
+.nav-menu ul {
+  display: flex;
+  gap: 25px; /* Increased gap between menu items */
+  align-items: center;
+}
+.nav-menu li {
+  position: relative;
+}
+.nav-menu a {
+  color: #fff;
+  font-weight: 600;
+  font-size: 17px; /* Increased nav font size for better readability */
+  padding: 0px 0; /* Adjusted padding */
+  transition: color 0.3s, transform 0.3s ease-in-out;
+}
+.nav-menu a:hover,
+.nav-menu a.active {
+  color: red;
+  transform: scale(1.1);
+}
+
+/* DROPDOWN MENU */
+.has-dropdown:hover .dropdown {
+  display: flex;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  flex-direction: column;
+  background: #222;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+.dropdown li a {
+  padding: 10px 15px;
+  color: #fff;
+  font-weight: normal;
+}
+.dropdown li a:hover {
+  background: #333;
+}
+
+/* TOP RIGHT SOCIAL + SEARCH */
+.top-option {
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Spacing between search, social, and user actions */
+}
+
+.top-option .to-search i {
+  font-size: 26px;
+  color: #fff;
+  transition: color 0.3s, transform 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.to-social {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.to-social a i {
+  font-size: 26px;
+  color: #fff;
+  transition: color 0.3s, transform 0.3s ease-in-out;
+}
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.user-actions .nav-icon i {
+  font-size: 26px;
+  color: #fff;
+  transition: color 0.3s, transform 0.3s ease-in-out;
+}
+
+.top-option .to-search i:hover,
+.top-option .to-social a i:hover,
+.top-option .user-actions a i:hover {
+  color: red;
+  transform: scale(1.2);
+}
+
+/* CANVAS TOGGLE ICON */
+.canvas-open {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* OFFCANVAS OVERLAY */
+.offcanvas-menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 998;
+}
+.offcanvas-menu-overlay.active {
+  display: block;
+}
+
+/* OFFCANVAS WRAPPER */
+.offcanvas-menu-wrapper {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 280px;
+  height: 100%;
+  background: #111;
+  padding: 20px;
+  transition: right 0.4s ease;
+  z-index: 999;
+}
+.offcanvas-menu-wrapper.active {
+  right: 0;
+}
+.canvas-close {
+  text-align: right;
+  font-size: 22px;
+  color: #fff;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+/* MOBILE NAVIGATION */
+.canvas-menu ul {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.canvas-menu li {
+  position: relative;
+}
+.canvas-menu li a,
+.canvas-menu .dropdown-toggle {
+  color: #fff;
+  font-weight: 600;
+  display: block; /* Ensures the whole clickable area is a block */
+  padding: 10px 0;
+}
+.canvas-menu .dropdown {
+  display: none;
+  flex-direction: column;
+  background: #222;
+  margin-top: 10px;
+}
+.canvas-menu .dropdown.active {
+  display: flex;
+}
+.canvas-social {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  align-items: center;
+}
+.canvas-social a i {
+  color: #fff;
+  font-size: 22px; /* Increased mobile social icon size */
+  transition: color 0.3s;
+}
+.canvas-social a:hover i {
+  color: red;
+}
+
+/* RESPONSIVE */
+@media (max-width: 991px) {
+  .nav-menu,
+  .top-option {
+    display: none;
   }
-
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1.2rem;
-
-    li {
-      cursor: pointer;
-
-      a {
-        color: white;
-        text-decoration: none;
-      }
-
-      a:hover {
-        text-decoration: underline;
-      }
-    }
+  .canvas-open {
+    display: block;
+  }
+}
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0 20px; /* Add some horizontal padding for smaller screens */
+  }
+  .offcanvas-menu-wrapper {
+    width: 250px;
   }
 }

@@ -1,0 +1,529 @@
+2025-08-09 15:58:35.421 [restartedMain] INFO  c.g.u.UserServiceApplication - Starting UserServiceApplication using Java 21.0.8 with PID 24132 (C:\Users\bikku\OneDrive\Desktop\GymAi\user-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\user-service)
+2025-08-09 15:58:35.436 [restartedMain] DEBUG c.g.u.UserServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-08-09 15:58:35.436 [restartedMain] INFO  c.g.u.UserServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-08-09 15:58:35.500 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-08-09 15:58:35.501 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-08-09 15:58:37.792 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-09 15:58:38.183 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 357 ms. Found 1 JPA repository interface.
+2025-08-09 15:58:38.484 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-08-09 15:58:38.509 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-08-09 15:58:38.679 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=1633384d-b403-3aae-ab94-f76f18747c41
+2025-08-09 15:58:39.572 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-08-09 15:58:39.601 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+2025-08-09 15:58:39.606 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-08-09 15:58:39.608 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-09 15:58:39.736 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-08-09 15:58:39.736 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4234 ms
+2025-08-09 15:58:39.898 [restartedMain] INFO  c.gymai.security.service.JwtService - JWT Secret Key initialized: N2FjZTYwYTgzOGJkZTdkYzQ2ZTgwNjUwMzFlZTJjY2ZiYTYyY2I3OWQ1YjFiNDY0MmZhNTBhMGI4OGY3OGVmYw==
+2025-08-09 15:58:40.237 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-09 15:58:40.362 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-08-09 15:58:40.451 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-09 15:58:41.036 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-09 15:58:41.111 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-08-09 15:58:41.466 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@24b8c8fc
+2025-08-09 15:58:41.466 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-08-09 15:58:41.618 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-09 15:58:41.686 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-09 15:58:43.726 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-09 15:58:43.853 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 15:58:44.461 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-09 15:58:44.969 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-08-09 15:58:45.051 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name jwtUserDetailsService
+2025-08-09 15:58:45.171 [restartedMain] INFO  c.g.security.config.SecurityConfig - Initializing Security Filter Chain...
+2025-08-09 15:58:45.193 [restartedMain] INFO  c.g.security.config.SecurityConfig - Security filter chain setup completed.
+2025-08-09 15:58:45.193 [restartedMain] INFO  c.g.security.config.SecurityConfig - JWT Authentication Filter registered.
+2025-08-09 15:58:45.194 [restartedMain] INFO  c.g.security.config.SecurityConfig - Authentication entry point set to: JwtAuthenticationEntryPoint
+2025-08-09 15:58:45.263 [restartedMain] INFO  c.g.security.config.SecurityConfig - AuthenticationManager bean initialized.
+2025-08-09 15:58:45.794 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-08-09 15:58:46.078 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 15:58:46.078 [restartedMain] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 1 subscriber(s).
+2025-08-09 15:58:46.078 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-08-09 15:58:46.078 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+2025-08-09 15:58:46.110 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2025-08-09 15:58:46.131 [restartedMain] INFO  c.g.u.UserServiceApplication - Started UserServiceApplication in 11.471 seconds (process running for 12.266)
+2025-08-09 16:02:02.425 [http-nio-8082-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-09 16:02:02.425 [http-nio-8082-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-08-09 16:02:02.425 [http-nio-8082-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-08-09 16:02:02.472 [http-nio-8082-exec-2] WARN  c.g.s.filter.JwtAuthenticationFilter - Missing or invalid Authorization header for URI: /api/user/profile/check
+2025-08-09 16:05:15.835 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-08-09 16:05:15.842 [Thread-6] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-09 16:05:15.843 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:05:15.849 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-08-09 16:05:15.850 [Thread-6] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:05:15.853 [Thread-6] INFO  o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 16:05:15.854 [Thread-6] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 0 subscriber(s).
+2025-08-09 16:05:15.855 [Thread-6] INFO  o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-08-09 16:05:15.862 [Thread-6] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 16:05:15.866 [Thread-6] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-08-09 16:05:15.870 [Thread-6] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-08-09 16:05:16.001 [restartedMain] INFO  c.g.u.UserServiceApplication - Starting UserServiceApplication using Java 21.0.8 with PID 24132 (C:\Users\bikku\OneDrive\Desktop\GymAi\user-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\user-service)
+2025-08-09 16:05:16.001 [restartedMain] DEBUG c.g.u.UserServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-08-09 16:05:16.001 [restartedMain] INFO  c.g.u.UserServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-08-09 16:05:16.514 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-09 16:05:16.528 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 12 ms. Found 1 JPA repository interface.
+2025-08-09 16:05:16.629 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-08-09 16:05:16.629 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-08-09 16:05:16.648 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=fcf8308a-488c-36a4-a772-a5314f4b5ebd
+2025-08-09 16:05:16.765 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-08-09 16:05:16.765 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:05:16.765 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-08-09 16:05:16.765 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-09 16:05:16.806 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-08-09 16:05:16.806 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 805 ms
+2025-08-09 16:05:16.854 [restartedMain] INFO  c.gymai.security.service.JwtService - JWT Secret Key initialized: N2FjZTYwYTgzOGJkZTdkYzQ2ZTgwNjUwMzFlZTJjY2ZiYTYyY2I3OWQ1YjFiNDY0MmZhNTBhMGI4OGY3OGVmYw==
+2025-08-09 16:05:16.910 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-09 16:05:16.925 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-09 16:05:16.925 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-09 16:05:16.936 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-08-09 16:05:16.980 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@1e3c2456
+2025-08-09 16:05:16.980 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-08-09 16:05:16.999 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-09 16:05:17.002 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-09 16:05:17.053 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-09 16:05:17.076 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 16:05:17.236 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-09 16:05:17.421 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-08-09 16:05:17.451 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name jwtUserDetailsService
+2025-08-09 16:05:17.458 [restartedMain] INFO  c.g.security.config.SecurityConfig - Initializing Security Filter Chain...
+2025-08-09 16:05:17.466 [restartedMain] INFO  c.g.security.config.SecurityConfig - Security filter chain setup completed.
+2025-08-09 16:05:17.466 [restartedMain] INFO  c.g.security.config.SecurityConfig - JWT Authentication Filter registered.
+2025-08-09 16:05:17.466 [restartedMain] INFO  c.g.security.config.SecurityConfig - Authentication entry point set to: JwtAuthenticationEntryPoint
+2025-08-09 16:05:17.515 [restartedMain] INFO  c.g.security.config.SecurityConfig - AuthenticationManager bean initialized.
+2025-08-09 16:05:17.515 [restartedMain] INFO  c.g.security.config.SecurityConfig - Configuring CORS
+2025-08-09 16:05:17.770 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-08-09 16:05:17.881 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 16:05:17.881 [restartedMain] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 1 subscriber(s).
+2025-08-09 16:05:17.881 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-08-09 16:05:17.881 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:05:17.881 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2025-08-09 16:05:17.903 [restartedMain] INFO  c.g.u.UserServiceApplication - Started UserServiceApplication in 1.958 seconds (process running for 404.027)
+2025-08-09 16:05:17.907 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-08-09 16:05:25.798 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-09 16:05:25.798 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-08-09 16:05:25.807 [SpringApplicationShutdownHook] INFO  o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 16:05:25.807 [SpringApplicationShutdownHook] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 0 subscriber(s).
+2025-08-09 16:05:25.807 [SpringApplicationShutdownHook] INFO  o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-08-09 16:05:25.810 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 16:05:25.811 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-08-09 16:05:25.816 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-08-09 16:05:35.975 [restartedMain] INFO  c.g.u.UserServiceApplication - Starting UserServiceApplication using Java 21.0.8 with PID 22820 (C:\Users\bikku\OneDrive\Desktop\GymAi\user-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\user-service)
+2025-08-09 16:05:35.983 [restartedMain] DEBUG c.g.u.UserServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-08-09 16:05:35.983 [restartedMain] INFO  c.g.u.UserServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-08-09 16:05:36.047 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-08-09 16:05:36.047 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-08-09 16:05:37.355 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-09 16:05:37.508 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 143 ms. Found 1 JPA repository interface.
+2025-08-09 16:05:37.748 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-08-09 16:05:37.764 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-08-09 16:05:37.882 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=fcf8308a-488c-36a4-a772-a5314f4b5ebd
+2025-08-09 16:05:38.486 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-08-09 16:05:38.502 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:05:38.517 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-08-09 16:05:38.518 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-09 16:05:38.591 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-08-09 16:05:38.591 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2541 ms
+2025-08-09 16:05:38.736 [restartedMain] INFO  c.gymai.security.service.JwtService - JWT Secret Key initialized: N2FjZTYwYTgzOGJkZTdkYzQ2ZTgwNjUwMzFlZTJjY2ZiYTYyY2I3OWQ1YjFiNDY0MmZhNTBhMGI4OGY3OGVmYw==
+2025-08-09 16:05:38.938 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-09 16:05:39.028 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-08-09 16:05:39.089 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-09 16:05:39.434 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-09 16:05:39.490 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-08-09 16:05:39.792 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@63e71246
+2025-08-09 16:05:39.792 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-08-09 16:05:39.850 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-09 16:05:39.861 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-09 16:05:40.877 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-09 16:05:40.952 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 16:05:41.429 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-09 16:05:41.794 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-08-09 16:05:41.843 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name jwtUserDetailsService
+2025-08-09 16:05:41.917 [restartedMain] INFO  c.g.security.config.SecurityConfig - Initializing Security Filter Chain...
+2025-08-09 16:05:41.938 [restartedMain] INFO  c.g.security.config.SecurityConfig - Security filter chain setup completed.
+2025-08-09 16:05:41.938 [restartedMain] INFO  c.g.security.config.SecurityConfig - JWT Authentication Filter registered.
+2025-08-09 16:05:41.938 [restartedMain] INFO  c.g.security.config.SecurityConfig - Authentication entry point set to: JwtAuthenticationEntryPoint
+2025-08-09 16:05:41.992 [restartedMain] INFO  c.g.security.config.SecurityConfig - AuthenticationManager bean initialized.
+2025-08-09 16:05:41.992 [restartedMain] INFO  c.g.security.config.SecurityConfig - Configuring CORS
+2025-08-09 16:05:42.365 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-08-09 16:05:42.624 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 16:05:42.624 [restartedMain] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 1 subscriber(s).
+2025-08-09 16:05:42.624 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-08-09 16:05:42.624 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:05:42.663 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2025-08-09 16:05:42.697 [restartedMain] INFO  c.g.u.UserServiceApplication - Started UserServiceApplication in 7.464 seconds (process running for 8.283)
+2025-08-09 16:06:32.635 [http-nio-8082-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-09 16:06:32.635 [http-nio-8082-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-08-09 16:06:32.650 [http-nio-8082-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 15 ms
+2025-08-09 16:06:32.699 [http-nio-8082-exec-2] WARN  c.g.s.filter.JwtAuthenticationFilter - Missing or invalid Authorization header for URI: /api/user/profile/check
+2025-08-09 16:10:47.652 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-08-09 16:10:47.658 [Thread-6] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-09 16:10:47.660 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:10:47.667 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-08-09 16:10:47.669 [Thread-6] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:10:47.672 [Thread-6] INFO  o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 16:10:47.672 [Thread-6] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 0 subscriber(s).
+2025-08-09 16:10:47.674 [Thread-6] INFO  o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-08-09 16:10:47.684 [Thread-6] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 16:10:47.688 [Thread-6] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-08-09 16:10:47.701 [Thread-6] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-08-09 16:10:47.834 [restartedMain] INFO  c.g.u.UserServiceApplication - Starting UserServiceApplication using Java 21.0.8 with PID 22820 (C:\Users\bikku\OneDrive\Desktop\GymAi\user-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\user-service)
+2025-08-09 16:10:47.834 [restartedMain] DEBUG c.g.u.UserServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-08-09 16:10:47.835 [restartedMain] INFO  c.g.u.UserServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-08-09 16:10:48.557 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-09 16:10:48.573 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 1 JPA repository interface.
+2025-08-09 16:10:48.680 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-08-09 16:10:48.680 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-08-09 16:10:48.701 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=fcf8308a-488c-36a4-a772-a5314f4b5ebd
+2025-08-09 16:10:48.828 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-08-09 16:10:48.837 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:10:48.837 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-08-09 16:10:48.838 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-09 16:10:48.955 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-08-09 16:10:48.955 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1118 ms
+2025-08-09 16:10:49.046 [restartedMain] INFO  c.gymai.security.service.JwtService - JWT Secret Key initialized: N2FjZTYwYTgzOGJkZTdkYzQ2ZTgwNjUwMzFlZTJjY2ZiYTYyY2I3OWQ1YjFiNDY0MmZhNTBhMGI4OGY3OGVmYw==
+2025-08-09 16:10:49.124 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-09 16:10:49.127 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-09 16:10:49.138 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-09 16:10:49.140 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-08-09 16:10:49.196 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@48fb1b56
+2025-08-09 16:10:49.196 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-08-09 16:10:49.207 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-09 16:10:49.210 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-09 16:10:49.267 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-09 16:10:49.293 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 16:10:49.440 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-09 16:10:49.648 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-08-09 16:10:49.677 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name jwtUserDetailsService
+2025-08-09 16:10:49.687 [restartedMain] INFO  c.g.security.config.SecurityConfig - Initializing Security Filter Chain with global CORS...
+2025-08-09 16:10:49.689 [restartedMain] INFO  c.g.security.config.SecurityConfig - Setting up global CORS configuration...
+2025-08-09 16:10:49.942 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-08-09 16:10:50.040 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 16:10:50.040 [restartedMain] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 1 subscriber(s).
+2025-08-09 16:10:50.040 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-08-09 16:10:50.041 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:10:50.045 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2025-08-09 16:10:50.062 [restartedMain] INFO  c.g.u.UserServiceApplication - Started UserServiceApplication in 2.278 seconds (process running for 315.649)
+2025-08-09 16:10:50.066 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-08-09 16:11:02.578 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-08-09 16:11:02.578 [Thread-9] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-09 16:11:02.578 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:11:02.578 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-08-09 16:11:02.578 [Thread-9] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:11:02.592 [Thread-9] INFO  o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 16:11:02.592 [Thread-9] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 0 subscriber(s).
+2025-08-09 16:11:02.593 [Thread-9] INFO  o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-08-09 16:11:02.596 [Thread-9] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 16:11:02.598 [Thread-9] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-08-09 16:11:02.600 [Thread-9] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-08-09 16:11:02.745 [restartedMain] INFO  c.g.u.UserServiceApplication - Starting UserServiceApplication using Java 21.0.8 with PID 22820 (C:\Users\bikku\OneDrive\Desktop\GymAi\user-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\user-service)
+2025-08-09 16:11:02.745 [restartedMain] DEBUG c.g.u.UserServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-08-09 16:11:02.745 [restartedMain] INFO  c.g.u.UserServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-08-09 16:11:03.224 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-09 16:11:03.245 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11 ms. Found 1 JPA repository interface.
+2025-08-09 16:11:03.309 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-08-09 16:11:03.309 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-08-09 16:11:03.325 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=fcf8308a-488c-36a4-a772-a5314f4b5ebd
+2025-08-09 16:11:03.431 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-08-09 16:11:03.431 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:11:03.447 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-08-09 16:11:03.447 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-09 16:11:03.472 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-08-09 16:11:03.472 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 727 ms
+2025-08-09 16:11:03.533 [restartedMain] INFO  c.gymai.security.service.JwtService - JWT Secret Key initialized: N2FjZTYwYTgzOGJkZTdkYzQ2ZTgwNjUwMzFlZTJjY2ZiYTYyY2I3OWQ1YjFiNDY0MmZhNTBhMGI4OGY3OGVmYw==
+2025-08-09 16:11:03.637 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-09 16:11:03.642 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-09 16:11:03.653 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-09 16:11:03.655 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2025-08-09 16:11:03.726 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@443643f6
+2025-08-09 16:11:03.727 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2025-08-09 16:11:03.742 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-09 16:11:03.744 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-09 16:11:03.794 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-09 16:11:03.826 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 16:11:03.974 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-09 16:11:04.189 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-08-09 16:11:04.234 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name jwtUserDetailsService
+2025-08-09 16:11:04.248 [restartedMain] INFO  c.g.security.config.SecurityConfig - Initializing Security Filter Chain with global CORS...
+2025-08-09 16:11:04.250 [restartedMain] INFO  c.g.security.config.SecurityConfig - Setting up global CORS configuration...
+2025-08-09 16:11:04.474 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-08-09 16:11:04.588 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 16:11:04.588 [restartedMain] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 1 subscriber(s).
+2025-08-09 16:11:04.588 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-08-09 16:11:04.589 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:11:04.592 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2025-08-09 16:11:04.608 [restartedMain] INFO  c.g.u.UserServiceApplication - Started UserServiceApplication in 1.915 seconds (process running for 330.194)
+2025-08-09 16:11:04.611 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-08-09 16:11:17.839 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-09 16:11:17.839 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-08-09 16:11:17.852 [SpringApplicationShutdownHook] INFO  o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 16:11:17.852 [SpringApplicationShutdownHook] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 0 subscriber(s).
+2025-08-09 16:11:17.852 [SpringApplicationShutdownHook] INFO  o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-08-09 16:11:17.856 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 16:11:17.857 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2025-08-09 16:11:17.860 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2025-08-09 16:11:28.141 [restartedMain] INFO  c.g.u.UserServiceApplication - Starting UserServiceApplication using Java 21.0.8 with PID 18376 (C:\Users\bikku\OneDrive\Desktop\GymAi\user-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\user-service)
+2025-08-09 16:11:28.141 [restartedMain] DEBUG c.g.u.UserServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-08-09 16:11:28.141 [restartedMain] INFO  c.g.u.UserServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-08-09 16:11:28.208 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-08-09 16:11:28.208 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-08-09 16:11:29.500 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-09 16:11:29.642 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 136 ms. Found 1 JPA repository interface.
+2025-08-09 16:11:29.863 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-08-09 16:11:29.882 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-08-09 16:11:30.004 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=fcf8308a-488c-36a4-a772-a5314f4b5ebd
+2025-08-09 16:11:30.577 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-08-09 16:11:30.612 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:11:30.620 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-08-09 16:11:30.621 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-09 16:11:30.683 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-08-09 16:11:30.683 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2475 ms
+2025-08-09 16:11:30.818 [restartedMain] INFO  c.gymai.security.service.JwtService - JWT Secret Key initialized: N2FjZTYwYTgzOGJkZTdkYzQ2ZTgwNjUwMzFlZTJjY2ZiYTYyY2I3OWQ1YjFiNDY0MmZhNTBhMGI4OGY3OGVmYw==
+2025-08-09 16:11:31.015 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-09 16:11:31.096 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-08-09 16:11:31.137 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-09 16:11:31.431 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-09 16:11:31.473 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-08-09 16:11:31.654 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@333ee216
+2025-08-09 16:11:31.654 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-08-09 16:11:31.706 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-09 16:11:31.727 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-09 16:11:32.635 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-09 16:11:32.718 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 16:11:33.215 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-09 16:11:33.587 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-08-09 16:11:33.633 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name jwtUserDetailsService
+2025-08-09 16:11:33.695 [restartedMain] INFO  c.g.security.config.SecurityConfig - Initializing Security Filter Chain with global CORS...
+2025-08-09 16:11:33.695 [restartedMain] INFO  c.g.security.config.SecurityConfig - Setting up global CORS configuration...
+2025-08-09 16:11:34.122 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-08-09 16:11:34.359 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 16:11:34.359 [restartedMain] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 1 subscriber(s).
+2025-08-09 16:11:34.359 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-08-09 16:11:34.359 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+2025-08-09 16:11:34.381 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2025-08-09 16:11:34.411 [restartedMain] INFO  c.g.u.UserServiceApplication - Started UserServiceApplication in 7.044 seconds (process running for 7.81)
+2025-08-09 16:12:01.312 [http-nio-8082-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-09 16:12:01.312 [http-nio-8082-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-08-09 16:12:01.312 [http-nio-8082-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-08-09 16:12:01.402 [http-nio-8082-exec-2] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT extracted: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjIsIm5hbWUiOiJCaGF3ZXNoIiwiZW1haWwiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1NDczNjEyMSwiZXhwIjoxNzU0NzM5NzIxfQ.eVEHsCl9loacbQVeNEtQVLt7KRGyQjQqVwHwY0JFRNs
+2025-08-09 16:12:01.474 [http-nio-8082-exec-2] INFO  c.g.s.filter.JwtAuthenticationFilter - Username extracted from JWT: sharma2001bhawesh@gmail.com
+2025-08-09 16:12:01.475 [http-nio-8082-exec-2] INFO  c.g.s.service.JwtUserDetailsService - Loading UserDetails for email: sharma2001bhawesh@gmail.com
+2025-08-09 16:12:01.477 [http-nio-8082-exec-2] INFO  c.g.s.filter.JwtAuthenticationFilter - UserDetails loaded for: sharma2001bhawesh@gmail.com
+2025-08-09 16:12:01.479 [http-nio-8082-exec-2] INFO  c.gymai.security.service.JwtService - Token valid status for sharma2001bhawesh@gmail.com: true
+2025-08-09 16:12:01.479 [http-nio-8082-exec-2] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT is valid for user: sharma2001bhawesh@gmail.com
+2025-08-09 16:12:01.479 [http-nio-8082-exec-2] INFO  c.g.s.filter.JwtAuthenticationFilter - Security context updated for user: sharma2001bhawesh@gmail.com
+2025-08-09 16:12:02.134 [http-nio-8082-exec-2] INFO  c.g.u.c.UserProfileController - 📌 Profile completion check for userId 2 → false
+2025-08-09 16:44:27.658 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-09 16:44:27.674 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-08-09 16:44:27.683 [SpringApplicationShutdownHook] INFO  o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 16:44:27.684 [SpringApplicationShutdownHook] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 0 subscriber(s).
+2025-08-09 16:44:27.684 [SpringApplicationShutdownHook] INFO  o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-08-09 16:44:27.687 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 16:44:27.696 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-08-09 16:44:27.706 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-08-09 17:34:01.819 [restartedMain] INFO  c.g.u.UserServiceApplication - Starting UserServiceApplication using Java 21.0.8 with PID 68 (C:\Users\bikku\OneDrive\Desktop\GymAi\user-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\user-service)
+2025-08-09 17:34:01.835 [restartedMain] DEBUG c.g.u.UserServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-08-09 17:34:01.835 [restartedMain] INFO  c.g.u.UserServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-08-09 17:34:01.889 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-08-09 17:34:01.889 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-08-09 17:34:03.186 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-09 17:34:03.334 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 137 ms. Found 1 JPA repository interface.
+2025-08-09 17:34:03.541 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-08-09 17:34:03.565 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-08-09 17:34:03.680 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=fcf8308a-488c-36a4-a772-a5314f4b5ebd
+2025-08-09 17:34:04.271 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-08-09 17:34:04.271 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+2025-08-09 17:34:04.287 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-08-09 17:34:04.287 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-09 17:34:04.370 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-08-09 17:34:04.370 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2481 ms
+2025-08-09 17:34:04.512 [restartedMain] INFO  c.gymai.security.service.JwtService - JWT Secret Key initialized: N2FjZTYwYTgzOGJkZTdkYzQ2ZTgwNjUwMzFlZTJjY2ZiYTYyY2I3OWQ1YjFiNDY0MmZhNTBhMGI4OGY3OGVmYw==
+2025-08-09 17:34:04.713 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-09 17:34:04.792 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-08-09 17:34:04.852 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-09 17:34:05.155 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-09 17:34:05.196 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-08-09 17:34:05.375 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@44c787bb
+2025-08-09 17:34:05.391 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-08-09 17:34:05.436 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-09 17:34:05.461 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-09 17:34:06.372 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-09 17:34:06.460 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 17:34:06.919 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-09 17:34:07.283 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-08-09 17:34:07.332 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name jwtUserDetailsService
+2025-08-09 17:34:07.395 [restartedMain] INFO  c.g.security.config.SecurityConfig - Initializing Security Filter Chain with global CORS...
+2025-08-09 17:34:07.395 [restartedMain] INFO  c.g.security.config.SecurityConfig - Setting up global CORS configuration...
+2025-08-09 17:34:07.840 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-08-09 17:34:08.063 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 17:34:08.063 [restartedMain] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 1 subscriber(s).
+2025-08-09 17:34:08.063 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-08-09 17:34:08.063 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+2025-08-09 17:34:08.085 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2025-08-09 17:34:08.117 [restartedMain] INFO  c.g.u.UserServiceApplication - Started UserServiceApplication in 7.001 seconds (process running for 7.822)
+2025-08-09 17:39:36.791 [http-nio-8082-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-09 17:39:36.791 [http-nio-8082-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-08-09 17:39:36.791 [http-nio-8082-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-08-09 17:39:36.863 [http-nio-8082-exec-2] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT extracted: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjIsIm5hbWUiOiJCaGF3ZXNoIiwiZW1haWwiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1NDczNjEyMSwiZXhwIjoxNzU0NzM5NzIxfQ.eVEHsCl9loacbQVeNEtQVLt7KRGyQjQqVwHwY0JFRNs
+2025-08-09 17:39:36.937 [http-nio-8082-exec-2] ERROR c.gymai.security.service.JwtService - Failed to parse JWT token: JWT expired at 2025-08-09T11:42:01Z. Current time: 2025-08-09T12:09:36Z, a difference of 1655936 milliseconds.  Allowed clock skew: 0 milliseconds.
+2025-08-09 17:39:36.937 [http-nio-8082-exec-2] ERROR c.g.s.filter.JwtAuthenticationFilter - Failed to extract username from token: JWT expired at 2025-08-09T11:42:01Z. Current time: 2025-08-09T12:09:36Z, a difference of 1655936 milliseconds.  Allowed clock skew: 0 milliseconds.
+2025-08-09 17:47:14.004 [http-nio-8082-exec-5] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT extracted: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjIsIm5hbWUiOiJCaGF3ZXNoIiwiZW1haWwiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1NDc0MTgzMywiZXhwIjoxNzU0NzQ1NDMzfQ.2wVNnakbO0rrsnxbXqrUJB5sRocskFKvtQhIIMeWQZ4
+2025-08-09 17:47:14.008 [http-nio-8082-exec-5] INFO  c.g.s.filter.JwtAuthenticationFilter - Username extracted from JWT: sharma2001bhawesh@gmail.com
+2025-08-09 17:47:14.009 [http-nio-8082-exec-5] INFO  c.g.s.service.JwtUserDetailsService - Loading UserDetails for email: sharma2001bhawesh@gmail.com
+2025-08-09 17:47:14.011 [http-nio-8082-exec-5] INFO  c.g.s.filter.JwtAuthenticationFilter - UserDetails loaded for: sharma2001bhawesh@gmail.com
+2025-08-09 17:47:14.015 [http-nio-8082-exec-5] INFO  c.gymai.security.service.JwtService - Token valid status for sharma2001bhawesh@gmail.com: true
+2025-08-09 17:47:14.015 [http-nio-8082-exec-5] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT is valid for user: sharma2001bhawesh@gmail.com
+2025-08-09 17:47:14.016 [http-nio-8082-exec-5] INFO  c.g.s.filter.JwtAuthenticationFilter - Security context updated for user: sharma2001bhawesh@gmail.com
+2025-08-09 17:47:14.654 [http-nio-8082-exec-5] INFO  c.g.u.c.UserProfileController - 📌 Profile completion check for userId 2 → false
+2025-08-09 17:47:56.892 [http-nio-8082-exec-7] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT extracted: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjIsIm5hbWUiOiJCaGF3ZXNoIiwiZW1haWwiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1NDc0MTgzMywiZXhwIjoxNzU0NzQ1NDMzfQ.2wVNnakbO0rrsnxbXqrUJB5sRocskFKvtQhIIMeWQZ4
+2025-08-09 17:47:56.894 [http-nio-8082-exec-7] INFO  c.g.s.filter.JwtAuthenticationFilter - Username extracted from JWT: sharma2001bhawesh@gmail.com
+2025-08-09 17:47:56.894 [http-nio-8082-exec-7] INFO  c.g.s.service.JwtUserDetailsService - Loading UserDetails for email: sharma2001bhawesh@gmail.com
+2025-08-09 17:47:56.894 [http-nio-8082-exec-7] INFO  c.g.s.filter.JwtAuthenticationFilter - UserDetails loaded for: sharma2001bhawesh@gmail.com
+2025-08-09 17:47:56.894 [http-nio-8082-exec-7] INFO  c.gymai.security.service.JwtService - Token valid status for sharma2001bhawesh@gmail.com: true
+2025-08-09 17:47:56.894 [http-nio-8082-exec-7] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT is valid for user: sharma2001bhawesh@gmail.com
+2025-08-09 17:47:56.894 [http-nio-8082-exec-7] INFO  c.g.s.filter.JwtAuthenticationFilter - Security context updated for user: sharma2001bhawesh@gmail.com
+2025-08-09 17:47:56.954 [http-nio-8082-exec-7] INFO  c.g.u.c.UserProfileController - 🔐 Received token in POST /profile
+2025-08-09 17:47:56.959 [http-nio-8082-exec-7] INFO  c.g.u.c.UserProfileController - 🧠 Extracted from token - userId: 2, name: Bhawesh, email: sharma2001bhawesh@gmail.com
+2025-08-09 17:47:57.031 [http-nio-8082-exec-7] INFO  c.g.u.c.UserProfileController - ✅ Saved user profile for userId 2: UserProfile(userId=2, name=Bhawesh, email=sharma2001bhawesh@gmail.com, age=24, height=176.0, weight=65.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MEDIUM, preference=Vegetarian)
+2025-08-09 17:48:41.013 [http-nio-8082-exec-9] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT extracted: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjIsIm5hbWUiOiJCaGF3ZXNoIiwiZW1haWwiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1NDc0MTkyMCwiZXhwIjoxNzU0NzQ1NTIwfQ.FxZ3IZvSVb1mU24_wiYUKmD1kdRVDMbQHEL_Z4FZ7xg
+2025-08-09 17:48:41.017 [http-nio-8082-exec-9] INFO  c.g.s.filter.JwtAuthenticationFilter - Username extracted from JWT: sharma2001bhawesh@gmail.com
+2025-08-09 17:48:41.018 [http-nio-8082-exec-9] INFO  c.g.s.service.JwtUserDetailsService - Loading UserDetails for email: sharma2001bhawesh@gmail.com
+2025-08-09 17:48:41.019 [http-nio-8082-exec-9] INFO  c.g.s.filter.JwtAuthenticationFilter - UserDetails loaded for: sharma2001bhawesh@gmail.com
+2025-08-09 17:48:41.027 [http-nio-8082-exec-9] INFO  c.gymai.security.service.JwtService - Token valid status for sharma2001bhawesh@gmail.com: true
+2025-08-09 17:48:41.028 [http-nio-8082-exec-9] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT is valid for user: sharma2001bhawesh@gmail.com
+2025-08-09 17:48:41.028 [http-nio-8082-exec-9] INFO  c.g.s.filter.JwtAuthenticationFilter - Security context updated for user: sharma2001bhawesh@gmail.com
+2025-08-09 17:48:41.041 [http-nio-8082-exec-9] INFO  c.g.u.c.UserProfileController - 📌 Profile completion check for userId 2 → true
+2025-08-09 19:00:22.021 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m15s494ms301µs400ns).
+2025-08-09 20:23:09.880 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h20m17s824ms470µs500ns).
+2025-08-09 20:31:44.548 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-09 20:31:44.618 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-08-09 20:31:44.678 [SpringApplicationShutdownHook] INFO  o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 20:31:44.686 [SpringApplicationShutdownHook] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 0 subscriber(s).
+2025-08-09 20:31:44.697 [SpringApplicationShutdownHook] INFO  o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-08-09 20:31:44.778 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 20:31:44.880 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-08-09 20:31:44.914 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-08-09 20:32:06.478 [restartedMain] INFO  c.g.u.UserServiceApplication - Starting UserServiceApplication using Java 21.0.8 with PID 30372 (C:\Users\bikku\OneDrive\Desktop\GymAi\user-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\user-service)
+2025-08-09 20:32:06.482 [restartedMain] DEBUG c.g.u.UserServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-08-09 20:32:06.482 [restartedMain] INFO  c.g.u.UserServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-08-09 20:32:06.619 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-08-09 20:32:06.619 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-08-09 20:32:11.058 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-09 20:32:11.588 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 497 ms. Found 1 JPA repository interface.
+2025-08-09 20:32:12.240 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-08-09 20:32:12.286 [restartedMain] INFO  o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-08-09 20:32:12.929 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=fcf8308a-488c-36a4-a772-a5314f4b5ebd
+2025-08-09 20:32:14.698 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-08-09 20:32:14.761 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+2025-08-09 20:32:14.769 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-08-09 20:32:14.772 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-09 20:32:14.988 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-08-09 20:32:14.988 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 8369 ms
+2025-08-09 20:32:15.470 [restartedMain] INFO  c.gymai.security.service.JwtService - JWT Secret Key initialized: N2FjZTYwYTgzOGJkZTdkYzQ2ZTgwNjUwMzFlZTJjY2ZiYTYyY2I3OWQ1YjFiNDY0MmZhNTBhMGI4OGY3OGVmYw==
+2025-08-09 20:32:16.355 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-09 20:32:16.538 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-08-09 20:32:16.639 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-09 20:32:17.872 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-09 20:32:18.048 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-08-09 20:32:18.843 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4749ca6d
+2025-08-09 20:32:18.849 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-08-09 20:32:18.984 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-09 20:32:19.067 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-09 20:32:21.332 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-09 20:32:21.548 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-09 20:32:23.392 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-09 20:32:24.559 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-08-09 20:32:24.729 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name jwtUserDetailsService
+2025-08-09 20:32:24.903 [restartedMain] INFO  c.g.security.config.SecurityConfig - Initializing Security Filter Chain with global CORS...
+2025-08-09 20:32:24.908 [restartedMain] INFO  c.g.security.config.SecurityConfig - Setting up global CORS configuration...
+2025-08-09 20:32:25.709 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-08-09 20:32:26.068 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-08-09 20:32:26.068 [restartedMain] INFO  o.s.i.c.PublishSubscribeChannel - Channel 'user-service.errorChannel' has 1 subscriber(s).
+2025-08-09 20:32:26.073 [restartedMain] INFO  o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-08-09 20:32:26.073 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+2025-08-09 20:32:26.143 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2025-08-09 20:32:26.225 [restartedMain] INFO  c.g.u.UserServiceApplication - Started UserServiceApplication in 21.669 seconds (process running for 23.655)
+2025-08-09 20:34:14.305 [http-nio-8082-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-09 20:34:14.305 [http-nio-8082-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-08-09 20:34:14.308 [http-nio-8082-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-08-09 20:34:14.448 [http-nio-8082-exec-3] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT extracted: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjIsIm5hbWUiOiJCaGF3ZXNoIiwiZW1haWwiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1NDc1MTg1NCwiZXhwIjoxNzU0NzUyNzU0fQ.JVQ06ZbcEXqYLI3K3xa7U1FYnzUfqwVOXP9MZFfGs6U
+2025-08-09 20:34:14.583 [http-nio-8082-exec-3] INFO  c.g.s.filter.JwtAuthenticationFilter - Username extracted from JWT: sharma2001bhawesh@gmail.com
+2025-08-09 20:34:14.588 [http-nio-8082-exec-3] INFO  c.g.s.service.JwtUserDetailsService - Loading UserDetails for email: sharma2001bhawesh@gmail.com
+2025-08-09 20:34:14.592 [http-nio-8082-exec-3] INFO  c.g.s.filter.JwtAuthenticationFilter - UserDetails loaded for: sharma2001bhawesh@gmail.com
+2025-08-09 20:34:14.599 [http-nio-8082-exec-3] INFO  c.gymai.security.service.JwtService - Token valid status for sharma2001bhawesh@gmail.com: true
+2025-08-09 20:34:14.599 [http-nio-8082-exec-3] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT is valid for user: sharma2001bhawesh@gmail.com
+2025-08-09 20:34:14.599 [http-nio-8082-exec-3] INFO  c.g.s.filter.JwtAuthenticationFilter - Security context updated for user: sharma2001bhawesh@gmail.com
+2025-08-09 20:34:15.962 [http-nio-8082-exec-3] INFO  c.g.u.c.UserProfileController - 📌 Profile completion check for userId 2 → true
+2025-08-09 20:36:26.562 [http-nio-8082-exec-10] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT extracted: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjIsIm5hbWUiOiJCaGF3ZXNoIiwiZW1haWwiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1NDc1MTk4NiwiZXhwIjoxNzU0NzUyODg2fQ.FAZMg2Ex__4f1yowA8GG8IBf25ltEEJ3QKbwUWeq94Q
+2025-08-09 20:36:26.568 [http-nio-8082-exec-10] INFO  c.g.s.filter.JwtAuthenticationFilter - Username extracted from JWT: sharma2001bhawesh@gmail.com
+2025-08-09 20:36:26.568 [http-nio-8082-exec-10] INFO  c.g.s.service.JwtUserDetailsService - Loading UserDetails for email: sharma2001bhawesh@gmail.com
+2025-08-09 20:36:26.571 [http-nio-8082-exec-10] INFO  c.g.s.filter.JwtAuthenticationFilter - UserDetails loaded for: sharma2001bhawesh@gmail.com
+2025-08-09 20:36:26.578 [http-nio-8082-exec-10] INFO  c.gymai.security.service.JwtService - Token valid status for sharma2001bhawesh@gmail.com: true
+2025-08-09 20:36:26.578 [http-nio-8082-exec-10] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT is valid for user: sharma2001bhawesh@gmail.com
+2025-08-09 20:36:26.578 [http-nio-8082-exec-10] INFO  c.g.s.filter.JwtAuthenticationFilter - Security context updated for user: sharma2001bhawesh@gmail.com
+2025-08-09 20:36:26.598 [http-nio-8082-exec-10] INFO  c.g.u.c.UserProfileController - 📌 Profile completion check for userId 2 → true
+2025-08-09 21:12:54.002 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m34s529ms714µs200ns).
+2025-08-09 21:17:04.320 [http-nio-8082-exec-5] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT extracted: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjIsIm5hbWUiOiJCaGF3ZXNoIiwiZW1haWwiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1NDc1NDQyNCwiZXhwIjoxNzU0NzU1MzI0fQ.e8EmHzSAC1jZUvu3PB28RwlcMPWfNXDCu4bErf5q-qU
+2025-08-09 21:17:04.410 [http-nio-8082-exec-5] INFO  c.g.s.filter.JwtAuthenticationFilter - Username extracted from JWT: sharma2001bhawesh@gmail.com
+2025-08-09 21:17:04.450 [http-nio-8082-exec-5] INFO  c.g.s.service.JwtUserDetailsService - Loading UserDetails for email: sharma2001bhawesh@gmail.com
+2025-08-09 21:17:04.482 [http-nio-8082-exec-5] INFO  c.g.s.filter.JwtAuthenticationFilter - UserDetails loaded for: sharma2001bhawesh@gmail.com
+2025-08-09 21:17:04.665 [http-nio-8082-exec-5] INFO  c.gymai.security.service.JwtService - Token valid status for sharma2001bhawesh@gmail.com: true
+2025-08-09 21:17:04.670 [http-nio-8082-exec-5] INFO  c.g.s.filter.JwtAuthenticationFilter - JWT is valid for user: sharma2001bhawesh@gmail.com
+2025-08-09 21:17:04.674 [http-nio-8082-exec-5] INFO  c.g.s.filter.JwtAuthenticationFilter - Security context updated for user: sharma2001bhawesh@gmail.com
+2025-08-09 21:17:04.748 [http-nio-8082-exec-5] INFO  c.g.u.c.UserProfileController - 📌 Profile completion check for userId 2 → true
+2025-08-09 22:51:45.245 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=47m20s371ms208µs499ns).
+2025-08-09 23:37:46.874 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=44m1s553ms979µs400ns).
