@@ -1,5 +1,6 @@
 // src/environments/environment.prod.ts
 export const environment = {
   production: true,
-  apiUrl: 'https://api.example.com',
+  authUrl: 'https://gymai/neelahouse.cloud/auth-service/api/auth',
+  userUrl: 'https://gymai/neelahouse.cloud/user-service/api/user',
 };
