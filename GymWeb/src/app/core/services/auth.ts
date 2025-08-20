@@ -6,12 +6,13 @@ import {
   LoginResponse,
   RegisterRequest,
 } from '../../models/auth.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private BASE_URL = 'http://localhost:8081/api/auth'; // Matches backend controller mapping
+  private BASE_URL = environment.authUrl; // Matches backend controller mapping
 
   constructor(private http: HttpClient) {}
 

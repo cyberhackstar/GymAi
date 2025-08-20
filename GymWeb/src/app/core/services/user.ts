@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserProfile } from '../../models/user-profile.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserProfileService {
-  private apiUrl = 'http://localhost:8082/api/user'; // Change port if user-service runs elsewhere
+  private apiUrl = environment.userUrl; // Change port if user-service runs elsewhere
 
   constructor(private http: HttpClient) {}
 

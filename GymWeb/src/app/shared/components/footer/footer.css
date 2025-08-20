@@ -32,6 +32,7 @@
 .footer-social h4 {
   color: #ffffff;
   margin-bottom: 15px;
+  margin-left: 10px;
   font-size: 18px;
 }
 
@@ -42,6 +43,7 @@
 
 .footer-links ul li {
   margin-bottom: 10px;
+  margin-left: 11px;
 }
 
 .footer-links ul li a {
@@ -66,7 +68,7 @@
 
 .footer-social .social-icons {
   display: flex;
-  gap: 20px;
+  /* gap: 20px; */
   padding-left: 2px;
   flex-wrap: wrap;
 }
