@@ -230,3 +230,57 @@ a {
     width: 250px;
   }
 }
+
+/* USER ICONS (Desktop & Mobile) */
+.user-actions a,
+.canvas-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px; /* Uniform icon size */
+  color: #fff;
+  transition: color 0.3s, transform 0.3s ease-in-out;
+}
+
+/* Hover effect for user & logout icons */
+.user-actions a:hover i,
+.canvas-social a:hover i {
+  color: #ff4c4c; /* Red accent */
+  transform: scale(1.2);
+  transition: color 0.3s, transform 0.3s ease-in-out;
+}
+
+/* Mobile menu icons */
+.canvas-social a i {
+  font-size: 24px;
+}
+
+/* Adjust spacing in mobile menu */
+.canvas-social {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  align-items: center;
+}
+
+/* Optional: cursor pointer for icons */
+.user-actions a,
+.canvas-social a {
+  cursor: pointer;
+}
+
+/* Optional: smooth transition for mobile toggle */
+.canvas-open i,
+.canvas-close i {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.canvas-open i:hover,
+.canvas-close i:hover {
+  color: #ff4c4c;
+  transform: scale(1.2);
+}
+
+/* Ensure mobile overlay closes menu nicely */
+.offcanvas-menu-overlay.active {
+  cursor: pointer;
+}

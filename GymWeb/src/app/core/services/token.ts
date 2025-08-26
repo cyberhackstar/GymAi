@@ -35,7 +35,20 @@ export class Token {
 
   // ===== Access Token =====
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    const token = localStorage.getItem(this.tokenKey);
+    if (!token) return null;
+
+    const decoded = this.decodeToken(token);
+    if (decoded?.exp) {
+      const now = Math.floor(Date.now() / 1000);
+      if (decoded.exp < now) {
+        // Token expired → clear it
+        this.clearToken();
+        return null;
+      }
+    }
+
+    return token;
   }
 
   setToken(token: string): void {
@@ -44,15 +57,10 @@ export class Token {
     // Decode token and store user details
     const decoded = this.decodeToken(token);
     if (decoded) {
-      if (decoded.userId) {
+      if (decoded.userId)
         localStorage.setItem(this.userIdKey, decoded.userId.toString());
-      }
-      if (decoded.name) {
-        localStorage.setItem(this.nameKey, decoded.name);
-      }
-      if (decoded.email) {
-        localStorage.setItem(this.emailKey, decoded.email);
-      }
+      if (decoded.name) localStorage.setItem(this.nameKey, decoded.name);
+      if (decoded.email) localStorage.setItem(this.emailKey, decoded.email);
     }
 
     // Sync observables

@@ -10,9 +10,11 @@ import { CompleteProfile } from './user/complete-profile/complete-profile';
 import { UserDashboard } from './dashboard/user-dashboard/user-dashboard';
 import { BmiCalculator } from './bmi-calculator/bmi-calculator';
 import { Contact } from './contact/contact';
+import { DefaultDashboard } from './dashboard/default-dashboard/default-dashboard';
+import { AboutUs } from './about-us/about-us';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'default', pathMatch: 'full' },
 
   // Public Routes
   { path: 'login', component: Login },
@@ -20,6 +22,8 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPassword },
   { path: 'calculator', component: BmiCalculator },
   { path: 'contact', component: Contact },
+  { path: 'default', component: DefaultDashboard },
+  { path: 'about', component: AboutUs },
 
   // User Routes (Protected in real setup)
   { path: 'dashboard', component: UserDashboard },

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Token } from '../../../core/services/token';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css',
+  styleUrls: ['./navbar.css'],
 })
 export class Navbar {
   menuOpen = false;
@@ -16,6 +16,12 @@ export class Navbar {
   isLoggedIn = false;
 
   constructor(private tokenService: Token, private router: Router) {
+    this.checkLoginStatus();
+    // subscribe to token changes to update login state dynamically
+    this.tokenService.token$.subscribe(() => this.checkLoginStatus());
+  }
+
+  checkLoginStatus() {
     this.isLoggedIn = !!this.tokenService.getToken();
   }
 
@@ -32,4 +38,16 @@ export class Navbar {
     this.tokenService.clearToken();
     this.router.navigate(['/auth/login']);
   }
+
+  // Close menu when clicking outside or on any menu item
+  closeMenu() {
+    this.menuOpen = false;
+    this.activeDropdown = null;
+  }
+
+  // Optional: close menu on ESC key
+  // @HostListener('document:keydown.escape', ['$event'])
+  // onEscape(event: KeyboardEvent) {
+  //   this.closeMenu();
+  // }
 }

@@ -18,5 +18,5 @@ public class UserDto {
     private String goal;
     private String activityLevel;
     private String preference;
-    private String email;  // ✅ Add this field
+    private String email;
 }

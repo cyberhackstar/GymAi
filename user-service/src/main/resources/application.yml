@@ -4,13 +4,6 @@ server:
 spring:
   application:
     name: user-service
-  cloud:
-  
-    bus:
-      enabled: false
-
-    config:
-      enabled: false
 
   datasource:
     url: jdbc:postgresql://localhost:5432/gym_ai
@@ -26,10 +19,16 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
 
+  rabbitmq:
+    addresses: ${CLOUDAMQP_URL:amqps://dnqrhfau:MW512Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau}
+    ssl:
+      enabled: true # CloudAMQP requires SSL (amqps)
+
 jwt:
   secret: 7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc
-  expiration: 3600000 # 1 hour in ms
+  expiration: 3600000
 
+# Eureka (optional: remove if not used)
 eureka:
   client:
     service-url:
@@ -42,13 +41,15 @@ logging:
     name: logs/user-service.log
   level:
     root: INFO
-    com.gymai.user_service: DEBUG  # Changed from auth_service to user_service
+    com.gymai.user_service: DEBUG
 
 feign:
   client:
     config:
       auth-service:
-        url: http://localhost:8081  # Assuming auth-service runs on 8081
+        url: http://localhost:8081
 
-kafka:
-  user-topic: user-events
+rabbit:
+  exchange: gym.exchange
+  routing-key: user.event
+  queue: user.events.queue

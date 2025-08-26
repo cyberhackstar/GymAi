@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class UserProfile {
 
     @Id
-    private Long userId; // ID from auth-service
+    private Long userId;
 
     private String name;
     private String email;
@@ -23,8 +23,7 @@ public class UserProfile {
     private double height;
     private double weight;
     private String gender;
-    private String goal; // e.g., "Lose Weight"
-    private String activityLevel; // e.g., "Moderate"
-    private String preference; // e.g., "Vegetarian"
-
+    private String goal;
+    private String activityLevel;
+    private String preference;
 }

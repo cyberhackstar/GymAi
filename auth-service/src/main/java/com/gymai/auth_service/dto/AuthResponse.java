@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder // ✅ This enables AuthResponse.builder()
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthResponse {

@@ -5,13 +5,15 @@ import com.gymai.auth_service.dto.AuthResponse;
 import com.gymai.auth_service.dto.UserRegisterDto;
 import com.gymai.auth_service.entity.User;
 import com.gymai.auth_service.exception.UserAlreadyExistsException;
-import com.gymai.auth_service.kafka.UserRegistrationEvent;
+import com.gymai.auth_service.messaging.RabbitMqSender;
+import com.gymai.auth_service.messaging.UserEvent;
 import com.gymai.auth_service.repository.UserRepository;
 import com.gymai.auth_service.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,7 +30,14 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
-    private final KafkaTemplate<String, UserRegistrationEvent> kafkaTemplate;
+    private final RabbitMqSender rabbitMqSender;
+    private final DirectExchange directExchange;
+
+    @Value("${event.routing.registration}")
+    private String registrationRouting;
+
+    @Value("${event.routing.login}")
+    private String loginRouting;
 
     public AuthResponse register(UserRegisterDto registerDto) {
         if (userRepository.findByEmail(registerDto.getEmail()).isPresent()) {
@@ -45,12 +54,15 @@ public class AuthService {
 
         userRepository.save(user);
         log.info("New user registered: {}", user.getEmail());
-        // Generate JWT token after registration
-        log.info("Generating token for user: {} (ID: {})", user.getEmail(), user.getId());
+
+        // 🔑 Generate JWT tokens
         String accessToken = jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
-        UserRegistrationEvent event = new UserRegistrationEvent(user.getEmail(), user.getName());
-        kafkaTemplate.send("user-registration", event);
+
+        // 📩 Publish Registration Event
+        UserEvent event = new UserEvent(user.getEmail(), user.getName(), "REGISTRATION");
+        rabbitMqSender.sendMessageToRoute(event, directExchange.getName(), registrationRouting);
+
         return new AuthResponse(accessToken, refreshToken);
     }
 
@@ -61,16 +73,16 @@ public class AuthService {
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // ✅ Load full User entity
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found: " + request.getEmail()));
 
-        // ✅ Use the single generateToken(User) method
-        log.info("Generated token for user: {} (ID: {})", user.getEmail(), user.getId());
-
         String accessToken = jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
+
+        // 📩 Publish Login Event
+        UserEvent event = new UserEvent(user.getEmail(), user.getName(), "LOGIN");
+        rabbitMqSender.sendMessageToRoute(event, directExchange.getName(), loginRouting);
+
         return new AuthResponse(accessToken, refreshToken);
     }
-
 }

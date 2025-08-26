@@ -53,16 +53,6 @@
   max-width: 500px;
 }
 
-.overlay-content h1 {
-  font-size: 48px;
-  margin-bottom: 0.5rem;
-  letter-spacing: 1px;
-}
-
-.overlay-content h1 span {
-  color: #ff4c4c;
-}
-
 .tagline {
   font-size: 18px;
   color: #cccccc;
@@ -231,7 +221,18 @@ button[type="submit"]:disabled {
 
 @media (max-width: 480px) {
   .register-container {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1rem;
+    max-width: 100%;
+  }
+
+  .login-container {
+    padding: 2rem 1rem;
+    max-width: 100%;
+  }
+
+  .register-left,
+  .register-right {
+    padding: 1rem;
   }
 
   .register-left h1 {
@@ -240,5 +241,9 @@ button[type="submit"]:disabled {
 
   .register-left p {
     font-size: 16px;
+  }
+
+  .register-left img {
+    width: 51%;
   }
 }

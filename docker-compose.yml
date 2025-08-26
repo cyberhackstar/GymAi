@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+  # ---------- Spring Boot Services ----------
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    networks:
+      - shared_net
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/gymdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    restart: always
+
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    networks:
+      - shared_net
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/gymdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    restart: always
+
+  plan-service:
+    build:
+      context: ./plan-service
+      dockerfile: Dockerfile
+    container_name: plan-service
+    networks:
+      - shared_net
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/gymdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      AI_SERVICE_URL: http://ai-service:8000
+    restart: always
+
+  # ---------- FastAPI AI Service ----------
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: ai-service
+    networks:
+      - shared_net
+    restart: always
+
+  # ---------- Angular Frontend ----------
+  frontend:
+    build:
+      context: ./GymWeb
+      dockerfile: Dockerfile
+    container_name: gym-frontend
+    networks:
+      - shared_net
+    restart: always
+
+networks:
+  shared_net:
+    external: true

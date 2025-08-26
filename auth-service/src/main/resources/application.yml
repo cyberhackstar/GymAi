@@ -1,14 +1,14 @@
 server:
-  port: 8081
+  port: ${SERVER_PORT:8081}
 
 spring:
   application:
     name: auth-service
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/gym_ai
-    username: postgres
-    password: postgres
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/gym_ai}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -20,28 +20,32 @@ spring:
     show-sql: true
     open-in-view: false
 
-    kafka:
-    bootstrap-servers: localhost:9092
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  rabbitmq:
+    addresses: ${CLOUDAMQP_URL:amqps://dnqrhfau:MW512Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau}
+    ssl:
+      enabled: true # CloudAMQP requires SSL (amqps)
+
+event:
+  exchange: ${EVENT_EXCHANGE:gymai.events}
+  routing:
+    registration: ${REGISTRATION_ROUTING_KEY:user.registration}
+    login: ${LOGIN_ROUTING_KEY:user.login}
 
 jwt:
-  secret: 7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc
+  secret: ${JWT_SECRET:7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc}
   access:
-    expiration: 900000 # 15 minutes in ms
+    expiration: ${JWT_ACCESS_EXPIRATION:900000} # 15 minutes (ms)
   refresh:
-    expiration: 604800000 # 7 days in ms
+    expiration: ${JWT_REFRESH_EXPIRATION:604800000} # 7 days (ms)
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
 
 logging:
   file:
-    name: logs/auth-service.log
+    name: ${LOG_FILE:logs/auth-service.log}
   level:
     root: INFO
-    com.gymai.auth_service: DEBUG # (Optional: Customize your package log level)
-
+    com.gymai.auth_service: DEBUG

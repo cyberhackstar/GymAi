@@ -251,7 +251,13 @@ button[type="submit"]:disabled {
 
 @media (max-width: 480px) {
   .login-container {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1rem;
+    max-width: 100%;
+  }
+
+  .login-left,
+  .login-right {
+    padding: 1rem;
   }
 
   .login-left h1 {
@@ -260,5 +266,9 @@ button[type="submit"]:disabled {
 
   .login-left p {
     font-size: 16px;
+  }
+
+  .login-left img {
+    width: 51%;
   }
 }
