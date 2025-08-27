@@ -49,7 +49,7 @@ import { DietPlan } from './dashboard/user-dashboard/diet-plan/diet-plan';
     // UserManagement,
     // SupportTicketAdmin,
     // SupportTicketUser,
-    DietPlan,
+    // DietPlan,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',

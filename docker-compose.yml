@@ -28,7 +28,7 @@ services:
       - shared_net
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      DB_URL: jdbc:postgresql://localhost:5432/gym_ai
+      DB_URL: jdbc:postgresql://localhost:5432/gymdb
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       # KAFKA_BOOTSTRAP_SERVERS: kafka:9092
