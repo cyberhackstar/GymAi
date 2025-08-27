@@ -12,6 +12,7 @@
 
 .contact-title h2 {
   margin-top: 10px;
+  margin-bottom: 34px;
   color: #ffffff;
   font-size: 32px;
 }
@@ -20,6 +21,12 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  color: #d0d0d0;
+}
+
+.contact-widget a {
+  text-decoration: none;
+  cursor: pointer;
   color: #d0d0d0;
 }
 

@@ -198,6 +198,7 @@
   }
   .founder-img img {
     margin-bottom: 20px;
+    filter: brightness(0.9);
   }
   .mission-vision {
     grid-template-columns: 1fr;

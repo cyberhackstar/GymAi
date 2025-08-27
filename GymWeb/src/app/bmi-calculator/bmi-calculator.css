@@ -306,3 +306,33 @@ select:focus {
     text-align: center;
   }
 }
+
+/* 📱 Mobile responsiveness */
+
+@media (max-width: 480px) {
+  .topbar {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .tool-tabs {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .unit-toggle {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .tab,
+  .chip {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .tool-tabs,
+  .unit-toggle {
+    gap: 6px;
+  }
+}
