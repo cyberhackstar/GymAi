@@ -6,9 +6,9 @@ spring:
     name: auth-service
 
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/gym_ai}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+    url: jdbc:postgresql://ep-damp-star-ab0lcdvm-pooler.eu-west-2.aws.neon.tech/gym_ai?sslmode=require&channel_binding=require
+    username: neondb_owner
+    password: npg_5PnAXGO6FLUt
     driver-class-name: org.postgresql.Driver
 
   jpa:

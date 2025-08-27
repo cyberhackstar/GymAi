@@ -1,7 +1,7 @@
 // src/environments/environment.prod.ts
 export const environment = {
   production: true,
-  authUrl: 'https://gymai.neelahouse.cloud/auth-service/api/auth',
-  userUrl: 'https://gymai.neelahouse.cloud/user-service/api/user',
-  planUrl: 'https://gymai.neelahouse.cloud/plan-service/api/fitness',
+  authUrl: 'https://auth-service-gymai.neelahouse.cloud/api/auth',
+  userUrl: 'https://user-service-gymai.neelahouse.cloud/api/user',
+  planUrl: 'https://plan-service-gymai.neelahouse.cloud/api/fitness',
 };

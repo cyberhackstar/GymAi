@@ -12,9 +12,9 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SERVER_PORT: 8080
-      DB_URL: jdbc:postgresql://postgres:5432/gymdb
-      DB_USERNAME: postgres
-      DB_PASSWORD: postgres
+      # DB_URL: jdbc:postgresql://postgres:5432/gymdb
+      # DB_USERNAME: postgres
+      # DB_PASSWORD: postgres
       CLOUDAMQP_URL: amqps://dnqrhfau:MW512Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau
       # KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     restart: always
@@ -27,10 +27,10 @@ services:
     networks:
       - shared_net
     environment:
-      SPRING_PROFILES_ACTIVE: prod
-      DB_URL: jdbc:postgresql://localhost:5432/gymdb
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      # SPRING_PROFILES_ACTIVE: prod
+      # DB_URL: jdbc:postgresql://localhost:5432/gymdb
+      # SPRING_DATASOURCE_USERNAME: postgres
+      # SPRING_DATASOURCE_PASSWORD: postgres
       # KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       CLOUDAMQP_URL: amqps://dnqrhfau:MW512Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau
       ADMIN_URL: http://auth-service:8080
@@ -44,10 +44,10 @@ services:
     networks:
       - shared_net
     environment:
-      SPRING_PROFILES_ACTIVE: prod
-      DB_URL: jdbc:postgresql://postgres:5432/gymdb
-      DB_USERNAME: postgres
-      DB_PASSWORD: postgres
+      # SPRING_PROFILES_ACTIVE: prod
+      # DB_URL: jdbc:postgresql://postgres:5432/gymdb
+      # DB_USERNAME: postgres
+      # DB_PASSWORD: postgres
       # AI_SERVICE_URL: http://ai-service:8000
     restart: always
 
