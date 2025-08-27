@@ -36,7 +36,7 @@
 }
 .cs-item:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 35px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 15px 35px rgba(255, 255, 255, 0.3);
 }
 
 .cs-item span {
@@ -44,6 +44,7 @@
   color: #ff4c4c;
   display: block;
   margin-bottom: 20px;
+  width: auto;
 }
 
 .cs-item h4 {

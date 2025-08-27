@@ -12,6 +12,7 @@ import { BmiCalculator } from './bmi-calculator/bmi-calculator';
 import { Contact } from './contact/contact';
 import { DefaultDashboard } from './dashboard/default-dashboard/default-dashboard';
 import { AboutUs } from './about-us/about-us';
+import { WhyChooseUs } from './dashboard/why-choose-us/why-choose-us';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'default', pathMatch: 'full' },
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'contact', component: Contact },
   { path: 'default', component: DefaultDashboard },
   { path: 'about', component: AboutUs },
+  { path: 'services', component: WhyChooseUs },
 
   // User Routes (Protected in real setup)
   { path: 'dashboard', component: UserDashboard },

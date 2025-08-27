@@ -66,6 +66,10 @@
   margin-right: 10px;
 }
 
+.footer-contact a {
+  text-decoration: none;
+  color: #cccccc;
+}
 .footer-social .social-icons {
   display: flex;
   /* gap: 20px; */

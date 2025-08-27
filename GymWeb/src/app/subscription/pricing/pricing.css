@@ -28,11 +28,12 @@
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(255, 255, 255, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 0px 11px;
 }
 
 .ps-item:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.4);
+  box-shadow: 11px 11px 33px rgba(255, 255, 255, 0.2);
 }
 
 /* Plan titles and pricing */
@@ -120,5 +121,6 @@ a {
 
   .ps-item {
     padding: 30px 20px;
+    margin-bottom: 25px;
   }
 }

@@ -19,36 +19,25 @@
       <li (click)="closeMenu()"><a routerLink="/services">Services</a></li>
       <li (click)="closeMenu()"><a routerLink="/team">Our Team</a></li>
 
-      <!-- <li class="mobile-dropdown">
-        <div class="dropdown-toggle" (click)="toggleDropdown('pages')">
-          Pages
-        </div>
-        <ul class="dropdown" [class.active]="activeDropdown === 'pages'">
-          <li (click)="closeMenu()"><a routerLink="/about">About Us</a></li>
-          <li (click)="closeMenu()">
-            <a routerLink="/class-timetable">Classes Timetable</a>
-          </li>
-          <li (click)="closeMenu()">
-            <a routerLink="/bmi-calculator">BMI Calculator</a>
-          </li>
-          <li (click)="closeMenu()"><a routerLink="/team">Our Team</a></li>
-          <li (click)="closeMenu()"><a routerLink="/gallery">Gallery</a></li>
-          <li (click)="closeMenu()"><a routerLink="/blog">Our Blog</a></li>
-          <li (click)="closeMenu()"><a routerLink="/404">404</a></li>
-        </ul>
-      </li> -->
-
       <li (click)="closeMenu()"><a routerLink="/contact">Contact</a></li>
     </ul>
   </nav>
 
   <div class="canvas-social">
-    <a *ngIf="isLoggedIn" class="nav-icon" routerLink="/profile">
-      <i class="fa fa-user"></i>
-    </a>
-    <a *ngIf="isLoggedIn" class="nav-icon logout-icon" (click)="logout()">
-      <i class="fa fa-sign-out"></i>
-    </a>
+    <ng-container *ngIf="isLoggedIn; else mobileLoginIcon">
+      <a class="nav-icon" routerLink="/profile">
+        <i class="fa fa-user" (click)="closeMenu()"></i>
+      </a>
+      <a class="nav-icon logout-icon" (click)="logout()">
+        <i class="fa fa-sign-out" (click)="closeMenu()"></i>
+      </a>
+    </ng-container>
+
+    <ng-template #mobileLoginIcon>
+      <a class="nav-icon" routerLink="/login">
+        <i class="fa fa-sign-in-alt" (click)="closeMenu()"></i>
+      </a>
+    </ng-template>
   </div>
 </div>
 
@@ -78,21 +67,27 @@
           <li><a routerLink="/calculator">Calculator</a></li>
           <li><a routerLink="/services">Services</a></li>
           <li><a routerLink="/team">Our Team</a></li>
-          <li class="has-dropdown">
-            <a href="#">Pages</a>
-          </li>
           <li><a routerLink="/contact">Contact</a></li>
         </ul>
       </nav>
 
       <div class="top-option">
-        <div class="user-actions" *ngIf="isLoggedIn">
-          <a class="nav-icon" routerLink="/profile"
-            ><i class="fa fa-user"></i
-          ></a>
-          <a class="nav-icon logout-icon" (click)="logout()"
-            ><i class="fa fa-sign-out"></i
-          ></a>
+        <div class="user-actions">
+          <!-- Profile or Login -->
+          <ng-container *ngIf="isLoggedIn; else loginIcon">
+            <a class="nav-icon" routerLink="/profile">
+              <i class="fa fa-user"></i>
+            </a>
+            <a class="nav-icon logout-icon" (click)="logout()">
+              <i class="fa fa-sign-out"></i>
+            </a>
+          </ng-container>
+
+          <ng-template #loginIcon>
+            <a class="nav-icon" routerLink="/login">
+              <i class="fa fa-sign-in-alt"></i>
+            </a>
+          </ng-template>
         </div>
       </div>
 

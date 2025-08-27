@@ -92,7 +92,7 @@
 
 .founder-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 0 40px rgba(255, 76, 76, 0.3);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
 }
 
 .founder-img img {
@@ -125,6 +125,7 @@
 
 .social-links {
   display: flex;
+  justify-content: center;
   gap: 18px;
 }
 
@@ -179,7 +180,7 @@
 
 .mv-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 0 30px rgba(255, 76, 76, 0.25);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
 }
 
 /* Responsive */
@@ -200,5 +201,70 @@
   }
   .mission-vision {
     grid-template-columns: 1fr;
+  }
+}
+.about-section {
+  background: #0d0d0d;
+  color: #f5f5f5;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.about-container h2 {
+  font-size: 3rem;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.about-container h2 span {
+  color: #ff4c4c;
+}
+
+.about-intro {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin-bottom: 20px;
+  animation: fadeInUp 1s ease forwards;
+  opacity: 0;
+}
+
+.about-intro:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.highlight {
+  color: #ff4c4c;
+  font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-container h2 {
+    font-size: 2.2rem;
+  }
+  .about-intro {
+    font-size: 1rem;
   }
 }
