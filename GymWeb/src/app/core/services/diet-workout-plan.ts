@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 // Interfaces for responses
 export interface User {
@@ -52,7 +53,8 @@ export interface NutritionAnalysis {
   providedIn: 'root',
 })
 export class DietWorkoutPlan {
-  private baseUrl = 'http://localhost:8083/api/fitness';
+  private baseUrl = environment.planUrl;
+  // private apiUrl = environment.userUrl;
 
   constructor(private http: HttpClient) {}
 
