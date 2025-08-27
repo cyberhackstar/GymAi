@@ -21,6 +21,7 @@ import { UserSummary } from './dashboard/user-dashboard/user-summary/user-summar
 import { UserManagement } from './admin/user-management/user-management';
 import { SupportTicketAdmin } from './admin/support-ticket-admin/support-ticket-admin';
 import { SupportTicketUser } from './dashboard/user-dashboard/support-ticket-user/support-ticket-user';
+import { DietPlan } from './dashboard/user-dashboard/diet-plan/diet-plan';
 
 @Component({
   selector: 'app-root',
@@ -48,6 +49,7 @@ import { SupportTicketUser } from './dashboard/user-dashboard/support-ticket-use
     // UserManagement,
     // SupportTicketAdmin,
     // SupportTicketUser,
+    DietPlan,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',

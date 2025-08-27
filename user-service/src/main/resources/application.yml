@@ -1,14 +1,14 @@
 server:
-  port: 8082
+  port: ${SERVER_PORT:8082}
 
 spring:
   application:
     name: user-service
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/gym_ai
-    username: postgres
-    password: postgres
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/gym_ai}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -47,7 +47,7 @@ feign:
   client:
     config:
       auth-service:
-        url: http://localhost:8081
+        url: ${ADMIN_URL:http://localhost:8081}
 
 rabbit:
   exchange: gym.exchange

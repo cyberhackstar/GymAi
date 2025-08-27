@@ -1,22 +1,43 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  DietWorkoutPlan,
+  User,
+} from '../../../core/services/diet-workout-plan';
 
-interface Meal {
-  time: string;
-  meal: string;
+interface FoodItem {
+  id: number;
+  name: string;
+  category: string;
+  diet_type: string;
+  calories: number;
   protein: number;
   carbs: number;
   fat: number;
-  calories: number;
-  taken: boolean;
-  image: string;
+  fiber: number;
+  quantity: number;
+  taken?: boolean;
+  image?: string;
 }
+
+interface Meal {
+  meal_type: string;
+  food_items: FoodItem[];
+  total_calories: number;
+  total_protein: number;
+  total_carbs: number;
+  total_fat: number;
+}
+
 interface DayPlan {
   day: string;
   meals: Meal[];
+  total_daily_calories: number;
+  total_daily_protein: number;
+  total_daily_carbs: number;
+  total_daily_fat: number;
   dailyCaloriesTaken: number;
-  dailyCalories: number;
   progressPercent: number;
   progressColor?: string;
   activeMealIndex: number;
@@ -33,108 +54,113 @@ export class DietPlan implements OnInit {
   dietPlan: DayPlan[] = [];
   lightboxImage: string | null = null;
   showAllDays = false;
+  loading = false;
+
+  constructor(private dietService: DietWorkoutPlan) {}
+
+  ngOnInit() {
+    this.fetchDietPlan();
+  }
+
+  fetchDietPlan() {
+    this.loading = true;
+
+    const user: User = {
+      name: 'John Doe',
+      email: 'john@example.com',
+      age: 25,
+      height: 175,
+      weight: 70,
+      gender: 'MALE',
+      goal: 'MUSCLE_GAIN',
+      activity_level: 'MODERATELY_ACTIVE',
+      preference: 'VEG',
+    };
+
+    this.dietService.generateDietPlan(user).subscribe({
+      next: (res: any) => {
+        /** Mapping backend response structure with inner 'food' object fields **/
+        this.dietPlan = res.daily_plans.map((day: any) => ({
+          day: day.day_name,
+          meals: day.meals.map((meal: any, mealIdx: number) => ({
+            meal_type: meal.meal_type,
+            food_items: meal.food_items.map((fi: any) => ({
+              id: fi.food.id,
+              name: fi.food.name,
+              category: fi.food.category,
+              diet_type: fi.food.diet_type,
+              calories: fi.calories,
+              protein: fi.protein,
+              carbs: fi.carbs,
+              fat: fi.fat,
+              fiber: fi.fiber,
+              quantity: fi.quantity,
+              taken: false,
+              image: 'https://img.spoonacular.com/recipes/654515-312x231.jpg', // replace with a real image URL
+            })),
+            total_calories: meal.total_calories,
+            total_protein: meal.total_protein,
+            total_carbs: meal.total_carbs,
+            total_fat: meal.total_fat,
+          })),
+          total_daily_calories: day.total_daily_calories,
+          total_daily_protein: day.total_daily_protein,
+          total_daily_carbs: day.total_daily_carbs,
+          total_daily_fat: day.total_daily_fat,
+          dailyCaloriesTaken: 0,
+          progressPercent: 0,
+          activeMealIndex: 0,
+        }));
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching diet plan', err);
+        this.loading = false;
+      },
+    });
+  }
+
+  getMealTime(mealType: string, index: number): string {
+    switch (mealType) {
+      case 'BREAKFAST':
+        return '8:00 AM';
+      case 'LUNCH':
+        return '12:00 PM';
+      case 'SNACK':
+        return '4:00 PM';
+      case 'DINNER':
+        return '7:00 PM';
+      default:
+        return `${8 + index * 4}:00 AM`;
+    }
+  }
 
   toggleDays() {
     this.showAllDays = !this.showAllDays;
   }
 
-  ngOnInit() {
-    this.dietPlan = [
-      {
-        day: 'Monday',
-        meals: [
-          {
-            time: '8:00 AM',
-            meal: 'Oatmeal with berries',
-            protein: 10,
-            carbs: 30,
-            fat: 5,
-            calories: 200,
-            taken: false,
-            image: 'https://img.spoonacular.com/recipes/654515-312x231.jpg',
-          },
-          {
-            time: '12:00 PM',
-            meal: 'Grilled chicken salad',
-            protein: 25,
-            carbs: 10,
-            fat: 8,
-            calories: 250,
-            taken: false,
-            image: 'https://img.spoonacular.com/recipes/654515-312x231.jpg',
-          },
-          {
-            time: '7:00 PM',
-            meal: 'Salmon with vegetables',
-            protein: 30,
-            carbs: 15,
-            fat: 10,
-            calories: 300,
-            taken: false,
-            image: 'https://img.spoonacular.com/recipes/654515-312x231.jpg',
-          },
-        ],
-        dailyCaloriesTaken: 0,
-        dailyCalories: 750,
-        progressPercent: 0,
-        activeMealIndex: 0,
-      },
-      {
-        day: 'Tuesday',
-        meals: [
-          {
-            time: '8:00 AM',
-            meal: 'Greek yogurt with nuts',
-            protein: 15,
-            carbs: 12,
-            fat: 9,
-            calories: 220,
-            taken: false,
-            image: 'https://img.spoonacular.com/recipes/654515-312x231.jpg',
-          },
-          {
-            time: '12:00 PM',
-            meal: 'Turkey wrap',
-            protein: 20,
-            carbs: 25,
-            fat: 7,
-            calories: 280,
-            taken: false,
-            image: 'https://img.spoonacular.com/recipes/654515-312x231.jpg',
-          },
-          {
-            time: '7:00 PM',
-            meal: 'Beef stir fry',
-            protein: 28,
-            carbs: 20,
-            fat: 12,
-            calories: 350,
-            taken: false,
-            image: 'https://img.spoonacular.com/recipes/654515-312x231.jpg',
-          },
-        ],
-        dailyCaloriesTaken: 0,
-        dailyCalories: 850,
-        progressPercent: 0,
-        activeMealIndex: 0,
-      },
-    ];
-  }
-
   updateCalories() {
     this.dietPlan.forEach((dayPlan) => {
-      dayPlan.dailyCaloriesTaken = dayPlan.meals
-        .filter((m) => m.taken)
-        .reduce((sum, m) => sum + m.calories, 0);
+      let caloriesTaken = 0;
+      dayPlan.meals.forEach((meal) => {
+        meal.food_items.forEach((item) => {
+          if (item.taken) caloriesTaken += item.calories;
+        });
+      });
+      dayPlan.dailyCaloriesTaken = caloriesTaken;
     });
   }
 
   updateDailyProgress(dayPlan: DayPlan) {
-    dayPlan.dailyCaloriesTaken = dayPlan.meals
-      .filter((m) => m.taken)
-      .reduce((sum, m) => sum + m.calories, 0);
+    let caloriesTaken = 0;
+    dayPlan.meals.forEach((meal) => {
+      meal.food_items.forEach((item) => {
+        if (item.taken) caloriesTaken += item.calories;
+      });
+    });
+    dayPlan.dailyCaloriesTaken = caloriesTaken;
     dayPlan.progressPercent = Math.min(
-      Math.round((dayPlan.dailyCaloriesTaken / dayPlan.dailyCalories) * 100),
+      Math.round((caloriesTaken / dayPlan.total_daily_calories) * 100),
       100
     );
     if (dayPlan.progressPercent === 100) dayPlan.progressColor = '#4CAF50';

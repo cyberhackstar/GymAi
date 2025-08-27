@@ -1,27 +1,16 @@
 server:
-  port: 8083
+  port: ${SERVER_PORT:8083}
 
 spring:
   application:
     name: plan-service
-    # cloud:
-    #   openfeign:
-    #     jackson:
-    #       enabled: true
-
-    # bus:
-    #   enabled: false
-
-    # config:
-    #   enabled: false
-
   jackson:
     property-naming-strategy: SNAKE_CASE
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/gym_ai
-    username: postgres
-    password: postgres
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/gym_ai}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -36,13 +25,6 @@ jwt:
   secret: 7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc
   expiration: 3600000 # 1 hour in ms
 
-# eureka:
-#   client:
-#     service-url:
-#       defaultZone: http://localhost:8761/eureka
-#     register-with-eureka: true
-#     fetch-registry: true
-
 logging:
   file:
     name: logs/plan-service.log
@@ -54,13 +36,7 @@ logging:
     org.springframework.web.client.RestTemplate: DEBUG
     org.springframework.http: TRACE
 
-# feign:
-#   client:
-#     config:
-#       default:
-#         decode404: true
-#   httpclient:
-#     enabled: true
+e
 
 ai:
   service:
@@ -76,11 +52,4 @@ spoonacular:
   api-url: https://api.spoonacular.com
   api:
     key: 37dbf57de68f4d79967bf7ac9c0490e5
-# kafka:
-#   consumer:
-#     bootstrap-servers: localhost:9092
-#     group-id: plan-service-group
-#     auto-offset-reset: earliest
-#     key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#     value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
