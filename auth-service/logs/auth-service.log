@@ -1,130 +1,25 @@
-2025-08-26 16:38:04.684 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-08-26 16:38:04.752 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 13712 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-08-26 16:38:04.753 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-08-26 16:38:04.755 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-08-26 16:38:05.688 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-08-26 16:38:05.763 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 62 ms. Found 1 JPA repository interface.
-2025-08-26 16:38:06.440 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-08-26 16:38:06.459 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-08-26 16:38:06.461 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-08-26 16:38:06.461 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-08-26 16:38:06.550 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-08-26 16:38:06.550 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1715 ms
-2025-08-26 16:38:06.580 [main] ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'jwtAuthenticationFilter': Unsatisfied dependency expressed through field 'jwtService': Error creating bean with name 'jwtService': Invocation of init method failed
-2025-08-26 16:38:06.615 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2025-08-26 16:38:06.630 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-08-26 16:38:06.641 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-08-26 16:38:06.664 [main] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.context.ApplicationContextException: Unable to start web server
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:170)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
-	at com.gymai.auth_service.AuthServiceApplication.main(AuthServiceApplication.java:10)
-Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:147)
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:107)
-	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:517)
-	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:219)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:193)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:167)
-	... 8 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtAuthenticationFilter': Unsatisfied dependency expressed through field 'jwtService': Error creating bean with name 'jwtService': Invocation of init method failed
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:788)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1459)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:606)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:230)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:184)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:179)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:164)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:96)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:271)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:245)
-	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52)
-	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4464)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1203)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1193)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
-	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
-	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:749)
-	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:772)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1203)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1193)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
-	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
-	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:749)
-	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:203)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
-	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:412)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
-	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:870)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
-	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:438)
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:128)
-	... 13 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtService': Invocation of init method failed
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:222)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:429)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1818)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1683)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1628)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
-	... 55 common frames omitted
-Caused by: io.jsonwebtoken.security.WeakKeyException: The specified key byte array is 96 bits which is not secure enough for any JWT HMAC-SHA algorithm.  The JWT JWA Specification (RFC 7518, Section 3.2) states that keys used with HMAC-SHA algorithms MUST have a size >= 256 bits (the key size must be greater than or equal to the hash output size).  Consider using the io.jsonwebtoken.security.Keys#secretKeyFor(SignatureAlgorithm) method to create a key guaranteed to be secure enough for your preferred HMAC-SHA algorithm.  See https://tools.ietf.org/html/rfc7518#section-3.2 for more information.
-	at io.jsonwebtoken.security.Keys.hmacShaKeyFor(Keys.java:96)
-	at com.gymai.auth_service.security.JwtService.init(JwtService.java:35)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:457)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeInitMethods(InitDestroyAnnotationBeanPostProcessor.java:401)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:219)
-	... 66 common frames omitted
-2025-08-26 16:39:22.401 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-08-26 16:39:22.475 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 18280 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-08-26 16:39:22.475 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-08-26 16:39:22.475 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-08-26 16:39:23.371 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-08-26 16:39:23.439 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 64 ms. Found 1 JPA repository interface.
-2025-08-26 16:39:24.110 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-08-26 16:39:24.125 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-08-26 16:39:24.127 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-08-26 16:39:24.129 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-08-26 16:39:24.205 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-08-26 16:39:24.205 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1658 ms
-2025-08-26 16:39:24.241 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
-2025-08-26 16:39:24.399 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-08-26 16:39:24.493 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-08-26 16:39:24.537 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-08-26 16:39:24.965 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-08-26 16:39:25.021 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-08-26 16:39:25.424 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@70022d44
-2025-08-26 16:39:25.427 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-08-26 16:39:25.527 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-08-26 16:39:25.574 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2025-08-28 16:54:17.856 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-08-28 16:54:17.986 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 18284 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
+2025-08-28 16:54:17.986 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-08-28 16:54:17.986 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-08-28 16:54:18.861 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-28 16:54:18.947 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 62 ms. Found 1 JPA repository interface.
+2025-08-28 16:54:19.575 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-08-28 16:54:19.590 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2025-08-28 16:54:19.590 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-08-28 16:54:19.590 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-28 16:54:19.681 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-08-28 16:54:19.681 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1630 ms
+2025-08-28 16:54:19.709 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
+2025-08-28 16:54:19.843 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-28 16:54:19.896 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-08-28 16:54:19.950 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-28 16:54:20.273 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-28 16:54:20.313 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-08-28 16:54:22.492 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2382b2f
+2025-08-28 16:54:22.493 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-08-28 16:54:22.683 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-28 16:54:23.167 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 17.5
@@ -132,181 +27,64 @@ Caused by: io.jsonwebtoken.security.WeakKeyException: The specified key byte arr
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-08-26 16:39:26.780 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-08-26 16:39:26.922 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-08-26 16:39:27.392 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-08-26 16:39:27.445 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
-2025-08-26 16:39:27.459 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
-2025-08-26 16:39:27.478 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
-2025-08-26 16:39:27.492 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-08-26 16:39:27.492 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-08-26 16:39:28.119 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
-2025-08-26 16:39:28.119 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
-2025-08-26 16:39:28.119 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
-2025-08-26 16:39:28.119 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
-2025-08-26 16:39:28.131 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
-2025-08-26 16:39:28.154 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
-2025-08-26 16:39:28.155 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
-2025-08-26 16:39:28.484 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2025-08-26 16:39:28.512 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2025-08-26 16:39:28.528 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 6.933 seconds (process running for 7.355)
-2025-08-26 16:40:59.070 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-08-26 16:40:59.070 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-08-26 16:40:59.070 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2025-08-26 16:40:59.115 [http-nio-8081-exec-1] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/login
-2025-08-26 16:40:59.356 [http-nio-8081-exec-1] INFO  c.g.a.controller.AuthController - Login attempt for email: Bhawesh@gmail.com
-2025-08-26 16:40:59.356 [http-nio-8081-exec-1] INFO  c.g.auth_service.service.AuthService - Authenticating user: Bhawesh@gmail.com
-2025-08-26 16:40:59.454 [http-nio-8081-exec-1] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: Bhawesh@gmail.com
-2025-08-26 16:40:59.864 [http-nio-8081-exec-1] INFO  c.g.a.security.MyUserDetailsService - User found: Bhawesh@gmail.com
-2025-08-26 16:40:59.864 [http-nio-8081-exec-1] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: Bhawesh@gmail.com
-2025-08-26 16:40:59.864 [http-nio-8081-exec-1] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-08-26 16:41:00.033 [http-nio-8081-exec-1] ERROR c.g.a.messaging.RabbitMqSender - ❌ Failed to send message to RabbitMQ: SimpleMessageConverter only supports String, byte[] and Serializable payloads, received: com.gymai.auth_service.messaging.UserEvent
-java.lang.IllegalArgumentException: SimpleMessageConverter only supports String, byte[] and Serializable payloads, received: com.gymai.auth_service.messaging.UserEvent
-	at org.springframework.amqp.support.converter.SimpleMessageConverter.createMessage(SimpleMessageConverter.java:143)
-	at org.springframework.amqp.support.converter.AbstractMessageConverter.createMessage(AbstractMessageConverter.java:88)
-	at org.springframework.amqp.support.converter.AbstractMessageConverter.toMessage(AbstractMessageConverter.java:70)
-	at org.springframework.amqp.support.converter.AbstractMessageConverter.toMessage(AbstractMessageConverter.java:58)
-	at org.springframework.amqp.rabbit.core.RabbitTemplate.convertMessageIfNecessary(RabbitTemplate.java:1905)
-	at org.springframework.amqp.rabbit.core.RabbitTemplate.convertAndSend(RabbitTemplate.java:1201)
-	at org.springframework.amqp.rabbit.core.RabbitTemplate.convertAndSend(RabbitTemplate.java:1194)
-	at com.gymai.auth_service.messaging.RabbitMqSender.sendMessageToRoute(RabbitMqSender.java:17)
-	at com.gymai.auth_service.service.AuthService.authenticate(AuthService.java:84)
-	at com.gymai.auth_service.controller.AuthController.login(AuthController.java:48)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
-	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
-	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
-	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at com.gymai.auth_service.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:41)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
-	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
-	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-08-26 16:41:00.043 [http-nio-8081-exec-1] INFO  c.g.a.controller.AuthController - Login successful for email: Bhawesh@gmail.com
-2025-08-26 16:46:04.527 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-08-26 16:46:04.546 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-08-26 16:46:04.558 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-08-26 16:46:04.558 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-08-26 16:46:04.558 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-08-26 16:46:19.412 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-08-26 16:46:19.483 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 13292 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-08-26 16:46:19.483 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-08-26 16:46:19.483 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-08-26 16:46:20.415 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-08-26 16:46:20.488 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 63 ms. Found 1 JPA repository interface.
-2025-08-26 16:46:21.128 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-08-26 16:46:21.144 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-08-26 16:46:21.147 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-08-26 16:46:21.148 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-08-26 16:46:21.247 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-08-26 16:46:21.247 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1614 ms
-2025-08-26 16:46:21.265 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
-2025-08-26 16:46:21.404 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-08-26 16:46:21.485 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-08-26 16:46:21.533 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-08-26 16:46:21.884 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-08-26 16:46:21.931 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-08-26 16:46:22.152 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4b7ab7ab
-2025-08-26 16:46:22.152 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-08-26 16:46:22.211 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-08-26 16:46:22.234 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2025-08-28 16:54:24.118 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-28 16:54:25.467 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-28 16:54:25.791 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-08-28 16:54:25.841 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
+2025-08-28 16:54:25.852 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
+2025-08-28 16:54:25.871 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
+2025-08-28 16:54:25.881 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-08-28 16:54:25.882 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-08-28 16:54:26.295 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
+2025-08-28 16:54:26.295 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
+2025-08-28 16:54:26.295 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
+2025-08-28 16:54:26.295 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
+2025-08-28 16:54:26.315 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
+2025-08-28 16:54:26.328 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
+2025-08-28 16:54:26.329 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
+2025-08-28 16:54:26.614 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2025-08-28 16:54:26.650 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2025-08-28 16:54:26.662 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 9.649 seconds (process running for 10.079)
+2025-08-28 16:54:38.299 [http-nio-8081-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-28 16:54:38.301 [http-nio-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-08-28 16:54:38.301 [http-nio-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-08-28 16:54:38.333 [http-nio-8081-exec-2] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /actuator/health
+2025-08-28 16:54:38.475 [http-nio-8081-exec-1] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /.well-known/appspecific/com.chrome.devtools.json
+2025-08-28 16:54:38.479 [http-nio-8081-exec-1] WARN  c.g.a.s.JwtAuthenticationEntryPoint - Unauthorized access attempt - URI: /.well-known/appspecific/com.chrome.devtools.json, Message: Full authentication is required to access this resource
+2025-08-28 16:54:38.736 [http-nio-8081-exec-3] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /favicon.ico
+2025-08-28 16:54:38.738 [http-nio-8081-exec-3] WARN  c.g.a.s.JwtAuthenticationEntryPoint - Unauthorized access attempt - URI: /favicon.ico, Message: Full authentication is required to access this resource
+2025-08-28 16:54:46.152 [http-nio-8081-exec-4] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /actuator/health
+2025-08-28 16:54:46.250 [http-nio-8081-exec-5] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /.well-known/appspecific/com.chrome.devtools.json
+2025-08-28 16:54:46.252 [http-nio-8081-exec-5] WARN  c.g.a.s.JwtAuthenticationEntryPoint - Unauthorized access attempt - URI: /.well-known/appspecific/com.chrome.devtools.json, Message: Full authentication is required to access this resource
+2025-08-28 16:54:46.481 [http-nio-8081-exec-6] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /favicon.ico
+2025-08-28 16:54:46.482 [http-nio-8081-exec-6] WARN  c.g.a.s.JwtAuthenticationEntryPoint - Unauthorized access attempt - URI: /favicon.ico, Message: Full authentication is required to access this resource
+2025-08-28 16:55:41.879 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-28 16:55:41.901 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-08-28 16:55:41.914 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-28 16:55:41.917 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-08-28 16:55:43.454 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-08-28 16:56:30.808 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-08-28 16:56:30.871 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 19616 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
+2025-08-28 16:56:30.871 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-08-28 16:56:30.871 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-08-28 16:56:32.163 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-28 16:56:32.241 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 61 ms. Found 1 JPA repository interface.
+2025-08-28 16:56:32.999 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-08-28 16:56:33.018 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2025-08-28 16:56:33.020 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-08-28 16:56:33.021 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-28 16:56:33.092 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-08-28 16:56:33.092 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2156 ms
+2025-08-28 16:56:33.247 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
+2025-08-28 16:56:33.401 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-28 16:56:33.475 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-08-28 16:56:33.519 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-28 16:56:33.864 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-28 16:56:33.908 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-08-28 16:56:35.607 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3855b27e
+2025-08-28 16:56:35.607 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-08-28 16:56:35.793 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-28 16:56:36.265 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 17.5
@@ -314,397 +92,32 @@ java.lang.IllegalArgumentException: SimpleMessageConverter only supports String,
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-08-26 16:46:23.351 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-08-26 16:46:23.436 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-08-26 16:46:23.770 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-08-26 16:46:23.817 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
-2025-08-26 16:46:23.824 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
-2025-08-26 16:46:23.847 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
-2025-08-26 16:46:23.857 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-08-26 16:46:23.858 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-08-26 16:46:24.433 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
-2025-08-26 16:46:24.433 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
-2025-08-26 16:46:24.433 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
-2025-08-26 16:46:24.433 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
-2025-08-26 16:46:24.452 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
-2025-08-26 16:46:24.460 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
-2025-08-26 16:46:24.460 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
-2025-08-26 16:46:24.760 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2025-08-26 16:46:24.778 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2025-08-26 16:46:24.792 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 6.091 seconds (process running for 6.477)
-2025-08-26 16:46:38.054 [http-nio-8081-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-08-26 16:46:38.054 [http-nio-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-08-26 16:46:38.054 [http-nio-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2025-08-26 16:46:38.094 [http-nio-8081-exec-2] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/login
-2025-08-26 16:46:38.276 [http-nio-8081-exec-2] INFO  c.g.a.controller.AuthController - Login attempt for email: Bhawesh@gmail.com
-2025-08-26 16:46:38.276 [http-nio-8081-exec-2] INFO  c.g.auth_service.service.AuthService - Authenticating user: Bhawesh@gmail.com
-2025-08-26 16:46:38.360 [http-nio-8081-exec-2] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: Bhawesh@gmail.com
-2025-08-26 16:46:38.615 [http-nio-8081-exec-2] INFO  c.g.a.security.MyUserDetailsService - User found: Bhawesh@gmail.com
-2025-08-26 16:46:38.615 [http-nio-8081-exec-2] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: Bhawesh@gmail.com
-2025-08-26 16:46:38.615 [http-nio-8081-exec-2] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-08-26 16:46:38.779 [http-nio-8081-exec-2] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [puffin.rmq2.cloudamqp.com:5671]
-2025-08-26 16:46:39.386 [http-nio-8081-exec-2] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#2cdcedef:0/SimpleConnection@21d623e1 [delegate=amqp://xbcyqlvj@15.206.140.228:5671/xbcyqlvj, localPort=28212]
-2025-08-26 16:46:39.620 [http-nio-8081-exec-2] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=Bhawesh@gmail.com, username=Bhawesh, eventType=LOGIN)
-2025-08-26 16:46:39.636 [http-nio-8081-exec-2] INFO  c.g.a.controller.AuthController - Login successful for email: Bhawesh@gmail.com
-2025-08-26 16:48:34.221 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-08-26 16:48:34.241 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-08-26 16:48:34.328 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-08-26 16:48:34.331 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-08-26 16:48:34.336 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-08-26 20:30:26.164 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-08-26 20:30:26.278 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 21496 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-08-26 20:30:26.278 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-08-26 20:30:26.281 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-08-26 20:30:27.572 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-08-26 20:30:27.695 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 107 ms. Found 1 JPA repository interface.
-2025-08-26 20:30:28.491 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-08-26 20:30:28.510 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-08-26 20:30:28.514 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-08-26 20:30:28.515 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-08-26 20:30:28.612 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-08-26 20:30:28.612 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2257 ms
-2025-08-26 20:30:28.643 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
-2025-08-26 20:30:28.799 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-08-26 20:30:28.889 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-08-26 20:30:28.961 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-08-26 20:30:29.450 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-08-26 20:30:29.497 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-08-26 20:30:29.802 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@39acd1f1
-2025-08-26 20:30:29.805 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-08-26 20:30:29.884 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-08-26 20:30:29.925 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 17.5
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-08-26 20:30:31.205 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-08-26 20:30:31.315 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-08-26 20:30:31.739 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-08-26 20:30:31.780 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
-2025-08-26 20:30:31.796 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
-2025-08-26 20:30:31.821 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
-2025-08-26 20:30:31.834 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-08-26 20:30:31.835 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-08-26 20:30:32.527 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
-2025-08-26 20:30:32.527 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
-2025-08-26 20:30:32.527 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
-2025-08-26 20:30:32.527 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
-2025-08-26 20:30:32.541 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
-2025-08-26 20:30:32.564 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
-2025-08-26 20:30:32.564 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
-2025-08-26 20:30:32.979 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2025-08-26 20:30:33.014 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2025-08-26 20:30:33.014 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 7.756 seconds (process running for 8.329)
-2025-08-26 20:30:44.411 [http-nio-8081-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-08-26 20:30:44.411 [http-nio-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-08-26 20:30:44.411 [http-nio-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2025-08-26 20:30:44.472 [http-nio-8081-exec-2] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/login
-2025-08-26 20:30:44.715 [http-nio-8081-exec-2] INFO  c.g.a.controller.AuthController - Login attempt for email: Bhawesh@gmail.com
-2025-08-26 20:30:44.715 [http-nio-8081-exec-2] INFO  c.g.auth_service.service.AuthService - Authenticating user: Bhawesh@gmail.com
-2025-08-26 20:30:44.816 [http-nio-8081-exec-2] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: Bhawesh@gmail.com
-2025-08-26 20:30:45.086 [http-nio-8081-exec-2] INFO  c.g.a.security.MyUserDetailsService - User found: Bhawesh@gmail.com
-2025-08-26 20:30:45.086 [http-nio-8081-exec-2] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: Bhawesh@gmail.com
-2025-08-26 20:30:45.086 [http-nio-8081-exec-2] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-08-26 20:30:45.298 [http-nio-8081-exec-2] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [puffin.rmq2.cloudamqp.com:5671]
-2025-08-26 20:30:46.104 [http-nio-8081-exec-2] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#22b4ad0c:0/SimpleConnection@24930f56 [delegate=amqp://dnqrhfau@15.206.140.228:5671/dnqrhfau, localPort=53929]
-2025-08-26 20:30:46.344 [http-nio-8081-exec-2] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=Bhawesh@gmail.com, username=Bhawesh, eventType=LOGIN)
-2025-08-26 20:30:46.344 [http-nio-8081-exec-2] INFO  c.g.a.controller.AuthController - Login successful for email: Bhawesh@gmail.com
-2025-08-26 20:39:53.634 [http-nio-8081-exec-5] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/login
-2025-08-26 20:39:53.635 [http-nio-8081-exec-5] INFO  c.g.a.controller.AuthController - Login attempt for email: Bhawesh@gmail.com
-2025-08-26 20:39:53.635 [http-nio-8081-exec-5] INFO  c.g.auth_service.service.AuthService - Authenticating user: Bhawesh@gmail.com
-2025-08-26 20:39:53.635 [http-nio-8081-exec-5] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: Bhawesh@gmail.com
-2025-08-26 20:39:53.642 [http-nio-8081-exec-5] INFO  c.g.a.security.MyUserDetailsService - User found: Bhawesh@gmail.com
-2025-08-26 20:39:53.648 [http-nio-8081-exec-5] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: Bhawesh@gmail.com
-2025-08-26 20:39:53.649 [http-nio-8081-exec-5] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-08-26 20:39:53.746 [http-nio-8081-exec-5] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=Bhawesh@gmail.com, username=Bhawesh, eventType=LOGIN)
-2025-08-26 20:39:53.746 [http-nio-8081-exec-5] INFO  c.g.a.controller.AuthController - Login successful for email: Bhawesh@gmail.com
-2025-08-26 20:46:45.875 [http-nio-8081-exec-7] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/register
-2025-08-26 20:46:46.026 [http-nio-8081-exec-7] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.gymai.auth_service.dto.AuthResponse> com.gymai.auth_service.controller.AuthController.register(com.gymai.auth_service.dto.UserRegisterDto): [Field error in object 'userRegisterDto' on field 'password': rejected value [123456]; codes [Size.userRegisterDto.password,Size.password,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userRegisterDto.password,password]; arguments []; default message [password],2147483647,8]; default message [Password must be at least 8 characters]] ]
-2025-08-26 20:47:36.977 [http-nio-8081-exec-10] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/register
-2025-08-26 20:47:36.989 [http-nio-8081-exec-10] INFO  c.g.a.controller.AuthController - Register request received for email: test@gmail.com
-2025-08-26 20:47:37.261 [http-nio-8081-exec-10] INFO  c.g.auth_service.service.AuthService - New user registered: test@gmail.com
-2025-08-26 20:47:37.271 [http-nio-8081-exec-10] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.registration]: UserEvent(email=test@gmail.com, username=Bhawesh, eventType=REGISTRATION)
-2025-08-26 20:47:37.271 [http-nio-8081-exec-10] INFO  c.g.a.controller.AuthController - User registered successfully: test@gmail.com
-2025-08-26 20:48:27.206 [http-nio-8081-exec-1] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/login
-2025-08-26 20:48:27.206 [http-nio-8081-exec-1] INFO  c.g.a.controller.AuthController - Login attempt for email: test@gmail.com
-2025-08-26 20:48:27.206 [http-nio-8081-exec-1] INFO  c.g.auth_service.service.AuthService - Authenticating user: test@gmail.com
-2025-08-26 20:48:27.206 [http-nio-8081-exec-1] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: test@gmail.com
-2025-08-26 20:48:27.222 [http-nio-8081-exec-1] INFO  c.g.a.security.MyUserDetailsService - User found: test@gmail.com
-2025-08-26 20:48:27.222 [http-nio-8081-exec-1] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: test@gmail.com
-2025-08-26 20:48:27.222 [http-nio-8081-exec-1] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-08-26 20:48:27.328 [http-nio-8081-exec-1] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=test@gmail.com, username=Bhawesh, eventType=LOGIN)
-2025-08-26 20:48:27.328 [http-nio-8081-exec-1] INFO  c.g.a.controller.AuthController - Login successful for email: test@gmail.com
-2025-08-26 22:24:45.770 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h34m45s653ms458µs200ns).
-2025-08-26 22:25:13.062 [AMQP Connection 15.206.140.228:5671] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Connection reset)
-2025-08-26 22:29:52.975 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-08-26 22:29:53.028 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-08-26 22:29:53.128 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-08-26 22:29:53.167 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-08-26 22:29:53.185 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-08-26 22:31:15.987 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-08-26 22:31:16.076 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 22596 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-08-26 22:31:16.096 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-08-26 22:31:16.099 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-08-26 22:31:17.787 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-08-26 22:31:17.949 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 123 ms. Found 1 JPA repository interface.
-2025-08-26 22:31:19.598 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-08-26 22:31:19.632 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-08-26 22:31:19.638 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-08-26 22:31:19.638 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-08-26 22:31:19.802 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-08-26 22:31:19.815 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3615 ms
-2025-08-26 22:31:19.891 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
-2025-08-26 22:31:20.200 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-08-26 22:31:20.425 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-08-26 22:31:20.546 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-08-26 22:31:21.485 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-08-26 22:31:21.567 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-08-26 22:31:22.008 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4b7ab7ab
-2025-08-26 22:31:22.010 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-08-26 22:31:22.098 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-08-26 22:31:22.170 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 17.5
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-08-26 22:31:24.585 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-08-26 22:31:24.909 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2025-08-26 22:31:24.909 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
-2025-08-26 22:31:24.934 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-08-26 22:31:25.652 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-08-26 22:31:25.740 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
-2025-08-26 22:31:25.767 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
-2025-08-26 22:31:25.799 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
-2025-08-26 22:31:25.811 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-08-26 22:31:25.811 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-08-26 22:31:26.916 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
-2025-08-26 22:31:26.916 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
-2025-08-26 22:31:26.918 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
-2025-08-26 22:31:26.920 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
-2025-08-26 22:31:26.931 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
-2025-08-26 22:31:26.952 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
-2025-08-26 22:31:26.952 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
-2025-08-26 22:31:27.639 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2025-08-26 22:31:27.688 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2025-08-26 22:31:27.704 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 13.123 seconds (process running for 14.206)
-2025-08-26 22:32:11.688 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-08-26 22:32:11.688 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-08-26 22:32:11.688 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2025-08-26 22:32:11.960 [http-nio-8081-exec-2] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
-io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-08-09T18:39:29Z. Current time: 2025-08-26T17:02:11Z, a difference of 1462962958 milliseconds.  Allowed clock skew: 0 milliseconds.
-	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:427)
-	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529)
-	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589)
-	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
-	at com.gymai.auth_service.security.JwtService.extractUsername(JwtService.java:65)
-	at com.gymai.auth_service.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:46)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
-	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
-	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-08-26 22:32:30.327 [http-nio-8081-exec-4] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
-io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-08-09T18:39:29Z. Current time: 2025-08-26T17:02:30Z, a difference of 1462981327 milliseconds.  Allowed clock skew: 0 milliseconds.
-	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:427)
-	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529)
-	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589)
-	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
-	at com.gymai.auth_service.security.JwtService.extractUsername(JwtService.java:65)
-	at com.gymai.auth_service.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:46)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
-	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
-	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-08-26 22:37:47.709 [http-nio-8081-exec-6] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/register
-2025-08-26 22:37:47.906 [http-nio-8081-exec-6] INFO  c.g.a.controller.AuthController - Register request received for email: sharma2001bhawesh@gmail.com
-2025-08-26 22:37:48.653 [http-nio-8081-exec-6] INFO  c.g.auth_service.service.AuthService - New user registered: sharma2001bhawesh@gmail.com
-2025-08-26 22:37:48.703 [http-nio-8081-exec-6] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [puffin.rmq2.cloudamqp.com:5671]
-2025-08-26 22:37:49.894 [http-nio-8081-exec-6] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#d15f031:0/SimpleConnection@27d0190e [delegate=amqp://dnqrhfau@15.206.140.228:5671/dnqrhfau, localPort=49832]
-2025-08-26 22:37:50.741 [http-nio-8081-exec-6] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.registration]: UserEvent(email=sharma2001bhawesh@gmail.com, username=Bhawesh Sharma, eventType=REGISTRATION)
-2025-08-26 22:37:50.741 [http-nio-8081-exec-6] INFO  c.g.a.controller.AuthController - User registered successfully: sharma2001bhawesh@gmail.com
-2025-08-26 22:37:50.786 [http-nio-8081-exec-8] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/login
-2025-08-26 22:37:50.875 [http-nio-8081-exec-8] INFO  c.g.a.controller.AuthController - Login attempt for email: sharma2001bhawesh@gmail.com
-2025-08-26 22:37:50.879 [http-nio-8081-exec-8] INFO  c.g.auth_service.service.AuthService - Authenticating user: sharma2001bhawesh@gmail.com
-2025-08-26 22:37:51.045 [http-nio-8081-exec-8] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: sharma2001bhawesh@gmail.com
-2025-08-26 22:37:51.060 [http-nio-8081-exec-8] INFO  c.g.a.security.MyUserDetailsService - User found: sharma2001bhawesh@gmail.com
-2025-08-26 22:37:51.062 [http-nio-8081-exec-8] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: sharma2001bhawesh@gmail.com
-2025-08-26 22:37:51.065 [http-nio-8081-exec-8] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-08-26 22:37:51.221 [http-nio-8081-exec-8] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, username=Bhawesh Sharma, eventType=LOGIN)
-2025-08-26 22:37:51.221 [http-nio-8081-exec-8] INFO  c.g.a.controller.AuthController - Login successful for email: sharma2001bhawesh@gmail.com
-2025-08-26 22:41:39.825 [http-nio-8081-exec-1] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/login
-2025-08-26 22:41:39.831 [http-nio-8081-exec-1] INFO  c.g.a.controller.AuthController - Login attempt for email: sharma2001bhawesh@gmail.com
-2025-08-26 22:41:39.833 [http-nio-8081-exec-1] INFO  c.g.auth_service.service.AuthService - Authenticating user: sharma2001bhawesh@gmail.com
-2025-08-26 22:41:39.833 [http-nio-8081-exec-1] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: sharma2001bhawesh@gmail.com
-2025-08-26 22:41:39.845 [http-nio-8081-exec-1] INFO  c.g.a.security.MyUserDetailsService - User found: sharma2001bhawesh@gmail.com
-2025-08-26 22:41:39.845 [http-nio-8081-exec-1] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: sharma2001bhawesh@gmail.com
-2025-08-26 22:41:39.845 [http-nio-8081-exec-1] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-08-26 22:41:39.985 [http-nio-8081-exec-1] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, username=Bhawesh Sharma, eventType=LOGIN)
-2025-08-26 22:41:39.985 [http-nio-8081-exec-1] INFO  c.g.a.controller.AuthController - Login successful for email: sharma2001bhawesh@gmail.com
-2025-08-26 22:45:02.623 [http-nio-8081-exec-4] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/register
-2025-08-26 22:45:02.632 [http-nio-8081-exec-4] INFO  c.g.a.controller.AuthController - Register request received for email: test@test.com
-2025-08-26 22:45:02.781 [http-nio-8081-exec-4] INFO  c.g.auth_service.service.AuthService - New user registered: test@test.com
-2025-08-26 22:45:02.787 [http-nio-8081-exec-4] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.registration]: UserEvent(email=test@test.com, username=test@test.com, eventType=REGISTRATION)
-2025-08-26 22:45:02.787 [http-nio-8081-exec-4] INFO  c.g.a.controller.AuthController - User registered successfully: test@test.com
-2025-08-26 22:45:02.813 [http-nio-8081-exec-6] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/login
-2025-08-26 22:45:02.819 [http-nio-8081-exec-6] INFO  c.g.a.controller.AuthController - Login attempt for email: test@test.com
-2025-08-26 22:45:02.819 [http-nio-8081-exec-6] INFO  c.g.auth_service.service.AuthService - Authenticating user: test@test.com
-2025-08-26 22:45:02.819 [http-nio-8081-exec-6] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: test@test.com
-2025-08-26 22:45:02.828 [http-nio-8081-exec-6] INFO  c.g.a.security.MyUserDetailsService - User found: test@test.com
-2025-08-26 22:45:02.828 [http-nio-8081-exec-6] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: test@test.com
-2025-08-26 22:45:02.828 [http-nio-8081-exec-6] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-08-26 22:45:03.029 [http-nio-8081-exec-6] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=test@test.com, username=test@test.com, eventType=LOGIN)
-2025-08-26 22:45:03.029 [http-nio-8081-exec-6] INFO  c.g.a.controller.AuthController - Login successful for email: test@test.com
-2025-08-26 23:27:12.527 [http-nio-8081-exec-9] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/login
-2025-08-26 23:27:12.543 [http-nio-8081-exec-9] INFO  c.g.a.controller.AuthController - Login attempt for email: test@test.com
-2025-08-26 23:27:12.543 [http-nio-8081-exec-9] INFO  c.g.auth_service.service.AuthService - Authenticating user: test@test.com
-2025-08-26 23:27:12.543 [http-nio-8081-exec-9] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: test@test.com
-2025-08-26 23:27:12.579 [http-nio-8081-exec-9] INFO  c.g.a.security.MyUserDetailsService - User found: test@test.com
-2025-08-26 23:27:12.579 [http-nio-8081-exec-9] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: test@test.com
-2025-08-26 23:27:12.590 [http-nio-8081-exec-9] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-08-26 23:27:12.732 [http-nio-8081-exec-9] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=test@test.com, username=test@test.com, eventType=LOGIN)
-2025-08-26 23:27:12.732 [http-nio-8081-exec-9] INFO  c.g.a.controller.AuthController - Login successful for email: test@test.com
-2025-08-26 23:30:19.776 [http-nio-8081-exec-2] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/login
-2025-08-26 23:30:19.781 [http-nio-8081-exec-2] INFO  c.g.a.controller.AuthController - Login attempt for email: test@test.com
-2025-08-26 23:30:19.781 [http-nio-8081-exec-2] INFO  c.g.auth_service.service.AuthService - Authenticating user: test@test.com
-2025-08-26 23:30:19.781 [http-nio-8081-exec-2] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: test@test.com
-2025-08-26 23:30:19.795 [http-nio-8081-exec-2] INFO  c.g.a.security.MyUserDetailsService - User found: test@test.com
-2025-08-26 23:30:19.795 [http-nio-8081-exec-2] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: test@test.com
-2025-08-26 23:30:19.795 [http-nio-8081-exec-2] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-08-26 23:30:19.940 [http-nio-8081-exec-2] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=test@test.com, username=test@test.com, eventType=LOGIN)
-2025-08-26 23:30:19.940 [http-nio-8081-exec-2] INFO  c.g.a.controller.AuthController - Login successful for email: test@test.com
-2025-08-26 23:56:30.047 [http-nio-8081-exec-5] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /api/auth/login
-2025-08-26 23:56:30.056 [http-nio-8081-exec-5] INFO  c.g.a.controller.AuthController - Login attempt for email: test@test.com
-2025-08-26 23:56:30.072 [http-nio-8081-exec-5] INFO  c.g.auth_service.service.AuthService - Authenticating user: test@test.com
-2025-08-26 23:56:30.072 [http-nio-8081-exec-5] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: test@test.com
-2025-08-26 23:56:30.104 [http-nio-8081-exec-5] INFO  c.g.a.security.MyUserDetailsService - User found: test@test.com
-2025-08-26 23:56:30.104 [http-nio-8081-exec-5] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: test@test.com
-2025-08-26 23:56:30.104 [http-nio-8081-exec-5] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-08-26 23:56:30.214 [http-nio-8081-exec-5] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=test@test.com, username=test@test.com, eventType=LOGIN)
-2025-08-26 23:56:30.214 [http-nio-8081-exec-5] INFO  c.g.a.controller.AuthController - Login successful for email: test@test.com
+2025-08-28 16:56:37.312 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-28 16:56:37.973 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-28 16:56:38.351 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-08-28 16:56:38.387 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
+2025-08-28 16:56:38.405 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
+2025-08-28 16:56:38.427 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
+2025-08-28 16:56:38.434 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-08-28 16:56:38.434 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-08-28 16:56:39.042 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
+2025-08-28 16:56:39.146 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
+2025-08-28 16:56:39.146 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
+2025-08-28 16:56:39.146 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
+2025-08-28 16:56:39.146 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
+2025-08-28 16:56:39.146 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
+2025-08-28 16:56:39.171 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
+2025-08-28 16:56:39.172 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
+2025-08-28 16:56:39.579 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2025-08-28 16:56:39.607 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2025-08-28 16:56:39.607 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 9.577 seconds (process running for 10.029)
+2025-08-28 16:56:46.290 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-28 16:56:46.291 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-08-28 16:56:46.294 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-08-28 16:56:46.337 [http-nio-8081-exec-1] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /actuator/health
+2025-08-28 16:56:46.454 [http-nio-8081-exec-1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [puffin.rmq2.cloudamqp.com:5671]
+2025-08-28 16:56:46.993 [http-nio-8081-exec-1] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#709353b9:0/SimpleConnection@2f84c058 [delegate=amqp://dnqrhfau@15.206.140.228:5671/dnqrhfau, localPort=9779]
+2025-08-28 16:56:47.722 [http-nio-8081-exec-2] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /.well-known/appspecific/com.chrome.devtools.json
+2025-08-28 16:56:47.753 [http-nio-8081-exec-2] WARN  c.g.a.s.JwtAuthenticationEntryPoint - Unauthorized access attempt - URI: /.well-known/appspecific/com.chrome.devtools.json, Message: Full authentication is required to access this resource
+2025-08-28 16:56:48.013 [http-nio-8081-exec-3] DEBUG c.g.a.s.JwtAuthenticationFilter - No JWT token found in request headers for URI: /favicon.ico
+2025-08-28 16:56:48.018 [http-nio-8081-exec-3] WARN  c.g.a.s.JwtAuthenticationEntryPoint - Unauthorized access attempt - URI: /favicon.ico, Message: Full authentication is required to access this resource

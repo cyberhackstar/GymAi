@@ -49,3 +49,12 @@ logging:
   level:
     root: INFO
     com.gymai.auth_service: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

@@ -44,7 +44,9 @@ public class SecurityConfig {
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin().disable() // 🚀 Prevents redirect to login page
+                .httpBasic().disable(); // 🚀 Disables default basic auth popup
 
         return http.build();
     }
@@ -59,7 +61,8 @@ public class SecurityConfig {
         log.info("Setting up global CORS configuration...");
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(
-                List.of("http://localhost:4200", "http://localhost:3000", "https://gymai.neelahouse.cloud"));
+                List.of("http://localhost:4200", "https://gymaibybhawesh.netlify.app",
+                        "https://gymai.neelahouse.cloud"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);

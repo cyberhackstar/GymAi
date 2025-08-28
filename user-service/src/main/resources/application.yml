@@ -53,3 +53,12 @@ rabbit:
   exchange: gym.exchange
   routing-key: user.event
   queue: user.events.queue
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always

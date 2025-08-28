@@ -50,3 +50,12 @@ spoonacular:
   api-url: https://api.spoonacular.com
   api:
     key: 37dbf57de68f4d79967bf7ac9c0490e5
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
