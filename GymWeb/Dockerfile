@@ -45,15 +45,13 @@ RUN npm ci --silent
 # Copy source files
 COPY . .
 
-# Build Angular app using npx (uses local Angular CLI v20)
+# Build Angular app using npx (Angular 20+ compatible flags)
 RUN npx ng build \
     --configuration=production \
-    --optimization=true \
-    --aot=true \
-    --build-optimizer=true \
+    --optimization \
+    --output-hashing=all \
     --extract-licenses=false \
-    --source-map=false \
-    --output-hashing=all
+    --source-map=false
 
 # ---------- NGINX Stage ----------
 FROM nginx:1.27-alpine
