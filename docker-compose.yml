@@ -1,3 +1,80 @@
+# version: "3.9"
+
+# services:
+#   # ---------- Spring Boot Services ----------
+#   auth-service:
+#     build:
+#       context: ./auth-service
+#       dockerfile: Dockerfile
+#     container_name: auth-service
+#     networks:
+#       - shared_net
+#     environment:
+#       SPRING_PROFILES_ACTIVE: prod
+#       SERVER_PORT: 8080
+#       # DB_URL: jdbc:postgresql://postgres:5432/gymdb
+#       # DB_USERNAME: postgres
+#       # DB_PASSWORD: postgres
+#       CLOUDAMQP_URL: amqps://dnqr:Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau
+#       # KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+#     restart: always
+
+#   user-service:
+#     build:
+#       context: ./user-service
+#       dockerfile: Dockerfile
+#     container_name: user-service
+#     networks:
+#       - shared_net
+#     environment:
+#       # SPRING_PROFILES_ACTIVE: prod
+#       # DB_URL: jdbc:postgresql://localhost:5432/gymdb
+#       # SPRING_DATASOURCE_USERNAME: postgres
+#       # SPRING_DATASOURCE_PASSWORD: postgres
+#       # KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+#       CLOUDAMQP_URL: amqps://dnq:2Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau
+#       ADMIN_URL: http://auth-service:8080
+#     restart: always
+
+#   plan-service:
+#     build:
+#       context: ./plan-service
+#       dockerfile: Dockerfile
+#     container_name: plan-service
+#     networks:
+#       - shared_net
+#     environment:
+#       # SPRING_PROFILES_ACTIVE: prod
+#       # DB_URL: jdbc:postgresql://postgres:5432/gymdb
+#       # DB_USERNAME: postgres
+#       # DB_PASSWORD: postgres
+#       # AI_SERVICE_URL: http://ai-service:8000
+#     restart: always
+
+#   # ---------- FastAPI AI Service ----------
+#   # ai-service:
+#   #   build:
+#   #     context: ./ai-service
+#   #     dockerfile: Dockerfile
+#   #   container_name: ai-service
+#   #   networks:
+#   #     - shared_net
+#   #   restart: always
+
+#   # ---------- Angular Frontend ----------
+#   frontend:
+#     build:
+#       context: ./GymWeb
+#       dockerfile: Dockerfile
+#     container_name: gym-frontend
+#     networks:
+#       - shared_net
+#     restart: always
+
+# networks:
+#   shared_net:
+#     external: true
+
 version: "3.9"
 
 services:
@@ -12,12 +89,46 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SERVER_PORT: 8080
-      # DB_URL: jdbc:postgresql://postgres:5432/gymdb
-      # DB_USERNAME: postgres
-      # DB_PASSWORD: postgres
       CLOUDAMQP_URL: amqps://dnqrhfau:MW512Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau
-      # KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      # JVM Memory settings
+      JAVA_OPTS: >-
+        -server
+        -XX:+UseContainerSupport
+        -XX:MaxRAMPercentage=25.0
+        -XX:+UseG1GC
+        -XX:+UseStringDeduplication
+        -Xss256k
+        -XX:MetaspaceSize=96m
+        -XX:MaxMetaspaceSize=256m
+        -Djava.security.egd=file:/dev/./urandom
     restart: always
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:8080/actuator/health",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: "1.0"
+        reservations:
+          memory: 512M
+          cpus: "0.5"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   user-service:
     build:
@@ -27,14 +138,49 @@ services:
     networks:
       - shared_net
     environment:
-      # SPRING_PROFILES_ACTIVE: prod
-      # DB_URL: jdbc:postgresql://localhost:5432/gymdb
-      # SPRING_DATASOURCE_USERNAME: postgres
-      # SPRING_DATASOURCE_PASSWORD: postgres
-      # KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       CLOUDAMQP_URL: amqps://dnqrhfau:MW512Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau
       ADMIN_URL: http://auth-service:8080
+      JAVA_OPTS: >-
+        -server
+        -XX:+UseContainerSupport
+        -XX:MaxRAMPercentage=25.0
+        -XX:+UseG1GC
+        -XX:+UseStringDeduplication
+        -Xss256k
+        -XX:MetaspaceSize=96m
+        -XX:MaxMetaspaceSize=256m
+        -Djava.security.egd=file:/dev/./urandom
     restart: always
+    depends_on:
+      auth-service:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:8080/actuator/health",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: "1.0"
+        reservations:
+          memory: 512M
+          cpus: "0.5"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   plan-service:
     build:
@@ -44,14 +190,47 @@ services:
     networks:
       - shared_net
     environment:
-      # SPRING_PROFILES_ACTIVE: prod
-      # DB_URL: jdbc:postgresql://postgres:5432/gymdb
-      # DB_USERNAME: postgres
-      # DB_PASSWORD: postgres
-      # AI_SERVICE_URL: http://ai-service:8000
+      JAVA_OPTS: >-
+        -server
+        -XX:+UseContainerSupport
+        -XX:MaxRAMPercentage=20.0
+        -XX:+UseG1GC
+        -XX:+UseStringDeduplication
+        -Xss256k
+        -XX:MetaspaceSize=96m
+        -XX:MaxMetaspaceSize=256m
+        -Djava.security.egd=file:/dev/./urandom
     restart: always
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:8080/actuator/health",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 800M
+          cpus: "0.8"
+        reservations:
+          memory: 400M
+          cpus: "0.3"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
-  # ---------- FastAPI AI Service ----------
+  # ---------- FastAPI AI Service (Commented for Pi optimization) ----------
+  # Uncomment when you need AI features and have sufficient resources
   # ai-service:
   #   build:
   #     context: ./ai-service
@@ -60,17 +239,58 @@ services:
   #   networks:
   #     - shared_net
   #   restart: always
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 1G
+  #         cpus: '1.0'
 
   # ---------- Angular Frontend ----------
   frontend:
     build:
       context: ./GymWeb
       dockerfile: Dockerfile
+      args:
+        - NODE_OPTIONS=--max_old_space_size=2048
     container_name: gym-frontend
     networks:
       - shared_net
     restart: always
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:80/",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: "0.5"
+        reservations:
+          memory: 128M
+          cpus: "0.2"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "2"
 
 networks:
   shared_net:
     external: true
+
+# Optional: Add volume for better performance
+volumes:
+  maven_cache:
+    driver: local
+  npm_cache:
+    driver: local
