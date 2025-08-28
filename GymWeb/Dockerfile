@@ -40,7 +40,10 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN npm ci --only=production --silent
+RUN npm ci --silent
+
+# Install Angular CLI globally (needed for ng command)
+RUN npm install -g @angular/cli@latest
 
 # Copy source files
 COPY . .
