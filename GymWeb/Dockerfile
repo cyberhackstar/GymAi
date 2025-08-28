@@ -62,45 +62,14 @@ RUN apk update && apk upgrade && rm -rf /var/cache/apk/*
 # Remove default NGINX static files
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copy custom nginx configuration for SPA
-COPY <<EOF /etc/nginx/conf.d/default.conf
-server {
-    listen 80;
-    server_name _;
-    root /usr/share/nginx/html;
-    index index.html;
+# ---------- NGINX Stage ----------
+FROM nginx:1.27-alpine
 
-    # Gzip compression
-    gzip on;
-    gzip_vary on;
-    gzip_min_length 1000;
-    gzip_proxied expired no-cache no-store private auth;
-    gzip_types
-        text/plain
-        text/css
-        text/xml
-        text/javascript
-        application/javascript
-        application/xml+rss
-        application/json;
+# Install security updates
+RUN apk update && apk upgrade && rm -rf /var/cache/apk/*
 
-    # Security headers
-    add_header X-Frame-Options "SAMEORIGIN" always;
-    add_header X-XSS-Protection "1; mode=block" always;
-    add_header X-Content-Type-Options "nosniff" always;
-
-    # Cache static assets
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2)$ {
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-    }
-
-    # Angular routing fallback
-    location / {
-        try_files \$uri \$uri/ /index.html;
-    }
-}
-EOF
+# Remove default NGINX static files
+RUN rm -rf /usr/share/nginx/html/*
 
 # Copy Angular production build output from builder stage
 COPY --from=builder /app/dist/GymWeb/browser/ /usr/share/nginx/html/
