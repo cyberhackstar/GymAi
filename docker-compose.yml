@@ -190,6 +190,7 @@ services:
     networks:
       - shared_net
     environment:
+      CLOUDAMQP_URL: amqps://dnqrhfau:MW512Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau
       JAVA_OPTS: >-
         -server
         -XX:+UseContainerSupport
