@@ -38,24 +38,22 @@ ENV NPM_CONFIG_LOGLEVEL=warn
 
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package files and install dependencies (INCLUDING devDependencies for build)
 COPY package*.json ./
 RUN npm ci --silent
-
-# Install Angular CLI globally (needed for ng command)
-RUN npm install -g @angular/cli@latest
 
 # Copy source files
 COPY . .
 
-# Build Angular app with optimizations
-RUN npm run build -- \
+# Build Angular app using npx (uses local Angular CLI v20)
+RUN npx ng build \
     --configuration=production \
     --optimization=true \
     --aot=true \
     --build-optimizer=true \
     --extract-licenses=false \
-    --source-map=false
+    --source-map=false \
+    --output-hashing=all
 
 # ---------- NGINX Stage ----------
 FROM nginx:1.27-alpine
