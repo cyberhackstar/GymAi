@@ -1,12 +1,12 @@
 
-package com.gym.progress.kafka;
+package com.gymai.tracking_service.kafka;
 
-import com.gym.progress.entity.Progress;
-import com.gym.progress.service.ProgressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gymai.tracking_service.entity.Progress;
+import com.gymai.tracking_service.service.ProgressService;
 
 @Service
 public class ProgressConsumer {

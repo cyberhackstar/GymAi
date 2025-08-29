@@ -17,6 +17,7 @@ import {
   LoginResponse,
   RegisterRequest,
 } from '../../models/auth.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -120,5 +121,20 @@ export class Register {
           err?.error?.message || 'Registration failed. Try again.';
       },
     });
+  }
+
+  // auth.component.ts (or wherever your login buttons are)
+  loginWithGoogle(): void {
+    const redirectUri = encodeURIComponent(
+      window.location.origin + '/oauth-callback'
+    );
+    window.location.href = `${environment.authUrl}/oauth2/authorization/google?redirect_uri=${redirectUri}`;
+  }
+
+  loginWithGitHub(): void {
+    const redirectUri = encodeURIComponent(
+      window.location.origin + '/oauth-callback'
+    );
+    window.location.href = `${environment.authUrl}/oauth2/authorization/github?redirect_uri=${redirectUri}`;
   }
 }

@@ -13,6 +13,9 @@ import { Contact } from './contact/contact';
 import { DefaultDashboard } from './dashboard/default-dashboard/default-dashboard';
 import { AboutUs } from './about-us/about-us';
 import { WhyChooseUs } from './dashboard/why-choose-us/why-choose-us';
+import { OAuthCallbackComponent } from './auth/OAuthCallbackComponent';
+import { Team } from './team/team';
+import { Services } from './services/services';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'default', pathMatch: 'full' },
@@ -25,7 +28,10 @@ export const routes: Routes = [
   { path: 'contact', component: Contact },
   { path: 'default', component: DefaultDashboard },
   { path: 'about', component: AboutUs },
-  { path: 'services', component: WhyChooseUs },
+  { path: 'whyChooseUs', component: WhyChooseUs },
+  { path: 'oauth-callback', component: OAuthCallbackComponent },
+  { path: 'team', component: Team },
+  { path: 'services', component: Services },
 
   // User Routes (Protected in real setup)
   { path: 'dashboard', component: UserDashboard },

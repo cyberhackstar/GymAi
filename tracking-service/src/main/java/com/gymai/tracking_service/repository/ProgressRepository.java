@@ -1,8 +1,10 @@
 
-package com.gym.progress.repository;
+package com.gymai.tracking_service.repository;
 
-import com.gym.progress.entity.Progress;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.gymai.tracking_service.entity.Progress;
+
 import java.util.List;
 
 public interface ProgressRepository extends JpaRepository<Progress, Long> {

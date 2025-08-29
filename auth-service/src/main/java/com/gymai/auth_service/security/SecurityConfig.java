@@ -34,6 +34,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final JwtAuthenticationEntryPoint authEntryPoint;
     private final UserDetailsService userDetailsService;
+    private final OAuth2LoginSuccessHandler oauth2LoginSuccessHandler; // ✅ constructor injected
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -50,7 +51,7 @@ public class SecurityConfig {
                 })
                 .authorizeHttpRequests(auth -> {
                     logger.debug("Configuring authorized endpoints");
-                    auth.requestMatchers("/api/auth/**", "/error", "/actuator/**").permitAll();
+                    auth.requestMatchers("/api/auth/**", "/error", "/actuator/**", "/oauth2/**").permitAll();
                     auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
@@ -58,13 +59,17 @@ public class SecurityConfig {
                     logger.debug("Setting authentication entry point");
                     eh.authenticationEntryPoint(authEntryPoint);
                 })
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .successHandler(oauth2LoginSuccessHandler) // ✅ wired via constructor
+                        .failureUrl("/login?error=true"))
                 .sessionManagement(session -> {
                     logger.debug("Setting stateless session management");
                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 })
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .formLogin(form -> form.disable()) // 🚀 disable login page
+                .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
                 .build();
     }
@@ -94,8 +99,11 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         logger.info("Configuring CORS");
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200", "https://gymaibybhawesh.netlify.app",
-                "https://gymai.neelahouse.cloud", "https://gym-ai.vercel.app"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:4200",
+                "https://gymaibybhawesh.netlify.app",
+                "https://gymai.neelahouse.cloud",
+                "https://gym-ai.vercel.app"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);

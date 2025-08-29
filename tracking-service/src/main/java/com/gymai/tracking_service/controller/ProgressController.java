@@ -1,8 +1,10 @@
 
-package com.gym.progress.controller;
+package com.gymai.tracking_service.controller;
 
-import com.gym.progress.entity.Progress;
-import com.gym.progress.service.ProgressService;
+import com.gymai.*;
+import com.gymai.tracking_service.entity.Progress;
+import com.gymai.tracking_service.service.ProgressService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

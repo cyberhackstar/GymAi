@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRegistrationEvent {
+public class UserEvent {
     private String email;
-    private String username;
+    private String name;
+    private String eventType;
 }

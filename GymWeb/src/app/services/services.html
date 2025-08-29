@@ -1,0 +1,163 @@
+<div class="services-wrapper">
+  <!-- Header Section -->
+  <div class="services-header">
+    <div class="container">
+      <div class="header-content">
+        <h1>Our <span class="highlight">Services</span></h1>
+        <p class="tagline">
+          Transform your fitness journey with AI-powered personalized solutions.
+          From custom workout plans to nutrition guidance, we've got everything
+          you need to reach your goals.
+        </p>
+
+        <!-- Service Stats -->
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-icon">
+              <mat-icon>fitness_center</mat-icon>
+            </div>
+            <div class="stat-value">10K+</div>
+            <div class="stat-label">Workout Plans</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">
+              <mat-icon>restaurant</mat-icon>
+            </div>
+            <div class="stat-value">5K+</div>
+            <div class="stat-label">Diet Plans</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">
+              <mat-icon>trending_up</mat-icon>
+            </div>
+            <div class="stat-value">95%</div>
+            <div class="stat-label">Success Rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Services Grid -->
+  <div class="services-content">
+    <div class="container">
+      <div class="services-grid">
+        <div
+          class="service-card featured"
+          *ngFor="let service of services; let i = index"
+          [class.featured]="service.featured"
+          (click)="onServiceClick(service)"
+          [style.animation-delay.ms]="i * 100"
+        >
+          <div class="service-header">
+            <div class="service-icon" [ngClass]="service.iconClass">
+              <mat-icon>{{ service.icon }}</mat-icon>
+            </div>
+            <div class="service-badge" *ngIf="service.popular">
+              <span>Most Popular</span>
+            </div>
+          </div>
+
+          <div class="service-content">
+            <h3>{{ service.title }}</h3>
+            <p class="service-description">{{ service.description }}</p>
+
+            <div class="service-features">
+              <div
+                class="feature-item"
+                *ngFor="let feature of service.features"
+              >
+                <mat-icon class="feature-check">check_circle</mat-icon>
+                <span>{{ feature }}</span>
+              </div>
+            </div>
+
+            <div class="service-pricing" *ngIf="service.pricing">
+              <div class="price">
+                <span class="currency">$</span>
+                <span class="amount">{{ service.pricing.amount }}</span>
+                <span class="period">/{{ service.pricing.period }}</span>
+              </div>
+              <div class="price-note" *ngIf="service.pricing.note">
+                {{ service.pricing.note }}
+              </div>
+            </div>
+
+            <div class="service-actions">
+              <button
+                class="btn-primary"
+                (click)="onGetStarted(service, $event)"
+              >
+                {{ service.ctaText || "Get Started" }}
+              </button>
+              <button
+                class="btn-secondary"
+                (click)="onLearnMore(service, $event)"
+              >
+                Learn More
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Features Section -->
+      <div class="additional-features">
+        <h2>Why Choose <span class="highlight">GymAI</span>?</h2>
+        <div class="features-grid">
+          <div class="feature-card" *ngFor="let feature of additionalFeatures">
+            <div class="feature-icon">
+              <mat-icon>{{ feature.icon }}</mat-icon>
+            </div>
+            <h4>{{ feature.title }}</h4>
+            <p>{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- How It Works Section -->
+      <div class="how-it-works">
+        <h2>How It <span class="highlight">Works</span></h2>
+        <div class="steps-container">
+          <div class="step-item" *ngFor="let step of howItWorks; let i = index">
+            <div class="step-number">{{ i + 1 }}</div>
+            <div class="step-content">
+              <div class="step-icon">
+                <mat-icon>{{ step.icon }}</mat-icon>
+              </div>
+              <h4>{{ step.title }}</h4>
+              <p>{{ step.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="cta-section">
+        <div class="cta-card">
+          <h2>
+            Ready to Start Your <span class="highlight">Fitness Journey</span>?
+          </h2>
+          <p>
+            Join thousands of users who have transformed their lives with GymAI.
+            Get personalized AI-powered fitness solutions tailored just for you.
+          </p>
+          <div class="cta-buttons">
+            <button class="btn-primary large" (click)="onStartFreeTrialClick()">
+              Start Free Trial
+            </button>
+            <button class="btn-secondary large" (click)="onContactUsClick()">
+              Contact Us
+            </button>
+          </div>
+          <div class="trial-note">
+            <mat-icon>info</mat-icon>
+            <span
+              >7-day free trial • No credit card required • Cancel anytime</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

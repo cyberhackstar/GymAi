@@ -1,41 +1,50 @@
 <section class="contact-section spad">
   <div class="container">
-    <div class="row">
-      <!-- Contact Info -->
-      <div class="col-lg-6 mb-5 mb-lg-0">
-        <div class="section-title contact-title">
-          <span>Contact Us</span>
-          <h2>GET IN TOUCH</h2>
-        </div>
-        <div class="contact-widget">
-          <div class="cw-text">
-            <i class="fa fa-map-marker"></i>
+    <!-- Title -->
+    <div class="section-title contact-title text-center">
+      <!-- <span>Contact Us</span> -->
+      <h2 class="underline-animate">
+        GET IN <span class="highlight">TOUCH</span>
+      </h2>
+    </div>
 
-            <a
-              href="https://www.google.com/maps/place/Sanganer+Thana+Flyover,+Jaipur,+Rajasthan+302029"
-              target="_blank"
-            >
-              84 Thane Tonk Rd, Jaipur,<br />RJ 302029
-            </a>
+    <div class="row mt-5">
+      <!-- Contact Info -->
+
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="contact-card glass-card">
+          <!-- Header inside card -->
+          <div class="contact-card-header text-center">
+            <i class="fa fa-comments"></i>
+            <h4>Let’s Connect</h4>
+            <p>We’d love to hear from you! Reach us through any of these:</p>
           </div>
-          <div class="cw-text">
-            <i class="fa fa-mobile"></i>
-            <ul>
-              <li><a href="tel:+917742261033">7742261033</a></li>
-            </ul>
-          </div>
-          <div class="cw-text email">
-            <i class="fa fa-envelope"></i>
-            <p>
+
+          <div class="contact-widget">
+            <div class="cw-text">
+              <i class="fa fa-map-marker"></i>
+              <a
+                href="https://www.google.com/maps/place/Sanganer+Thana+Flyover,+Jaipur,+Rajasthan+302029"
+                target="_blank"
+              >
+                84 Thane Tonk Rd, Jaipur,<br />RJ 302029
+              </a>
+            </div>
+            <div class="cw-text">
+              <i class="fa fa-mobile"></i>
+              <a href="tel:+917742261033">+91 77422 61033</a>
+            </div>
+            <div class="cw-text">
+              <i class="fa fa-envelope"></i>
               <a href="mailto:gymai@neelahouse.cloud">gymai@neelahouse.cloud</a>
-            </p>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Contact Form -->
       <div class="col-lg-6">
-        <div class="leave-comment">
+        <div class="glass-card leave-comment">
           <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
             <input
               type="text"
@@ -72,7 +81,6 @@
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4090.077975496513!2d75.793653535837!3d26.820227794771828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396dcbdfbd846b3d%3A0x61fa6ed9ecb0db25!2sQ.No.1%2F7%2C%20Tonk%20Rd%2C%20near%20Treebo%20Dream%20Palace%2C%20Airport%20Colony%2C%20Sanganer%2C%20Jaipur%2C%20Rajasthan%20302029!5e0!3m2!1sen!2sin!4v1754674903838!5m2!1sen!2sin"
         width="100%"
         height="450"
-        style="border: 0"
         allowfullscreen=""
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"

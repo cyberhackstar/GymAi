@@ -20,13 +20,16 @@ export class AuthService {
    * Calls backend login endpoint
    */
   login(payload: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.BASE_URL}/login`, payload);
+    return this.http.post<LoginResponse>(
+      `${this.BASE_URL}/api/auth/login`,
+      payload
+    );
   }
 
   /**
    * Calls backend register endpoint
    */
   register(payload: RegisterRequest): Observable<any> {
-    return this.http.post<any>(`${this.BASE_URL}/register`, payload);
+    return this.http.post<any>(`${this.BASE_URL}/api/auth/register`, payload);
   }
 }

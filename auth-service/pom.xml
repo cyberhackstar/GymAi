@@ -32,6 +32,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
 <artifactId>spring-boot-starter-web</artifactId>
 </dependency>
 
+<!-- OAuth2 Client -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-oauth2-client</artifactId>
+    </dependency>
 
 <!-- Spring Boot Security -->
 <dependency>

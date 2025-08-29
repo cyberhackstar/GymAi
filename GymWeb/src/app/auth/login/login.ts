@@ -1,3 +1,4 @@
+// login.component.ts
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -13,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../core/services/auth';
 import { LoginRequest, LoginResponse } from '../../models/auth.model';
 import { UserProfileService } from '../../core/services/user';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -60,11 +62,9 @@ export class Login {
     this.authService.login(payload).subscribe({
       next: (res: LoginResponse) => {
         if (res && res.accessToken && res.refreshToken) {
-          // ✅ Save both tokens
           this.tokenService.setToken(res.accessToken);
           this.tokenService.setRefreshToken(res.refreshToken);
 
-          // ✅ Check if profile is completed
           this.userService.isProfileCompleted().subscribe({
             next: (completed) => {
               if (completed) {
@@ -86,5 +86,20 @@ export class Login {
         this.errorMessage = 'Invalid credentials. Please try again.';
       },
     });
+  }
+
+  // auth.component.ts (or wherever your login buttons are)
+  loginWithGoogle(): void {
+    const redirectUri = encodeURIComponent(
+      window.location.origin + '/oauth-callback'
+    );
+    window.location.href = `${environment.authUrl}/oauth2/authorization/google?redirect_uri=${redirectUri}`;
+  }
+
+  loginWithGitHub(): void {
+    const redirectUri = encodeURIComponent(
+      window.location.origin + '/oauth-callback'
+    );
+    window.location.href = `${environment.authUrl}/oauth2/authorization/github?redirect_uri=${redirectUri}`;
   }
 }

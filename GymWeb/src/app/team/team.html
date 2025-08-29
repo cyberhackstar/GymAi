@@ -1,0 +1,140 @@
+<div class="team-wrapper">
+  <!-- Header Section -->
+  <div class="team-header">
+    <div class="container">
+      <div class="header-content">
+        <h1>Meet Our <span class="highlight">Team</span></h1>
+        <p class="tagline">
+          Passionate experts dedicated to revolutionizing fitness through AI
+          technology. Our diverse team combines expertise in artificial
+          intelligence, fitness science, and user experience.
+        </p>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-icon">
+              <span class="material-icons">group</span>
+            </div>
+            <div class="stat-value">50+</div>
+            <div class="stat-label">Team Members</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">
+              <span class="material-icons">military_tech</span>
+            </div>
+            <div class="stat-value">100+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">
+              <span class="material-icons">track_changes</span>
+            </div>
+            <div class="stat-value">1M+</div>
+            <div class="stat-label">Users Helped</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Grid -->
+  <div class="team-content">
+    <div class="container">
+      <div class="team-grid">
+        <div
+          class="team-card"
+          *ngFor="let member of teamMembers"
+          (click)="handleTeamMemberClick(member)"
+        >
+          <div class="member-image">
+            <img [src]="member.image" [alt]="member.name" loading="lazy" />
+            <div class="image-overlay"></div>
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">{{ member.name }}</h3>
+            <p class="member-position">{{ member.position }}</p>
+            <p class="member-bio">{{ member.bio }}</p>
+            <div class="specialties">
+              <span
+                class="specialty-tag"
+                *ngFor="let specialty of member.specialties"
+                >{{ specialty }}</span
+              >
+            </div>
+            <div class="social-links">
+              <a
+                *ngFor="let social of member.social | keyvalue"
+                [href]="social.value"
+                class="social-link {{ social.key }}"
+                [attr.aria-label]="member.name + ' ' + social.key"
+                target="_blank"
+              >
+                <span class="material-icons">{{
+                  getIconForSocial(social.key)
+                }}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Join Team Section -->
+      <div class="join-team-section">
+        <div class="join-team-card">
+          <h2>Want to Join Our <span class="highlight">Team?</span></h2>
+          <p>
+            We're always looking for talented individuals who share our passion
+            for fitness and technology. Help us shape the future of AI-powered
+            fitness.
+          </p>
+          <div class="join-buttons">
+            <button class="btn-primary" (click)="handleViewPositionsClick()">
+              View Open Positions
+            </button>
+            <button class="btn-secondary" (click)="handleSendResumeClick()">
+              Send Resume
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Company Values -->
+      <div class="values-section">
+        <h2>Our <span class="highlight">Values</span></h2>
+        <div class="values-grid">
+          <div class="value-item">
+            <div class="value-icon">
+              <span class="material-icons">track_changes</span>
+            </div>
+            <h3>Innovation First</h3>
+            <p>
+              We continuously push boundaries to create cutting-edge AI
+              solutions that transform how people approach fitness.
+            </p>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">
+              <span class="material-icons">group</span>
+            </div>
+            <h3>User Focused</h3>
+            <p>
+              Every decision we make is guided by our commitment to delivering
+              exceptional user experiences and results.
+            </p>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">
+              <span class="material-icons">military_tech</span>
+            </div>
+            <h3>Excellence</h3>
+            <p>
+              We strive for excellence in everything we do, from code quality to
+              customer support and beyond.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

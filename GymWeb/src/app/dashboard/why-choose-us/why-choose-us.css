@@ -31,7 +31,7 @@
   background: #1a1a1a;
   padding: 30px 20px;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.08);
+  box-shadow: 7px 7px 30px rgb(97 97 97 / 50%);
   transition: all 0.3s ease;
 }
 .cs-item:hover {

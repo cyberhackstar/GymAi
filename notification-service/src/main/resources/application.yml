@@ -1,30 +1,63 @@
-server:
-  port: 8085
-
+# application.yml
 spring:
   application:
     name: notification-service
 
+  # RabbitMQ Configuration (matches your existing setup)
+  rabbitmq:
+    addresses: ${CLOUDAMQP_URL:amqps://dnqrhfau:MW512Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau}
+    ssl:
+      enabled: true # CloudAMQP requires SSL
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1000
+          max-attempts: 3
+          multiplier: 2
+        acknowledge-mode: auto
+        prefetch: 10
+
+  # Email Configuration (Gmail example - adjust as needed)
   mail:
     host: smtp.gmail.com
     port: 587
-    username: sharma2001bhawesh@gmail.com
-    password: kfncuvodviuqtrha
+    username: ${GMAIL_USERNAME:sharma2001bhawesh@gmail.com}
+    password: ${GMAIL_APP_PASSWORD:kfncuvodviuqtrha}
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
+            required: true
+        debug: false
 
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: notification-service-group
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: "*"
+# Event Configuration (matches your existing setup)
+event:
+  exchange: ${EVENT_EXCHANGE:gymai.events}
+  queue:
+    email: ${EMAIL_QUEUE:gymai.email.queue}
+  routing:
+    registration: ${REGISTRATION_ROUTING_KEY:user.registration}
+    login: ${LOGIN_ROUTING_KEY:user.login}
+    order: ${ORDER_ROUTING_KEY:order.created}
+    password-reset: ${PASSWORD_RESET_ROUTING_KEY:user.password.reset}
+
+# App Configuration
+app:
+  name: ${APP_NAME:GymAI}
+
+# Logging
+logging:
+  file:
+    name: ${LOG_FILE:logs/notification-service.log}
+  level:
+    com.gymai.email_service: DEBUG
+    org.springframework.amqp: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# Server Configuration
+server:
+  port: ${PORT:8084}

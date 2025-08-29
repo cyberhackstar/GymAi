@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserEvent {
   private String email;
-  private String username;
+  private String name;
   private String eventType; // e.g., "REGISTRATION" or "LOGIN"
 }

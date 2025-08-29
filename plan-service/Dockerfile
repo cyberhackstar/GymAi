@@ -205,7 +205,6 @@ RUN --mount=type=cache,target=/root/.m2/repository \
 COPY src ./src
 
 # Build the application, skipping tests
-# Use a bind mount to leverage host caching for the build process
 RUN --mount=type=cache,target=/root/.m2/repository \
     mvn clean package -B -DskipTests=true
 
@@ -219,6 +218,9 @@ FROM eclipse-temurin:21-jre-alpine AS runtime
 # Install essential tools and create a non-root user
 RUN apk add --no-cache dumb-init curl && \
     adduser -D -g 'spring' spring
+
+# Correctly create the application and logs directories with proper permissions
+RUN mkdir -p /app/logs && chown -R spring:spring /app
 
 # Set working directory and copy the layered application files
 WORKDIR /app
@@ -248,3 +250,13 @@ HEALTHCHECK --interval=20s --timeout=5s --start-period=45s --retries=3 \
 
 # Start the application using dumb-init for proper signal handling
 ENTRYPOINT ["dumb-init", "--", "java", "org.springframework.boot.loader.launch.JarLauncher"]
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,5 @@
 
-package com.gym.progress.entity;
+package com.gymai.tracking_service.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

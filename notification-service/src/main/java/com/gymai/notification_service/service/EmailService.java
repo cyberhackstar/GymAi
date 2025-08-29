@@ -1,30 +1,15 @@
 package com.gymai.notification_service.service;
 
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
+import com.gymai.notification_service.dto.EmailTemplate;
 
-import lombok.RequiredArgsConstructor;
+public interface EmailService {
+    void sendEmail(EmailTemplate emailTemplate);
 
-@Service
-@RequiredArgsConstructor
-public class EmailService {
+    void sendWelcomeEmail(String email, String name);
 
-    private final JavaMailSender mailSender;
+    void sendLoginNotificationEmail(String email, String name);
 
-    public void sendEmail(String to, String subject, String message) {
-        SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(to);
-        mail.setSubject(subject);
-        mail.setText(message);
-        mailSender.send(mail);
-    }
+    void sendOrderConfirmationEmail(String email, String name);
 
-    // New method for registration success email
-    public void sendRegistrationSuccessEmail(String to, String username) {
-        String subject = "Welcome to GymAI!";
-        String message = "Hi " + username
-                + ",\n\nThank you for registering with GymAI. Your account has been created successfully.\n\nLet's get fit together!\n\nBest regards,\nGymAI Team";
-        sendEmail(to, subject, message);
-    }
+    void sendPasswordResetEmail(String email, String name);
 }

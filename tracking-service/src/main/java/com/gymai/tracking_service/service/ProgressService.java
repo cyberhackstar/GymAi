@@ -1,10 +1,12 @@
 
-package com.gym.progress.service;
+package com.gymai.tracking_service.service;
 
-import com.gym.progress.entity.Progress;
-import com.gym.progress.repository.ProgressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.gymai.tracking_service.entity.Progress;
+import com.gymai.tracking_service.repository.ProgressRepository;
+
 import java.util.List;
 
 @Service

@@ -100,6 +100,71 @@
   color: #ff4c4c;
 }
 
+/* OAuth Buttons */
+.oauth-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.oauth-btn {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background-color: #222;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.oauth-btn:hover {
+  background-color: #333;
+  border-color: #555;
+  transform: translateY(-1px);
+}
+
+.oauth-btn.google:hover {
+  border-color: #4285f4;
+  background-color: rgba(66, 133, 244, 0.1);
+}
+
+.oauth-btn.github:hover {
+  border-color: #333;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.oauth-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.oauth-divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  color: #666;
+}
+
+.oauth-divider::before,
+.oauth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #333;
+}
+
+.oauth-divider span {
+  padding: 0 1rem;
+  font-size: 0.85rem;
+}
+
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -270,5 +335,9 @@ button[type="submit"]:disabled {
 
   .login-left img {
     width: 51%;
+  }
+
+  .oauth-buttons {
+    flex-direction: column;
   }
 }

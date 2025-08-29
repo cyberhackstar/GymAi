@@ -39,6 +39,11 @@ a {
   font-family: "Trade Winds", cursive;
 }
 
+.highlight {
+  background: linear-gradient(90deg, #ff0000, #cd0101);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 /* NAVIGATION MENU */
 .nav-menu ul {
   display: flex;

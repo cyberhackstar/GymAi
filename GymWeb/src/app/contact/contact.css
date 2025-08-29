@@ -1,70 +1,120 @@
+/* Section Background */
 .contact-section {
   padding: 80px 0;
   background: #0d0d0d;
   color: #e0e0e0;
 }
 
-.contact-title span {
+/* Title */
+/* .contact-title span {
   color: #ff4c4c;
   font-weight: bold;
   text-transform: uppercase;
+} */
+
+.highlight {
+  background: linear-gradient(90deg, #ff0000, #cd0101);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .contact-title h2 {
   margin-top: 10px;
-  margin-bottom: 34px;
-  color: #ffffff;
   font-size: 32px;
+  color: #ffffff;
 }
 
+/* Underline animation */
+.underline-animate {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+.underline-animate::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: #ff4c4c;
+  border-radius: 2px;
+  transition: all 0.4s ease;
+  transform: translateX(-50%);
+}
+
+.underline-animate:hover::after {
+  width: 60%;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: -webkit-fill-available;
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Contact Info */
 .contact-widget .cw-text {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  color: #d0d0d0;
+  font-size: 16px;
+  margin-left: 14%;
 }
 
-.contact-widget a {
-  text-decoration: none;
-  cursor: pointer;
-  color: #d0d0d0;
+.contact-widget {
+  width: auto;
 }
 
-.cw-text i {
-  font-size: 20px;
+.contact-widget i {
+  font-size: 22px;
   color: #ff4c4c;
   margin-right: 15px;
 }
 
-.cw-text ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.contact-widget a {
+  text-decoration: none;
+  color: #d0d0d0;
+  transition: color 0.3s ease;
 }
 
-.cw-text p,
-.cw-text li {
-  color: #cccccc;
+.contact-widget a:hover {
+  color: #ffffff;
 }
 
+/* Form */
 .leave-comment form input,
 .leave-comment form textarea {
   width: 100%;
   margin-bottom: 20px;
   padding: 12px 20px;
   border-radius: 10px;
-  border: 1px solid #333;
-  background-color: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.05);
   color: #ffffff;
   font-size: 16px;
   box-shadow: none;
-  transition: border 0.3s ease;
+  transition: border 0.3s ease, background 0.3s ease;
 }
 
 .leave-comment form input:focus,
 .leave-comment form textarea:focus {
   border: 1px solid #ff4c4c;
   outline: none;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .leave-comment form button {
@@ -76,18 +126,45 @@
   cursor: pointer;
   font-weight: bold;
   font-size: 16px;
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 24px rgba(255, 76, 76, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .leave-comment form button:hover {
   background-color: #d42d2d;
   transform: translateY(-6px);
-  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 15px 40px rgba(255, 76, 76, 0.5);
 }
 
+/* Map */
 .map iframe {
   border: none;
   width: 100%;
   filter: grayscale(20%) brightness(0.9);
+  border-radius: 20px;
+  margin-top: 40px;
+}
+
+/* Contact Card Header */
+.contact-card-header {
+  margin-bottom: 25px;
+}
+
+.contact-card-header i {
+  font-size: 51px;
+  color: #ff4c4c;
+  margin-bottom: 10px;
+}
+
+.contact-card-header h4 {
+  font-size: 20px;
+  color: #ffffff;
+  margin-bottom: 11px;
+  font-weight: bold;
+}
+
+.contact-card-header p {
+  font-size: 14px;
+  color: #cccccc;
+  margin: 10px 11px 28px;
 }
