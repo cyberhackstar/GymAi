@@ -3,17 +3,16 @@ import { RouterOutlet } from '@angular/router';
 import { WorkoutPlan } from './components/workout-plan/workout-plan';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Navbar } from './shared/components/navbar/navbar';
+import { Navbar } from './shared/navbar/navbar';
 import { Login } from './auth/login/login';
 import { Register } from './auth/register/register';
-import { Plan } from './plan/plan/plan';
 import { Progress } from './progress/progress/progress';
 import { Pricing } from './subscription/pricing/pricing';
 import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { WhyChooseUs } from './dashboard/why-choose-us/why-choose-us';
 import { Contact } from './contact/contact';
 import { BmiCalculator } from './bmi-calculator/bmi-calculator';
-import { Footer } from './shared/components/footer/footer';
+import { Footer } from './shared/footer/footer';
 import { Hero } from './dashboard/hero/hero';
 import { ForgotPassword } from './auth/forgot-password/forgot-password';
 import { UserDashboard } from './dashboard/user-dashboard/user-dashboard';
@@ -24,6 +23,7 @@ import { SupportTicketUser } from './dashboard/user-dashboard/support-ticket-use
 import { DietPlan } from './dashboard/user-dashboard/diet-plan/diet-plan';
 import { Team } from './team/team';
 import { Services } from './services/services';
+import { DashboardComponent } from './plan/dashboard-component/dashboard-component';
 
 @Component({
   selector: 'app-root',
@@ -54,6 +54,8 @@ import { Services } from './services/services';
     // DietPlan,
     // Team,
     // Services,
+    DashboardComponent,
+    //
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',

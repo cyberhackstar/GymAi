@@ -1,0 +1,459 @@
+<!-- workout-plan.component.html -->
+<div class="workout-container">
+  <!-- Header -->
+  <div class="workout-header">
+    <div class="header-content">
+      <h1><i class="fas fa-dumbbell"></i> Your <span>Workout Plan</span></h1>
+      <p *ngIf="user && workoutPlan">
+        {{ workoutPlan.plan_type | titlecase }} plan for {{ user.name }} -
+        {{ workoutPlan.difficulty_level | titlecase }} level
+      </p>
+    </div>
+    <div class="header-actions">
+      <button
+        class="action-btn"
+        (click)="regenerateWorkoutPlan()"
+        [disabled]="isLoading"
+      >
+        <i class="fas fa-sync-alt" [class.fa-spin]="isLoading"></i>
+        Regenerate Plan
+      </button>
+      <button class="action-btn secondary" routerLink="/dashboard">
+        <i class="fas fa-home"></i>
+        Dashboard
+      </button>
+    </div>
+  </div>
+
+  <!-- Workout Overview Stats -->
+  <div class="workout-overview" *ngIf="workoutPlan">
+    <div class="overview-cards">
+      <div class="overview-card total-calories">
+        <div class="card-icon">
+          <i class="fas fa-fire"></i>
+        </div>
+        <div class="card-content">
+          <h3>{{ getTotalWeeklyCalories() | number : "1.0-0" }}</h3>
+          <p>Weekly Calories Burned</p>
+        </div>
+      </div>
+
+      <div class="overview-card workout-days">
+        <div class="card-icon">
+          <i class="fas fa-calendar-week"></i>
+        </div>
+        <div class="card-content">
+          <h3>{{ getActiveWorkoutDays() }}</h3>
+          <p>Workout Days/Week</p>
+        </div>
+      </div>
+
+      <div class="overview-card avg-duration">
+        <div class="card-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="card-content">
+          <h3>{{ getAverageWorkoutDuration() }}</h3>
+          <p>Avg. Duration (min)</p>
+        </div>
+      </div>
+
+      <div class="overview-card difficulty">
+        <div class="card-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="card-content">
+          <h3>{{ workoutPlan.difficulty_level | titlecase }}</h3>
+          <p>Difficulty Level</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekly Schedule Overview -->
+  <div class="weekly-schedule" *ngIf="workoutPlan">
+    <h3><i class="fas fa-calendar-alt"></i> Weekly Schedule</h3>
+    <div class="week-grid">
+      <div
+        class="week-day"
+        *ngFor="let day of workoutPlan.weekly_plan; let i = index"
+        [class.active]="selectedDayIndex === i"
+        [class.rest-day]="day.rest_day"
+        (click)="selectDay(i)"
+      >
+        <div class="day-header">
+          <span class="day-name">{{ day.day_name }}</span>
+          <div class="day-badge" [class.rest-badge]="day.rest_day">
+            <i class="fas" [class]="getFocusAreaIcon(day.focus_area)"></i>
+          </div>
+        </div>
+
+        <div class="day-content">
+          <div class="focus-area" *ngIf="!day.rest_day">
+            <span class="focus-label">{{
+              day.focus_area.replace("_", " ") | titlecase
+            }}</span>
+            <span class="exercise-count"
+              >{{ day.exercises.length }} exercises</span
+            >
+          </div>
+
+          <div class="rest-info" *ngIf="day.rest_day">
+            <span class="rest-label">Rest & Recovery</span>
+            <span class="rest-subtitle">Take a break</span>
+          </div>
+
+          <div class="day-stats" *ngIf="!day.rest_day">
+            <div class="stat-mini">
+              <i class="fas fa-clock"></i>
+              <span>{{ day.estimated_duration_minutes }}min</span>
+            </div>
+            <div class="stat-mini">
+              <i class="fas fa-fire"></i>
+              <span>{{ day.total_calories_burned | number : "1.0-0" }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected Day Details -->
+  <div class="day-details" *ngIf="selectedDay">
+    <!-- Day Summary for Workout Days -->
+    <div class="day-summary" *ngIf="!selectedDay.rest_day">
+      <div class="summary-header">
+        <div class="summary-title">
+          <h2>
+            {{ selectedDay.day_name }} -
+            {{ selectedDay.focus_area.replace("_", " ") | titlecase }}
+          </h2>
+          <span class="day-subtitle"
+            >Day {{ selectedDay.day_number }} of your weekly plan</span
+          >
+        </div>
+
+        <div class="summary-metrics">
+          <div class="metric-card">
+            <i class="fas fa-stopwatch"></i>
+            <div class="metric-info">
+              <span class="metric-value">{{
+                selectedDay.estimated_duration_minutes
+              }}</span>
+              <span class="metric-label">Minutes</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <i class="fas fa-fire"></i>
+            <div class="metric-info">
+              <span class="metric-value">{{
+                selectedDay.total_calories_burned | number : "1.0-0"
+              }}</span>
+              <span class="metric-label">Calories</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <i class="fas fa-list-ol"></i>
+            <div class="metric-info">
+              <span class="metric-value">{{
+                selectedDay.exercises.length
+              }}</span>
+              <span class="metric-label">Exercises</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rest Day Card -->
+    <div class="rest-day-card" *ngIf="selectedDay.rest_day">
+      <div class="rest-content">
+        <div class="rest-icon">
+          <i class="fas fa-bed"></i>
+        </div>
+        <h2>{{ selectedDay.day_name }} - Rest & Recovery</h2>
+        <p>
+          Your body needs time to repair and grow stronger. Use this day for
+          active recovery.
+        </p>
+
+        <div class="recovery-activities">
+          <h4>Recommended Recovery Activities</h4>
+          <div class="activities-grid">
+            <div class="activity-item">
+              <i class="fas fa-walking"></i>
+              <span>Light Walking</span>
+            </div>
+            <div class="activity-item">
+              <i class="fas fa-spa"></i>
+              <span>Stretching</span>
+            </div>
+            <div class="activity-item">
+              <i class="fas fa-heart"></i>
+              <span>Meditation</span>
+            </div>
+            <div class="activity-item">
+              <i class="fas fa-bath"></i>
+              <span>Hot Bath</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercises List -->
+    <div
+      class="exercises-section"
+      *ngIf="!selectedDay.rest_day && selectedDay.exercises.length > 0"
+    >
+      <h3><i class="fas fa-list"></i> Exercise Routine</h3>
+
+      <div class="exercises-list">
+        <div
+          class="exercise-card"
+          *ngFor="let workoutEx of selectedDay.exercises; let i = index"
+        >
+          <div class="exercise-header" (click)="toggleExerciseDetails(i)">
+            <div class="exercise-main">
+              <div class="exercise-number">
+                <span>{{ i + 1 }}</span>
+              </div>
+
+              <div class="exercise-info">
+                <h4>{{ workoutEx.exercise.name }}</h4>
+                <div class="exercise-tags">
+                  <span
+                    class="tag muscle-tag"
+                    [style.background-color]="
+                      getMuscleGroupColor(workoutEx.exercise.muscle_group)
+                    "
+                  >
+                    {{ workoutEx.exercise.muscle_group | titlecase }}
+                  </span>
+                  <span class="tag equipment-tag">
+                    <i
+                      class="fas"
+                      [class]="getEquipmentIcon(workoutEx.exercise.equipment)"
+                    ></i>
+                    {{
+                      workoutEx.exercise.equipment.replace("_", " ") | titlecase
+                    }}
+                  </span>
+                  <span class="tag difficulty-tag">{{
+                    workoutEx.exercise.difficulty | titlecase
+                  }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="exercise-performance">
+              <div class="performance-grid">
+                <div class="perf-item" *ngIf="workoutEx.sets > 0">
+                  <span class="perf-value">{{ workoutEx.sets }}</span>
+                  <span class="perf-label">Sets</span>
+                </div>
+                <div class="perf-item" *ngIf="workoutEx.reps > 0">
+                  <span class="perf-value">{{ workoutEx.reps }}</span>
+                  <span class="perf-label">Reps</span>
+                </div>
+                <div class="perf-item" *ngIf="workoutEx.duration_minutes > 0">
+                  <span class="perf-value">{{
+                    workoutEx.duration_minutes
+                  }}</span>
+                  <span class="perf-label">Min</span>
+                </div>
+                <div class="perf-item">
+                  <span class="perf-value">{{ workoutEx.rest_seconds }}s</span>
+                  <span class="perf-label">Rest</span>
+                </div>
+              </div>
+
+              <div class="calories-info">
+                <i class="fas fa-fire"></i>
+                <span
+                  >{{ workoutEx.calories_burned | number : "1.0-0" }} cal</span
+                >
+              </div>
+
+              <i
+                class="fas fa-chevron-down expand-toggle"
+                [class.rotated]="isExerciseExpanded(i)"
+              ></i>
+            </div>
+          </div>
+
+          <!-- Expandable Exercise Details -->
+          <div class="exercise-details" *ngIf="isExerciseExpanded(i)">
+            <div class="details-grid">
+              <div class="detail-section">
+                <h5><i class="fas fa-info-circle"></i> Description</h5>
+                <p class="description-text">
+                  {{ workoutEx.exercise.description }}
+                </p>
+              </div>
+
+              <div class="detail-section">
+                <h5><i class="fas fa-clipboard-list"></i> Instructions</h5>
+                <p class="instructions-text">
+                  {{ workoutEx.exercise.instructions }}
+                </p>
+              </div>
+
+              <div class="detail-section">
+                <h5><i class="fas fa-chart-bar"></i> Exercise Metrics</h5>
+                <div class="metrics-grid">
+                  <div class="metric-item">
+                    <span class="metric-title">Category</span>
+                    <span class="metric-data">{{
+                      workoutEx.exercise.category | titlecase
+                    }}</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-title">Target Muscle</span>
+                    <span class="metric-data">{{
+                      workoutEx.exercise.muscle_group | titlecase
+                    }}</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-title">Equipment</span>
+                    <span class="metric-data">{{
+                      workoutEx.exercise.equipment.replace("_", " ") | titlecase
+                    }}</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-title">Burn Rate</span>
+                    <span class="metric-data"
+                      >{{
+                        workoutEx.exercise.calories_burned_per_minute
+                      }}/min</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="detail-section">
+                <h5><i class="fas fa-target"></i> Your Target</h5>
+                <div class="target-summary">
+                  <div class="target-item" *ngIf="workoutEx.sets > 0">
+                    <span class="target-number">{{ workoutEx.sets }}</span>
+                    <span class="target-text">sets of</span>
+                  </div>
+                  <div class="target-item" *ngIf="workoutEx.reps > 0">
+                    <span class="target-number">{{ workoutEx.reps }}</span>
+                    <span class="target-text">repetitions</span>
+                  </div>
+                  <div
+                    class="target-item"
+                    *ngIf="workoutEx.duration_minutes > 0"
+                  >
+                    <span class="target-number">{{
+                      workoutEx.duration_minutes
+                    }}</span>
+                    <span class="target-text">minutes</span>
+                  </div>
+                  <div class="target-item">
+                    <span class="target-number">{{
+                      workoutEx.rest_seconds
+                    }}</span>
+                    <span class="target-text">seconds rest</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Exercises Available -->
+    <div
+      class="no-exercises"
+      *ngIf="!selectedDay.rest_day && selectedDay.exercises.length === 0"
+    >
+      <div class="no-exercises-content">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h3>No Exercises Available</h3>
+        <p>
+          No exercises found for
+          {{ selectedDay.focus_area.replace("_", " ") | titlecase }} focus area.
+        </p>
+        <p class="suggestion">
+          Try regenerating your workout plan or contact support.
+        </p>
+        <button
+          class="regenerate-btn"
+          (click)="regenerateWorkoutPlan()"
+          [disabled]="isLoading"
+        >
+          <i class="fas fa-sync-alt" [class.fa-spin]="isLoading"></i>
+          Regenerate Plan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Workout Tips Section -->
+  <div class="workout-tips" *ngIf="workoutPlan && !isLoading">
+    <h3><i class="fas fa-lightbulb"></i> Workout Tips</h3>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <i class="fas fa-water"></i>
+        <h4>Stay Hydrated</h4>
+        <p>
+          Drink water before, during, and after your workout to maintain
+          performance.
+        </p>
+      </div>
+
+      <div class="tip-card">
+        <i class="fas fa-thermometer-half"></i>
+        <h4>Warm-Up First</h4>
+        <p>
+          Always start with 5-10 minutes of light cardio to prepare your
+          muscles.
+        </p>
+      </div>
+
+      <div class="tip-card">
+        <i class="fas fa-moon"></i>
+        <h4>Rest is Important</h4>
+        <p>Allow adequate rest between sets and don't skip your rest days.</p>
+      </div>
+
+      <div class="tip-card">
+        <i class="fas fa-clipboard-check"></i>
+        <h4>Track Progress</h4>
+        <p>Keep a log of your weights and reps to monitor your improvement.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p>
+        {{
+          selectedDay
+            ? "Regenerating your workout plan..."
+            : "Loading your workout plan..."
+        }}
+      </p>
+    </div>
+  </div>
+
+  <!-- No Data State -->
+  <div class="no-data" *ngIf="!workoutPlan && !isLoading">
+    <div class="no-data-content">
+      <i class="fas fa-dumbbell"></i>
+      <h2>No Workout Plan Found</h2>
+      <p>Please generate a fitness plan first from the dashboard.</p>
+      <button class="primary-btn" routerLink="/dashboard">
+        <i class="fas fa-home"></i>
+        Go to Dashboard
+      </button>
+    </div>
+  </div>
+</div>

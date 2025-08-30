@@ -1,26 +1,34 @@
 package com.gymai.plan_service.service;
 
 import org.springframework.stereotype.Service;
-
 import com.gymai.plan_service.entity.User;
+import lombok.extern.slf4j.Slf4j;
 
 // NutritionCalculatorService.java
 @Service
+@Slf4j
 public class NutritionCalculatorService {
 
     public NutritionalNeeds calculateNutritionalNeeds(User user) {
+        log.info("Calculating nutritional needs for user: {}", user);
+
         double bmr = calculateBMR(user);
+        log.debug("Calculated BMR: {}", bmr);
+
         double tdee = calculateTDEE(bmr, user.getActivityLevel());
+        log.debug("Calculated TDEE (with activity level {}): {}", user.getActivityLevel(), tdee);
+
         double targetCalories = adjustCaloriesForGoal(tdee, user.getGoal());
+        log.info("Adjusted target calories for goal {}: {}", user.getGoal(), targetCalories);
 
         // Calculate macronutrient targets
         MacroTargets macros = calculateMacroTargets(targetCalories, user.getGoal());
+        log.info("Macro targets -> Protein: {}g, Carbs: {}g, Fat: {}g", macros.protein, macros.carbs, macros.fat);
 
         return new NutritionalNeeds(targetCalories, macros.protein, macros.carbs, macros.fat);
     }
 
     private double calculateBMR(User user) {
-        // Using Mifflin-St Jeor Equation
         if ("MALE".equalsIgnoreCase(user.getGender())) {
             return (10 * user.getWeight()) + (6.25 * user.getHeight()) - (5 * user.getAge()) + 5;
         } else {
@@ -47,6 +55,7 @@ public class NutritionCalculatorService {
                 activityMultiplier = 1.9;
                 break;
             default:
+                log.warn("Unknown activity level: {}. Defaulting to SEDENTARY (1.2)", activityLevel);
                 activityMultiplier = 1.2;
         }
         return bmr * activityMultiplier;
@@ -55,11 +64,11 @@ public class NutritionCalculatorService {
     private double adjustCaloriesForGoal(double tdee, String goal) {
         switch (goal.toUpperCase()) {
             case "WEIGHT_LOSS":
-                return tdee - 500; // 500 calorie deficit
+                return tdee - 500; // deficit
             case "WEIGHT_GAIN":
-                return tdee + 500; // 500 calorie surplus
+                return tdee + 500; // surplus
             case "MUSCLE_GAIN":
-                return tdee + 300; // 300 calorie surplus
+                return tdee + 300; // surplus
             case "MAINTENANCE":
             default:
                 return tdee;
@@ -71,29 +80,25 @@ public class NutritionCalculatorService {
 
         switch (goal.toUpperCase()) {
             case "WEIGHT_LOSS":
-                // High protein, moderate carbs, low fat
-                protein = calories * 0.35 / 4; // 35% protein
-                carbs = calories * 0.35 / 4; // 35% carbs
-                fat = calories * 0.30 / 9; // 30% fat
+                protein = calories * 0.35 / 4;
+                carbs = calories * 0.35 / 4;
+                fat = calories * 0.30 / 9;
                 break;
             case "MUSCLE_GAIN":
-                // High protein, high carbs, moderate fat
-                protein = calories * 0.30 / 4; // 30% protein
-                carbs = calories * 0.45 / 4; // 45% carbs
-                fat = calories * 0.25 / 9; // 25% fat
+                protein = calories * 0.30 / 4;
+                carbs = calories * 0.45 / 4;
+                fat = calories * 0.25 / 9;
                 break;
             case "WEIGHT_GAIN":
-                // Moderate protein, high carbs, moderate fat
-                protein = calories * 0.25 / 4; // 25% protein
-                carbs = calories * 0.50 / 4; // 50% carbs
-                fat = calories * 0.25 / 9; // 25% fat
+                protein = calories * 0.25 / 4;
+                carbs = calories * 0.50 / 4;
+                fat = calories * 0.25 / 9;
                 break;
             case "MAINTENANCE":
             default:
-                // Balanced macros
-                protein = calories * 0.25 / 4; // 25% protein
-                carbs = calories * 0.45 / 4; // 45% carbs
-                fat = calories * 0.30 / 9; // 30% fat
+                protein = calories * 0.25 / 4;
+                carbs = calories * 0.45 / 4;
+                fat = calories * 0.30 / 9;
         }
 
         return new MacroTargets(protein, carbs, fat);

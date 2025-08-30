@@ -8,6 +8,7 @@ import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/interceptors/auth-interceptor';
+import { provideCloudinaryLoader } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,5 +22,6 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideHttpClient(withInterceptors([authInterceptor])),
+    provideCloudinaryLoader('https://res.cloudinary.com/ddrt7emvo'),
   ],
 };

@@ -1,0 +1,269 @@
+<!-- diet-plan.component.html -->
+<div class="diet-container">
+  <!-- Header -->
+  <div class="diet-header">
+    <div class="header-content">
+      <h1><i class="fas fa-utensils"></i> Your <span>Diet Plan</span></h1>
+      <p *ngIf="user">Personalized nutrition plan for {{ user.name }}</p>
+    </div>
+    <div class="header-actions">
+      <button
+        class="action-btn"
+        (click)="regenerateDietPlan()"
+        [disabled]="isLoading"
+      >
+        <i class="fas fa-sync-alt" [class.fa-spin]="isLoading"></i>
+        Regenerate Plan
+      </button>
+      <button class="action-btn secondary" routerLink="/dashboard">
+        <i class="fas fa-home"></i>
+        Dashboard
+      </button>
+    </div>
+  </div>
+
+  <!-- Diet Overview -->
+  <div class="diet-overview" *ngIf="dietPlan">
+    <div class="overview-cards">
+      <div class="overview-card calories">
+        <div class="card-icon">
+          <i class="fas fa-fire"></i>
+        </div>
+        <div class="card-content">
+          <h3>{{ dietPlan.daily_calorie_target | number : "1.0-0" }}</h3>
+          <p>Daily Calories</p>
+        </div>
+      </div>
+
+      <div class="overview-card protein">
+        <div class="card-icon">
+          <i class="fas fa-drumstick-bite"></i>
+        </div>
+        <div class="card-content">
+          <h3>{{ dietPlan.daily_protein_target | number : "1.0-0" }}g</h3>
+          <p>Daily Protein</p>
+        </div>
+      </div>
+
+      <div class="overview-card carbs">
+        <div class="card-icon">
+          <i class="fas fa-bread-slice"></i>
+        </div>
+        <div class="card-content">
+          <h3>{{ dietPlan.daily_carbs_target | number : "1.0-0" }}g</h3>
+          <p>Daily Carbs</p>
+        </div>
+      </div>
+
+      <div class="overview-card fat">
+        <div class="card-icon">
+          <i class="fas fa-cheese"></i>
+        </div>
+        <div class="card-content">
+          <h3>{{ dietPlan.daily_fat_target | number : "1.0-0" }}g</h3>
+          <p>Daily Fat</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day Selector -->
+  <div class="day-selector" *ngIf="dietPlan">
+    <div class="day-tabs">
+      <button
+        class="day-tab"
+        *ngFor="let day of dietPlan.daily_plans; let i = index"
+        [class.active]="selectedDayIndex === i"
+        (click)="selectDay(i)"
+      >
+        <span class="day-name">{{ day.day_name }}</span>
+        <span class="day-calories"
+          >{{ day.total_daily_calories | number : "1.0-0" }} kcal</span
+        >
+      </button>
+    </div>
+  </div>
+
+  <!-- Selected Day Details -->
+  <div class="day-details" *ngIf="selectedDay">
+    <!-- Day Summary -->
+    <div class="day-summary">
+      <h2>{{ selectedDay.day_name }} - Day {{ selectedDay.day_number }}</h2>
+
+      <div class="macro-progress">
+        <div class="macro-item">
+          <div class="macro-header">
+            <span>Calories</span>
+            <span
+              >{{ selectedDay.total_daily_calories | number : "1.0-0" }} /
+              {{ dietPlan?.daily_calorie_target | number : "1.0-0" }}</span
+            >
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill calories-fill"
+              [style.width.%]="
+                getProgressPercentage(
+                  selectedDay.total_daily_calories,
+                  dietPlan?.daily_calorie_target || 0
+                )
+              "
+            ></div>
+          </div>
+        </div>
+
+        <div class="macro-item">
+          <div class="macro-header">
+            <span>Protein</span>
+            <span
+              >{{ selectedDay.total_daily_protein | number : "1.0-0" }}g /
+              {{ dietPlan?.daily_protein_target | number : "1.0-0" }}g</span
+            >
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill protein-fill"
+              [style.width.%]="
+                getProgressPercentage(
+                  selectedDay.total_daily_protein,
+                  dietPlan?.daily_protein_target || 0
+                )
+              "
+            ></div>
+          </div>
+        </div>
+
+        <div class="macro-item">
+          <div class="macro-header">
+            <span>Carbs</span>
+            <span
+              >{{ selectedDay.total_daily_carbs | number : "1.0-0" }}g /
+              {{ dietPlan?.daily_carbs_target | number : "1.0-0" }}g</span
+            >
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill carbs-fill"
+              [style.width.%]="
+                getProgressPercentage(
+                  selectedDay.total_daily_carbs,
+                  dietPlan?.daily_carbs_target || 0
+                )
+              "
+            ></div>
+          </div>
+        </div>
+
+        <div class="macro-item">
+          <div class="macro-header">
+            <span>Fat</span>
+            <span
+              >{{ selectedDay.total_daily_fat | number : "1.0-0" }}g /
+              {{ dietPlan?.daily_fat_target | number : "1.0-0" }}g</span
+            >
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill fat-fill"
+              [style.width.%]="
+                getProgressPercentage(
+                  selectedDay.total_daily_fat,
+                  dietPlan?.daily_fat_target || 0
+                )
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meals Grid -->
+    <div class="meals-grid">
+      <div class="meal-card" *ngFor="let meal of selectedDay.meals">
+        <div class="meal-header">
+          <div class="meal-title">
+            <i class="fas" [class]="getMealIcon(meal.meal_type)"></i>
+            <h3>{{ meal.meal_type | titlecase }}</h3>
+          </div>
+          <div class="meal-calories">
+            {{ meal.total_calories | number : "1.0-0" }} kcal
+          </div>
+        </div>
+
+        <div class="meal-macros">
+          <span class="macro protein"
+            >P: {{ meal.total_protein | number : "1.0-0" }}g</span
+          >
+          <span class="macro carbs"
+            >C: {{ meal.total_carbs | number : "1.0-0" }}g</span
+          >
+          <span class="macro fat"
+            >F: {{ meal.total_fat | number : "1.0-0" }}g</span
+          >
+        </div>
+
+        <div class="food-items">
+          <div class="food-item" *ngFor="let item of meal.food_items">
+            <div class="food-info">
+              <div class="food-name">{{ item.food.name }}</div>
+              <div class="food-details">
+                <span class="quantity"
+                  >{{ item.quantity | number : "1.0-0" }}g</span
+                >
+                <span
+                  class="category"
+                  [style.background-color]="
+                    getCategoryColor(item.food.category)
+                  "
+                >
+                  {{ item.food.category }}
+                </span>
+              </div>
+            </div>
+            <div class="food-nutrition">
+              <div class="nutrition-item">
+                <span class="value">{{
+                  item.calories | number : "1.0-0"
+                }}</span>
+                <span class="label">kcal</span>
+              </div>
+              <div class="nutrition-item">
+                <span class="value">{{ item.protein | number : "1.0-0" }}</span>
+                <span class="label">P</span>
+              </div>
+              <div class="nutrition-item">
+                <span class="value">{{ item.carbs | number : "1.0-0" }}</span>
+                <span class="label">C</span>
+              </div>
+              <div class="nutrition-item">
+                <span class="value">{{ item.fat | number : "1.0-0" }}</span>
+                <span class="label">F</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p>Loading your diet plan...</p>
+    </div>
+  </div>
+
+  <!-- No Data State -->
+  <div class="no-data" *ngIf="!dietPlan && !isLoading">
+    <div class="no-data-content">
+      <i class="fas fa-utensils"></i>
+      <h2>No Diet Plan Found</h2>
+      <p>Please generate a fitness plan first from the dashboard.</p>
+      <button class="primary-btn" routerLink="/dashboard">
+        <i class="fas fa-home"></i>
+        Go to Dashboard
+      </button>
+    </div>
+  </div>
+</div>

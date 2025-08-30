@@ -4,4 +4,5 @@ export const environment = {
   authUrl: 'http://localhost:8081',
   userUrl: 'http://localhost:8082/api/user',
   planUrl: 'http://localhost:8083/api/fitness',
+  version: '1.0.0',
 };

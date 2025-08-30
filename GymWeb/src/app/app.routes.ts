@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { Login } from './auth/login/login';
 import { Register } from './auth/register/register';
-import { Plan } from './plan/plan/plan';
 import { Progress } from './progress/progress/progress';
 import { Pricing } from './subscription/pricing/pricing';
 import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
@@ -16,6 +15,8 @@ import { WhyChooseUs } from './dashboard/why-choose-us/why-choose-us';
 import { OAuthCallbackComponent } from './auth/OAuthCallbackComponent';
 import { Team } from './team/team';
 import { Services } from './services/services';
+import { DietPlanComponent } from './plan/diet-plan-component/diet-plan-component';
+import { WorkoutPlanComponent } from './plan/workout-plan-component/workout-plan-component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'default', pathMatch: 'full' },
@@ -35,10 +36,13 @@ export const routes: Routes = [
 
   // User Routes (Protected in real setup)
   { path: 'dashboard', component: UserDashboard },
-  { path: 'plan', component: Plan },
+  // { path: 'plan', component: Plan },
   { path: 'progress', component: Progress },
   { path: 'subscription', component: Pricing },
   { path: 'complete-profile', component: CompleteProfile },
+
+  { path: 'diet', component: DietPlanComponent },
+  { path: 'workout', component: WorkoutPlanComponent },
 
   // Admin Routes (Also protected in real setup)
   { path: 'admin', component: AdminDashboard },

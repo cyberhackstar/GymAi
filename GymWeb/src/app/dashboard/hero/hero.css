@@ -71,17 +71,18 @@ a {
 }
 
 .btn-secondary {
-  border: 2px solid #ff4c4c;
+  border: 2px solid #ffffff;
   padding: 0.9rem 1.8rem;
-  color: #ff4c4c;
+  /* color: #ff4c4c; */
   border-radius: 12px;
   font-weight: 600;
   transition: all 0.3s, transform 0.2s;
+  background: rgb(0, 0, 0, 0.5);
 }
 
 .btn-secondary:hover {
-  background: #ff4c4c;
-  color: white;
+  background: #ffffff;
+  color: #000000;
   transform: translateY(-2px);
 }
 

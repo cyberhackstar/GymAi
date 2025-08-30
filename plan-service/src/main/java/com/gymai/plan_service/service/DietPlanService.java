@@ -16,8 +16,10 @@ import com.gymai.plan_service.entity.Meal;
 import com.gymai.plan_service.entity.User;
 import com.gymai.plan_service.repository.FoodRepository;
 
-// DietPlanService.java
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class DietPlanService {
 
     @Autowired
@@ -27,8 +29,12 @@ public class DietPlanService {
     private NutritionCalculatorService nutritionCalculator;
 
     public DietPlan generateCustomDietPlan(User user) {
+        log.info("Generating custom diet plan for user: {} (preference: {})", user.getUserId(), user.getPreference());
+
         // Calculate nutritional needs
         NutritionCalculatorService.NutritionalNeeds needs = nutritionCalculator.calculateNutritionalNeeds(user);
+        log.debug("Calculated needs -> Calories: {}, Protein: {}, Carbs: {}, Fat: {}",
+                needs.calories, needs.protein, needs.carbs, needs.fat);
 
         // Create diet plan
         DietPlan dietPlan = new DietPlan();
@@ -43,105 +49,100 @@ public class DietPlanService {
                 "Thursday", "Friday", "Saturday", "Sunday");
 
         for (int i = 0; i < 7; i++) {
+            log.info("Generating meal plan for {}", dayNames.get(i));
             DayMealPlan dayPlan = generateDayMealPlan(i + 1, dayNames.get(i), user, needs);
             dietPlan.getDailyPlans().add(dayPlan);
         }
 
+        log.info("Finished generating diet plan for user: {}", user.getUserId());
         return dietPlan;
     }
 
     private DayMealPlan generateDayMealPlan(int dayNumber, String dayName, User user,
             NutritionCalculatorService.NutritionalNeeds needs) {
+        log.debug("Generating {} (Day {}) with calorie target: {}", dayName, dayNumber, needs.calories);
+
         DayMealPlan dayPlan = new DayMealPlan(dayNumber, dayName);
 
-        // Calorie distribution across meals
-        double breakfastCalories = needs.calories * 0.25; // 25%
-        double lunchCalories = needs.calories * 0.35; // 35%
-        double dinnerCalories = needs.calories * 0.30; // 30%
-        double snackCalories = needs.calories * 0.10; // 10%
+        // Calorie distribution
+        double breakfastCalories = needs.calories * 0.25;
+        double lunchCalories = needs.calories * 0.35;
+        double dinnerCalories = needs.calories * 0.30;
+        double snackCalories = needs.calories * 0.10;
+
+        log.debug("Meal distribution -> Breakfast: {}, Lunch: {}, Dinner: {}, Snack: {}",
+                breakfastCalories, lunchCalories, dinnerCalories, snackCalories);
 
         // Generate meals
-        Meal breakfast = generateMeal("BREAKFAST", breakfastCalories, user);
-        Meal lunch = generateMeal("LUNCH", lunchCalories, user);
-        Meal dinner = generateMeal("DINNER", dinnerCalories, user);
-        Meal snack = generateMeal("SNACK", snackCalories, user);
-
-        dayPlan.addMeal(breakfast);
-        dayPlan.addMeal(lunch);
-        dayPlan.addMeal(dinner);
-        dayPlan.addMeal(snack);
+        dayPlan.addMeal(generateMeal("BREAKFAST", breakfastCalories, user));
+        dayPlan.addMeal(generateMeal("LUNCH", lunchCalories, user));
+        dayPlan.addMeal(generateMeal("DINNER", dinnerCalories, user));
+        dayPlan.addMeal(generateMeal("SNACK", snackCalories, user));
 
         return dayPlan;
     }
 
     private Meal generateMeal(String mealType, double targetCalories, User user) {
-        Meal meal = new Meal(mealType);
+        log.debug("Generating {} with target calories: {}", mealType, targetCalories);
 
-        // Get suitable foods for this meal type and user preference
+        Meal meal = new Meal(mealType);
         List<String> dietTypes = getDietTypes(user.getPreference());
+
         List<Food> availableFoods = foodRepository.findByDietTypeInAndMealType(dietTypes, mealType);
+        log.debug("Found {} available foods for {} [{}]", availableFoods.size(), mealType, dietTypes);
 
         if (availableFoods.isEmpty()) {
-            // Fallback to any foods of the diet type
-            availableFoods = foodRepository.findByDietTypeAndMealType(
-                    user.getPreference().toUpperCase(), "LUNCH");
+            log.warn("No foods found for {}. Falling back to default diet type {} (mealType=LUNCH)", mealType,
+                    user.getPreference());
+            availableFoods = foodRepository.findByDietTypeAndMealType(user.getPreference().toUpperCase(), "LUNCH");
         }
 
-        // Create meal based on meal type
         switch (mealType.toUpperCase()) {
             case "BREAKFAST":
-                meal = generateBreakfast(availableFoods, targetCalories, user);
-                break;
+                return generateBreakfast(availableFoods, targetCalories, user);
             case "LUNCH":
             case "DINNER":
-                meal = generateMainMeal(mealType, availableFoods, targetCalories, user);
-                break;
+                return generateMainMeal(mealType, availableFoods, targetCalories, user);
             case "SNACK":
-                meal = generateSnack(availableFoods, targetCalories, user);
-                break;
+                return generateSnack(availableFoods, targetCalories, user);
+            default:
+                log.error("Unknown meal type: {}", mealType);
+                return meal;
         }
-
-        return meal;
     }
 
     private Meal generateBreakfast(List<Food> availableFoods, double targetCalories, User user) {
+        log.debug("Generating Breakfast for user: {}", user.getUserId());
+
         Meal breakfast = new Meal("BREAKFAST");
 
-        // Try to include: grains + protein + fruits
-        Optional<Food> grains = availableFoods.stream()
-                .filter(f -> "GRAINS".equals(f.getCategory()))
-                .findFirst();
-
+        Optional<Food> grains = availableFoods.stream().filter(f -> "GRAINS".equals(f.getCategory())).findFirst();
         Optional<Food> protein = availableFoods.stream()
-                .filter(f -> "PROTEIN".equals(f.getCategory()) || "DAIRY".equals(f.getCategory()))
-                .findFirst();
-
-        Optional<Food> fruits = availableFoods.stream()
-                .filter(f -> "FRUITS".equals(f.getCategory()))
-                .findFirst();
+                .filter(f -> "PROTEIN".equals(f.getCategory()) || "DAIRY".equals(f.getCategory())).findFirst();
+        Optional<Food> fruits = availableFoods.stream().filter(f -> "FRUITS".equals(f.getCategory())).findFirst();
 
         double remainingCalories = targetCalories;
 
-        // Add grains (40% of breakfast calories)
         if (grains.isPresent()) {
             double grainsCalories = targetCalories * 0.4;
             double quantity = (grainsCalories / grains.get().getCaloriesPer100g()) * 100;
             breakfast.addFoodItem(new FoodItem(grains.get(), quantity));
             remainingCalories -= grainsCalories;
+            log.debug("Added grains: {}g [{}]", quantity, grains.get().getName());
         }
 
-        // Add protein (35% of breakfast calories)
         if (protein.isPresent()) {
             double proteinCalories = targetCalories * 0.35;
             double quantity = (proteinCalories / protein.get().getCaloriesPer100g()) * 100;
             breakfast.addFoodItem(new FoodItem(protein.get(), quantity));
             remainingCalories -= proteinCalories;
+            log.debug("Added protein: {}g [{}]", quantity, protein.get().getName());
         }
 
-        // Add fruits (remaining calories)
         if (fruits.isPresent() && remainingCalories > 0) {
             double quantity = (remainingCalories / fruits.get().getCaloriesPer100g()) * 100;
-            breakfast.addFoodItem(new FoodItem(fruits.get(), Math.max(quantity, 100))); // Min 100g
+            breakfast.addFoodItem(new FoodItem(fruits.get(), Math.max(quantity, 100)));
+            log.debug("Added fruit: {}g [{}]", Math.max(quantity, 100), fruits.get().getName());
         }
 
         return breakfast;
@@ -149,58 +150,57 @@ public class DietPlanService {
 
     private Meal generateMainMeal(String mealType, List<Food> availableFoods,
             double targetCalories, User user) {
+        log.debug("Generating {} for user: {}", mealType, user.getUserId());
+
         Meal meal = new Meal(mealType);
 
-        // Try to include: grains + protein + vegetables
-        Optional<Food> grains = availableFoods.stream()
-                .filter(f -> "GRAINS".equals(f.getCategory()))
-                .skip((long) (Math.random() * availableFoods.stream()
-                        .filter(f -> "GRAINS".equals(f.getCategory())).count()))
+        Optional<Food> grains = availableFoods.stream().filter(f -> "GRAINS".equals(f.getCategory()))
+                .skip((long) (Math.random()
+                        * availableFoods.stream().filter(f -> "GRAINS".equals(f.getCategory())).count()))
                 .findFirst();
 
-        Optional<Food> protein = availableFoods.stream()
-                .filter(f -> "PROTEIN".equals(f.getCategory()))
-                .skip((long) (Math.random() * availableFoods.stream()
-                        .filter(f -> "PROTEIN".equals(f.getCategory())).count()))
+        Optional<Food> protein = availableFoods.stream().filter(f -> "PROTEIN".equals(f.getCategory()))
+                .skip((long) (Math.random()
+                        * availableFoods.stream().filter(f -> "PROTEIN".equals(f.getCategory())).count()))
                 .findFirst();
 
-        Optional<Food> vegetables = availableFoods.stream()
-                .filter(f -> "VEGETABLES".equals(f.getCategory()))
-                .skip((long) (Math.random() * availableFoods.stream()
-                        .filter(f -> "VEGETABLES".equals(f.getCategory())).count()))
+        Optional<Food> vegetables = availableFoods.stream().filter(f -> "VEGETABLES".equals(f.getCategory()))
+                .skip((long) (Math.random()
+                        * availableFoods.stream().filter(f -> "VEGETABLES".equals(f.getCategory())).count()))
                 .findFirst();
 
         double remainingCalories = targetCalories;
 
-        // Add grains (35% of meal calories)
         if (grains.isPresent()) {
             double grainsCalories = targetCalories * 0.35;
             double quantity = (grainsCalories / grains.get().getCaloriesPer100g()) * 100;
             meal.addFoodItem(new FoodItem(grains.get(), quantity));
             remainingCalories -= grainsCalories;
+            log.debug("Added grains: {}g [{}]", quantity, grains.get().getName());
         }
 
-        // Add protein (45% of meal calories)
         if (protein.isPresent()) {
             double proteinCalories = targetCalories * 0.45;
             double quantity = (proteinCalories / protein.get().getCaloriesPer100g()) * 100;
             meal.addFoodItem(new FoodItem(protein.get(), quantity));
             remainingCalories -= proteinCalories;
+            log.debug("Added protein: {}g [{}]", quantity, protein.get().getName());
         }
 
-        // Add vegetables (remaining calories)
         if (vegetables.isPresent() && remainingCalories > 0) {
             double quantity = (remainingCalories / vegetables.get().getCaloriesPer100g()) * 100;
-            meal.addFoodItem(new FoodItem(vegetables.get(), Math.max(quantity, 150))); // Min 150g vegetables
+            meal.addFoodItem(new FoodItem(vegetables.get(), Math.max(quantity, 150)));
+            log.debug("Added vegetables: {}g [{}]", Math.max(quantity, 150), vegetables.get().getName());
         }
 
         return meal;
     }
 
     private Meal generateSnack(List<Food> availableFoods, double targetCalories, User user) {
+        log.debug("Generating Snack for user: {}", user.getUserId());
+
         Meal snack = new Meal("SNACK");
 
-        // Get snack foods or fruits/nuts
         List<Food> snackFoods = availableFoods.stream()
                 .filter(f -> "FRUITS".equals(f.getCategory()) ||
                         "NUTS".equals(f.getCategory()) ||
@@ -210,13 +210,18 @@ public class DietPlanService {
         if (!snackFoods.isEmpty()) {
             Food selectedSnack = snackFoods.get((int) (Math.random() * snackFoods.size()));
             double quantity = (targetCalories / selectedSnack.getCaloriesPer100g()) * 100;
-            snack.addFoodItem(new FoodItem(selectedSnack, Math.max(quantity, 50))); // Min 50g
+            snack.addFoodItem(new FoodItem(selectedSnack, Math.max(quantity, 50)));
+            log.debug("Added snack: {}g [{}]", Math.max(quantity, 50), selectedSnack.getName());
+        } else {
+            log.warn("No snack foods available for user: {}", user.getUserId());
         }
 
         return snack;
     }
 
     private List<String> getDietTypes(String preference) {
+        log.debug("Resolving diet types for preference: {}", preference);
+
         switch (preference.toUpperCase()) {
             case "VEG":
                 return Arrays.asList("VEG", "VEGAN");
@@ -225,6 +230,7 @@ public class DietPlanService {
             case "VEGAN":
                 return Arrays.asList("VEGAN");
             default:
+                log.warn("Unknown diet preference: {}. Defaulting to all types.", preference);
                 return Arrays.asList("VEG", "NON_VEG", "VEGAN");
         }
     }

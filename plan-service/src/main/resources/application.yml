@@ -20,6 +20,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+    open-in-view: false
 
 jwt:
   secret: 7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc
@@ -35,6 +36,7 @@ logging:
     # feign: DEBUG
     org.springframework.web.client.RestTemplate: DEBUG
     org.springframework.http: TRACE
+    org.hibernate.SQL: WARN
 
 ai:
   service:
