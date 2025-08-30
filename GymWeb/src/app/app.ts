@@ -54,7 +54,7 @@ import { DashboardComponent } from './plan/dashboard-component/dashboard-compone
     // DietPlan,
     // Team,
     // Services,
-    DashboardComponent,
+    // DashboardComponent,
     //
   ],
   templateUrl: './app.html',
