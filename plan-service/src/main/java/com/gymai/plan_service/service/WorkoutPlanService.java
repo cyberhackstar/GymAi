@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -17,6 +18,9 @@ import com.gymai.plan_service.entity.User;
 import com.gymai.plan_service.entity.WorkoutExercise;
 import com.gymai.plan_service.entity.WorkoutPlan;
 import com.gymai.plan_service.repository.ExerciseRepository;
+import com.gymai.plan_service.repository.WorkoutPlanRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class WorkoutPlanService {
@@ -26,10 +30,41 @@ public class WorkoutPlanService {
     @Autowired
     private ExerciseRepository exerciseRepository;
 
+    @Autowired
+    private WorkoutPlanRepository workoutPlanRepository;
+
     public WorkoutPlan generateCustomWorkoutPlan(User user) {
         log.info("Generating workout plan for userId={}, goal={}, activityLevel={}",
                 user.getUserId(), user.getGoal(), user.getActivityLevel());
 
+        // Check if user already has a workout plan
+        Optional<WorkoutPlan> existingPlan = workoutPlanRepository.findLatestByUserIdWithDays(user.getUserId());
+        if (existingPlan.isPresent()) {
+            log.info("Found existing workout plan for userId={}, returning cached plan", user.getUserId());
+            return existingPlan.get();
+        }
+
+        return generateNewWorkoutPlan(user);
+    }
+
+    @Transactional
+    public WorkoutPlan regenerateWorkoutPlan(User user) {
+        log.info("Regenerating workout plan for userId={}", user.getUserId());
+
+        // Delete existing plan
+        workoutPlanRepository.deleteByUserId(user.getUserId());
+
+        // Generate new plan
+        return generateNewWorkoutPlan(user);
+    }
+
+    public WorkoutPlan getExistingWorkoutPlan(Long userId) {
+        log.info("Fetching existing workout plan for userId={}", userId);
+        return workoutPlanRepository.findLatestByUserIdWithDays(userId)
+                .orElse(null);
+    }
+
+    private WorkoutPlan generateNewWorkoutPlan(User user) {
         WorkoutPlan workoutPlan = new WorkoutPlan();
         workoutPlan.setUserId(user.getUserId());
 
@@ -43,6 +78,9 @@ public class WorkoutPlanService {
         workoutPlan.setDifficultyLevel(difficulty);
         log.debug("Determined difficulty={} for userId={}", difficulty, user.getUserId());
 
+        // Save workout plan first to get ID
+        workoutPlan = workoutPlanRepository.save(workoutPlan);
+
         // Generate 7-day plan
         List<String> dayNames = Arrays.asList("Monday", "Tuesday", "Wednesday",
                 "Thursday", "Friday", "Saturday", "Sunday");
@@ -50,14 +88,17 @@ public class WorkoutPlanService {
         List<DayWorkoutPlan> weeklyPlan = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             DayWorkoutPlan dayPlan = generateDayWorkout(i + 1, dayNames.get(i), user, planType, difficulty);
+            dayPlan.setWorkoutPlan(workoutPlan);
             weeklyPlan.add(dayPlan);
             log.info("Generated workout for {} (Day {}): focusArea={}, restDay={}",
                     dayNames.get(i), i + 1, dayPlan.getFocusArea(), dayPlan.isRestDay());
         }
 
         workoutPlan.setWeeklyPlan(weeklyPlan);
+        workoutPlan = workoutPlanRepository.save(workoutPlan);
 
-        log.info("Completed workout plan generation for userId={}", user.getUserId());
+        log.info("Completed workout plan generation for userId={} with planId={}", user.getUserId(),
+                workoutPlan.getId());
         return workoutPlan;
     }
 

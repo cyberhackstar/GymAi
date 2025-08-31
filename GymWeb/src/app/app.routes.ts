@@ -17,6 +17,7 @@ import { Team } from './team/team';
 import { Services } from './services/services';
 import { DietPlanComponent } from './plan/diet-plan-component/diet-plan-component';
 import { WorkoutPlanComponent } from './plan/workout-plan-component/workout-plan-component';
+import { DashboardComponent } from './plan/dashboard-component/dashboard-component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'default', pathMatch: 'full' },
@@ -43,6 +44,7 @@ export const routes: Routes = [
 
   { path: 'diet', component: DietPlanComponent },
   { path: 'workout', component: WorkoutPlanComponent },
+  { path: 'plan-dashboard', component: DashboardComponent },
 
   // Admin Routes (Also protected in real setup)
   { path: 'admin', component: AdminDashboard },

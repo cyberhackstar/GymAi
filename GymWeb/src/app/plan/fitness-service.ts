@@ -178,4 +178,19 @@ export class FitnessService {
       `${this.baseUrl}/user/${userId}/nutrition-analysis`
     );
   }
+
+  // Add these methods to your FitnessService (optional)
+  regenerateDietPlanOnly(userId: number): Observable<DietPlan> {
+    return this.http.post<DietPlan>(
+      `${this.baseUrl}/user/${userId}/regenerate-diet`,
+      {}
+    );
+  }
+
+  regenerateWorkoutPlanOnly(userId: number): Observable<WorkoutPlan> {
+    return this.http.post<WorkoutPlan>(
+      `${this.baseUrl}/user/${userId}/regenerate-workout`,
+      {}
+    );
+  }
 }

@@ -1,95 +1,75 @@
+// Updated DayWorkoutPlan.java - Now a JPA Entity
 package com.gymai.plan_service.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-// DayWorkoutPlan.java
+@Entity
+@Table(name = "day_workout_plans")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" }) // avoid proxy issues in JSON
 public class DayWorkoutPlan {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "day_number")
     private int dayNumber;
+
+    @Column(name = "day_name")
     private String dayName;
-    private String focusArea; // UPPER_BODY, LOWER_BODY, FULL_BODY, CARDIO, REST
-    private List<WorkoutExercise> exercises;
+
+    @Column(name = "focus_area")
+    private String focusArea;
+
+    @OneToMany(mappedBy = "dayWorkoutPlan", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private List<WorkoutExercise> exercises = new ArrayList<>();
+
+    @Column(name = "estimated_duration_minutes")
     private int estimatedDurationMinutes;
+
+    @Column(name = "total_calories_burned")
     private double totalCaloriesBurned;
-    private boolean isRestDay;
+
+    @Column(name = "is_rest_day")
+    private boolean restDay;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "workout_plan_id")
+    @JsonBackReference
+    private WorkoutPlan workoutPlan;
 
     public DayWorkoutPlan(int dayNumber, String dayName, String focusArea) {
         this.dayNumber = dayNumber;
         this.dayName = dayName;
         this.focusArea = focusArea;
         this.exercises = new ArrayList<>();
-        this.isRestDay = "REST".equals(focusArea);
+        this.restDay = "REST".equals(focusArea);
     }
 
     public void addExercise(WorkoutExercise exercise) {
+        exercise.setDayWorkoutPlan(this);
         this.exercises.add(exercise);
-        calculateTotals();
+        updateTotals();
     }
 
-    private void calculateTotals() {
-        this.totalCaloriesBurned = exercises.stream()
-                .mapToDouble(WorkoutExercise::getCaloriesBurned)
+    private void updateTotals() {
+        this.totalCaloriesBurned = exercises.stream().mapToDouble(WorkoutExercise::getCaloriesBurned).sum();
+        this.estimatedDurationMinutes = (int) exercises.stream()
+                .mapToDouble(ex -> ex.getSets() * (ex.getReps() * 0.05 + ex.getRestSeconds() / 60.0)
+                        + ex.getDurationMinutes())
                 .sum();
-
-        this.estimatedDurationMinutes = exercises.stream()
-                .mapToInt(ex -> {
-                    if (ex.getDurationMinutes() > 0) {
-                        return ex.getDurationMinutes();
-                    } else {
-                        // Estimate time for strength exercises
-                        return (ex.getSets() * ex.getReps() * 3) + (ex.getSets() * ex.getRestSeconds());
-                    }
-                })
-                .sum() / 60; // Convert to minutes
-    }
-
-    // Getters and setters
-    public int getDayNumber() {
-        return dayNumber;
-    }
-
-    public void setDayNumber(int dayNumber) {
-        this.dayNumber = dayNumber;
-    }
-
-    public String getDayName() {
-        return dayName;
-    }
-
-    public void setDayName(String dayName) {
-        this.dayName = dayName;
-    }
-
-    public String getFocusArea() {
-        return focusArea;
-    }
-
-    public void setFocusArea(String focusArea) {
-        this.focusArea = focusArea;
-    }
-
-    public List<WorkoutExercise> getExercises() {
-        return exercises;
-    }
-
-    public void setExercises(List<WorkoutExercise> exercises) {
-        this.exercises = exercises;
-        calculateTotals();
-    }
-
-    public int getEstimatedDurationMinutes() {
-        return estimatedDurationMinutes;
-    }
-
-    public double getTotalCaloriesBurned() {
-        return totalCaloriesBurned;
-    }
-
-    public boolean isRestDay() {
-        return isRestDay;
-    }
-
-    public void setRestDay(boolean restDay) {
-        isRestDay = restDay;
     }
 }

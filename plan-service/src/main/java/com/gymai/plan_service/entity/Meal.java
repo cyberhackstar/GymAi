@@ -1,20 +1,51 @@
+// Fixed Meal.java
 package com.gymai.plan_service.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// Meal.java
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Entity
+@Table(name = "meals")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Meal {
-  private String mealType; // BREAKFAST, LUNCH, DINNER, SNACK
-  private List<FoodItem> foodItems;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @Column(name = "meal_type")
+  private String mealType;
+
+  @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+  @JsonManagedReference
+  private List<FoodItem> foodItems = new ArrayList<>();
+
+  @Column(name = "total_calories")
   private double totalCalories;
+
+  @Column(name = "total_protein")
   private double totalProtein;
+
+  @Column(name = "total_carbs")
   private double totalCarbs;
+
+  @Column(name = "total_fat")
   private double totalFat;
 
-  public Meal() {
-    this.foodItems = new ArrayList<>();
-  }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "day_meal_plan_id")
+  @JsonBackReference
+  private DayMealPlan dayMealPlan;
 
   public Meal(String mealType) {
     this.mealType = mealType;
@@ -22,56 +53,15 @@ public class Meal {
   }
 
   public void addFoodItem(FoodItem foodItem) {
-    this.foodItems.add(foodItem);
-    calculateTotals();
+    foodItems.add(foodItem);
+    foodItem.setMeal(this);
+    updateTotals();
   }
 
-  private void calculateTotals() {
-    this.totalCalories = foodItems.stream()
-        .mapToDouble(item -> item.getCalories())
-        .sum();
-    this.totalProtein = foodItems.stream()
-        .mapToDouble(item -> item.getProtein())
-        .sum();
-    this.totalCarbs = foodItems.stream()
-        .mapToDouble(item -> item.getCarbs())
-        .sum();
-    this.totalFat = foodItems.stream()
-        .mapToDouble(item -> item.getFat())
-        .sum();
-  }
-
-  // Getters and setters
-  public String getMealType() {
-    return mealType;
-  }
-
-  public void setMealType(String mealType) {
-    this.mealType = mealType;
-  }
-
-  public List<FoodItem> getFoodItems() {
-    return foodItems;
-  }
-
-  public void setFoodItems(List<FoodItem> foodItems) {
-    this.foodItems = foodItems;
-    calculateTotals();
-  }
-
-  public double getTotalCalories() {
-    return totalCalories;
-  }
-
-  public double getTotalProtein() {
-    return totalProtein;
-  }
-
-  public double getTotalCarbs() {
-    return totalCarbs;
-  }
-
-  public double getTotalFat() {
-    return totalFat;
+  private void updateTotals() {
+    this.totalCalories = foodItems.stream().mapToDouble(FoodItem::getCalories).sum();
+    this.totalProtein = foodItems.stream().mapToDouble(FoodItem::getProtein).sum();
+    this.totalCarbs = foodItems.stream().mapToDouble(FoodItem::getCarbs).sum();
+    this.totalFat = foodItems.stream().mapToDouble(FoodItem::getFat).sum();
   }
 }

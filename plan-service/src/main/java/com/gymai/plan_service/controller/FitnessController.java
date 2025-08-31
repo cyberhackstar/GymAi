@@ -28,7 +28,6 @@ import com.gymai.plan_service.service.WorkoutPlanService;
 
 import lombok.extern.slf4j.Slf4j;
 
-// FitnessController.java
 @RestController
 @RequestMapping("/api/fitness")
 @CrossOrigin(origins = "*")
@@ -44,13 +43,20 @@ public class FitnessController {
     @Autowired
     private UserRepository userRepository;
 
-    // Generate complete fitness plan (diet + workout)
+    @Autowired
+    private NutritionCalculatorService nutritionCalculatorService;
+
+    // Generate complete fitness plan (diet + workout) - Now persisted
     @PostMapping("/generate-complete-plan")
     public ResponseEntity<CompleteFitnessPlan> generateCompletePlan(@RequestBody User user) {
         log.info("Generating complete fitness plan for user: {}", user.getEmail());
         try {
             User savedUser = userRepository.save(user);
+
+            // Generate and persist diet plan
             DietPlan dietPlan = dietPlanService.generateCustomDietPlan(savedUser);
+
+            // Generate and persist workout plan
             WorkoutPlan workoutPlan = workoutPlanService.generateCustomWorkoutPlan(savedUser);
 
             CompleteFitnessPlan completePlan = new CompleteFitnessPlan();
@@ -58,8 +64,12 @@ public class FitnessController {
             completePlan.setDietPlan(dietPlan);
             completePlan.setWorkoutPlan(workoutPlan);
             completePlan.setGeneratedDate(LocalDate.now());
+            completePlan.setSummary(String.format(
+                    "Complete fitness plan for %s - Goal: %s | Daily Calories: %.0f | Workout Days: %d/week",
+                    savedUser.getName(), savedUser.getGoal(), dietPlan.getDailyCalorieTarget(),
+                    (int) workoutPlan.getWeeklyPlan().stream().filter(day -> !day.isRestDay()).count()));
 
-            log.info("Successfully generated complete plan for userId={}", savedUser.getUserId());
+            log.info("Successfully generated and persisted complete plan for userId={}", savedUser.getUserId());
             return ResponseEntity.ok(completePlan);
 
         } catch (Exception e) {
@@ -68,14 +78,14 @@ public class FitnessController {
         }
     }
 
-    // Generate only diet plan
+    // Generate only diet plan - Now persisted
     @PostMapping("/generate-diet-plan")
     public ResponseEntity<DietPlan> generateDietPlan(@RequestBody User user) {
         log.info("Generating diet plan for user: {}", user.getEmail());
         try {
             User savedUser = userRepository.save(user);
             DietPlan dietPlan = dietPlanService.generateCustomDietPlan(savedUser);
-            log.info("Diet plan generated for userId={}", savedUser.getUserId());
+            log.info("Diet plan generated and persisted for userId={}", savedUser.getUserId());
             return ResponseEntity.ok(dietPlan);
         } catch (Exception e) {
             log.error("Error generating diet plan for user: {}", user.getEmail(), e);
@@ -83,14 +93,14 @@ public class FitnessController {
         }
     }
 
-    // Generate only workout plan
+    // Generate only workout plan - Now persisted
     @PostMapping("/generate-workout-plan")
     public ResponseEntity<WorkoutPlan> generateWorkoutPlan(@RequestBody User user) {
         log.info("Generating workout plan for user: {}", user.getEmail());
         try {
             User savedUser = userRepository.save(user);
             WorkoutPlan workoutPlan = workoutPlanService.generateCustomWorkoutPlan(savedUser);
-            log.info("Workout plan generated for userId={}", savedUser.getUserId());
+            log.info("Workout plan generated and persisted for userId={}", savedUser.getUserId());
             return ResponseEntity.ok(workoutPlan);
         } catch (Exception e) {
             log.error("Error generating workout plan for user: {}", user.getEmail(), e);
@@ -98,7 +108,7 @@ public class FitnessController {
         }
     }
 
-    // Get user's existing plans
+    // Get user's existing plans - Now fetches from database
     @GetMapping("/user/{userId}/plans")
     public ResponseEntity<UserPlansResponse> getUserPlans(@PathVariable Long userId) {
         log.info("Fetching plans for userId={}", userId);
@@ -110,8 +120,21 @@ public class FitnessController {
             }
 
             User user = userOpt.get();
-            DietPlan dietPlan = dietPlanService.generateCustomDietPlan(user);
-            WorkoutPlan workoutPlan = workoutPlanService.generateCustomWorkoutPlan(user);
+
+            // Fetch existing plans from database
+            DietPlan dietPlan = dietPlanService.getExistingDietPlan(userId);
+            WorkoutPlan workoutPlan = workoutPlanService.getExistingWorkoutPlan(userId);
+
+            // If no plans exist, generate new ones
+            if (dietPlan == null) {
+                log.info("No existing diet plan found for userId={}, generating new one", userId);
+                dietPlan = dietPlanService.generateCustomDietPlan(user);
+            }
+
+            if (workoutPlan == null) {
+                log.info("No existing workout plan found for userId={}, generating new one", userId);
+                workoutPlan = workoutPlanService.generateCustomWorkoutPlan(user);
+            }
 
             UserPlansResponse response = new UserPlansResponse();
             response.setUser(user);
@@ -127,7 +150,7 @@ public class FitnessController {
         }
     }
 
-    // Update user profile and regenerate plans
+    // Update user profile and regenerate plans - Now updates database
     @PutMapping("/user/{userId}/update-and-regenerate")
     public ResponseEntity<CompleteFitnessPlan> updateUserAndRegeneratePlans(
             @PathVariable Long userId, @RequestBody User updatedUser) {
@@ -136,20 +159,67 @@ public class FitnessController {
             updatedUser.setUserId(userId);
             User savedUser = userRepository.save(updatedUser);
 
-            DietPlan dietPlan = dietPlanService.generateCustomDietPlan(savedUser);
-            WorkoutPlan workoutPlan = workoutPlanService.generateCustomWorkoutPlan(savedUser);
+            // Regenerate plans (this will delete old ones and create new ones)
+            DietPlan dietPlan = dietPlanService.regenerateDietPlan(savedUser);
+            WorkoutPlan workoutPlan = workoutPlanService.regenerateWorkoutPlan(savedUser);
 
             CompleteFitnessPlan completePlan = new CompleteFitnessPlan();
             completePlan.setUser(savedUser);
             completePlan.setDietPlan(dietPlan);
             completePlan.setWorkoutPlan(workoutPlan);
             completePlan.setGeneratedDate(LocalDate.now());
+            completePlan.setSummary(String.format(
+                    "Updated fitness plan for %s - Goal: %s | Daily Calories: %.0f | Workout Days: %d/week",
+                    savedUser.getName(), savedUser.getGoal(), dietPlan.getDailyCalorieTarget(),
+                    (int) workoutPlan.getWeeklyPlan().stream().filter(day -> !day.isRestDay()).count()));
 
             log.info("Successfully updated and regenerated plans for userId={}", userId);
             return ResponseEntity.ok(completePlan);
 
         } catch (Exception e) {
             log.error("Error updating user and regenerating plans for userId={}", userId, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    // Regenerate diet plan only
+    @PostMapping("/user/{userId}/regenerate-diet")
+    public ResponseEntity<DietPlan> regenerateDietPlan(@PathVariable Long userId) {
+        log.info("Regenerating diet plan for userId={}", userId);
+        try {
+            Optional<User> userOpt = userRepository.findById(userId);
+            if (!userOpt.isPresent()) {
+                log.warn("User not found with id={}", userId);
+                return ResponseEntity.notFound().build();
+            }
+
+            DietPlan dietPlan = dietPlanService.regenerateDietPlan(userOpt.get());
+            log.info("Diet plan regenerated for userId={}", userId);
+            return ResponseEntity.ok(dietPlan);
+
+        } catch (Exception e) {
+            log.error("Error regenerating diet plan for userId={}", userId, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    // Regenerate workout plan only
+    @PostMapping("/user/{userId}/regenerate-workout")
+    public ResponseEntity<WorkoutPlan> regenerateWorkoutPlan(@PathVariable Long userId) {
+        log.info("Regenerating workout plan for userId={}", userId);
+        try {
+            Optional<User> userOpt = userRepository.findById(userId);
+            if (!userOpt.isPresent()) {
+                log.warn("User not found with id={}", userId);
+                return ResponseEntity.notFound().build();
+            }
+
+            WorkoutPlan workoutPlan = workoutPlanService.regenerateWorkoutPlan(userOpt.get());
+            log.info("Workout plan regenerated for userId={}", userId);
+            return ResponseEntity.ok(workoutPlan);
+
+        } catch (Exception e) {
+            log.error("Error regenerating workout plan for userId={}", userId, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
@@ -166,8 +236,8 @@ public class FitnessController {
             }
 
             User user = userOpt.get();
-            NutritionCalculatorService nutritionCalculator = new NutritionCalculatorService();
-            NutritionCalculatorService.NutritionalNeeds needs = nutritionCalculator.calculateNutritionalNeeds(user);
+            NutritionCalculatorService.NutritionalNeeds needs = nutritionCalculatorService
+                    .calculateNutritionalNeeds(user);
 
             NutritionAnalysis analysis = new NutritionAnalysis();
             analysis.setUserId(userId);
@@ -176,8 +246,7 @@ public class FitnessController {
             analysis.setDailyCarbs(needs.carbs);
             analysis.setDailyFat(needs.fat);
             analysis.setBmr(calculateBMR(user));
-            analysis.setTdee(needs.calories
-                    + (user.getGoal().equals("WEIGHT_LOSS") ? 500 : user.getGoal().equals("WEIGHT_GAIN") ? -500 : 0));
+            analysis.setTdee(needs.calories);
 
             log.info("Nutrition analysis calculated for userId={}", userId);
             return ResponseEntity.ok(analysis);

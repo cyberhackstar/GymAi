@@ -7,11 +7,12 @@ import {
   User,
   WorkoutPlan,
 } from '../fitness-service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-workout-plan',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './workout-plan-component.html',
   styleUrls: ['./workout-plan-component.css'],
 })

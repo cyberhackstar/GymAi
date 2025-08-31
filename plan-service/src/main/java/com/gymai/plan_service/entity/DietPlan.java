@@ -1,77 +1,60 @@
+// Fixed DietPlan.java
 package com.gymai.plan_service.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Entity
+@Table(name = "diet_plans")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DietPlan {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "user_id", nullable = false)
     private Long userId;
-    private List<DayMealPlan> dailyPlans; // 7 days
+
+    @OneToMany(mappedBy = "dietPlan", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private List<DayMealPlan> dailyPlans = new ArrayList<>();
+
+    @Column(name = "daily_calorie_target")
     private double dailyCalorieTarget;
+
+    @Column(name = "daily_protein_target")
     private double dailyProteinTarget;
+
+    @Column(name = "daily_carbs_target")
     private double dailyCarbsTarget;
+
+    @Column(name = "daily_fat_target")
     private double dailyFatTarget;
+
+    @Column(name = "created_date")
     private LocalDate createdDate;
 
-    public DietPlan() {
-        this.dailyPlans = new ArrayList<>();
-        this.createdDate = LocalDate.now();
+    @PrePersist
+    protected void onCreate() {
+        if (createdDate == null) {
+            createdDate = LocalDate.now();
+        }
     }
 
-    // Getters and setters
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public List<DayMealPlan> getDailyPlans() {
-        return dailyPlans;
-    }
-
-    public void setDailyPlans(List<DayMealPlan> dailyPlans) {
-        this.dailyPlans = dailyPlans;
-    }
-
-    public double getDailyCalorieTarget() {
-        return dailyCalorieTarget;
-    }
-
-    public void setDailyCalorieTarget(double dailyCalorieTarget) {
-        this.dailyCalorieTarget = dailyCalorieTarget;
-    }
-
-    public double getDailyProteinTarget() {
-        return dailyProteinTarget;
-    }
-
-    public void setDailyProteinTarget(double dailyProteinTarget) {
-        this.dailyProteinTarget = dailyProteinTarget;
-    }
-
-    public double getDailyCarbsTarget() {
-        return dailyCarbsTarget;
-    }
-
-    public void setDailyCarbsTarget(double dailyCarbsTarget) {
-        this.dailyCarbsTarget = dailyCarbsTarget;
-    }
-
-    public double getDailyFatTarget() {
-        return dailyFatTarget;
-    }
-
-    public void setDailyFatTarget(double dailyFatTarget) {
-        this.dailyFatTarget = dailyFatTarget;
-    }
-
-    public LocalDate getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
+    // Helper method to add day meal plan
+    public void addDayMealPlan(DayMealPlan dayMealPlan) {
+        dailyPlans.add(dayMealPlan);
+        dayMealPlan.setDietPlan(this);
     }
 }

@@ -11,6 +11,10 @@ services:
     networks:
       - shared_net
     environment:
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
       # Realistic JVM settings for a 2GB container on Pi 4
       JAVA_OPTS: >-
         -server

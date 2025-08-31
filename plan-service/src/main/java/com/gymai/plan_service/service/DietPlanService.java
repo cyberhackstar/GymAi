@@ -1,3 +1,4 @@
+// Fixed DietPlanService.java
 package com.gymai.plan_service.service;
 
 import java.util.Arrays;
@@ -7,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gymai.plan_service.entity.DayMealPlan;
 import com.gymai.plan_service.entity.DietPlan;
@@ -14,16 +16,21 @@ import com.gymai.plan_service.entity.Food;
 import com.gymai.plan_service.entity.FoodItem;
 import com.gymai.plan_service.entity.Meal;
 import com.gymai.plan_service.entity.User;
+import com.gymai.plan_service.repository.DietPlanRepository;
 import com.gymai.plan_service.repository.FoodRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@Transactional
 public class DietPlanService {
 
     @Autowired
     private FoodRepository foodRepository;
+
+    @Autowired
+    private DietPlanRepository dietPlanRepository;
 
     @Autowired
     private NutritionCalculatorService nutritionCalculator;
@@ -31,18 +38,63 @@ public class DietPlanService {
     public DietPlan generateCustomDietPlan(User user) {
         log.info("Generating custom diet plan for user: {} (preference: {})", user.getUserId(), user.getPreference());
 
+        // Check if user already has a diet plan
+        Optional<DietPlan> existingPlan = getExistingDietPlanInternal(user.getUserId());
+        if (existingPlan.isPresent()) {
+            log.info("Found existing diet plan for userId={}, returning cached plan", user.getUserId());
+            return existingPlan.get();
+        }
+
+        return generateNewDietPlan(user);
+    }
+
+    @Transactional
+    public DietPlan regenerateDietPlan(User user) {
+        log.info("Regenerating diet plan for userId={}", user.getUserId());
+
+        // Delete existing plan
+        dietPlanRepository.deleteByUserId(user.getUserId());
+
+        // Generate new plan
+        return generateNewDietPlan(user);
+    }
+
+    public DietPlan getExistingDietPlan(Long userId) {
+        log.info("Fetching existing diet plan for userId={}", userId);
+        return getExistingDietPlanInternal(userId).orElse(null);
+    }
+
+    private Optional<DietPlan> getExistingDietPlanInternal(Long userId) {
+        Optional<DietPlan> dietPlan = dietPlanRepository.findLatestByUserIdWithDays(userId);
+        if (dietPlan.isPresent()) {
+            // Manually load the nested relationships to avoid fetch issues
+            DietPlan plan = dietPlan.get();
+            plan.getDailyPlans().forEach(dayPlan -> {
+                dayPlan.getMeals().size(); // Initialize lazy collection
+                dayPlan.getMeals().forEach(meal -> {
+                    meal.getFoodItems().size(); // Initialize lazy collection
+                });
+            });
+        }
+        return dietPlan;
+    }
+
+    private DietPlan generateNewDietPlan(User user) {
         // Calculate nutritional needs
         NutritionCalculatorService.NutritionalNeeds needs = nutritionCalculator.calculateNutritionalNeeds(user);
         log.debug("Calculated needs -> Calories: {}, Protein: {}, Carbs: {}, Fat: {}",
                 needs.calories, needs.protein, needs.carbs, needs.fat);
 
-        // Create diet plan
+        // Create new diet plan
         DietPlan dietPlan = new DietPlan();
         dietPlan.setUserId(user.getUserId());
         dietPlan.setDailyCalorieTarget(needs.calories);
         dietPlan.setDailyProteinTarget(needs.protein);
         dietPlan.setDailyCarbsTarget(needs.carbs);
         dietPlan.setDailyFatTarget(needs.fat);
+
+        // Save the diet plan first to get the ID
+        dietPlan = dietPlanRepository.save(dietPlan);
 
         // Generate 7-day meal plan
         List<String> dayNames = Arrays.asList("Monday", "Tuesday", "Wednesday",
@@ -51,10 +103,13 @@ public class DietPlanService {
         for (int i = 0; i < 7; i++) {
             log.info("Generating meal plan for {}", dayNames.get(i));
             DayMealPlan dayPlan = generateDayMealPlan(i + 1, dayNames.get(i), user, needs);
-            dietPlan.getDailyPlans().add(dayPlan);
+            dietPlan.addDayMealPlan(dayPlan);
         }
 
-        log.info("Finished generating diet plan for user: {}", user.getUserId());
+        // Save the complete plan with all relationships
+        dietPlan = dietPlanRepository.save(dietPlan);
+        log.info("Successfully saved diet plan for userId={} with planId={}", user.getUserId(), dietPlan.getId());
+
         return dietPlan;
     }
 

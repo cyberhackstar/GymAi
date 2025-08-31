@@ -1,60 +1,54 @@
+// Fixed WorkoutPlan.java
 package com.gymai.plan_service.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-// WorkoutPlan.java
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Entity
+@Table(name = "workout_plans")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class WorkoutPlan {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "user_id", nullable = false)
     private Long userId;
-    private List<DayWorkoutPlan> weeklyPlan; // 7 days
-    private String planType; // STRENGTH, CARDIO, MIXED, WEIGHT_LOSS, MUSCLE_GAIN
+
+    @OneToMany(mappedBy = "workoutPlan", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private List<DayWorkoutPlan> weeklyPlan = new ArrayList<>();
+
+    @Column(name = "plan_type")
+    private String planType;
+
+    @Column(name = "difficulty_level")
     private String difficultyLevel;
+
+    @Column(name = "created_date")
     private LocalDate createdDate;
 
-    public WorkoutPlan() {
-        this.weeklyPlan = new ArrayList<>();
-        this.createdDate = LocalDate.now();
+    @PrePersist
+    protected void onCreate() {
+        if (createdDate == null) {
+            createdDate = LocalDate.now();
+        }
     }
 
-    // Getters and setters
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public List<DayWorkoutPlan> getWeeklyPlan() {
-        return weeklyPlan;
-    }
-
-    public void setWeeklyPlan(List<DayWorkoutPlan> weeklyPlan) {
-        this.weeklyPlan = weeklyPlan;
-    }
-
-    public String getPlanType() {
-        return planType;
-    }
-
-    public void setPlanType(String planType) {
-        this.planType = planType;
-    }
-
-    public String getDifficultyLevel() {
-        return difficultyLevel;
-    }
-
-    public void setDifficultyLevel(String difficultyLevel) {
-        this.difficultyLevel = difficultyLevel;
-    }
-
-    public LocalDate getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
+    // Helper method to add day workout plan
+    public void addDayWorkoutPlan(DayWorkoutPlan dayWorkoutPlan) {
+        weeklyPlan.add(dayWorkoutPlan);
+        dayWorkoutPlan.setWorkoutPlan(this);
     }
 }
