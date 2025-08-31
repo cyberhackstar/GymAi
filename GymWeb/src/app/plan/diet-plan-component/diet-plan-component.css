@@ -486,7 +486,7 @@
 
 .no-data-content i {
   font-size: 4rem;
-  color: #ff4c4c;
+  color: #ffffff;
   margin-bottom: 20px;
 }
 
@@ -503,7 +503,7 @@
 
 .primary-btn {
   padding: 15px 30px;
-  background: linear-gradient(45deg, #ff4c4c, #ff0000);
+  background: linear-gradient(90deg, red, #cd0101);
   color: white;
   border: none;
   border-radius: 12px;

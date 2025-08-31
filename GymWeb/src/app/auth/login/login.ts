@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Token } from '../../core/services/token';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../core/services/auth';
@@ -25,6 +25,7 @@ import { environment } from '../../../environments/environment';
     HttpClientModule,
     MatIconModule,
     RouterModule,
+    NgOptimizedImage,
   ],
   templateUrl: './login.html',
   styleUrls: ['./login.css'],

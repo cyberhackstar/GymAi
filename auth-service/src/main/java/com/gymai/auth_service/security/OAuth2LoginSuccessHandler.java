@@ -2,7 +2,6 @@
 package com.gymai.auth_service.security;
 
 import org.springframework.amqp.core.DirectExchange;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -33,10 +32,10 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
     private final RabbitMqSender rabbitMqSender;
     private final DirectExchange directExchange;
 
-    @Value("${app.frontend.default-url:http://localhost:4200}")
+    @Value("${app.frontend.default-url:https://gymai.neelahouse.cloud}")
     private String defaultFrontendUrl;
 
-    @Value("#{'${app.frontend.allowed-urls:http://localhost:4200}'.split(',')}")
+    @Value("#{'${app.frontend.allowed-urls:https://gymai.neelahouse.cloud}'.split(',')}")
     private List<String> allowedFrontendUrls;
 
     @Value("${event.routing.registration}")

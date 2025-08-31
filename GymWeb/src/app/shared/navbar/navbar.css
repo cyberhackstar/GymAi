@@ -11,6 +11,11 @@ a {
   display: inline-block;
 }
 
+.canvas-menu li a:hover {
+  text-decoration: none;
+  color: red;
+}
+
 /* HEADER SECTION */
 .header-section {
   background: #0d0d0d;

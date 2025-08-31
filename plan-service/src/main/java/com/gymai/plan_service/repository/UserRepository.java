@@ -19,4 +19,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByActivityLevel(String activityLevel);
 
     List<User> findByPreference(String preference);
+
+    boolean existsByEmail(String email);
+
+    Optional<User> findByUserId(Long userId);
 }

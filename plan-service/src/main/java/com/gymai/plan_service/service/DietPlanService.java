@@ -79,6 +79,11 @@ public class DietPlanService {
         return dietPlan;
     }
 
+    public void deleteUserPlans(Long userId) {
+        log.info("Deleting diet plans for userId: {}", userId);
+        dietPlanRepository.deleteByUserId(userId);
+    }
+
     private DietPlan generateNewDietPlan(User user) {
         // Calculate nutritional needs
         NutritionCalculatorService.NutritionalNeeds needs = nutritionCalculator.calculateNutritionalNeeds(user);

@@ -87,7 +87,7 @@
 .generate-btn {
   width: 100%;
   padding: 18px;
-  background: linear-gradient(45deg, #ff4c4c, #ff0000);
+  background: linear-gradient(90deg, red, #cd0101);
   color: white;
   border: none;
   border-radius: 15px;

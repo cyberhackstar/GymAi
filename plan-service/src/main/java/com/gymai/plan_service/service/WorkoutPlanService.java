@@ -64,6 +64,11 @@ public class WorkoutPlanService {
                 .orElse(null);
     }
 
+    public void deleteUserPlans(Long userId) {
+        log.info("Deleting workout plans for userId: {}", userId);
+        workoutPlanRepository.deleteByUserId(userId);
+    }
+
     private WorkoutPlan generateNewWorkoutPlan(User user) {
         WorkoutPlan workoutPlan = new WorkoutPlan();
         workoutPlan.setUserId(user.getUserId());

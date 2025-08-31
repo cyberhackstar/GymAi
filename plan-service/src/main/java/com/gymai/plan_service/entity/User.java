@@ -22,9 +22,9 @@ public class User {
     private String name;
     private String email;
 
-    private int age;
-    private double height; // in cm
-    private double weight; // in kg
+    private Integer age;
+    private Double height; // in cm
+    private Double weight; // in kg
 
     private String gender; // MALE, FEMALE
     private String goal; // WEIGHT_LOSS, WEIGHT_GAIN, MUSCLE_GAIN, MAINTENANCE
