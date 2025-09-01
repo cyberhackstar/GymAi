@@ -2284,3 +2284,130 @@ Caused by: org.hibernate.PropertyValueException: not-null property references a 
 2025-09-01 11:22:33.660 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-09-01 11:22:33.664 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-09-01 11:22:35.174 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-09-01 11:37:54.893 [restartedMain] INFO  c.g.p.PlanServiceApplication - Starting PlanServiceApplication using Java 21.0.8 with PID 17024 (C:\Users\bikku\OneDrive\Desktop\GymAi\plan-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\plan-service)
+2025-09-01 11:37:54.893 [restartedMain] INFO  c.g.p.PlanServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-01 11:37:54.963 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-01 11:37:54.963 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-01 11:37:56.393 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-01 11:37:56.546 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 141 ms. Found 10 JPA repository interfaces.
+2025-09-01 11:37:56.879 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=d6a8f6c5-8c4a-3513-8b2c-7b71105d5e78
+2025-09-01 11:37:57.845 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2025-09-01 11:37:57.866 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8083"]
+2025-09-01 11:37:57.867 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-01 11:37:57.867 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-01 11:37:58.018 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-01 11:37:58.018 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3055 ms
+2025-09-01 11:37:58.394 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-01 11:37:58.498 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-01 11:37:58.569 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-01 11:37:59.089 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-01 11:37:59.130 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-01 11:38:01.104 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@72ee988c
+2025-09-01 11:38:01.104 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-01 11:38:01.671 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-01 11:38:02.157 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-01 11:38:03.729 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-01 11:38:07.122 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-01 11:38:07.580 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-01 11:38:20.198 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-01 11:38:20.268 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 16 endpoints beneath base path '/actuator'
+2025-09-01 11:38:20.351 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8083"]
+2025-09-01 11:38:20.386 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
+2025-09-01 11:38:20.413 [restartedMain] INFO  c.g.p.PlanServiceApplication - Started PlanServiceApplication in 26.367 seconds (process running for 27.204)
+2025-09-01 11:38:39.626 [http-nio-8083-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-01 11:38:39.626 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-01 11:38:39.626 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-09-01 11:38:39.845 [http-nio-8083-exec-2] INFO  c.g.p.c.OptimizedFitnessController - Legacy endpoint: Generating complete fitness plan for user: sharma2001bhawesh@gmail.com
+2025-09-01 11:38:40.314 [http-nio-8083-exec-2] INFO  c.g.p.service.DietPlanService - Generating custom diet plan for user: 1 (preference: VEG)
+2025-09-01 11:38:40.513 [http-nio-8083-exec-2] INFO  c.g.p.s.NutritionCalculatorService - Calculating nutritional needs for user: User(userId=1, name=Bhawesh, email=sharma2001bhawesh@gmail.com, age=25, height=170.0, weight=70.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE, preference=VEG)
+2025-09-01 11:38:40.513 [http-nio-8083-exec-2] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.875
+2025-09-01 11:38:40.513 [http-nio-8083-exec-2] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 213.44062499999998g, Carbs: 320.1609375g, Fat: 79.05208333333333g
+2025-09-01 11:38:40.691 [http-nio-8083-exec-2] INFO  c.g.p.service.DietPlanService - Generating meal plan for Monday
+2025-09-01 11:38:41.196 [http-nio-8083-exec-2] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:38:41.511 [http-nio-8083-exec-2] INFO  c.g.p.service.DietPlanService - Generating meal plan for Tuesday
+2025-09-01 11:38:44.318 [http-nio-8083-exec-2] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:38:44.635 [http-nio-8083-exec-2] INFO  c.g.p.service.DietPlanService - Generating meal plan for Wednesday
+2025-09-01 11:38:47.429 [http-nio-8083-exec-2] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:38:47.751 [http-nio-8083-exec-2] INFO  c.g.p.service.DietPlanService - Generating meal plan for Thursday
+2025-09-01 11:38:50.518 [http-nio-8083-exec-2] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:38:50.829 [http-nio-8083-exec-2] INFO  c.g.p.service.DietPlanService - Generating meal plan for Friday
+2025-09-01 11:38:53.607 [http-nio-8083-exec-2] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:38:53.934 [http-nio-8083-exec-2] INFO  c.g.p.service.DietPlanService - Generating meal plan for Saturday
+2025-09-01 11:38:56.719 [http-nio-8083-exec-2] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:38:57.037 [http-nio-8083-exec-2] INFO  c.g.p.service.DietPlanService - Generating meal plan for Sunday
+2025-09-01 11:38:59.796 [http-nio-8083-exec-2] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:39:02.443 [http-nio-8083-exec-2] INFO  c.g.p.service.DietPlanService - Successfully saved diet plan for userId=1 with planId=1
+2025-09-01 11:39:02.602 [http-nio-8083-exec-2] INFO  c.g.p.service.WorkoutPlanService - Generating workout plan for userId=1, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE
+2025-09-01 11:39:03.752 [http-nio-8083-exec-2] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Monday (Day 1): focusArea=UPPER_BODY, restDay=false
+2025-09-01 11:39:03.907 [http-nio-8083-exec-2] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Tuesday (Day 2): focusArea=LOWER_BODY, restDay=false
+2025-09-01 11:39:03.908 [http-nio-8083-exec-2] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Wednesday (Day 3): focusArea=REST, restDay=true
+2025-09-01 11:39:04.532 [http-nio-8083-exec-2] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Thursday (Day 4): focusArea=UPPER_BODY, restDay=false
+2025-09-01 11:39:04.672 [http-nio-8083-exec-2] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Friday (Day 5): focusArea=LOWER_BODY, restDay=false
+2025-09-01 11:39:04.999 [http-nio-8083-exec-2] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Saturday (Day 6): focusArea=FULL_BODY, restDay=false
+2025-09-01 11:39:04.999 [http-nio-8083-exec-2] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Sunday (Day 7): focusArea=REST, restDay=true
+2025-09-01 11:39:10.240 [http-nio-8083-exec-2] INFO  c.g.p.service.WorkoutPlanService - Completed workout plan generation for userId=1 with planId=1
+2025-09-01 11:44:46.094 [http-nio-8083-exec-8] INFO  c.g.p.c.OptimizedFitnessController - Legacy endpoint: Generating complete fitness plan for user: Sharma
+2025-09-01 11:44:46.576 [http-nio-8083-exec-8] INFO  c.g.p.service.DietPlanService - Generating custom diet plan for user: 2 (preference: VEG)
+2025-09-01 11:44:46.735 [http-nio-8083-exec-8] INFO  c.g.p.s.NutritionCalculatorService - Calculating nutritional needs for user: User(userId=2, name=Bhawesh , email=Sharma, age=25, height=170.0, weight=70.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE, preference=VEG)
+2025-09-01 11:44:46.735 [http-nio-8083-exec-8] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.875
+2025-09-01 11:44:46.735 [http-nio-8083-exec-8] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 213.44062499999998g, Carbs: 320.1609375g, Fat: 79.05208333333333g
+2025-09-01 11:44:46.895 [http-nio-8083-exec-8] INFO  c.g.p.service.DietPlanService - Generating meal plan for Monday
+2025-09-01 11:44:47.360 [http-nio-8083-exec-8] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:44:47.681 [http-nio-8083-exec-8] INFO  c.g.p.service.DietPlanService - Generating meal plan for Tuesday
+2025-09-01 11:44:50.460 [http-nio-8083-exec-8] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:44:50.766 [http-nio-8083-exec-8] INFO  c.g.p.service.DietPlanService - Generating meal plan for Wednesday
+2025-09-01 11:44:53.556 [http-nio-8083-exec-8] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:44:53.872 [http-nio-8083-exec-8] INFO  c.g.p.service.DietPlanService - Generating meal plan for Thursday
+2025-09-01 11:44:56.637 [http-nio-8083-exec-8] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:44:56.939 [http-nio-8083-exec-8] INFO  c.g.p.service.DietPlanService - Generating meal plan for Friday
+2025-09-01 11:44:59.749 [http-nio-8083-exec-8] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:45:00.062 [http-nio-8083-exec-8] INFO  c.g.p.service.DietPlanService - Generating meal plan for Saturday
+2025-09-01 11:45:02.903 [http-nio-8083-exec-8] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:45:03.238 [http-nio-8083-exec-8] INFO  c.g.p.service.DietPlanService - Generating meal plan for Sunday
+2025-09-01 11:45:06.021 [http-nio-8083-exec-8] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:45:08.651 [http-nio-8083-exec-8] INFO  c.g.p.service.DietPlanService - Successfully saved diet plan for userId=2 with planId=2
+2025-09-01 11:45:08.797 [http-nio-8083-exec-8] INFO  c.g.p.service.WorkoutPlanService - Generating workout plan for userId=2, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE
+2025-09-01 11:45:09.891 [http-nio-8083-exec-8] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Monday (Day 1): focusArea=UPPER_BODY, restDay=false
+2025-09-01 11:45:10.053 [http-nio-8083-exec-8] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Tuesday (Day 2): focusArea=LOWER_BODY, restDay=false
+2025-09-01 11:45:10.053 [http-nio-8083-exec-8] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Wednesday (Day 3): focusArea=REST, restDay=true
+2025-09-01 11:45:10.667 [http-nio-8083-exec-8] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Thursday (Day 4): focusArea=UPPER_BODY, restDay=false
+2025-09-01 11:45:10.829 [http-nio-8083-exec-8] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Friday (Day 5): focusArea=LOWER_BODY, restDay=false
+2025-09-01 11:45:11.138 [http-nio-8083-exec-8] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Saturday (Day 6): focusArea=FULL_BODY, restDay=false
+2025-09-01 11:45:11.138 [http-nio-8083-exec-8] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Sunday (Day 7): focusArea=REST, restDay=true
+2025-09-01 11:45:16.375 [http-nio-8083-exec-8] INFO  c.g.p.service.WorkoutPlanService - Completed workout plan generation for userId=2 with planId=2
+2025-09-01 11:50:34.556 [http-nio-8083-exec-10] INFO  c.g.p.c.OptimizedFitnessController - Legacy endpoint: Generating complete fitness plan for user: sharma2001bhawesh@gmail.com
+2025-09-01 11:50:35.020 [http-nio-8083-exec-10] INFO  c.g.p.service.DietPlanService - Generating custom diet plan for user: 3 (preference: VEG)
+2025-09-01 11:50:35.172 [http-nio-8083-exec-10] INFO  c.g.p.s.NutritionCalculatorService - Calculating nutritional needs for user: User(userId=3, name=Bhawesh, email=sharma2001bhawesh@gmail.com, age=25, height=170.0, weight=70.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE, preference=VEG)
+2025-09-01 11:50:35.172 [http-nio-8083-exec-10] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.875
+2025-09-01 11:50:35.172 [http-nio-8083-exec-10] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 213.44062499999998g, Carbs: 320.1609375g, Fat: 79.05208333333333g
+2025-09-01 11:50:35.325 [http-nio-8083-exec-10] INFO  c.g.p.service.DietPlanService - Generating meal plan for Monday
+2025-09-01 11:50:35.799 [http-nio-8083-exec-10] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:50:36.105 [http-nio-8083-exec-10] INFO  c.g.p.service.DietPlanService - Generating meal plan for Tuesday
+2025-09-01 11:50:38.869 [http-nio-8083-exec-10] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:50:39.188 [http-nio-8083-exec-10] INFO  c.g.p.service.DietPlanService - Generating meal plan for Wednesday
+2025-09-01 11:50:41.954 [http-nio-8083-exec-10] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:50:42.266 [http-nio-8083-exec-10] INFO  c.g.p.service.DietPlanService - Generating meal plan for Thursday
+2025-09-01 11:50:46.424 [http-nio-8083-exec-10] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:50:46.753 [http-nio-8083-exec-10] INFO  c.g.p.service.DietPlanService - Generating meal plan for Friday
+2025-09-01 11:50:50.017 [http-nio-8083-exec-10] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:50:50.331 [http-nio-8083-exec-10] INFO  c.g.p.service.DietPlanService - Generating meal plan for Saturday
+2025-09-01 11:50:53.112 [http-nio-8083-exec-10] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:50:53.425 [http-nio-8083-exec-10] INFO  c.g.p.service.DietPlanService - Generating meal plan for Sunday
+2025-09-01 11:50:56.195 [http-nio-8083-exec-10] WARN  c.g.p.service.DietPlanService - No foods found for DINNER. Falling back to default diet type VEG (mealType=LUNCH)
+2025-09-01 11:50:58.839 [http-nio-8083-exec-10] INFO  c.g.p.service.DietPlanService - Successfully saved diet plan for userId=3 with planId=3
+2025-09-01 11:50:58.994 [http-nio-8083-exec-10] INFO  c.g.p.service.WorkoutPlanService - Generating workout plan for userId=3, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE
+2025-09-01 11:51:00.083 [http-nio-8083-exec-10] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Monday (Day 1): focusArea=UPPER_BODY, restDay=false
+2025-09-01 11:51:00.237 [http-nio-8083-exec-10] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Tuesday (Day 2): focusArea=LOWER_BODY, restDay=false
+2025-09-01 11:51:00.238 [http-nio-8083-exec-10] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Wednesday (Day 3): focusArea=REST, restDay=true
+2025-09-01 11:51:00.854 [http-nio-8083-exec-10] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Thursday (Day 4): focusArea=UPPER_BODY, restDay=false
+2025-09-01 11:51:01.009 [http-nio-8083-exec-10] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Friday (Day 5): focusArea=LOWER_BODY, restDay=false
+2025-09-01 11:51:01.314 [http-nio-8083-exec-10] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Saturday (Day 6): focusArea=FULL_BODY, restDay=false
+2025-09-01 11:51:01.314 [http-nio-8083-exec-10] INFO  c.g.p.service.WorkoutPlanService - Generated workout for Sunday (Day 7): focusArea=REST, restDay=true
+2025-09-01 11:51:06.532 [http-nio-8083-exec-10] INFO  c.g.p.service.WorkoutPlanService - Completed workout plan generation for userId=3 with planId=3

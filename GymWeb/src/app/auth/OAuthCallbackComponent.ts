@@ -6,28 +6,14 @@ import { Token } from '../core/services/token';
 @Component({
   selector: 'app-oauth-callback',
   template: `
-    <div
-      style="display: flex; justify-content: center; align-items: center; height: 100vh; background: #0d0d0d; color: white;"
-    >
-      <div style="text-align: center;">
-        <h2>Completing login...</h2>
-        <div style="margin-top: 1rem;">
-          <div
-            style="border: 3px solid #ff4c4c; border-top: 3px solid transparent; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto;"
-          ></div>
-        </div>
+    <div class="flex justify-center items-center h-screen">
+      <div class="text-center">
+        <div
+          class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"
+        ></div>
+        <p class="mt-4 text-gray-600">Processing login...</p>
       </div>
     </div>
-    <style>
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
   `,
   standalone: true,
 })
@@ -42,17 +28,25 @@ export class OAuthCallbackComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       const accessToken = params['access_token'];
       const refreshToken = params['refresh_token'];
+      const profileCompleted = params['profile_completed'] === 'true';
 
       if (accessToken && refreshToken) {
+        // ✅ Store tokens
         this.tokenService.setToken(accessToken);
         this.tokenService.setRefreshToken(refreshToken);
 
-        // Redirect to dashboard (or based on profile completion)
-        const profileCompleted = params['profile_completed'] === 'true';
-        this.router.navigate([
-          profileCompleted ? '/dashboard' : '/complete-profile',
-        ]);
+        // ✅ Get the intended redirect URL from sessionStorage
+        const intendedRedirect = sessionStorage.getItem('oauth_redirect');
+        sessionStorage.removeItem('oauth_redirect'); // Clean up
+
+        // ✅ Navigate to intended page or default
+        const redirectTo = intendedRedirect || '/plan-dashboard';
+
+        console.log('OAuth login successful, redirecting to:', redirectTo);
+        this.router.navigate([redirectTo]);
       } else {
+        // ✅ Handle error case
+        console.error('OAuth callback missing tokens');
         this.router.navigate(['/login'], {
           queryParams: { error: 'oauth_failed' },
         });
@@ -60,6 +54,3 @@ export class OAuthCallbackComponent implements OnInit {
     });
   }
 }
-
-// Add this route to your app.routes.ts
-// { path: 'oauth-callback', component: OAuthCallbackComponent }

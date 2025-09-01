@@ -236,13 +236,14 @@
 
 .chart-card {
   background: #111;
-  padding: 30px;
+  padding: 30px 5px;
   border-radius: 15px;
   border: 1px solid rgba(255, 76, 76, 0.2);
 }
 
 .chart-header {
   margin-bottom: 25px;
+  padding: 0px 30px;
 }
 
 .chart-header h3 {
