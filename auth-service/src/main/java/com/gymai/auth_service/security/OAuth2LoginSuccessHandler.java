@@ -81,10 +81,14 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                     directExchange.getName(),
                     loginRouting);
 
-            // ✅ Resolve frontend redirect
-            String redirectUrlParam = request.getParameter("redirectUrl");
-            String redirectUrl = resolveRedirectUrl(redirectUrlParam);
+            // ✅ Get frontend URL from OAuth2 state parameter
+            String frontendBaseUrl = extractFrontendUrlFromState(request);
+            log.info("Extracted frontend URL from OAuth state: {}", frontendBaseUrl);
 
+            // ✅ Resolve frontend redirect URL
+            String redirectUrl = resolveRedirectUrl(frontendBaseUrl);
+
+            // ✅ Create the final redirect URL with tokens
             String finalRedirect = String.format(
                     "%s/oauth-callback?access_token=%s&refresh_token=%s&profile_completed=%s",
                     redirectUrl,
@@ -102,11 +106,68 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
     }
 
     private String resolveRedirectUrl(String redirectUrlParam) {
-        if (redirectUrlParam != null && allowedFrontendUrls.contains(redirectUrlParam)) {
-            return redirectUrlParam;
+        // ✅ First check if the parameter is provided and valid
+        if (redirectUrlParam != null && !redirectUrlParam.trim().isEmpty()) {
+            // ✅ Decode the URL if it's encoded
+            try {
+                String decodedUrl = java.net.URLDecoder.decode(redirectUrlParam, StandardCharsets.UTF_8);
+                log.info("Decoded redirect URL: {}", decodedUrl);
+
+                // ✅ Check if the decoded URL is in allowed list
+                if (allowedFrontendUrls.contains(decodedUrl)) {
+                    return decodedUrl;
+                }
+
+                // ✅ Check if any allowed URL starts with this base URL (for different
+                // ports/protocols)
+                for (String allowedUrl : allowedFrontendUrls) {
+                    if (decodedUrl.startsWith(extractBaseUrl(allowedUrl))) {
+                        log.info("Using allowed base URL match: {}", decodedUrl);
+                        return decodedUrl;
+                    }
+                }
+
+            } catch (Exception e) {
+                log.warn("Failed to decode redirect URL: {}", redirectUrlParam, e);
+            }
         }
-        log.warn("Redirect URL {} not in allowed list, using default {}", redirectUrlParam, defaultFrontendUrl);
+
+        log.warn("Redirect URL {} not in allowed list or invalid, using default {}",
+                redirectUrlParam, defaultFrontendUrl);
         return defaultFrontendUrl;
+    }
+
+    // ✅ Extract frontend URL from cookie (simplest approach)
+    private String extractFrontendUrlFromState(HttpServletRequest request) {
+        // ✅ First try to get from cookie
+        if (request.getCookies() != null) {
+            for (jakarta.servlet.http.Cookie cookie : request.getCookies()) {
+                if ("frontend_origin".equals(cookie.getName())) {
+                    String frontendOrigin = cookie.getValue();
+                    log.info("Found frontend origin in cookie: {}", frontendOrigin);
+                    return frontendOrigin;
+                }
+            }
+        }
+
+        // ✅ Fallback: extract from referer header
+        String referer = request.getHeader("Referer");
+        if (referer != null) {
+            try {
+                java.net.URL url = new java.net.URL(referer);
+                String baseUrl = url.getProtocol() + "://" + url.getHost();
+                if (url.getPort() != -1) {
+                    baseUrl += ":" + url.getPort();
+                }
+                log.info("Extracted base URL from referer: {}", baseUrl);
+                return baseUrl;
+            } catch (Exception e) {
+                log.warn("Failed to parse referer URL: {}", referer, e);
+            }
+        }
+
+        log.warn("No valid frontend URL found, using default");
+        return null;
     }
 
     private User findOrCreateOAuth2User(String email, String name, String provider) {
@@ -167,6 +228,17 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                 return name != null ? name : oauth2User.getAttribute("login");
             default:
                 return "OAuth User";
+        }
+    }
+
+    // ✅ Helper method to extract base URL (protocol + domain)
+    private String extractBaseUrl(String url) {
+        try {
+            java.net.URL parsedUrl = new java.net.URL(url);
+            return parsedUrl.getProtocol() + "://" + parsedUrl.getHost() +
+                    (parsedUrl.getPort() != -1 ? ":" + parsedUrl.getPort() : "");
+        } catch (Exception e) {
+            return url;
         }
     }
 }

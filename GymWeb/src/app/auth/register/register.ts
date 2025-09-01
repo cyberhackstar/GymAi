@@ -123,18 +123,31 @@ export class Register {
     });
   }
 
-  // auth.component.ts (or wherever your login buttons are)
   loginWithGoogle(): void {
-    const redirectUri = encodeURIComponent(
-      window.location.origin + '/oauth-callback'
-    );
-    window.location.href = `${environment.authUrl}/oauth2/authorization/google?redirect_uri=${redirectUri}`;
+    // ✅ Store redirect URL in sessionStorage before OAuth redirect
+    sessionStorage.setItem('oauth_redirect', '/plan-dashboard');
+
+    // ✅ Simple approach: append the frontend URL to the OAuth URL
+    const currentOrigin = window.location.origin;
+    const oauthUrl = `${environment.authUrl}/oauth2/authorization/google`;
+
+    // ✅ Store the frontend origin in a cookie that backend can read
+    document.cookie = `frontend_origin=${currentOrigin}; path=/; max-age=300`; // 5 minutes
+
+    window.location.href = oauthUrl;
   }
 
   loginWithGitHub(): void {
-    const redirectUri = encodeURIComponent(
-      window.location.origin + '/oauth-callback'
-    );
-    window.location.href = `${environment.authUrl}/oauth2/authorization/github?redirect_uri=${redirectUri}`;
+    // ✅ Store redirect URL in sessionStorage before OAuth redirect
+    sessionStorage.setItem('oauth_redirect', '/plan-dashboard');
+
+    // ✅ Simple approach: append the frontend URL to the OAuth URL
+    const currentOrigin = window.location.origin;
+    const oauthUrl = `${environment.authUrl}/oauth2/authorization/github`;
+
+    // ✅ Store the frontend origin in a cookie that backend can read
+    document.cookie = `frontend_origin=${currentOrigin}; path=/; max-age=300`; // 5 minutes
+
+    window.location.href = oauthUrl;
   }
 }

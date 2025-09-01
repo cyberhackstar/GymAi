@@ -16,11 +16,21 @@ export const authInterceptor: HttpInterceptorFn = (
   const tokenService = inject(Token);
   const router = inject(Router);
 
-  const token = tokenService.getToken(); // automatically null if expired
+  // Get token (will be null if expired or doesn't exist)
+  let token: string | null = null;
+  try {
+    token = tokenService.getToken();
+  } catch (error) {
+    console.error('Error getting token:', error);
+    token = null;
+  }
 
-  // 🚫 Don't attach token for login or register endpoints
+  // Don't attach token for auth endpoints
   const isAuthRequest =
-    req.url.includes('/auth/login') || req.url.includes('/auth/register');
+    req.url.includes('/auth/login') ||
+    req.url.includes('/auth/register') ||
+    req.url.includes('/oauth2/') ||
+    req.url.includes('/login/oauth2/');
 
   let authReq = req;
   if (token && !isAuthRequest) {
@@ -33,11 +43,26 @@ export const authInterceptor: HttpInterceptorFn = (
 
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
-      // If token is missing or request fails with 401, redirect to login
-      if (error.status === 401 || (!token && !isAuthRequest)) {
-        tokenService.clearToken(); // clear any invalid/expired tokens
-        router.navigate(['/login']);
+      // Handle 401 Unauthorized responses
+      if (error.status === 401) {
+        console.log(
+          '401 Unauthorized - clearing token and redirecting to login'
+        );
+        try {
+          tokenService.clearToken();
+        } catch (clearError) {
+          console.error('Error clearing token:', clearError);
+        }
+
+        // Only redirect if not already on login page
+        if (
+          !window.location.pathname.includes('/login') &&
+          !window.location.pathname.includes('/oauth-callback')
+        ) {
+          router.navigate(['/login']);
+        }
       }
+
       return throwError(() => error);
     })
   );

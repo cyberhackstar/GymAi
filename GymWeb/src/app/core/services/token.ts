@@ -11,30 +11,37 @@ export class Token {
   private nameKey = 'user_name';
   private emailKey = 'user_email';
 
-  // Live observables for components to subscribe to
-  token$ = new BehaviorSubject<string | null>(this.getToken());
-  refreshToken$ = new BehaviorSubject<string | null>(this.getRefreshToken());
-  userId$ = new BehaviorSubject<string | null>(this.getUserId());
-  name$ = new BehaviorSubject<string | null>(this.getName());
-  email$ = new BehaviorSubject<string | null>(this.getEmail());
+  // Initialize BehaviorSubjects with null first, then sync after
+  token$ = new BehaviorSubject<string | null>(null);
+  refreshToken$ = new BehaviorSubject<string | null>(null);
+  userId$ = new BehaviorSubject<string | null>(null);
+  name$ = new BehaviorSubject<string | null>(null);
+  email$ = new BehaviorSubject<string | null>(null);
 
   constructor() {
+    // Sync from storage after BehaviorSubjects are initialized
+    this.syncFromStorage();
+
     // Listen for localStorage changes across tabs/windows
-    window.addEventListener('storage', (event) => {
-      if (
-        event.key === this.tokenKey ||
-        event.key === this.refreshTokenKey ||
-        event.key === this.userIdKey ||
-        event.key === this.nameKey ||
-        event.key === this.emailKey
-      ) {
-        this.syncFromStorage();
-      }
-    });
+    if (typeof window !== 'undefined') {
+      window.addEventListener('storage', (event) => {
+        if (
+          event.key === this.tokenKey ||
+          event.key === this.refreshTokenKey ||
+          event.key === this.userIdKey ||
+          event.key === this.nameKey ||
+          event.key === this.emailKey
+        ) {
+          this.syncFromStorage();
+        }
+      });
+    }
   }
 
   // ===== Access Token =====
   getToken(): string | null {
+    if (typeof localStorage === 'undefined') return null;
+
     const token = localStorage.getItem(this.tokenKey);
     if (!token) return null;
 
@@ -52,6 +59,8 @@ export class Token {
   }
 
   setToken(token: string): void {
+    if (typeof localStorage === 'undefined') return;
+
     localStorage.setItem(this.tokenKey, token);
 
     // Decode token and store user details
@@ -69,16 +78,21 @@ export class Token {
 
   // ===== Refresh Token =====
   getRefreshToken(): string | null {
+    if (typeof localStorage === 'undefined') return null;
     return localStorage.getItem(this.refreshTokenKey);
   }
 
   setRefreshToken(refreshToken: string): void {
+    if (typeof localStorage === 'undefined') return;
+
     localStorage.setItem(this.refreshTokenKey, refreshToken);
     this.refreshToken$.next(refreshToken);
   }
 
   // ===== Clear All =====
   clearToken(): void {
+    if (typeof localStorage === 'undefined') return;
+
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.refreshTokenKey);
     localStorage.removeItem(this.userIdKey);
@@ -90,14 +104,17 @@ export class Token {
 
   // ===== User Info =====
   getUserId(): string | null {
+    if (typeof localStorage === 'undefined') return null;
     return localStorage.getItem(this.userIdKey);
   }
 
   getName(): string | null {
+    if (typeof localStorage === 'undefined') return null;
     return localStorage.getItem(this.nameKey);
   }
 
   getEmail(): string | null {
+    if (typeof localStorage === 'undefined') return null;
     return localStorage.getItem(this.emailKey);
   }
 
@@ -115,10 +132,19 @@ export class Token {
 
   // ===== Sync Observables with Storage =====
   private syncFromStorage(): void {
-    this.token$.next(this.getToken());
-    this.refreshToken$.next(this.getRefreshToken());
-    this.userId$.next(this.getUserId());
-    this.name$.next(this.getName());
-    this.email$.next(this.getEmail());
+    // Only sync if BehaviorSubjects are initialized
+    if (
+      this.token$ &&
+      this.refreshToken$ &&
+      this.userId$ &&
+      this.name$ &&
+      this.email$
+    ) {
+      this.token$.next(this.getToken());
+      this.refreshToken$.next(this.getRefreshToken());
+      this.userId$.next(this.getUserId());
+      this.name$.next(this.getName());
+      this.email$.next(this.getEmail());
+    }
   }
 }
