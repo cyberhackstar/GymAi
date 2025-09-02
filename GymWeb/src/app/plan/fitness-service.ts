@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 // ===== DTOs - UPDATED TO MATCH BACKEND EXACTLY =====
 export interface UserProfileDTO {
@@ -135,7 +136,7 @@ export interface OptimizedPlansResponseDTO {
   providedIn: 'root',
 })
 export class FitnessService {
-  private baseUrl = 'http://localhost:8083/api/fitness';
+  private baseUrl = environment.planUrl;
 
   constructor(private http: HttpClient) {}
 

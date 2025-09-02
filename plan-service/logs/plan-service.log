@@ -6694,3 +6694,10 @@ Caused by: org.postgresql.util.PSQLException: ERROR: update or delete on table "
 2025-09-02 15:08:34.937 [http-nio-8083-exec-7] INFO  c.g.p.c.OptimizedFitnessController - Successfully fetched/generated plans for email: sharma2001bhawesh@gmail.com
 2025-09-02 15:20:29.283 [http-nio-8083-exec-1] INFO  c.g.p.c.OptimizedFitnessController - Checking profile status for email: bhaweshdharma@gmail.com
 2025-09-02 15:20:29.617 [http-nio-8083-exec-1] INFO  c.g.p.c.OptimizedFitnessController - User not found with email: bhaweshdharma@gmail.com
+2025-09-02 15:26:29.969 [http-nio-8083-exec-10] INFO  c.g.p.c.OptimizedFitnessController - Checking profile status for email: bikkujangid@gmail.com
+2025-09-02 15:26:30.275 [http-nio-8083-exec-10] INFO  c.g.p.c.OptimizedFitnessController - User not found with email: bikkujangid@gmail.com
+2025-09-02 15:27:38.534 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-02 15:27:38.585 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-02 15:27:38.645 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-02 15:27:38.701 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-02 15:27:40.299 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
