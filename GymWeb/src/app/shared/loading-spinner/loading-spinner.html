@@ -1,1 +1,190 @@
-<p>loading-spinner works!</p>
+<div class="loading-overlay" [class]="'size-' + size">
+  <div class="loading-container">
+    <!-- Main Exercise Animation -->
+    <div class="exercise-animation" [class]="exerciseIcon">
+      <!-- Shoulder Press Animation -->
+      <div
+        *ngIf="exercise === 'shoulder-press'"
+        class="shoulder-press-container"
+      >
+        <div class="figure">
+          <!-- Head -->
+          <div class="head"></div>
+          <!-- Body -->
+          <div class="torso"></div>
+          <!-- Arms -->
+          <div class="arm left-arm">
+            <div class="upper-arm"></div>
+            <div class="forearm"></div>
+            <div class="weight"></div>
+          </div>
+          <div class="arm right-arm">
+            <div class="upper-arm"></div>
+            <div class="forearm"></div>
+            <div class="weight"></div>
+          </div>
+          <!-- Legs -->
+          <div class="leg left-leg"></div>
+          <div class="leg right-leg"></div>
+        </div>
+        <div class="platform"></div>
+      </div>
+
+      <!-- Bench Press Animation -->
+      <div *ngIf="exercise === 'bench-press'" class="bench-press-container">
+        <div class="bench"></div>
+        <div class="figure lying">
+          <!-- Head -->
+          <div class="head"></div>
+          <!-- Body -->
+          <div class="torso"></div>
+          <!-- Arms -->
+          <div class="arm left-arm">
+            <div class="upper-arm"></div>
+            <div class="forearm"></div>
+          </div>
+          <div class="arm right-arm">
+            <div class="upper-arm"></div>
+            <div class="forearm"></div>
+          </div>
+          <!-- Legs -->
+          <div class="leg left-leg"></div>
+          <div class="leg right-leg"></div>
+        </div>
+        <div class="barbell">
+          <div class="bar"></div>
+          <div class="weight-plate left"></div>
+          <div class="weight-plate right"></div>
+        </div>
+      </div>
+
+      <!-- Deadlift Animation -->
+      <div *ngIf="exercise === 'deadlift'" class="deadlift-container">
+        <div class="figure">
+          <!-- Head -->
+          <div class="head"></div>
+          <!-- Body -->
+          <div class="torso"></div>
+          <!-- Arms -->
+          <div class="arm left-arm">
+            <div class="upper-arm"></div>
+            <div class="forearm"></div>
+          </div>
+          <div class="arm right-arm">
+            <div class="upper-arm"></div>
+            <div class="forearm"></div>
+          </div>
+          <!-- Legs -->
+          <div class="leg left-leg"></div>
+          <div class="leg right-leg"></div>
+        </div>
+        <div class="barbell ground">
+          <div class="bar"></div>
+          <div class="weight-plate left"></div>
+          <div class="weight-plate right"></div>
+        </div>
+        <div class="platform"></div>
+      </div>
+
+      <!-- Squat Animation -->
+      <div *ngIf="exercise === 'squat'" class="squat-container">
+        <div class="figure">
+          <!-- Head -->
+          <div class="head"></div>
+          <!-- Body -->
+          <div class="torso"></div>
+          <!-- Arms -->
+          <div class="arm left-arm">
+            <div class="upper-arm"></div>
+            <div class="forearm"></div>
+          </div>
+          <div class="arm right-arm">
+            <div class="upper-arm"></div>
+            <div class="forearm"></div>
+          </div>
+          <!-- Legs -->
+          <div class="leg left-leg">
+            <div class="thigh"></div>
+            <div class="shin"></div>
+          </div>
+          <div class="leg right-leg">
+            <div class="thigh"></div>
+            <div class="shin"></div>
+          </div>
+        </div>
+        <div class="barbell shoulders">
+          <div class="bar"></div>
+          <div class="weight-plate left"></div>
+          <div class="weight-plate right"></div>
+        </div>
+        <div class="platform"></div>
+      </div>
+    </div>
+
+    <!-- Loading Message -->
+    <div class="loading-message">
+      <h3>{{ message }}</h3>
+      <div class="exercise-name">{{ exerciseName }}</div>
+    </div>
+
+    <!-- Rep Counter -->
+    <div *ngIf="showReps" class="rep-counter">
+      <div class="rep-display">
+        <span class="current-rep">{{ currentRep }}</span>
+        <span class="separator">/</span>
+        <span class="max-reps">{{ maxReps }}</span>
+      </div>
+      <div class="rep-label">REPS</div>
+      <div class="progress-ring">
+        <div
+          class="progress-fill"
+          [style.transform]="'rotate(' + (currentRep / maxReps) * 360 + 'deg)'"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Motivational Quote -->
+    <div *ngIf="showQuotes" class="motivation-section">
+      <div class="quote-container">
+        <i class="fas fa-quote-left quote-icon"></i>
+        <blockquote class="quote-text">{{ currentQuote.text }}</blockquote>
+        <cite class="quote-author">- {{ currentQuote.author }}</cite>
+      </div>
+    </div>
+
+    <!-- Progress Dots -->
+    <div class="progress-dots">
+      <div class="dot" [class.active]="currentRep % 4 === 1"></div>
+      <div class="dot" [class.active]="currentRep % 4 === 2"></div>
+      <div class="dot" [class.active]="currentRep % 4 === 3"></div>
+      <div class="dot" [class.active]="currentRep % 4 === 0"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Basic usage -->
+<!-- <app-loading-spinner *ngIf="isLoading"></app-loading-spinner> -->
+
+<!-- Custom configuration -->
+<!-- <app-loading-spinner 
+  *ngIf="isLoading"
+  exercise="deadlift"
+  message="AI is analyzing your fitness data..."
+  size="large"
+  [showReps]="true"
+  [showQuotes]="true">
+</app-loading-spinner> -->
+
+<!-- For different scenarios -->
+<!-- <app-loading-spinner 
+  exercise="bench-press"
+  message="Loading workout plan..."
+  size="medium">
+</app-loading-spinner> -->
+
+<!-- <app-loading-spinner 
+  exercise="squat"
+  message="Processing nutrition data..."
+  size="small"
+  [showQuotes]="false">
+</app-loading-spinner> -->

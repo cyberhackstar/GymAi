@@ -16,7 +16,7 @@
         <i class="fas fa-sync-alt" [class.fa-spin]="isLoading"></i>
         Regenerate Plan
       </button>
-      <button class="action-btn" routerLink="/plan-dashboard">
+      <button class="action-btn secondary" routerLink="/plan-dashboard">
         <i class="fas fa-home"></i> Dashboard
       </button>
     </div>
@@ -31,7 +31,7 @@
           <h3>
             {{
               getDailyCalorieTarget() !== 0
-                ? (getDailyCalorieTarget() | number : "0")
+                ? (getDailyCalorieTarget() | number : "1.0-0")
                 : "--"
             }}
           </h3>
@@ -44,7 +44,7 @@
           <h3>
             {{
               getDailyProteinTarget() !== 0
-                ? (getDailyProteinTarget() | number : "0")
+                ? (getDailyProteinTarget() | number : "1.0-0")
                 : "--"
             }}g
           </h3>
@@ -57,7 +57,7 @@
           <h3>
             {{
               getDailyCarbsTarget() !== 0
-                ? (getDailyCarbsTarget() | number : "0")
+                ? (getDailyCarbsTarget() | number : "1.0-0")
                 : "--"
             }}g
           </h3>
@@ -70,9 +70,9 @@
           <h3>
             {{
               getDailyFatTarget() !== 0
-                ? (getDailyFatTarget() | number : "0")
+                ? (getDailyFatTarget() | number : "1.0-0")
                 : "--"
-            }}
+            }}g
           </h3>
           <p>Daily Fat</p>
         </div>
@@ -87,10 +87,11 @@
         *ngFor="let day of dietPlan?.dailyPlans || []; let i = index"
         [class.active]="selectedDayIndex === i"
         (click)="selectDay(i)"
+        class="day-tab"
       >
         <span class="day-name">{{ day.dayName }}</span>
         <span class="day-calories"
-          >{{ day.totalDailyCalories | number : "0" }} kcal</span
+          >{{ day.totalDailyCalories | number : "1.0-0" }} kcal</span
         >
       </button>
     </div>
@@ -106,8 +107,8 @@
           <div class="macro-header">
             <span>Calories</span>
             <span>
-              {{ selectedDay.totalDailyCalories | number : "0" }} /
-              {{ getDailyCalorieTarget() | number : "0" }}
+              {{ selectedDay.totalDailyCalories | number : "1.0-0" }} /
+              {{ getDailyCalorieTarget() | number : "1.0-0" }}
             </span>
           </div>
           <div class="progress-bar">
@@ -127,8 +128,8 @@
           <div class="macro-header">
             <span>Protein</span>
             <span>
-              {{ selectedDay.totalDailyProtein | number : "0" }} /
-              {{ getDailyProteinTarget() | number : "0" }}
+              {{ selectedDay.totalDailyProtein | number : "1.0-0" }}g /
+              {{ getDailyProteinTarget() | number : "1.0-0" }}g
             </span>
           </div>
           <div class="progress-bar">
@@ -148,8 +149,8 @@
           <div class="macro-header">
             <span>Carbs</span>
             <span>
-              {{ selectedDay.totalDailyCarbs | number : "0" }} /
-              {{ getDailyCarbsTarget() | number : "0" }}
+              {{ selectedDay.totalDailyCarbs | number : "1.0-0" }}g /
+              {{ getDailyCarbsTarget() | number : "1.0-0" }}g
             </span>
           </div>
           <div class="progress-bar">
@@ -169,8 +170,8 @@
           <div class="macro-header">
             <span>Fat</span>
             <span>
-              {{ selectedDay.totalDailyFat | number : "0" }} /
-              {{ getDailyFatTarget() | number : "0" }}
+              {{ selectedDay.totalDailyFat | number : "1.0-0" }}g /
+              {{ getDailyFatTarget() | number : "1.0-0" }}g
             </span>
           </div>
           <div class="progress-bar">
@@ -197,17 +198,19 @@
             <h3>{{ formatMealType(meal.mealType) }}</h3>
           </div>
           <div class="meal-calories">
-            {{ meal.totalCalories | number : "0" }} kcal
+            {{ meal.totalCalories | number : "1.0-0" }} kcal
           </div>
         </div>
         <div class="meal-macros">
           <span class="macro protein"
-            >P: {{ meal.totalProtein | number : "0" }}</span
+            >P: {{ meal.totalProtein | number : "1.0-0" }}g</span
           >
           <span class="macro carbs"
-            >C: {{ meal.totalCarbs | number : "0" }}</span
+            >C: {{ meal.totalCarbs | number : "1.0-0" }}g</span
           >
-          <span class="macro fat">F: {{ meal.totalFat | number : "0" }}</span>
+          <span class="macro fat"
+            >F: {{ meal.totalFat | number : "1.0-0" }}g</span
+          >
         </div>
         <div class="food-items">
           <div class="food-item" *ngFor="let item of meal.foodItems">
@@ -215,7 +218,7 @@
               <div class="food-name">{{ item.foodName }}</div>
               <div class="food-details">
                 <span class="quantity"
-                  >{{ item.quantity | number : "0" }}g</span
+                  >{{ item.quantity | number : "1.0-0" }}g</span
                 >
                 <span
                   class="category"
@@ -227,19 +230,21 @@
             </div>
             <div class="food-nutrition">
               <div class="nutrition-item">
-                <span class="value">{{ item.calories | number : "0" }}</span>
+                <span class="value">{{
+                  item.calories | number : "1.0-0"
+                }}</span>
                 <span class="label">kcal</span>
               </div>
               <div class="nutrition-item">
-                <span class="value">{{ item.protein | number : "0" }}</span>
+                <span class="value">{{ item.protein | number : "1.0-0" }}</span>
                 <span class="label">P</span>
               </div>
               <div class="nutrition-item">
-                <span class="value">{{ item.carbs | number : "0" }}</span>
+                <span class="value">{{ item.carbs | number : "1.0-0" }}</span>
                 <span class="label">C</span>
               </div>
               <div class="nutrition-item">
-                <span class="value">{{ item.fat | number : "0" }}</span>
+                <span class="value">{{ item.fat | number : "1.0-0" }}</span>
                 <span class="label">F</span>
               </div>
             </div>
@@ -251,8 +256,10 @@
 
   <!-- Loading Overlay -->
   <div class="loading-overlay" *ngIf="isLoading">
-    <div class="spinner"></div>
-    <p>Loading your diet plan...</p>
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p>Loading your diet plan...</p>
+    </div>
   </div>
 
   <!-- No Data State -->

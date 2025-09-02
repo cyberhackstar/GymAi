@@ -5,13 +5,51 @@ import { Subject, takeUntil } from 'rxjs';
 import {
   FitnessService,
   UserProfileDTO,
-  SimpleDietPlanDTO,
-  SimpleDayMealPlanDTO,
-  SimpleMealDTO,
-  SimpleFoodItemDTO,
   OptimizedPlansResponseDTO,
 } from '../fitness-service';
 import { Token } from '../../core/services/token';
+
+// Interfaces matching your backend response
+interface SimpleFoodItemDTO {
+  foodName: string;
+  category: string;
+  quantity: number;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber: number;
+}
+
+interface SimpleMealDTO {
+  mealType: string;
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFat: number;
+  foodItems: SimpleFoodItemDTO[];
+}
+
+interface SimpleDayMealPlanDTO {
+  dayNumber: number;
+  dayName: string;
+  totalDailyCalories: number;
+  totalDailyProtein: number;
+  totalDailyCarbs: number;
+  totalDailyFat: number;
+  meals: SimpleMealDTO[];
+}
+
+interface SimpleDietPlanDTO {
+  id: number;
+  userId: number;
+  dailyCalorieTarget: number;
+  dailyProteinTarget: number;
+  dailyCarbsTarget: number;
+  dailyFatTarget: number;
+  createdDate: string;
+  dailyPlans: SimpleDayMealPlanDTO[];
+}
 
 @Component({
   selector: 'app-diet-plan',
@@ -76,8 +114,10 @@ export class DietPlanComponent implements OnInit, OnDestroy {
         .getUserPlansOptimized(this.userProfile)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
-          next: (response) => {
-            this.userProfile = response.user;
+          next: (response: OptimizedPlansResponseDTO) => {
+            if (response.user) {
+              this.userProfile = response.user;
+            }
             this.dietPlan = response.dietPlan ?? null;
             this.selectedDayIndex = 0;
             this.selectedDay = this.dietPlan?.dailyPlans?.[0] ?? null;
@@ -286,5 +326,36 @@ export class DietPlanComponent implements OnInit, OnDestroy {
     return category
       ? category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()
       : 'Food';
+  }
+
+  // Additional helper methods for template usage
+  getFormattedWeight(item: SimpleFoodItemDTO): string {
+    return `${item.quantity.toFixed(0)}g`;
+  }
+
+  getNutritionValue(value: number): string {
+    return value.toFixed(1);
+  }
+
+  getMacroDisplayText(label: string, value: number): string {
+    switch (label.toLowerCase()) {
+      case 'protein':
+        return `P: ${value.toFixed(0)}g`;
+      case 'carbs':
+        return `C: ${value.toFixed(0)}g`;
+      case 'fat':
+        return `F: ${value.toFixed(0)}g`;
+      default:
+        return `${value.toFixed(0)}`;
+    }
+  }
+
+  getCalorieDisplay(calories: number): string {
+    return `${calories.toFixed(0)} kcal`;
+  }
+
+  getMacroPercentage(actual: number, target: number): number {
+    if (!target || target === 0) return 0;
+    return Math.round((actual / target) * 100);
   }
 }

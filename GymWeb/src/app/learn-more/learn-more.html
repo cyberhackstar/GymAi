@@ -1,0 +1,257 @@
+<div class="learn-more-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>
+        <span>Gym</span>AI
+        <i class="fas fa-dumbbell"></i>
+      </h1>
+      <h2>Transform Your Fitness Journey with AI</h2>
+      <p class="hero-description">
+        Experience the future of fitness with personalized AI-powered workouts,
+        smart nutrition planning, and advanced analytics that adapt to your
+        unique goals and lifestyle.
+      </p>
+      <div class="hero-actions">
+        <button class="primary-btn" (click)="onGetStarted()">
+          <i class="fas fa-rocket"></i>
+          Start Your Journey
+        </button>
+        <button class="secondary-btn" (click)="scrollToSection('features')">
+          <i class="fas fa-play"></i>
+          See How It Works
+        </button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="ai-visualization">
+        <div class="ai-brain">
+          <i class="fas fa-brain"></i>
+        </div>
+        <div class="data-nodes">
+          <div class="node node-1"><i class="fas fa-heartbeat"></i></div>
+          <div class="node node-2"><i class="fas fa-chart-line"></i></div>
+          <div class="node node-3"><i class="fas fa-utensils"></i></div>
+          <div class="node node-4"><i class="fas fa-dumbbell"></i></div>
+        </div>
+        <div class="connections">
+          <div class="connection con-1"></div>
+          <div class="connection con-2"></div>
+          <div class="connection con-3"></div>
+          <div class="connection con-4"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-container">
+      <div class="stat-item" *ngFor="let stat of stats">
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features-section">
+    <div class="section-header">
+      <h2>Powered by Advanced AI Technology</h2>
+      <p>
+        Discover how our intelligent features revolutionize your fitness
+        experience
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card" *ngFor="let feature of features">
+        <div class="feature-icon">
+          <i [class]="feature.icon"></i>
+        </div>
+        <div class="feature-content">
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+          <ul class="benefits-list">
+            <li *ngFor="let benefit of feature.benefits">
+              <i class="fas fa-check"></i>
+              {{ benefit }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <div class="section-header">
+      <h2>How GymAI Works</h2>
+      <p>Your personalized fitness journey in three simple steps</p>
+    </div>
+
+    <div class="steps-container">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Assessment</h3>
+          <p>
+            Complete our comprehensive fitness assessment. Our AI analyzes your
+            current fitness level, goals, preferences, and constraints.
+          </p>
+          <div class="step-icon">
+            <i class="fas fa-clipboard-list"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Personalization</h3>
+          <p>
+            Our AI creates your unique workout and nutrition plan, perfectly
+            tailored to your body, lifestyle, and objectives.
+          </p>
+          <div class="step-icon">
+            <i class="fas fa-cogs"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Adaptation</h3>
+          <p>
+            As you progress, our AI continuously learns and adapts your program
+            for optimal results and sustained motivation.
+          </p>
+          <div class="step-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="section-header">
+      <h2>What Our Users Say</h2>
+      <p>
+        Join thousands of satisfied users who transformed their lives with GymAI
+      </p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+        <div class="testimonial-header">
+          <img
+            [src]="testimonial.image"
+            [alt]="testimonial.name"
+            class="user-avatar"
+          />
+          <div class="user-info">
+            <h4>{{ testimonial.name }}</h4>
+            <p>{{ testimonial.role }}</p>
+            <div class="rating">
+              <i
+                class="fas fa-star"
+                *ngFor="let star of getStars(testimonial.rating)"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <blockquote>"{{ testimonial.comment }}"</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section">
+    <div class="section-header">
+      <h2>Choose Your Plan</h2>
+      <p>
+        Select the perfect plan to kickstart your AI-powered fitness journey
+      </p>
+    </div>
+
+    <div class="pricing-grid">
+      <div
+        class="pricing-card"
+        *ngFor="let plan of pricingPlans"
+        [class.popular]="plan.popular"
+      >
+        <div class="popular-badge" *ngIf="plan.popular">
+          <i class="fas fa-crown"></i>
+          Most Popular
+        </div>
+
+        <div class="plan-header">
+          <h3>{{ plan.name }}</h3>
+          <div class="price">
+            <span class="amount">{{ plan.price }}</span>
+            <span class="period">{{ plan.period }}</span>
+          </div>
+        </div>
+
+        <ul class="features-list">
+          <li *ngFor="let feature of plan.features">
+            <i class="fas fa-check"></i>
+            {{ feature }}
+          </li>
+        </ul>
+
+        <button
+          class="plan-btn"
+          [class.popular-btn]="plan.popular"
+          (click)="onSelectPlan(plan.name)"
+        >
+          {{ plan.buttonText }}
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="section-header">
+      <h2>Frequently Asked Questions</h2>
+      <p>Got questions? We've got answers to help you get started</p>
+    </div>
+
+    <div class="faq-container">
+      <div class="faq-item" *ngFor="let faq of faqs; let i = index">
+        <div class="faq-question" (click)="toggleFaq(i)">
+          <h4>{{ faq.question }}</h4>
+          <i class="fas fa-chevron-down" [class.rotated]="faq.expanded"></i>
+        </div>
+        <div class="faq-answer" [class.expanded]="faq.expanded">
+          <p>{{ faq.answer }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Fitness?</h2>
+      <p>
+        Join thousands of users who have already started their AI-powered
+        fitness journey
+      </p>
+      <div class="cta-actions">
+        <button class="primary-btn large" (click)="onGetStarted()">
+          <i class="fas fa-rocket"></i>
+          Get Started Now
+        </button>
+        <div class="guarantee">
+          <i class="fas fa-shield-alt"></i>
+          <span>30-day money-back guarantee</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

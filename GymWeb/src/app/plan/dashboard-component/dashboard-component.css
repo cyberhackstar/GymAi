@@ -718,3 +718,21 @@
     font-size: 2rem;
   }
 }
+
+@media (max-width: 480px) {
+  .today-plan {
+    background: #111;
+    padding: 11px;
+  }
+  .today-section {
+    padding: 15px;
+  }
+  .workout-indicator {
+    width: 40px;
+    height: 40px;
+  }
+
+  .chart-card {
+    padding: 20px 8px;
+  }
+}

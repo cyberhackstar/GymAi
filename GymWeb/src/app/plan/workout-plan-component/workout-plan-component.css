@@ -829,4 +829,11 @@
     flex-direction: column;
     gap: 10px;
   }
+
+  .week-day {
+    padding: 15px 3px;
+  }
+  .weekly-overview {
+    padding: 8px;
+  }
 }

@@ -240,6 +240,7 @@
           </div>
         </div>
       </div>
+
       <!-- Protein Tracking Chart -->
       <div class="chart-card">
         <div class="chart-header">
@@ -274,6 +275,7 @@
           </div>
         </div>
       </div>
+
       <!-- Workout Completion Chart -->
       <div class="chart-card">
         <div class="chart-header">
@@ -385,7 +387,7 @@
           <div class="workout-preview" *ngIf="getTodaysWorkout()">
             <div class="workout-info">
               <span class="workout-focus">{{
-                getTodaysWorkout()?.focusArea
+                getTodaysWorkout()?.focusArea | titlecase
               }}</span>
               <span class="workout-duration"
                 >{{ getTodaysWorkout()?.estimatedDurationMinutes }} min</span
@@ -431,9 +433,7 @@
 
   <!-- Loading Overlay -->
   <div class="loading-overlay" *ngIf="isLoading">
-    <div class="loading-content">
-      <div class="spinner"></div>
-      <p>Generating your personalized fitness plan...</p>
-    </div>
+    <app-loading-spinner message="Generating your diet and workout...">
+    </app-loading-spinner>
   </div>
 </div>

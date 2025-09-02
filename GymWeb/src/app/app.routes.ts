@@ -18,6 +18,8 @@ import { Services } from './services/services';
 import { DietPlanComponent } from './plan/diet-plan-component/diet-plan-component';
 import { WorkoutPlanComponent } from './plan/workout-plan-component/workout-plan-component';
 import { DashboardComponent } from './plan/dashboard-component/dashboard-component';
+import { LearnMore } from './learn-more/learn-more';
+import { UserProfile } from './user-profile/user-profile';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'default', pathMatch: 'full' },
@@ -34,6 +36,8 @@ export const routes: Routes = [
   { path: 'oauth-callback', component: OAuthCallbackComponent },
   { path: 'team', component: Team },
   { path: 'services', component: Services },
+  { path: 'learn-more', component: LearnMore },
+  { path: 'user-profile', component: UserProfile },
 
   // User Routes (Protected in real setup)
   { path: 'dashboard', component: UserDashboard },

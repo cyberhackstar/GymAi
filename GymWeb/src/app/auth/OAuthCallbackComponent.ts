@@ -3,24 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Token } from '../core/services/token';
+import { LoadingSpinner } from '../shared/loading-spinner/loading-spinner';
 
 @Component({
   selector: 'app-oauth-callback',
-  template: `
-    <div class="flex justify-center items-center h-screen">
-      <div class="text-center">
-        <div
-          class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"
-        ></div>
-        <p class="mt-4 text-gray-600">Processing OAuth login...</p>
-        <p class="mt-2 text-sm text-gray-500" *ngIf="debugInfo">
-          {{ debugInfo }}
-        </p>
-      </div>
-    </div>
-  `,
+  template: `<app-loading-spinner message="Getting Ready...">
+  </app-loading-spinner>`,
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LoadingSpinner],
 })
 export class OAuthCallbackComponent implements OnInit {
   debugInfo = '';

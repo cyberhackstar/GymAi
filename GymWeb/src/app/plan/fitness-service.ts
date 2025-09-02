@@ -61,7 +61,7 @@ export interface SimpleDayMealPlanDTO {
 
 // Updated to match backend SimpleDietPlanDTO
 export interface SimpleDietPlanDTO {
-  id?: number;
+  id: number;
   userId: number;
   dailyCalorieTarget: number;
   dailyProteinTarget: number;

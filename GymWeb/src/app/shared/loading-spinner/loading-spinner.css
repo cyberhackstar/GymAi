@@ -1,0 +1,1079 @@
+/* Loading Spinner Component */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(13, 13, 13, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+
+.loading-container {
+  text-align: center;
+  color: #f5f5f5;
+  max-width: 500px;
+  padding: 40px;
+}
+
+/* Size Variations */
+.size-small .loading-container {
+  max-width: 300px;
+  padding: 20px;
+}
+.size-large .loading-container {
+  max-width: 600px;
+  padding: 60px;
+}
+
+/* Exercise Animation Container */
+.exercise-animation {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 30px;
+  position: relative;
+  perspective: 1000px;
+}
+
+.size-small .exercise-animation {
+  width: 150px;
+  height: 150px;
+}
+.size-large .exercise-animation {
+  width: 250px;
+  height: 250px;
+}
+
+/* Common Figure Styles */
+.figure {
+  /* position: absolute; */
+  width: 100%;
+  height: 100%;
+}
+
+.head {
+  width: 20px;
+  height: 20px;
+  background: #ff4c4c;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.torso {
+  width: 30px;
+  height: 50px;
+  background: linear-gradient(180deg, #ff4c4c, #cd0101);
+  border-radius: 15px 15px 10px 10px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.arm {
+  position: absolute;
+}
+
+.upper-arm,
+.forearm {
+  background: #ff4c4c;
+  border-radius: 8px;
+}
+
+.leg {
+  position: absolute;
+  bottom: 0;
+}
+
+.thigh,
+.shin {
+  background: #ff4c4c;
+  border-radius: 6px;
+}
+
+.platform {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 8px;
+  background: #333;
+  border-radius: 4px;
+}
+
+/* Shoulder Press Animation - More Realistic */
+.shoulder-press-container .head {
+  top: 15px;
+}
+.shoulder-press-container .torso {
+  top: 30px;
+  width: 25px;
+  height: 45px;
+}
+
+.shoulder-press-container .left-arm {
+  top: 40px;
+  left: 30px;
+  transform-origin: top center;
+  animation: shoulderPressLeft 2s infinite ease-in-out;
+}
+
+.shoulder-press-container .right-arm {
+  top: 40px;
+  right: 30px;
+  transform-origin: top center;
+  animation: shoulderPressRight 2s infinite ease-in-out;
+}
+
+.shoulder-press-container .upper-arm {
+  width: 8px;
+  height: 28px;
+  transform-origin: top center;
+}
+
+.shoulder-press-container .forearm {
+  width: 6px;
+  height: 22px;
+  position: absolute;
+  bottom: -20px;
+  left: 1px;
+  transform-origin: top center;
+  animation: shoulderPressForearm 2s infinite ease-in-out;
+}
+
+.shoulder-press-container .weight {
+  width: 16px;
+  height: 6px;
+  background: #666;
+  border-radius: 3px;
+  position: absolute;
+  bottom: -30px;
+  left: -4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.shoulder-press-container .left-leg,
+.shoulder-press-container .right-leg {
+  width: 10px;
+  height: 45px;
+  background: #ff4c4c;
+  border-radius: 5px;
+  top: 70px;
+  animation: shoulderPressStance 2s infinite ease-in-out;
+}
+
+.shoulder-press-container .left-leg {
+  left: 75px;
+}
+.shoulder-press-container .right-leg {
+  right: 75px;
+}
+
+@keyframes shoulderPressLeft {
+  0% {
+    transform: rotate(-15deg);
+  }
+  25% {
+    transform: rotate(-45deg);
+  }
+  50% {
+    transform: rotate(-90deg);
+  }
+  75% {
+    transform: rotate(-45deg);
+  }
+  100% {
+    transform: rotate(-15deg);
+  }
+}
+
+@keyframes shoulderPressRight {
+  0% {
+    transform: rotate(15deg);
+  }
+  25% {
+    transform: rotate(45deg);
+  }
+  50% {
+    transform: rotate(90deg);
+  }
+  75% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes shoulderPressForearm {
+  0% {
+    transform: rotate(30deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(30deg);
+  }
+}
+
+@keyframes shoulderPressStance {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* Bench Press Animation - More Realistic */
+.bench {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 15px;
+  background: #333;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.bench::before {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  left: 15px;
+  width: 10px;
+  height: 30px;
+  background: #333;
+  border-radius: 5px;
+}
+
+.bench::after {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  right: 15px;
+  width: 10px;
+  height: 30px;
+  background: #333;
+  border-radius: 5px;
+}
+
+.bench-press-container .figure.lying {
+  bottom: 75px;
+}
+
+.bench-press-container .head {
+  top: auto;
+  bottom: 50px;
+  left: 45%;
+}
+
+.bench-press-container .torso {
+  top: auto;
+  bottom: 8px;
+  transform: translateX(-50%) rotate(90deg);
+  width: 50px;
+  height: 25px;
+}
+
+.bench-press-container .left-arm,
+.bench-press-container .right-arm {
+  animation: benchPressArms 2s infinite ease-in-out;
+  transform-origin: center;
+}
+
+.bench-press-container .left-arm {
+  bottom: 32px;
+  left: 55px;
+}
+
+.bench-press-container .right-arm {
+  bottom: 32px;
+  right: 55px;
+}
+
+.bench-press-container .upper-arm {
+  width: 22px;
+  height: 8px;
+  background: #ff4c4c;
+  border-radius: 4px;
+}
+
+.bench-press-container .forearm {
+  width: 18px;
+  height: 6px;
+  position: absolute;
+  right: -16px;
+  top: 1px;
+  background: #ff4c4c;
+  border-radius: 3px;
+  animation: benchPressForearms 2s infinite ease-in-out;
+}
+
+.bench-press-container .left-leg,
+.bench-press-container .right-leg {
+  width: 10px;
+  height: 35px;
+  background: #ff4c4c;
+  border-radius: 5px;
+  bottom: 0;
+}
+
+.bench-press-container .left-leg {
+  left: 75px;
+}
+.bench-press-container .right-leg {
+  right: 75px;
+}
+
+.barbell {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: barbellMove 2s infinite ease-in-out;
+}
+
+.barbell.ground {
+  bottom: 20px;
+}
+.barbell.shoulders {
+  top: 40px;
+}
+
+.bar {
+  width: 110px;
+  height: 5px;
+  background: linear-gradient(180deg, #999, #666);
+  border-radius: 3px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.weight-plate {
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle, #333, #222);
+  border-radius: 50%;
+  border: 3px solid #444;
+  position: absolute;
+  top: -12px;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.weight-plate.left {
+  left: -18px;
+}
+.weight-plate.right {
+  right: -18px;
+}
+
+.weight-plate::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: #111;
+  border-radius: 50%;
+}
+
+@keyframes benchPressArms {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-5px) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-10deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(-5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes benchPressForearms {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(-20deg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes barbellMove {
+  0% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  25% {
+    transform: translateX(-50%) translateY(-8px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-25px);
+  }
+  75% {
+    transform: translateX(-50%) translateY(-8px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+}
+
+/* Deadlift Animation - More Realistic */
+.deadlift-container .head {
+  top: 25px;
+  animation: deadliftHead 2s infinite ease-in-out;
+}
+
+.deadlift-container .torso {
+  top: 40px;
+  width: 28px;
+  height: 50px;
+  animation: deadliftTorso 2s infinite ease-in-out;
+  transform-origin: bottom center;
+}
+
+.deadlift-container .left-arm,
+.deadlift-container .right-arm {
+  top: 50px;
+  animation: deadliftArms 2s infinite ease-in-out;
+  transform-origin: top center;
+}
+
+.deadlift-container .left-arm {
+  left: 35px;
+}
+.deadlift-container .right-arm {
+  right: 35px;
+}
+
+.deadlift-container .upper-arm {
+  width: 8px;
+  height: 35px;
+}
+
+.deadlift-container .forearm {
+  width: 6px;
+  height: 30px;
+  position: absolute;
+  bottom: -28px;
+  left: 1px;
+  animation: deadliftForearms 2s infinite ease-in-out;
+}
+
+.deadlift-container .left-leg,
+.deadlift-container .right-leg {
+  width: 12px;
+  height: 50px;
+  background: #ff4c4c;
+  border-radius: 6px;
+  bottom: 20px;
+  animation: deadliftLegs 2s infinite ease-in-out;
+  transform-origin: top center;
+}
+
+.deadlift-container .left-leg {
+  left: 65px;
+}
+.deadlift-container .right-leg {
+  right: 65px;
+}
+
+.deadlift-container .barbell.ground {
+  bottom: 15px;
+  animation: deadliftBarbell 2s infinite ease-in-out;
+}
+
+@keyframes deadliftHead {
+  0% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  25% {
+    transform: translateX(-50%) translateY(8px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(15px);
+  }
+  75% {
+    transform: translateX(-50%) translateY(8px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+}
+
+@keyframes deadliftTorso {
+  0% {
+    transform: translateX(-50%) rotate(0deg) translateY(0px);
+  }
+  25% {
+    transform: translateX(-50%) rotate(25deg) translateY(10px);
+  }
+  50% {
+    transform: translateX(-50%) rotate(45deg) translateY(20px);
+  }
+  75% {
+    transform: translateX(-50%) rotate(25deg) translateY(10px);
+  }
+  100% {
+    transform: translateX(-50%) rotate(0deg) translateY(0px);
+  }
+}
+
+@keyframes deadliftArms {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(15px) rotate(15deg);
+  }
+  50% {
+    transform: translateY(30px) rotate(25deg);
+  }
+  75% {
+    transform: translateY(15px) rotate(15deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes deadliftForearms {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(-15deg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes deadliftLegs {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(25deg);
+  }
+  75% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes deadliftBarbell {
+  0% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  25% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-45px);
+  }
+  75% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+}
+
+/* Squat Animation - More Realistic */
+.squat-container .head {
+  top: 20px;
+  animation: squatHead 2s infinite ease-in-out;
+}
+
+.squat-container .torso {
+  top: 35px;
+  width: 28px;
+  height: 50px;
+  animation: squatTorso 2s infinite ease-in-out;
+  transform-origin: bottom center;
+}
+
+.squat-container .left-arm,
+.squat-container .right-arm {
+  top: 45px;
+  animation: squatArms 2s infinite ease-in-out;
+}
+
+.squat-container .left-arm {
+  left: 35px;
+}
+.squat-container .right-arm {
+  right: 35px;
+}
+
+.squat-container .upper-arm {
+  width: 8px;
+  height: 22px;
+  transform: rotate(90deg);
+  background: #ff4c4c;
+  border-radius: 4px;
+}
+
+.squat-container .forearm {
+  width: 6px;
+  height: 18px;
+  position: absolute;
+  top: -16px;
+  left: 1px;
+  background: #ff4c4c;
+  border-radius: 3px;
+}
+
+.squat-container .left-leg,
+.squat-container .right-leg {
+  bottom: 20px;
+  animation: squatLegs 2s infinite ease-in-out;
+  transform-origin: top center;
+}
+
+.squat-container .left-leg {
+  left: 65px;
+}
+.squat-container .right-leg {
+  right: 65px;
+}
+
+.squat-container .thigh {
+  width: 12px;
+  height: 28px;
+  background: #ff4c4c;
+  border-radius: 6px;
+  animation: squatThigh 2s infinite ease-in-out;
+  transform-origin: top center;
+}
+
+.squat-container .shin {
+  width: 10px;
+  height: 28px;
+  position: absolute;
+  bottom: -26px;
+  left: 1px;
+  background: #ff4c4c;
+  border-radius: 5px;
+  animation: squatShin 2s infinite ease-in-out;
+  transform-origin: top center;
+}
+
+.squat-container .barbell.shoulders {
+  top: 35px;
+  animation: squatBarbell 2s infinite ease-in-out;
+}
+
+@keyframes squatHead {
+  0% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  25% {
+    transform: translateX(-50%) translateY(5px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(20px);
+  }
+  75% {
+    transform: translateX(-50%) translateY(5px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+}
+
+@keyframes squatTorso {
+  0% {
+    transform: translateX(-50%) rotate(0deg) translateY(0px);
+  }
+  25% {
+    transform: translateX(-50%) rotate(5deg) translateY(8px);
+  }
+  50% {
+    transform: translateX(-50%) rotate(15deg) translateY(25px);
+  }
+  75% {
+    transform: translateX(-50%) rotate(5deg) translateY(8px);
+  }
+  100% {
+    transform: translateX(-50%) rotate(0deg) translateY(0px);
+  }
+}
+
+@keyframes squatArms {
+  0% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  75% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes squatLegs {
+  0% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(3px);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+  75% {
+    transform: translateY(3px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes squatThigh {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(25deg);
+  }
+  50% {
+    transform: rotate(75deg);
+  }
+  75% {
+    transform: rotate(25deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes squatShin {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  50% {
+    transform: rotate(-45deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes squatBarbell {
+  0% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  25% {
+    transform: translateX(-50%) translateY(8px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(25px);
+  }
+  75% {
+    transform: translateX(-50%) translateY(8px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+}
+
+/* Loading Message */
+.loading-message {
+  margin-bottom: 30px;
+}
+
+.loading-message h3 {
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.size-small .loading-message h3 {
+  font-size: 1.2rem;
+}
+.size-large .loading-message h3 {
+  font-size: 1.8rem;
+}
+
+.exercise-name {
+  color: #ff4c4c;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Rep Counter */
+.rep-counter {
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+}
+
+.rep-display {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.size-small .rep-display {
+  font-size: 2rem;
+}
+.size-large .rep-display {
+  font-size: 3rem;
+}
+
+.current-rep {
+  color: #ff4c4c;
+}
+
+.separator {
+  color: #666;
+  margin: 0 5px;
+}
+
+.max-reps {
+  color: #ccc;
+}
+
+.rep-label {
+  color: #ccc;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.progress-ring {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent, transparent);
+  z-index: -1;
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #ff4c4c, transparent);
+  transition: transform 0.8s ease;
+  z-index: -1;
+}
+
+/* Motivation Section */
+.motivation-section {
+  margin-bottom: 30px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.quote-container {
+  background: rgba(255, 76, 76, 0.1);
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 76, 76, 0.2);
+  position: relative;
+}
+
+.quote-icon {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  color: #ff4c4c;
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.quote-text {
+  color: #fff;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.4;
+  margin: 0 0 15px 0;
+  padding-left: 20px;
+  animation: fadeInOut 4s infinite;
+}
+
+.size-small .quote-text {
+  font-size: 0.9rem;
+}
+.size-large .quote-text {
+  font-size: 1.1rem;
+}
+
+.quote-author {
+  color: #ccc;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: block;
+  text-align: right;
+  margin-top: 10px;
+}
+
+@keyframes fadeInOut {
+  0%,
+  10% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  20%,
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90%,
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Progress Dots */
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #333;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: #ff4c4c;
+  box-shadow: 0 0 10px rgba(255, 76, 76, 0.5);
+  transform: scale(1.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .loading-container {
+    padding: 20px;
+  }
+
+  .exercise-animation {
+    width: 150px;
+    height: 150px;
+  }
+
+  .loading-message h3 {
+    font-size: 1.2rem;
+  }
+
+  .rep-display {
+    font-size: 2rem;
+  }
+
+  .quote-text {
+    font-size: 0.9rem;
+  }
+
+  .motivation-section {
+    max-width: 300px;
+  }
+
+  .quote-container {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-container {
+    padding: 15px;
+  }
+
+  .exercise-animation {
+    width: 120px;
+    height: 120px;
+  }
+
+  .loading-message h3 {
+    font-size: 1rem;
+  }
+
+  .rep-display {
+    font-size: 1.5rem;
+  }
+
+  .quote-text {
+    font-size: 0.8rem;
+  }
+
+  .motivation-section {
+    max-width: 250px;
+  }
+
+  .quote-container {
+    padding: 15px;
+  }
+}

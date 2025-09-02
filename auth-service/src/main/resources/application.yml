@@ -1,6 +1,6 @@
 server:
   port: ${SERVER_PORT:8081}
-  forward-headers-strategy: framework # ✅ Trust X-Forwarded headers
+  forward-headers-strategy: native # ✅ Trust X-Forwarded headers
   use-forward-headers: true # ✅ Allow Spring to use proxy headers
   tomcat:
     remoteip:

@@ -97,6 +97,11 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                     URLEncoder.encode(refreshToken, StandardCharsets.UTF_8),
                     user.isProfileCompleted());
 
+            // Clear the temporary OAuth2 authorization request cookie
+            clearOAuth2AuthRequestCookie(response);
+
+            // Redirect user to frontend with tokens
+            log.info("=== Redirecting OAuth user to frontend: {} ===", finalRedirect);
             log.info("=== Redirecting OAuth user to frontend: {} ===", finalRedirect);
             response.sendRedirect(finalRedirect);
 
@@ -328,4 +333,15 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                 return "OAuth User";
         }
     }
+
+    private void clearOAuth2AuthRequestCookie(HttpServletResponse response) {
+        jakarta.servlet.http.Cookie cookie = new jakarta.servlet.http.Cookie(
+                HttpCookieOAuth2AuthorizationRequestRepository.OAUTH2_AUTH_REQUEST_COOKIE_NAME,
+                null);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0); // immediately expire
+        response.addCookie(cookie);
+    }
+
 }

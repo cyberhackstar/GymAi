@@ -16,6 +16,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -63,28 +65,19 @@ public class SecurityConfig {
                     eh.authenticationEntryPoint(authEntryPoint);
                 })
                 .oauth2Login(oauth2 -> oauth2
+                        .authorizationEndpoint(auth -> auth
+                                .authorizationRequestRepository(cookieAuthorizationRequestRepository()))
                         .loginPage("/login")
                         .successHandler(oauth2LoginSuccessHandler)
                         .failureHandler((request, response, exception) -> {
                             logger.error("OAuth2 login failed", exception);
-
-                            // Try to extract frontend URL for error redirect
                             String frontendOrigin = request.getParameter("frontend_origin");
-                            if (frontendOrigin == null && request.getCookies() != null) {
-                                for (Cookie cookie : request.getCookies()) {
-                                    if ("frontend_origin".equals(cookie.getName())) {
-                                        frontendOrigin = cookie.getValue();
-                                        break;
-                                    }
-                                }
-                            }
-
                             String errorUrl = (frontendOrigin != null ? frontendOrigin
                                     : "https://gymai.neelahouse.cloud")
                                     + "/login?error=oauth_failed&reason=" + exception.getMessage();
-
                             response.sendRedirect(errorUrl);
                         }))
+
                 .sessionManagement(session -> {
                     logger.debug("Setting stateless session management");
                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -100,6 +93,11 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         logger.info("Initializing BCryptPasswordEncoder");
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthorizationRequestRepository<OAuth2AuthorizationRequest> cookieAuthorizationRequestRepository() {
+        return new HttpCookieOAuth2AuthorizationRequestRepository();
     }
 
     @Bean

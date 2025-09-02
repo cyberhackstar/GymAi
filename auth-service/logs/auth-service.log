@@ -1,570 +1,210 @@
-2025-09-02 00:51:22.335 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-09-02 00:51:22.539 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 15184 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-09-02 00:51:22.544 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-09-02 00:51:22.545 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-02 00:51:25.683 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-02 00:51:25.863 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 148 ms. Found 1 JPA repository interface.
-2025-09-02 00:51:27.237 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-09-02 00:51:27.277 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-09-02 00:51:27.277 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-02 00:51:27.277 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-09-02 00:51:27.578 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-02 00:51:27.578 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4944 ms
-2025-09-02 00:51:27.895 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
-2025-09-02 00:51:28.243 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-02 00:51:28.425 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-09-02 00:51:28.545 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-02 00:51:29.348 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-02 00:51:29.451 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-02 00:51:34.107 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@15c4b1a4
-2025-09-02 00:51:34.107 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-02 00:51:35.874 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 17.5
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-09-02 00:51:38.358 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-02 00:51:39.844 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 00:51:40.690 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-02 00:51:41.352 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
-2025-09-02 00:51:41.392 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
-2025-09-02 00:51:41.440 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
-2025-09-02 00:51:41.463 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-09-02 00:51:41.468 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-09-02 00:51:42.581 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
-2025-09-02 00:51:42.804 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
-2025-09-02 00:51:42.804 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
-2025-09-02 00:51:42.804 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
-2025-09-02 00:51:42.804 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
-2025-09-02 00:51:42.835 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
-2025-09-02 00:51:42.871 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
-2025-09-02 00:51:42.900 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
-2025-09-02 00:51:43.902 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2025-09-02 00:51:43.959 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2025-09-02 00:51:43.986 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 23.62 seconds (process running for 24.875)
-2025-09-02 00:52:09.404 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-02 00:52:09.404 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-02 00:52:09.413 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 9 ms
-2025-09-02 00:53:03.420 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-09-02 00:53:03.451 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-09-02 00:53:03.479 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 00:53:03.490 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-02 00:53:05.633 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-02 00:53:25.509 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-09-02 00:53:25.677 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 17052 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-09-02 00:53:25.681 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-09-02 00:53:25.684 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-02 00:53:28.407 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-02 00:53:28.572 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 144 ms. Found 1 JPA repository interface.
-2025-09-02 00:53:30.524 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-09-02 00:53:30.553 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-09-02 00:53:30.553 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-02 00:53:30.553 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-09-02 00:53:30.711 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-02 00:53:30.711 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4854 ms
-2025-09-02 00:53:30.983 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
-2025-09-02 00:53:31.347 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-02 00:53:31.493 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-09-02 00:53:31.568 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-02 00:53:32.606 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-02 00:53:32.726 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-02 00:53:34.760 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@15c4b1a4
-2025-09-02 00:53:34.760 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-02 00:53:35.869 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 17.5
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-09-02 00:53:38.442 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-02 00:53:39.546 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 00:53:40.260 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-02 00:53:40.766 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
-2025-09-02 00:53:40.787 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
-2025-09-02 00:53:40.839 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
-2025-09-02 00:53:40.857 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-09-02 00:53:40.857 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-09-02 00:53:42.071 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
-2025-09-02 00:53:42.284 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
-2025-09-02 00:53:42.284 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
-2025-09-02 00:53:42.284 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
-2025-09-02 00:53:42.284 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
-2025-09-02 00:53:42.318 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
-2025-09-02 00:53:42.350 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
-2025-09-02 00:53:42.367 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
-2025-09-02 00:53:43.264 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2025-09-02 00:53:43.310 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2025-09-02 00:53:43.344 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 19.241 seconds (process running for 20.427)
-2025-09-02 00:53:50.856 [http-nio-8081-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-02 00:53:50.856 [http-nio-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-02 00:53:50.856 [http-nio-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2025-09-02 00:54:33.738 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-09-02 00:54:33.769 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-09-02 00:54:33.796 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 00:54:33.803 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-02 00:54:35.852 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-02 00:54:54.356 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-09-02 00:54:54.447 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 4628 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-09-02 00:54:54.447 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-09-02 00:54:54.467 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-02 00:54:57.752 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-02 00:54:57.905 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 128 ms. Found 1 JPA repository interface.
-2025-09-02 00:54:59.627 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-09-02 00:54:59.658 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-09-02 00:54:59.658 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-02 00:54:59.658 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-09-02 00:54:59.833 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-02 00:54:59.836 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5243 ms
-2025-09-02 00:55:00.177 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
-2025-09-02 00:55:00.548 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-02 00:55:00.707 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-09-02 00:55:00.818 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-02 00:55:01.871 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-02 00:55:02.003 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-02 00:55:04.848 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@341964d0
-2025-09-02 00:55:04.857 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-02 00:55:06.134 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 17.5
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-09-02 00:55:08.885 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-02 00:55:09.957 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 00:55:10.932 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-02 00:55:11.898 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
-2025-09-02 00:55:11.926 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
-2025-09-02 00:55:11.980 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
-2025-09-02 00:55:12.013 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-09-02 00:55:12.015 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-09-02 00:55:12.977 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
-2025-09-02 00:55:13.136 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
-2025-09-02 00:55:13.136 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
-2025-09-02 00:55:13.136 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
-2025-09-02 00:55:13.136 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
-2025-09-02 00:55:13.146 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
-2025-09-02 00:55:13.175 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
-2025-09-02 00:55:13.195 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
-2025-09-02 00:55:14.314 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2025-09-02 00:55:14.373 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2025-09-02 00:55:14.409 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 21.707 seconds (process running for 22.786)
-2025-09-02 00:55:34.369 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-02 00:55:34.369 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-02 00:55:34.374 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
-2025-09-02 01:00:28.589 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 01:00:30.298 [http-nio-8081-exec-8] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [puffin.rmq2.cloudamqp.com:5671]
-2025-09-02 01:00:31.594 [http-nio-8081-exec-8] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#476a38d9:0/SimpleConnection@6dbb9fdc [delegate=amqp://dnqrhfau@15.206.140.228:5671/dnqrhfau, localPort=47530]
-2025-09-02 01:00:32.211 [http-nio-8081-exec-8] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 01:00:32.218 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 01:00:32.220 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 01:00:32.220 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 01:00:32.220 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2NzU1MDI5LCJleHAiOjE3NTY3NTU5Mjl9.Fi60y7STmww4O4Bk-Zvy_wYZ4CNF8hAVx1mYUS7RKLw&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2NzU1MDI5LCJleHAiOjE3NTczNTk4Mjl9.gFOasUMLMRU0QuYyqIRKy14_nrwFl1-1riQ2aerSMSw&profile_completed=false
-2025-09-02 09:35:31.057 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-09-02 09:35:31.299 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 10780 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-09-02 09:35:31.303 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-09-02 09:35:31.330 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-02 09:35:35.825 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-02 09:35:36.051 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 189 ms. Found 1 JPA repository interface.
-2025-09-02 09:35:39.058 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-09-02 09:35:39.167 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-09-02 09:35:39.197 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-02 09:35:39.203 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-09-02 09:35:39.725 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-02 09:35:39.728 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 8189 ms
-2025-09-02 09:35:40.318 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
-2025-09-02 09:35:40.848 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-02 09:35:41.307 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-09-02 09:35:41.524 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-02 09:35:43.312 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-02 09:35:43.461 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-02 09:35:46.853 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@15c4b1a4
-2025-09-02 09:35:46.860 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-02 09:35:48.244 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 17.5
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-09-02 09:35:51.665 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-02 09:35:52.633 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 09:35:53.786 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-02 09:35:54.507 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
-2025-09-02 09:35:54.527 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
-2025-09-02 09:35:54.563 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
-2025-09-02 09:35:54.580 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-09-02 09:35:54.581 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-09-02 09:35:55.506 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
-2025-09-02 09:35:55.685 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
-2025-09-02 09:35:55.689 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
-2025-09-02 09:35:55.691 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
-2025-09-02 09:35:55.694 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
-2025-09-02 09:35:55.710 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
-2025-09-02 09:35:55.739 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
-2025-09-02 09:35:55.767 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
-2025-09-02 09:35:56.598 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2025-09-02 09:35:56.659 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2025-09-02 09:35:56.692 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 28.677 seconds (process running for 30.298)
-2025-09-02 09:45:32.485 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-02 09:45:32.490 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-02 09:45:32.508 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 18 ms
-2025-09-02 09:45:33.882 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 09:45:35.291 [http-nio-8081-exec-2] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [puffin.rmq2.cloudamqp.com:5671]
-2025-09-02 09:45:35.763 [http-nio-8081-exec-2] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#4e6c703a:0/SimpleConnection@5a146152 [delegate=amqp://dnqrhfau@15.206.140.228:5671/dnqrhfau, localPort=1823]
-2025-09-02 09:45:35.971 [http-nio-8081-exec-2] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 09:45:35.974 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 09:45:35.974 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 09:45:35.974 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 09:45:35.974 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2Nzg2NTM0LCJleHAiOjE3NTY3ODc0MzR9.1vZihAUgTwQ4x_dVFFeFnCl4V3bgfX2jdFhAAgn-hGI&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2Nzg2NTM0LCJleHAiOjE3NTczOTEzMzR9.c74UrR2QfQRhTJTNXeICsElnEntfoPtxf4CWo0QnStY&profile_completed=false
-2025-09-02 09:52:54.047 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-09-02 09:52:54.061 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-09-02 09:52:54.201 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 09:52:54.201 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-02 09:52:55.694 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-02 09:53:06.432 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-09-02 09:53:06.497 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 17000 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-09-02 09:53:06.497 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-09-02 09:53:06.506 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-02 09:53:08.533 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-02 09:53:08.663 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 109 ms. Found 1 JPA repository interface.
-2025-09-02 09:53:09.706 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-09-02 09:53:09.733 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-09-02 09:53:09.738 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-02 09:53:09.738 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-09-02 09:53:09.886 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-02 09:53:09.890 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3338 ms
-2025-09-02 09:53:10.144 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
-2025-09-02 09:53:10.409 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-02 09:53:10.556 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-09-02 09:53:10.658 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-02 09:53:11.395 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-02 09:53:11.499 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-02 09:53:13.595 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@15c4b1a4
-2025-09-02 09:53:13.602 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-02 09:53:14.508 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 17.5
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-09-02 09:53:16.968 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-02 09:53:17.968 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-2025-09-02 09:53:17.968 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
-2025-09-02 09:53:18.131 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 09:53:18.608 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-02 09:53:19.008 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
-2025-09-02 09:53:19.030 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
-2025-09-02 09:53:19.077 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
-2025-09-02 09:53:19.083 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-09-02 09:53:19.083 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-09-02 09:53:19.725 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
-2025-09-02 09:53:19.941 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
-2025-09-02 09:53:19.942 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
-2025-09-02 09:53:19.945 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
-2025-09-02 09:53:19.945 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
-2025-09-02 09:53:19.969 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
-2025-09-02 09:53:20.006 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
-2025-09-02 09:53:20.026 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
-2025-09-02 09:53:20.734 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2025-09-02 09:53:20.770 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2025-09-02 09:53:20.792 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 15.207 seconds (process running for 16.254)
-2025-09-02 09:54:11.214 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-02 09:54:11.214 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-02 09:54:11.217 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
-2025-09-02 09:54:12.320 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 09:54:13.203 [http-nio-8081-exec-2] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [puffin.rmq2.cloudamqp.com:5671]
-2025-09-02 09:54:13.648 [http-nio-8081-exec-2] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#5120886f:0/SimpleConnection@5c8134a8 [delegate=amqp://dnqrhfau@15.206.140.228:5671/dnqrhfau, localPort=63773]
-2025-09-02 09:54:13.864 [http-nio-8081-exec-2] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.registration]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_REGISTRATION)
-2025-09-02 09:54:14.517 [http-nio-8081-exec-2] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 09:54:14.517 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 09:54:14.517 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 09:54:14.517 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 09:54:14.517 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2Nzg3MDUzLCJleHAiOjE3NTY3ODc5NTN9.YqYomKHtJA_3Ygi0507a5vlifqF4qx7V5S7caz6XDio&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2Nzg3MDUzLCJleHAiOjE3NTczOTE4NTN9.vLi0JzzRefUNPzUFAZ9zvNaRv9UszwxxfivjdLlGVGs&profile_completed=false
-2025-09-02 10:23:32.482 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 10:23:33.280 [http-nio-8081-exec-6] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 10:23:33.280 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 10:23:33.280 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 10:23:33.280 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 10:23:33.280 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2Nzg4ODEyLCJleHAiOjE3NTY3ODk3MTJ9.3pRnBpoulXNdWA5-Gi2YUeB4udQOfkwi1vhKGSWu87Y&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2Nzg4ODEyLCJleHAiOjE3NTczOTM2MTJ9.LIb_jpC8fOUETGztbT5MhFFRy61NPBaGBMplBw_6EKs&profile_completed=false
-2025-09-02 10:52:58.959 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 10:52:59.812 [http-nio-8081-exec-9] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 10:52:59.812 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 10:52:59.812 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 10:52:59.812 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 10:52:59.812 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2NzkwNTc5LCJleHAiOjE3NTY3OTE0Nzl9.M3I4Uba0UdDADiRoqqdRcRaRCQ4vFojCCs0AHBe7-ys&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2NzkwNTc5LCJleHAiOjE3NTczOTUzNzl9.EyJHuz_L8mNq7fo7sG48rmOUGGTgzPAptxO8FymgPs0&profile_completed=false
-2025-09-02 11:06:16.547 [http-nio-8081-exec-4] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 11:06:17.317 [http-nio-8081-exec-4] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 11:06:17.318 [http-nio-8081-exec-4] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 11:06:17.318 [http-nio-8081-exec-4] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 11:06:17.318 [http-nio-8081-exec-4] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 11:06:17.318 [http-nio-8081-exec-4] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2NzkxMzc2LCJleHAiOjE3NTY3OTIyNzZ9.Y-5pduzrpKGjlFxdUGo8_gsDUCQBbMdCzpzPHzU_7Mc&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2NzkxMzc2LCJleHAiOjE3NTczOTYxNzZ9.Lm-T-wfUKVneRe-9oILysRGcJaS35YhV5CnAeBO7crI&profile_completed=false
-2025-09-02 11:21:49.153 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 11:21:49.941 [http-nio-8081-exec-8] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 11:21:49.941 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 11:21:49.942 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 11:21:49.942 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 11:21:49.943 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2NzkyMzA5LCJleHAiOjE3NTY3OTMyMDl9.UOyVOxxJmELrmWmqOOtBFT3pteGNFNd84GK6VHdXcAE&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2NzkyMzA5LCJleHAiOjE3NTczOTcxMDl9.mHCCoTc_aTNUyuT1VkBUjU80KRQgS58NSICNEAVettk&profile_completed=false
-2025-09-02 12:00:19.234 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 12:00:20.089 [http-nio-8081-exec-2] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 12:00:20.089 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 12:00:20.090 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 12:00:20.090 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 12:00:20.090 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2Nzk0NjE5LCJleHAiOjE3NTY3OTU1MTl9.iXyHV3wsAzcz2bHhp16q1HXBKAsue8mF3p-7NWtVV_4&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2Nzk0NjE5LCJleHAiOjE3NTczOTk0MTl9.iRoDc_4yc-0XKNKwuQZOCLbre8SCpyhtVF8xhSbTPjM&profile_completed=false
-2025-09-02 12:30:04.332 [http-nio-8081-exec-7] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 12:30:05.272 [http-nio-8081-exec-7] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 12:30:05.273 [http-nio-8081-exec-7] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 12:30:05.273 [http-nio-8081-exec-7] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 12:30:05.274 [http-nio-8081-exec-7] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 12:30:05.274 [http-nio-8081-exec-7] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2Nzk2NDA0LCJleHAiOjE3NTY3OTczMDR9.xMG6vreJUjoTbs_WMeyqh779PQv5VnuXLlI45OzslD0&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2Nzk2NDA0LCJleHAiOjE3NTc0MDEyMDR9.JI5-LUeJcK4vNTKQjzUSkOQHz2D3nYX2s_KWTsp6UTg&profile_completed=false
-2025-09-02 13:02:27.402 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 13:02:28.236 [http-nio-8081-exec-9] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 13:02:28.236 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 13:02:28.237 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 13:02:28.237 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 13:02:28.238 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2Nzk4MzQ3LCJleHAiOjE3NTY3OTkyNDd9.EGUZeTqqqlkijesU2fsnmaRQDCgPv5Y_8CD-LoXYSfY&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2Nzk4MzQ3LCJleHAiOjE3NTc0MDMxNDd9.wCYJzUBAUaoHDedwbYj_dk4kT_s2K8EGoiccm-H1fL4&profile_completed=false
-2025-09-02 13:18:30.711 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 13:18:31.471 [http-nio-8081-exec-6] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 13:18:31.473 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 13:18:31.473 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 13:18:31.473 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 13:18:31.474 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2Nzk5MzExLCJleHAiOjE3NTY4MDAyMTF9.CdRLgaN-_NITpGJi77PepwoYLMwFUu9raLeo0shrLBQ&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2Nzk5MzExLCJleHAiOjE3NTc0MDQxMTF9.h1FXATMkB2-GiL0obPRDldBNCQEJI-5VjKm8RiZ7LvM&profile_completed=false
-2025-09-02 15:02:36.071 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-09-02 15:02:36.153 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-09-02 15:02:36.507 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 15:02:36.561 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-02 15:02:38.149 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-02 15:02:48.250 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-09-02 15:02:48.322 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 3920 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-09-02 15:02:48.322 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-09-02 15:02:48.322 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-02 15:02:49.766 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-02 15:02:49.853 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 77 ms. Found 1 JPA repository interface.
-2025-09-02 15:02:50.556 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-09-02 15:02:50.572 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-09-02 15:02:50.576 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-02 15:02:50.576 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-09-02 15:02:50.669 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-02 15:02:50.671 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2284 ms
-2025-09-02 15:02:50.818 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
-2025-09-02 15:02:50.977 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-02 15:02:51.076 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-09-02 15:02:51.122 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-02 15:02:51.501 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-02 15:02:51.550 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-02 15:02:53.368 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@f6bc75c
-2025-09-02 15:02:53.380 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-02 15:02:54.560 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 17.5
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-09-02 15:02:55.665 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-02 15:02:56.470 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 15:02:56.869 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-02 15:02:57.198 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
-2025-09-02 15:02:57.221 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
-2025-09-02 15:02:57.251 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
-2025-09-02 15:02:57.265 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-09-02 15:02:57.266 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-09-02 15:02:57.962 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
-2025-09-02 15:02:58.103 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
-2025-09-02 15:02:58.104 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
-2025-09-02 15:02:58.104 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
-2025-09-02 15:02:58.106 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
-2025-09-02 15:02:58.117 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
-2025-09-02 15:02:58.134 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
-2025-09-02 15:02:58.147 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
-2025-09-02 15:02:58.671 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2025-09-02 15:02:58.701 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2025-09-02 15:02:58.719 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 11.241 seconds (process running for 11.717)
-2025-09-02 15:03:30.614 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-02 15:03:30.614 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-02 15:03:30.614 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2025-09-02 15:03:30.698 [http-nio-8081-exec-2] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /login
-2025-09-02 15:03:30.714 [http-nio-8081-exec-2] WARN  c.g.a.s.JwtAuthenticationEntryPoint - Unauthorized access attempt - URI: /login, Message: Full authentication is required to access this resource
-2025-09-02 15:03:30.994 [http-nio-8081-exec-3] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /favicon.ico
-2025-09-02 15:03:30.995 [http-nio-8081-exec-3] WARN  c.g.a.s.JwtAuthenticationEntryPoint - Unauthorized access attempt - URI: /favicon.ico, Message: Full authentication is required to access this resource
-2025-09-02 15:03:36.295 [http-nio-8081-exec-6] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /.well-known/appspecific/com.chrome.devtools.json
-2025-09-02 15:03:36.297 [http-nio-8081-exec-6] WARN  c.g.a.s.JwtAuthenticationEntryPoint - Unauthorized access attempt - URI: /.well-known/appspecific/com.chrome.devtools.json, Message: Full authentication is required to access this resource
-2025-09-02 15:03:41.273 [http-nio-8081-exec-8] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /login
-2025-09-02 15:03:41.277 [http-nio-8081-exec-8] WARN  c.g.a.s.JwtAuthenticationEntryPoint - Unauthorized access attempt - URI: /login, Message: Full authentication is required to access this resource
-2025-09-02 15:03:41.396 [http-nio-8081-exec-9] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /.well-known/appspecific/com.chrome.devtools.json
-2025-09-02 15:03:41.398 [http-nio-8081-exec-9] WARN  c.g.a.s.JwtAuthenticationEntryPoint - Unauthorized access attempt - URI: /.well-known/appspecific/com.chrome.devtools.json, Message: Full authentication is required to access this resource
-2025-09-02 15:03:41.645 [http-nio-8081-exec-10] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /favicon.ico
-2025-09-02 15:03:41.649 [http-nio-8081-exec-10] WARN  c.g.a.s.JwtAuthenticationEntryPoint - Unauthorized access attempt - URI: /favicon.ico, Message: Full authentication is required to access this resource
-2025-09-02 15:06:01.630 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-09-02 15:06:01.650 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-09-02 15:06:01.666 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 15:06:01.667 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-02 15:06:03.366 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-02 15:06:12.055 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-09-02 15:06:12.125 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 17548 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-09-02 15:06:12.125 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-09-02 15:06:12.130 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-02 15:06:13.507 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-02 15:06:13.593 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 61 ms. Found 1 JPA repository interface.
-2025-09-02 15:06:14.317 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-09-02 15:06:14.336 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-09-02 15:06:14.340 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-02 15:06:14.340 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-09-02 15:06:14.432 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-02 15:06:14.432 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2218 ms
-2025-09-02 15:06:14.626 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
-2025-09-02 15:06:14.847 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-02 15:06:14.945 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-09-02 15:06:14.995 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-02 15:06:15.388 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-02 15:06:15.431 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-02 15:06:17.685 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7ae0a26
-2025-09-02 15:06:17.685 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-02 15:06:18.884 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 17.5
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-09-02 15:06:20.149 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-02 15:06:21.034 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 15:06:21.411 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-02 15:06:21.664 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
-2025-09-02 15:06:21.664 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
-2025-09-02 15:06:21.693 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
-2025-09-02 15:06:21.699 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-09-02 15:06:21.699 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-09-02 15:06:22.211 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
-2025-09-02 15:06:22.296 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
-2025-09-02 15:06:22.296 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
-2025-09-02 15:06:22.296 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
-2025-09-02 15:06:22.296 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
-2025-09-02 15:06:22.296 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
-2025-09-02 15:06:22.325 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
-2025-09-02 15:06:22.331 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
-2025-09-02 15:06:22.811 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2025-09-02 15:06:22.853 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2025-09-02 15:06:22.874 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 11.535 seconds (process running for 12.026)
-2025-09-02 15:06:34.215 [http-nio-8081-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-02 15:06:34.216 [http-nio-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-02 15:06:34.217 [http-nio-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2025-09-02 15:06:35.621 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 15:06:36.788 [http-nio-8081-exec-1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [puffin.rmq2.cloudamqp.com:5671]
-2025-09-02 15:06:37.395 [http-nio-8081-exec-1] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#7b186fb8:0/SimpleConnection@275e6e0e [delegate=amqp://dnqrhfau@15.206.140.228:5671/dnqrhfau, localPort=35581]
-2025-09-02 15:06:37.606 [http-nio-8081-exec-1] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 15:06:37.608 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 15:06:37.609 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 15:06:37.609 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 15:06:37.609 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODA1Nzk2LCJleHAiOjE3NTY4MDY2OTZ9.48A683_fF7jCe7n5nQkqthSb_qxw4qyiQCk5bdJr4ZA&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODA1Nzk2LCJleHAiOjE3NTc0MTA1OTZ9.gERu0KqS_0_S7eZzcjtmyYgBNLRU-p24Wg9DLQ4JOgw&profile_completed=false
-2025-09-02 15:08:21.044 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
-2025-09-02 15:08:22.038 [http-nio-8081-exec-6] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 15:08:22.038 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 15:08:22.038 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 15:08:22.039 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 15:08:22.039 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODA1OTAxLCJleHAiOjE3NTY4MDY4MDF9.R3v8DsH8rzAOljhBMp7jLw8gKhQiZT8eZuc3KueVWyc&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODA1OTAxLCJleHAiOjE3NTc0MTA3MDF9.UZ8JOXCgMRd1zV9d5eFoxDvc7a_7Ocg4hLI_pLeP5NU&profile_completed=false
-2025-09-02 15:20:26.836 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for bhaweshdharma@gmail.com via google
-2025-09-02 15:20:27.661 [http-nio-8081-exec-2] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=bhaweshdharma@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
-2025-09-02 15:20:27.662 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 15:20:27.663 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 15:20:27.663 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 15:20:27.664 [http-nio-8081-exec-2] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiaGF3ZXNoZGhhcm1hQGdtYWlsLmNvbSIsInVzZXJJZCI6MywibmFtZSI6IkJoYXdlc2ggU2hhcm1hIiwiZW1haWwiOiJiaGF3ZXNoZGhhcm1hQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwicHJvdmlkZXIiOiJHT09HTEUiLCJwcm9maWxlQ29tcGxldGVkIjpmYWxzZSwidHlwZSI6IkFDQ0VTUyIsImlhdCI6MTc1NjgwNjYyNywiZXhwIjoxNzU2ODA3NTI3fQ.4bjxAWiT5g-ccYubZodHJt-Xl9ykWEcj1JjmNPibWFM&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiaGF3ZXNoZGhhcm1hQGdtYWlsLmNvbSIsInVzZXJJZCI6MywidHlwZSI6IlJFRlJFU0giLCJpYXQiOjE3NTY4MDY2MjcsImV4cCI6MTc1NzQxMTQyN30.pWfYrvxWw0pPGr2XnQBnTjtddkerJjdENg2cmAEKLDs&profile_completed=false
-2025-09-02 15:26:26.498 [http-nio-8081-exec-5] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for bikkujangid@gmail.com via google
-2025-09-02 15:26:27.705 [http-nio-8081-exec-5] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.registration]: UserEvent(email=bikkujangid@gmail.com, name=Bhawesh sharma, eventType=OAUTH_REGISTRATION)
-2025-09-02 15:26:28.166 [http-nio-8081-exec-5] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=bikkujangid@gmail.com, name=Bhawesh sharma, eventType=OAUTH_LOGIN)
-2025-09-02 15:26:28.166 [http-nio-8081-exec-5] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Found frontend origin in cookie: http://localhost:4200
-2025-09-02 15:26:28.166 [http-nio-8081-exec-5] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Extracted frontend URL from OAuth state: http://localhost:4200
-2025-09-02 15:26:28.166 [http-nio-8081-exec-5] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Decoded redirect URL: http://localhost:4200
-2025-09-02 15:26:28.166 [http-nio-8081-exec-5] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiaWtrdWphbmdpZEBnbWFpbC5jb20iLCJ1c2VySWQiOjQsIm5hbWUiOiJCaGF3ZXNoIHNoYXJtYSIsImVtYWlsIjoiYmlra3VqYW5naWRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODA2OTg3LCJleHAiOjE3NTY4MDc4ODd9.Iyn8ZISAwY81px5gTUQnpTRimiNEw58wojmPxGNa-Xg&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiaWtrdWphbmdpZEBnbWFpbC5jb20iLCJ1c2VySWQiOjQsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODA2OTg3LCJleHAiOjE3NTc0MTE3ODd9.oLsxKhX8yPK5kTDtk_OPj1qQ1SwCG67z5SZhoLGk3HM&profile_completed=false
-2025-09-02 15:27:40.965 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-09-02 15:27:41.005 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-09-02 15:27:41.190 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 15:27:41.219 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-02 15:27:42.767 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-02 17:15:10.587 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-09-02 17:15:10.807 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 14592 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
-2025-09-02 17:15:10.816 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-09-02 17:15:10.836 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-02 17:15:14.555 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-02 17:15:14.869 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 286 ms. Found 1 JPA repository interface.
-2025-09-02 17:15:16.219 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2025-09-02 17:15:16.245 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2025-09-02 17:15:16.245 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-02 17:15:16.245 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-09-02 17:15:16.379 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-02 17:15:16.379 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5320 ms
-2025-09-02 17:15:16.586 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
-2025-09-02 17:15:16.845 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-02 17:15:16.977 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-09-02 17:15:17.059 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-02 17:15:17.633 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-02 17:15:17.707 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-02 17:15:19.828 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7ae0a26
-2025-09-02 17:15:19.832 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-02 17:15:21.085 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 17.5
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-09-02 17:15:22.493 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-02 17:15:23.336 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-02 17:15:23.790 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-02 17:15:24.063 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
-2025-09-02 17:15:24.077 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
-2025-09-02 17:15:24.098 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
-2025-09-02 17:15:24.109 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-09-02 17:15:24.110 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-09-02 17:15:24.852 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
-2025-09-02 17:15:24.965 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
-2025-09-02 17:15:24.965 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
-2025-09-02 17:15:24.965 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
-2025-09-02 17:15:24.965 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
-2025-09-02 17:15:24.981 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
-2025-09-02 17:15:24.993 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
-2025-09-02 17:15:25.012 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
-2025-09-02 17:15:25.563 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2025-09-02 17:15:25.598 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2025-09-02 17:15:25.629 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 16.879 seconds (process running for 18.079)
-2025-09-02 17:15:25.888 [http-nio-8081-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-02 17:15:25.889 [http-nio-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-02 17:15:25.890 [http-nio-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2025-09-02 17:17:12.471 [http-nio-8081-exec-6] INFO  c.g.a.controller.AuthController - Login attempt for email: test@test.com
-2025-09-02 17:17:12.471 [http-nio-8081-exec-6] INFO  c.g.auth_service.service.AuthService - Authenticating user: test@test.com
-2025-09-02 17:17:12.563 [http-nio-8081-exec-6] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: test@test.com
-2025-09-02 17:17:13.087 [http-nio-8081-exec-6] INFO  c.g.a.security.MyUserDetailsService - User found: test@test.com
-2025-09-02 17:17:13.087 [http-nio-8081-exec-6] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: test@test.com
-2025-09-02 17:17:13.087 [http-nio-8081-exec-6] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-09-02 17:17:13.951 [http-nio-8081-exec-6] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [puffin.rmq2.cloudamqp.com:5671]
-2025-09-02 17:17:15.399 [http-nio-8081-exec-6] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#39bd07fe:0/SimpleConnection@7b9486b [delegate=amqp://dnqrhfau@15.206.140.228:5671/dnqrhfau, localPort=42713]
-2025-09-02 17:17:15.620 [http-nio-8081-exec-6] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=test@test.com, name=test, eventType=LOGIN)
-2025-09-02 17:17:15.623 [http-nio-8081-exec-6] INFO  c.g.a.controller.AuthController - Login successful for email: test@test.com
-2025-09-02 17:19:16.031 [http-nio-8081-exec-9] INFO  c.g.a.controller.AuthController - Login attempt for email: test@test.com
-2025-09-02 17:19:16.032 [http-nio-8081-exec-9] INFO  c.g.auth_service.service.AuthService - Authenticating user: test@test.com
-2025-09-02 17:19:16.034 [http-nio-8081-exec-9] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: test@test.com
-2025-09-02 17:19:16.336 [http-nio-8081-exec-9] INFO  c.g.a.security.MyUserDetailsService - User found: test@test.com
-2025-09-02 17:19:16.336 [http-nio-8081-exec-9] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: test@test.com
-2025-09-02 17:19:16.336 [http-nio-8081-exec-9] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-09-02 17:19:17.062 [http-nio-8081-exec-9] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=test@test.com, name=test, eventType=LOGIN)
-2025-09-02 17:19:17.062 [http-nio-8081-exec-9] INFO  c.g.a.controller.AuthController - Login successful for email: test@test.com
-2025-09-02 17:36:54.531 [http-nio-8081-exec-1] INFO  c.g.a.controller.AuthController - Login attempt for email: test@test.com
-2025-09-02 17:36:54.535 [http-nio-8081-exec-1] INFO  c.g.auth_service.service.AuthService - Authenticating user: test@test.com
-2025-09-02 17:36:54.536 [http-nio-8081-exec-1] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: test@test.com
-2025-09-02 17:36:54.868 [http-nio-8081-exec-1] INFO  c.g.a.security.MyUserDetailsService - User found: test@test.com
-2025-09-02 17:36:54.868 [http-nio-8081-exec-1] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: test@test.com
-2025-09-02 17:36:54.868 [http-nio-8081-exec-1] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
-2025-09-02 17:36:55.624 [http-nio-8081-exec-1] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=test@test.com, name=test, eventType=LOGIN)
-2025-09-02 17:36:55.625 [http-nio-8081-exec-1] INFO  c.g.a.controller.AuthController - Login successful for email: test@test.com
+2025-09-03 00:50:54.277 [http-nio-8081-exec-10] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /api/auth/set-frontend-origin
+2025-09-03 00:50:54.591 [http-nio-8081-exec-10] INFO  c.g.a.controller.AuthController - Set frontend origin in session: http://localhost:4200
+2025-09-03 00:50:55.221 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === OAuth2 Authentication Success Handler Started ===
+2025-09-03 00:50:55.221 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Extracting Frontend URL ===
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Request URL: http://localhost:8081/login/oauth2/code/google
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Query String: state=raTB0wxMp2EzeY03PWjbUU47rco3nVhsUx50oxEu0kQ%3D&code=4%2F0AVMBsJjvmSW37GB2ZyB9csI04HqHZxJwpDPpSVosOqFCFRQNesPGdDKml0BCexvVHKEhYg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Method: GET
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Request Headers ===
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header host: localhost:8081
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header connection: keep-alive
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header upgrade-insecure-requests: 1
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-site: cross-site
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-mode: navigate
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-user: ?1
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-dest: document
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua: "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua-mobile: ?0
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua-platform: "Windows"
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header referer: http://localhost:4200/
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept-encoding: gzip, deflate, br, zstd
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept-language: en-US,en;q=0.9
+2025-09-03 00:50:56.130 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header cookie: JSESSIONID=CDCB782181F2183AF51C9EAB8E6A5353; frontend_origin=http://localhost:4200; oauth2_auth_request=rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAmwCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyABdqYXZhLnV0aWwuTGlua2VkSGFzaE1hcDTATlwQbMD7AgABWgALYWNjZXNzT3JkZXJ4cgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAAdwgAAAAQAAAAAHgAc3EAfgAHc3EAfgAJP0AAAAAAAAx3CAAAABAAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAGZ29vZ2xleABzcgA_b3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5BdXRob3JpemF0aW9uR3JhbnRUeXBlAAAAAAAAAmwCAAFMAAV2YWx1ZXEAfgADeHB0ABJhdXRob3JpemF0aW9uX2NvZGV0ARZodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aD9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTExNjAyOTIzODY1Ni00dGp2MWN0ZDRka2lxMzlsajZxYzF2OGVoZmg2NmhxMC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSZzY29wZT1lbWFpbCUyMHByb2ZpbGUmc3RhdGU9cmFUQjB3eE1wMkV6ZVkwM1BXamJVVTQ3cmNvM25WaHNVeDUwb3hFdTBrUSUzRCZyZWRpcmVjdF91cmk9aHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXQAKWh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9vL29hdXRoMi9hdXRodABIMTE2MDI5MjM4NjU2LTR0anYxY3RkNGRraXEzOWxqNnFjMXY4ZWhmaDY2aHEwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tdAAuaHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXNyAFFvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXNwb25zZVR5cGUAAAAAAAACbAIAAUwABXZhbHVlcQB-AAN4cHQABGNvZGVzcgAlamF2YS51dGlsLkNvbGxlY3Rpb25zJFVubW9kaWZpYWJsZVNldIAdktGPm4BVAgAAeHIALGphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVDb2xsZWN0aW9uGUIAgMte9x4CAAFMAAFjdAAWTGphdmEvdXRpbC9Db2xsZWN0aW9uO3hwc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoU2V02GzXWpXdKh4CAAB4cgARamF2YS51dGlsLkhhc2hTZXS6RIWVlri3NAMAAHhwdwwAAAAQP0AAAAAAAAJ0AAVlbWFpbHQAB3Byb2ZpbGV4dAAscmFUQjB3eE1wMkV6ZVkwM1BXamJVVTQ3cmNvM25WaHNVeDUwb3hFdTBrUT0=
+2025-09-03 00:50:56.146 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Request Parameters ===
+2025-09-03 00:50:56.146 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param state: raTB0wxMp2EzeY03PWjbUU47rco3nVhsUx50oxEu0kQ=
+2025-09-03 00:50:56.146 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param code: 4/0AVMBsJjvmSW37GB2ZyB9csI04HqHZxJwpDPpSVosOqFCFRQNesPGdDKml0BCexvVHKEhYg
+2025-09-03 00:50:56.146 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param scope: email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid
+2025-09-03 00:50:56.146 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param authuser: 0
+2025-09-03 00:50:56.146 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param prompt: none
+2025-09-03 00:50:56.146 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Cookies ===
+2025-09-03 00:50:56.151 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie JSESSIONID: CDCB782181F2183AF51C9EAB8E6A5353
+2025-09-03 00:50:56.152 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie frontend_origin: http://localhost:4200
+2025-09-03 00:50:56.152 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie oauth2_auth_request: rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAmwCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyABdqYXZhLnV0aWwuTGlua2VkSGFzaE1hcDTATlwQbMD7AgABWgALYWNjZXNzT3JkZXJ4cgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAAdwgAAAAQAAAAAHgAc3EAfgAHc3EAfgAJP0AAAAAAAAx3CAAAABAAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAGZ29vZ2xleABzcgA_b3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5BdXRob3JpemF0aW9uR3JhbnRUeXBlAAAAAAAAAmwCAAFMAAV2YWx1ZXEAfgADeHB0ABJhdXRob3JpemF0aW9uX2NvZGV0ARZodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aD9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTExNjAyOTIzODY1Ni00dGp2MWN0ZDRka2lxMzlsajZxYzF2OGVoZmg2NmhxMC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSZzY29wZT1lbWFpbCUyMHByb2ZpbGUmc3RhdGU9cmFUQjB3eE1wMkV6ZVkwM1BXamJVVTQ3cmNvM25WaHNVeDUwb3hFdTBrUSUzRCZyZWRpcmVjdF91cmk9aHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXQAKWh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9vL29hdXRoMi9hdXRodABIMTE2MDI5MjM4NjU2LTR0anYxY3RkNGRraXEzOWxqNnFjMXY4ZWhmaDY2aHEwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tdAAuaHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXNyAFFvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXNwb25zZVR5cGUAAAAAAAACbAIAAUwABXZhbHVlcQB-AAN4cHQABGNvZGVzcgAlamF2YS51dGlsLkNvbGxlY3Rpb25zJFVubW9kaWZpYWJsZVNldIAdktGPm4BVAgAAeHIALGphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVDb2xsZWN0aW9uGUIAgMte9x4CAAFMAAFjdAAWTGphdmEvdXRpbC9Db2xsZWN0aW9uO3hwc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoU2V02GzXWpXdKh4CAAB4cgARamF2YS51dGlsLkhhc2hTZXS6RIWVlri3NAMAAHhwdwwAAAAQP0AAAAAAAAJ0AAVlbWFpbHQAB3Byb2ZpbGV4dAAscmFUQjB3eE1wMkV6ZVkwM1BXamJVVTQ3cmNvM25WaHNVeDUwb3hFdTBrUT0=
+2025-09-03 00:50:56.154 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - ✅ Found frontend origin in cookie: http://localhost:4200
+2025-09-03 00:50:56.154 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Final frontend URL: http://localhost:4200
+2025-09-03 00:50:56.154 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Checking decoded redirect URL: http://localhost:4200
+2025-09-03 00:50:56.155 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - ✅ Direct match found in allowed URLs
+2025-09-03 00:50:56.156 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODQwODU1LCJleHAiOjE3NTY4NDE3NTV9.UyPLiwAco8fosz1tRD-jaG18JoZOnp-bZnwtqm2e90o&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODQwODU1LCJleHAiOjE3NTc0NDU2NTV9.s7nOnI5z5okA6jFCs_lTcaha5dKSMyvomjoxb2GuPvo&profile_completed=false ===
+2025-09-03 00:50:56.157 [http-nio-8081-exec-3] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODQwODU1LCJleHAiOjE3NTY4NDE3NTV9.UyPLiwAco8fosz1tRD-jaG18JoZOnp-bZnwtqm2e90o&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODQwODU1LCJleHAiOjE3NTc0NDU2NTV9.s7nOnI5z5okA6jFCs_lTcaha5dKSMyvomjoxb2GuPvo&profile_completed=false ===
+2025-09-03 00:52:44.154 [http-nio-8081-exec-5] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /api/auth/set-frontend-origin
+2025-09-03 00:52:44.159 [http-nio-8081-exec-5] INFO  c.g.a.controller.AuthController - Set frontend origin in session: http://localhost:4200
+2025-09-03 00:52:45.148 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === OAuth2 Authentication Success Handler Started ===
+2025-09-03 00:52:45.148 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Extracting Frontend URL ===
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Request URL: http://localhost:8081/login/oauth2/code/google
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Query String: state=UJD_biYMAnYxmtkfi4UpHR8B9K5E0AHJUrCN9t-nMlU%3D&code=4%2F0AVMBsJj9NuwGJoKyiJar6FEmfi5JzTsCmSbJbcUNEFlpihCK4gYM6ig-en0IHVbqEwUQXA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Method: GET
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Request Headers ===
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header host: localhost:8081
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header connection: keep-alive
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header upgrade-insecure-requests: 1
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-site: cross-site
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-mode: navigate
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-user: ?1
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-dest: document
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua: "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua-mobile: ?0
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua-platform: "Windows"
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header referer: http://localhost:4200/
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept-encoding: gzip, deflate, br, zstd
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept-language: en-US,en;q=0.9
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header cookie: frontend_origin=http://localhost:4200; JSESSIONID=C7BC212DA2B099B47E032AEA96ACB832; oauth2_auth_request=rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAmwCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyABdqYXZhLnV0aWwuTGlua2VkSGFzaE1hcDTATlwQbMD7AgABWgALYWNjZXNzT3JkZXJ4cgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAAdwgAAAAQAAAAAHgAc3EAfgAHc3EAfgAJP0AAAAAAAAx3CAAAABAAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAGZ29vZ2xleABzcgA_b3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5BdXRob3JpemF0aW9uR3JhbnRUeXBlAAAAAAAAAmwCAAFMAAV2YWx1ZXEAfgADeHB0ABJhdXRob3JpemF0aW9uX2NvZGV0ARZodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aD9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTExNjAyOTIzODY1Ni00dGp2MWN0ZDRka2lxMzlsajZxYzF2OGVoZmg2NmhxMC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSZzY29wZT1lbWFpbCUyMHByb2ZpbGUmc3RhdGU9VUpEX2JpWU1Bbll4bXRrZmk0VXBIUjhCOUs1RTBBSEpVckNOOXQtbk1sVSUzRCZyZWRpcmVjdF91cmk9aHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXQAKWh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9vL29hdXRoMi9hdXRodABIMTE2MDI5MjM4NjU2LTR0anYxY3RkNGRraXEzOWxqNnFjMXY4ZWhmaDY2aHEwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tdAAuaHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXNyAFFvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXNwb25zZVR5cGUAAAAAAAACbAIAAUwABXZhbHVlcQB-AAN4cHQABGNvZGVzcgAlamF2YS51dGlsLkNvbGxlY3Rpb25zJFVubW9kaWZpYWJsZVNldIAdktGPm4BVAgAAeHIALGphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVDb2xsZWN0aW9uGUIAgMte9x4CAAFMAAFjdAAWTGphdmEvdXRpbC9Db2xsZWN0aW9uO3hwc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoU2V02GzXWpXdKh4CAAB4cgARamF2YS51dGlsLkhhc2hTZXS6RIWVlri3NAMAAHhwdwwAAAAQP0AAAAAAAAJ0AAVlbWFpbHQAB3Byb2ZpbGV4dAAsVUpEX2JpWU1Bbll4bXRrZmk0VXBIUjhCOUs1RTBBSEpVckNOOXQtbk1sVT0=
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Request Parameters ===
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param state: UJD_biYMAnYxmtkfi4UpHR8B9K5E0AHJUrCN9t-nMlU=
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param code: 4/0AVMBsJj9NuwGJoKyiJar6FEmfi5JzTsCmSbJbcUNEFlpihCK4gYM6ig-en0IHVbqEwUQXA
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param scope: email profile https://www.googleapis.com/auth/userinfo.profile openid https://www.googleapis.com/auth/userinfo.email
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param authuser: 0
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param prompt: none
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Cookies ===
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie frontend_origin: http://localhost:4200
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie JSESSIONID: C7BC212DA2B099B47E032AEA96ACB832
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie oauth2_auth_request: rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAmwCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyABdqYXZhLnV0aWwuTGlua2VkSGFzaE1hcDTATlwQbMD7AgABWgALYWNjZXNzT3JkZXJ4cgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAAdwgAAAAQAAAAAHgAc3EAfgAHc3EAfgAJP0AAAAAAAAx3CAAAABAAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAGZ29vZ2xleABzcgA_b3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5BdXRob3JpemF0aW9uR3JhbnRUeXBlAAAAAAAAAmwCAAFMAAV2YWx1ZXEAfgADeHB0ABJhdXRob3JpemF0aW9uX2NvZGV0ARZodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aD9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTExNjAyOTIzODY1Ni00dGp2MWN0ZDRka2lxMzlsajZxYzF2OGVoZmg2NmhxMC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSZzY29wZT1lbWFpbCUyMHByb2ZpbGUmc3RhdGU9VUpEX2JpWU1Bbll4bXRrZmk0VXBIUjhCOUs1RTBBSEpVckNOOXQtbk1sVSUzRCZyZWRpcmVjdF91cmk9aHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXQAKWh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9vL29hdXRoMi9hdXRodABIMTE2MDI5MjM4NjU2LTR0anYxY3RkNGRraXEzOWxqNnFjMXY4ZWhmaDY2aHEwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tdAAuaHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXNyAFFvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXNwb25zZVR5cGUAAAAAAAACbAIAAUwABXZhbHVlcQB-AAN4cHQABGNvZGVzcgAlamF2YS51dGlsLkNvbGxlY3Rpb25zJFVubW9kaWZpYWJsZVNldIAdktGPm4BVAgAAeHIALGphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVDb2xsZWN0aW9uGUIAgMte9x4CAAFMAAFjdAAWTGphdmEvdXRpbC9Db2xsZWN0aW9uO3hwc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoU2V02GzXWpXdKh4CAAB4cgARamF2YS51dGlsLkhhc2hTZXS6RIWVlri3NAMAAHhwdwwAAAAQP0AAAAAAAAJ0AAVlbWFpbHQAB3Byb2ZpbGV4dAAsVUpEX2JpWU1Bbll4bXRrZmk0VXBIUjhCOUs1RTBBSEpVckNOOXQtbk1sVT0=
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - ✅ Found frontend origin in session: http://localhost:4200
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Final frontend URL: http://localhost:4200
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Checking decoded redirect URL: http://localhost:4200
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - ✅ Direct match found in allowed URLs
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODQwOTY1LCJleHAiOjE3NTY4NDE4NjV9.Yb3YJYv2DVU2FkyMW2QspvVY6QyQSmKFJtnA98R1aqc&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODQwOTY1LCJleHAiOjE3NTc0NDU3NjV9.7XaBC8cIH1BsP4qHzdYF1sd8qPU3MUofjoBwq5xuIFM&profile_completed=false ===
+2025-09-03 00:52:45.904 [http-nio-8081-exec-8] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODQwOTY1LCJleHAiOjE3NTY4NDE4NjV9.Yb3YJYv2DVU2FkyMW2QspvVY6QyQSmKFJtnA98R1aqc&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODQwOTY1LCJleHAiOjE3NTc0NDU3NjV9.7XaBC8cIH1BsP4qHzdYF1sd8qPU3MUofjoBwq5xuIFM&profile_completed=false ===
+2025-09-03 00:53:02.385 [http-nio-8081-exec-2] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /api/auth/set-frontend-origin
+2025-09-03 00:53:02.388 [http-nio-8081-exec-2] INFO  c.g.a.controller.AuthController - Set frontend origin in session: http://localhost:4200
+2025-09-03 00:53:03.274 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === OAuth2 Authentication Success Handler Started ===
+2025-09-03 00:53:03.274 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
+2025-09-03 00:53:04.038 [http-nio-8081-exec-6] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
+2025-09-03 00:53:04.038 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Extracting Frontend URL ===
+2025-09-03 00:53:04.039 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Request URL: http://localhost:8081/login/oauth2/code/google
+2025-09-03 00:53:04.040 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Query String: state=uW5XU_WqZK9JOEG7kqDMax_C4s-1Lcde9aG5MyAG_Wo%3D&code=4%2F0AVMBsJj43oIpc2WIavbtw3QtglOiBZ7IJsLc5TYxiHLhg2x0BGsaOvq8r5OzoC181F7oaA&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none
+2025-09-03 00:53:04.040 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Method: GET
+2025-09-03 00:53:04.040 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Request Headers ===
+2025-09-03 00:53:04.040 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header host: localhost:8081
+2025-09-03 00:53:04.040 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header connection: keep-alive
+2025-09-03 00:53:04.040 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header upgrade-insecure-requests: 1
+2025-09-03 00:53:04.040 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+2025-09-03 00:53:04.041 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+2025-09-03 00:53:04.041 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-site: cross-site
+2025-09-03 00:53:04.041 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-mode: navigate
+2025-09-03 00:53:04.041 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-user: ?1
+2025-09-03 00:53:04.041 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-dest: document
+2025-09-03 00:53:04.041 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua: "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua-mobile: ?0
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua-platform: "Windows"
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header referer: http://localhost:4200/
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept-encoding: gzip, deflate, br, zstd
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept-language: en-US,en;q=0.9
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header cookie: frontend_origin=http://localhost:4200; JSESSIONID=7782E032796C9B649691D57AF4C3C8DF; oauth2_auth_request=rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAmwCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyABdqYXZhLnV0aWwuTGlua2VkSGFzaE1hcDTATlwQbMD7AgABWgALYWNjZXNzT3JkZXJ4cgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAAdwgAAAAQAAAAAHgAc3EAfgAHc3EAfgAJP0AAAAAAAAx3CAAAABAAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAGZ29vZ2xleABzcgA_b3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5BdXRob3JpemF0aW9uR3JhbnRUeXBlAAAAAAAAAmwCAAFMAAV2YWx1ZXEAfgADeHB0ABJhdXRob3JpemF0aW9uX2NvZGV0ARZodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aD9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTExNjAyOTIzODY1Ni00dGp2MWN0ZDRka2lxMzlsajZxYzF2OGVoZmg2NmhxMC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSZzY29wZT1lbWFpbCUyMHByb2ZpbGUmc3RhdGU9dVc1WFVfV3FaSzlKT0VHN2txRE1heF9DNHMtMUxjZGU5YUc1TXlBR19XbyUzRCZyZWRpcmVjdF91cmk9aHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXQAKWh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9vL29hdXRoMi9hdXRodABIMTE2MDI5MjM4NjU2LTR0anYxY3RkNGRraXEzOWxqNnFjMXY4ZWhmaDY2aHEwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tdAAuaHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXNyAFFvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXNwb25zZVR5cGUAAAAAAAACbAIAAUwABXZhbHVlcQB-AAN4cHQABGNvZGVzcgAlamF2YS51dGlsLkNvbGxlY3Rpb25zJFVubW9kaWZpYWJsZVNldIAdktGPm4BVAgAAeHIALGphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVDb2xsZWN0aW9uGUIAgMte9x4CAAFMAAFjdAAWTGphdmEvdXRpbC9Db2xsZWN0aW9uO3hwc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoU2V02GzXWpXdKh4CAAB4cgARamF2YS51dGlsLkhhc2hTZXS6RIWVlri3NAMAAHhwdwwAAAAQP0AAAAAAAAJ0AAVlbWFpbHQAB3Byb2ZpbGV4dAAsdVc1WFVfV3FaSzlKT0VHN2txRE1heF9DNHMtMUxjZGU5YUc1TXlBR19Xbz0=
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Request Parameters ===
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param state: uW5XU_WqZK9JOEG7kqDMax_C4s-1Lcde9aG5MyAG_Wo=
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param code: 4/0AVMBsJj43oIpc2WIavbtw3QtglOiBZ7IJsLc5TYxiHLhg2x0BGsaOvq8r5OzoC181F7oaA
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param scope: email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param authuser: 0
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param prompt: none
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Cookies ===
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie frontend_origin: http://localhost:4200
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie JSESSIONID: 7782E032796C9B649691D57AF4C3C8DF
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie oauth2_auth_request: rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAmwCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyABdqYXZhLnV0aWwuTGlua2VkSGFzaE1hcDTATlwQbMD7AgABWgALYWNjZXNzT3JkZXJ4cgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAAdwgAAAAQAAAAAHgAc3EAfgAHc3EAfgAJP0AAAAAAAAx3CAAAABAAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAGZ29vZ2xleABzcgA_b3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5BdXRob3JpemF0aW9uR3JhbnRUeXBlAAAAAAAAAmwCAAFMAAV2YWx1ZXEAfgADeHB0ABJhdXRob3JpemF0aW9uX2NvZGV0ARZodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aD9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTExNjAyOTIzODY1Ni00dGp2MWN0ZDRka2lxMzlsajZxYzF2OGVoZmg2NmhxMC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSZzY29wZT1lbWFpbCUyMHByb2ZpbGUmc3RhdGU9dVc1WFVfV3FaSzlKT0VHN2txRE1heF9DNHMtMUxjZGU5YUc1TXlBR19XbyUzRCZyZWRpcmVjdF91cmk9aHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXQAKWh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9vL29hdXRoMi9hdXRodABIMTE2MDI5MjM4NjU2LTR0anYxY3RkNGRraXEzOWxqNnFjMXY4ZWhmaDY2aHEwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tdAAuaHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXNyAFFvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXNwb25zZVR5cGUAAAAAAAACbAIAAUwABXZhbHVlcQB-AAN4cHQABGNvZGVzcgAlamF2YS51dGlsLkNvbGxlY3Rpb25zJFVubW9kaWZpYWJsZVNldIAdktGPm4BVAgAAeHIALGphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVDb2xsZWN0aW9uGUIAgMte9x4CAAFMAAFjdAAWTGphdmEvdXRpbC9Db2xsZWN0aW9uO3hwc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoU2V02GzXWpXdKh4CAAB4cgARamF2YS51dGlsLkhhc2hTZXS6RIWVlri3NAMAAHhwdwwAAAAQP0AAAAAAAAJ0AAVlbWFpbHQAB3Byb2ZpbGV4dAAsdVc1WFVfV3FaSzlKT0VHN2txRE1heF9DNHMtMUxjZGU5YUc1TXlBR19Xbz0=
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - ✅ Found frontend origin in session: http://localhost:4200
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Final frontend URL: http://localhost:4200
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Checking decoded redirect URL: http://localhost:4200
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - ✅ Direct match found in allowed URLs
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODQwOTgzLCJleHAiOjE3NTY4NDE4ODN9.zhHxdJD1brx-V-Drd8tiOvF164YQDnRVdhg9IuvnbGU&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODQwOTgzLCJleHAiOjE3NTc0NDU3ODN9.W-KuZEPIp4XQMSJlSqwsrxa8V-UaNFBmIgjwNQ_GnsQ&profile_completed=false ===
+2025-09-03 00:53:04.042 [http-nio-8081-exec-6] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODQwOTgzLCJleHAiOjE3NTY4NDE4ODN9.zhHxdJD1brx-V-Drd8tiOvF164YQDnRVdhg9IuvnbGU&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODQwOTgzLCJleHAiOjE3NTc0NDU3ODN9.W-KuZEPIp4XQMSJlSqwsrxa8V-UaNFBmIgjwNQ_GnsQ&profile_completed=false ===
+2025-09-03 01:10:41.855 [http-nio-8081-exec-10] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /api/auth/set-frontend-origin
+2025-09-03 01:10:41.871 [http-nio-8081-exec-10] INFO  c.g.a.controller.AuthController - Set frontend origin in session: http://localhost:4200
+2025-09-03 01:10:42.858 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === OAuth2 Authentication Success Handler Started ===
+2025-09-03 01:10:42.858 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
+2025-09-03 01:10:43.716 [http-nio-8081-exec-1] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
+2025-09-03 01:10:43.717 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Extracting Frontend URL ===
+2025-09-03 01:10:43.718 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Request URL: http://localhost:8081/login/oauth2/code/google
+2025-09-03 01:10:43.718 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Query String: state=5R0HtCOrWfsofW0_1vc_JNPjgrr4qJ_g9w2cZjRB7qI%3D&code=4%2F0AVMBsJjzdLX5l7EMezFf5Ie_qO1FFnOy0oH9R2sCsyM94V1CeOampQX-gxHihMOfMlziQQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none
+2025-09-03 01:10:43.718 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Method: GET
+2025-09-03 01:10:43.718 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Request Headers ===
+2025-09-03 01:10:43.718 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header host: localhost:8081
+2025-09-03 01:10:43.718 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header connection: keep-alive
+2025-09-03 01:10:43.719 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header upgrade-insecure-requests: 1
+2025-09-03 01:10:43.719 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+2025-09-03 01:10:43.719 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+2025-09-03 01:10:43.719 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-site: cross-site
+2025-09-03 01:10:43.719 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-mode: navigate
+2025-09-03 01:10:43.719 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-user: ?1
+2025-09-03 01:10:43.719 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-dest: document
+2025-09-03 01:10:43.719 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua: "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+2025-09-03 01:10:43.719 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua-mobile: ?0
+2025-09-03 01:10:43.720 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua-platform: "Windows"
+2025-09-03 01:10:43.720 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header referer: http://localhost:4200/
+2025-09-03 01:10:43.720 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept-encoding: gzip, deflate, br, zstd
+2025-09-03 01:10:43.720 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept-language: en-US,en;q=0.9
+2025-09-03 01:10:43.720 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header cookie: JSESSIONID=71FB40FC0AF63E3BDB8C170290BA3D62; frontend_origin=http://localhost:4200; oauth2_auth_request=rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAmwCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyABdqYXZhLnV0aWwuTGlua2VkSGFzaE1hcDTATlwQbMD7AgABWgALYWNjZXNzT3JkZXJ4cgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAAdwgAAAAQAAAAAHgAc3EAfgAHc3EAfgAJP0AAAAAAAAx3CAAAABAAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAGZ29vZ2xleABzcgA_b3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5BdXRob3JpemF0aW9uR3JhbnRUeXBlAAAAAAAAAmwCAAFMAAV2YWx1ZXEAfgADeHB0ABJhdXRob3JpemF0aW9uX2NvZGV0ARZodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aD9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTExNjAyOTIzODY1Ni00dGp2MWN0ZDRka2lxMzlsajZxYzF2OGVoZmg2NmhxMC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSZzY29wZT1lbWFpbCUyMHByb2ZpbGUmc3RhdGU9NVIwSHRDT3JXZnNvZlcwXzF2Y19KTlBqZ3JyNHFKX2c5dzJjWmpSQjdxSSUzRCZyZWRpcmVjdF91cmk9aHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXQAKWh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9vL29hdXRoMi9hdXRodABIMTE2MDI5MjM4NjU2LTR0anYxY3RkNGRraXEzOWxqNnFjMXY4ZWhmaDY2aHEwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tdAAuaHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXNyAFFvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXNwb25zZVR5cGUAAAAAAAACbAIAAUwABXZhbHVlcQB-AAN4cHQABGNvZGVzcgAlamF2YS51dGlsLkNvbGxlY3Rpb25zJFVubW9kaWZpYWJsZVNldIAdktGPm4BVAgAAeHIALGphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVDb2xsZWN0aW9uGUIAgMte9x4CAAFMAAFjdAAWTGphdmEvdXRpbC9Db2xsZWN0aW9uO3hwc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoU2V02GzXWpXdKh4CAAB4cgARamF2YS51dGlsLkhhc2hTZXS6RIWVlri3NAMAAHhwdwwAAAAQP0AAAAAAAAJ0AAVlbWFpbHQAB3Byb2ZpbGV4dAAsNVIwSHRDT3JXZnNvZlcwXzF2Y19KTlBqZ3JyNHFKX2c5dzJjWmpSQjdxST0=
+2025-09-03 01:10:43.721 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Request Parameters ===
+2025-09-03 01:10:43.721 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param state: 5R0HtCOrWfsofW0_1vc_JNPjgrr4qJ_g9w2cZjRB7qI=
+2025-09-03 01:10:43.721 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param code: 4/0AVMBsJjzdLX5l7EMezFf5Ie_qO1FFnOy0oH9R2sCsyM94V1CeOampQX-gxHihMOfMlziQQ
+2025-09-03 01:10:43.721 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param scope: email profile https://www.googleapis.com/auth/userinfo.email openid https://www.googleapis.com/auth/userinfo.profile
+2025-09-03 01:10:43.721 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param authuser: 0
+2025-09-03 01:10:43.721 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param prompt: none
+2025-09-03 01:10:43.721 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Cookies ===
+2025-09-03 01:10:43.721 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie JSESSIONID: 71FB40FC0AF63E3BDB8C170290BA3D62
+2025-09-03 01:10:43.721 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie frontend_origin: http://localhost:4200
+2025-09-03 01:10:43.722 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie oauth2_auth_request: rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAmwCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyABdqYXZhLnV0aWwuTGlua2VkSGFzaE1hcDTATlwQbMD7AgABWgALYWNjZXNzT3JkZXJ4cgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAAdwgAAAAQAAAAAHgAc3EAfgAHc3EAfgAJP0AAAAAAAAx3CAAAABAAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAGZ29vZ2xleABzcgA_b3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5BdXRob3JpemF0aW9uR3JhbnRUeXBlAAAAAAAAAmwCAAFMAAV2YWx1ZXEAfgADeHB0ABJhdXRob3JpemF0aW9uX2NvZGV0ARZodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aD9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTExNjAyOTIzODY1Ni00dGp2MWN0ZDRka2lxMzlsajZxYzF2OGVoZmg2NmhxMC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSZzY29wZT1lbWFpbCUyMHByb2ZpbGUmc3RhdGU9NVIwSHRDT3JXZnNvZlcwXzF2Y19KTlBqZ3JyNHFKX2c5dzJjWmpSQjdxSSUzRCZyZWRpcmVjdF91cmk9aHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXQAKWh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9vL29hdXRoMi9hdXRodABIMTE2MDI5MjM4NjU2LTR0anYxY3RkNGRraXEzOWxqNnFjMXY4ZWhmaDY2aHEwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tdAAuaHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXNyAFFvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXNwb25zZVR5cGUAAAAAAAACbAIAAUwABXZhbHVlcQB-AAN4cHQABGNvZGVzcgAlamF2YS51dGlsLkNvbGxlY3Rpb25zJFVubW9kaWZpYWJsZVNldIAdktGPm4BVAgAAeHIALGphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVDb2xsZWN0aW9uGUIAgMte9x4CAAFMAAFjdAAWTGphdmEvdXRpbC9Db2xsZWN0aW9uO3hwc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoU2V02GzXWpXdKh4CAAB4cgARamF2YS51dGlsLkhhc2hTZXS6RIWVlri3NAMAAHhwdwwAAAAQP0AAAAAAAAJ0AAVlbWFpbHQAB3Byb2ZpbGV4dAAsNVIwSHRDT3JXZnNvZlcwXzF2Y19KTlBqZ3JyNHFKX2c5dzJjWmpSQjdxST0=
+2025-09-03 01:10:43.724 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - ✅ Found frontend origin in session: http://localhost:4200
+2025-09-03 01:10:43.724 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Final frontend URL: http://localhost:4200
+2025-09-03 01:10:43.724 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Checking decoded redirect URL: http://localhost:4200
+2025-09-03 01:10:43.724 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - ✅ Direct match found in allowed URLs
+2025-09-03 01:10:43.725 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODQyMDQzLCJleHAiOjE3NTY4NDI5NDN9.TFWodcL6xZ45Ef3YCJqyX6_5Owo3hQtEL9yVfXpiDDM&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODQyMDQzLCJleHAiOjE3NTc0NDY4NDN9.eEkTzsH4fS5LOrK6s5xNZCiBbta4PYNYlR75wp7x3gw&profile_completed=false ===
+2025-09-03 01:10:43.725 [http-nio-8081-exec-1] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODQyMDQzLCJleHAiOjE3NTY4NDI5NDN9.TFWodcL6xZ45Ef3YCJqyX6_5Owo3hQtEL9yVfXpiDDM&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODQyMDQzLCJleHAiOjE3NTc0NDY4NDN9.eEkTzsH4fS5LOrK6s5xNZCiBbta4PYNYlR75wp7x3gw&profile_completed=false ===
+2025-09-03 01:37:53.594 [http-nio-8081-exec-5] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /api/auth/set-frontend-origin
+2025-09-03 01:37:53.626 [http-nio-8081-exec-5] INFO  c.g.a.controller.AuthController - Set frontend origin in session: http://localhost:4200
+2025-09-03 01:37:54.626 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === OAuth2 Authentication Success Handler Started ===
+2025-09-03 01:37:54.630 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - OAuth login successful for sharma2001bhawesh@gmail.com via google
+2025-09-03 01:37:55.446 [http-nio-8081-exec-9] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=sharma2001bhawesh@gmail.com, name=Bhawesh Sharma, eventType=OAUTH_LOGIN)
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Extracting Frontend URL ===
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Request URL: http://localhost:8081/login/oauth2/code/google
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Query String: state=x-Q0_gmIcHMCtCzWMUTDs-DncTSjpMl5mgcxOyb_mno%3D&code=4%2F0AVMBsJgBtiDLLYMIBrI85a2JmWe57qVPX9toQwWaYXAaw7hV21I3ytTHiYoNoyhPGN23lw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Method: GET
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Request Headers ===
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header host: localhost:8081
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header connection: keep-alive
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header upgrade-insecure-requests: 1
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-site: cross-site
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-mode: navigate
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-user: ?1
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-fetch-dest: document
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua: "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua-mobile: ?0
+2025-09-03 01:37:55.454 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header sec-ch-ua-platform: "Windows"
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header referer: http://localhost:4200/
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept-encoding: gzip, deflate, br, zstd
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header accept-language: en-US,en;q=0.9
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Header cookie: JSESSIONID=12951095EF4C81EC52685610AFA8AE08; frontend_origin=http://localhost:4200; oauth2_auth_request=rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAmwCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyABdqYXZhLnV0aWwuTGlua2VkSGFzaE1hcDTATlwQbMD7AgABWgALYWNjZXNzT3JkZXJ4cgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAAdwgAAAAQAAAAAHgAc3EAfgAHc3EAfgAJP0AAAAAAAAx3CAAAABAAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAGZ29vZ2xleABzcgA_b3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5BdXRob3JpemF0aW9uR3JhbnRUeXBlAAAAAAAAAmwCAAFMAAV2YWx1ZXEAfgADeHB0ABJhdXRob3JpemF0aW9uX2NvZGV0ARZodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aD9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTExNjAyOTIzODY1Ni00dGp2MWN0ZDRka2lxMzlsajZxYzF2OGVoZmg2NmhxMC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSZzY29wZT1lbWFpbCUyMHByb2ZpbGUmc3RhdGU9eC1RMF9nbUljSE1DdEN6V01VVERzLURuY1RTanBNbDVtZ2N4T3liX21ubyUzRCZyZWRpcmVjdF91cmk9aHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXQAKWh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9vL29hdXRoMi9hdXRodABIMTE2MDI5MjM4NjU2LTR0anYxY3RkNGRraXEzOWxqNnFjMXY4ZWhmaDY2aHEwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tdAAuaHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXNyAFFvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXNwb25zZVR5cGUAAAAAAAACbAIAAUwABXZhbHVlcQB-AAN4cHQABGNvZGVzcgAlamF2YS51dGlsLkNvbGxlY3Rpb25zJFVubW9kaWZpYWJsZVNldIAdktGPm4BVAgAAeHIALGphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVDb2xsZWN0aW9uGUIAgMte9x4CAAFMAAFjdAAWTGphdmEvdXRpbC9Db2xsZWN0aW9uO3hwc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoU2V02GzXWpXdKh4CAAB4cgARamF2YS51dGlsLkhhc2hTZXS6RIWVlri3NAMAAHhwdwwAAAAQP0AAAAAAAAJ0AAVlbWFpbHQAB3Byb2ZpbGV4dAAseC1RMF9nbUljSE1DdEN6V01VVERzLURuY1RTanBNbDVtZ2N4T3liX21ubz0=
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Request Parameters ===
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param state: x-Q0_gmIcHMCtCzWMUTDs-DncTSjpMl5mgcxOyb_mno=
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param code: 4/0AVMBsJgBtiDLLYMIBrI85a2JmWe57qVPX9toQwWaYXAaw7hV21I3ytTHiYoNoyhPGN23lw
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param scope: email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param authuser: 0
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Param prompt: none
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Cookies ===
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie JSESSIONID: 12951095EF4C81EC52685610AFA8AE08
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie frontend_origin: http://localhost:4200
+2025-09-03 01:37:55.456 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Cookie oauth2_auth_request: rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAmwCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyABdqYXZhLnV0aWwuTGlua2VkSGFzaE1hcDTATlwQbMD7AgABWgALYWNjZXNzT3JkZXJ4cgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAAdwgAAAAQAAAAAHgAc3EAfgAHc3EAfgAJP0AAAAAAAAx3CAAAABAAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAGZ29vZ2xleABzcgA_b3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5BdXRob3JpemF0aW9uR3JhbnRUeXBlAAAAAAAAAmwCAAFMAAV2YWx1ZXEAfgADeHB0ABJhdXRob3JpemF0aW9uX2NvZGV0ARZodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aD9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTExNjAyOTIzODY1Ni00dGp2MWN0ZDRka2lxMzlsajZxYzF2OGVoZmg2NmhxMC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSZzY29wZT1lbWFpbCUyMHByb2ZpbGUmc3RhdGU9eC1RMF9nbUljSE1DdEN6V01VVERzLURuY1RTanBNbDVtZ2N4T3liX21ubyUzRCZyZWRpcmVjdF91cmk9aHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXQAKWh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9vL29hdXRoMi9hdXRodABIMTE2MDI5MjM4NjU2LTR0anYxY3RkNGRraXEzOWxqNnFjMXY4ZWhmaDY2aHEwLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tdAAuaHR0cDovL2xvY2FsaG9zdDo4MDgxL2xvZ2luL29hdXRoMi9jb2RlL2dvb2dsZXNyAFFvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXNwb25zZVR5cGUAAAAAAAACbAIAAUwABXZhbHVlcQB-AAN4cHQABGNvZGVzcgAlamF2YS51dGlsLkNvbGxlY3Rpb25zJFVubW9kaWZpYWJsZVNldIAdktGPm4BVAgAAeHIALGphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVDb2xsZWN0aW9uGUIAgMte9x4CAAFMAAFjdAAWTGphdmEvdXRpbC9Db2xsZWN0aW9uO3hwc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoU2V02GzXWpXdKh4CAAB4cgARamF2YS51dGlsLkhhc2hTZXS6RIWVlri3NAMAAHhwdwwAAAAQP0AAAAAAAAJ0AAVlbWFpbHQAB3Byb2ZpbGV4dAAseC1RMF9nbUljSE1DdEN6V01VVERzLURuY1RTanBNbDVtZ2N4T3liX21ubz0=
+2025-09-03 01:37:55.458 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - ✅ Found frontend origin in session: http://localhost:4200
+2025-09-03 01:37:55.458 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Final frontend URL: http://localhost:4200
+2025-09-03 01:37:55.458 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - Checking decoded redirect URL: http://localhost:4200
+2025-09-03 01:37:55.458 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - ✅ Direct match found in allowed URLs
+2025-09-03 01:37:55.458 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODQzNjc0LCJleHAiOjE3NTY4NDQ1NzR9.PAk0cNjieL7VF3VHSXQsKjszqpIQuW7wCv-C0_gTvgU&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODQzNjc0LCJleHAiOjE3NTc0NDg0NzR9.4C3iUNRygJXBnEE4FgUNaK7Y3LA05jwzeNL4NNVvTdE&profile_completed=false ===
+2025-09-03 01:37:55.458 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODQzNjc0LCJleHAiOjE3NTY4NDQ1NzR9.PAk0cNjieL7VF3VHSXQsKjszqpIQuW7wCv-C0_gTvgU&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODQzNjc0LCJleHAiOjE3NTc0NDg0NzR9.4C3iUNRygJXBnEE4FgUNaK7Y3LA05jwzeNL4NNVvTdE&profile_completed=false ===

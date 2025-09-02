@@ -15,6 +15,7 @@ import { AuthService } from '../../core/services/auth';
 import { LoginRequest, LoginResponse } from '../../models/auth.model';
 import { UserProfileService } from '../../core/services/user';
 import { environment } from '../../../environments/environment';
+import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ import { environment } from '../../../environments/environment';
     MatIconModule,
     RouterModule,
     NgOptimizedImage,
+    // LoadingSpinner,
   ],
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
@@ -34,7 +36,7 @@ export class Login {
   loginForm: FormGroup;
   errorMessage = '';
   showPassword = false;
-
+  // isLoading: boolean = true;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,

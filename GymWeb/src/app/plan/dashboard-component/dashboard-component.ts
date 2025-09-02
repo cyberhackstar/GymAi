@@ -1,4 +1,3 @@
-// dashboard.component.ts - UPDATED TO MATCH BACKEND INTERFACES
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,11 +10,12 @@ import {
   UserProfileDTO,
 } from '../fitness-service';
 import { Token } from '../../core/services/token';
+import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, LoadingSpinner],
   templateUrl: './dashboard-component.html',
   styleUrls: ['./dashboard-component.css'],
 })
@@ -65,9 +65,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // Initialize with default profile
     this.userProfile = { ...this.defaultUserProfile };
-    // Get user info from token and initialize
     this.initializeUserData();
   }
 
@@ -77,7 +75,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   initializeUserData() {
-    // Get current values from token service
     this.userEmail = this.tokenService.getEmail() || '';
     this.userName = this.tokenService.getName() || '';
 
@@ -86,7 +83,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.userProfile.name = this.userName;
       this.checkUserProfileStatus();
     } else {
-      // Listen for token changes if not immediately available
       this.tokenService.email$
         .pipe(takeUntil(this.destroy$))
         .subscribe((email) => {
@@ -120,7 +116,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    // Send user data directly to backend
     const userToCheck: UserProfileDTO = {
       name: this.userName,
       email: this.userEmail,
@@ -150,7 +145,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
               this.isLoading = false;
             }
           } else {
-            // User doesn't exist, show form to create profile
             this.showUserForm = true;
             this.isLoading = false;
           }
@@ -174,7 +168,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         next: (response: OptimizedPlansResponseDTO) => {
           this.plansResponse = response;
           this.plansExist = response.plansExist;
-          this.userProfile = response.user;
+          if (response.user) {
+            this.userProfile = response.user;
+          }
           this.showUserForm = false;
           this.isLoading = false;
         },
@@ -196,7 +192,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         next: (response: OptimizedPlansResponseDTO) => {
           this.plansResponse = response;
           this.plansExist = response.plansExist;
-          this.userProfile = response.user;
+          if (response.user) {
+            this.userProfile = response.user;
+          }
           this.isProfileComplete = true;
           this.showUserForm = false;
           this.isLoading = false;
@@ -392,16 +390,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   logout() {
     this.tokenService.clearToken();
-    // Redirect to login page - adjust route as needed
     window.location.href = '/login';
   }
 
-  // Helper method to get current date for template
   getCurrentDate(): Date {
     return new Date();
   }
-
-  // Inside DashboardComponent class
 
   get dailyCalorieTarget(): number | null {
     return this.plansResponse?.dietPlan?.dailyCalorieTarget ?? null;
