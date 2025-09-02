@@ -89,19 +89,8 @@ export class Register {
               this.tokenService.setRefreshToken(res.refreshToken);
 
               // Step 3: Check if profile is completed
-              this.userService.isProfileCompleted().subscribe({
-                next: (completed) => {
-                  if (completed) {
-                    this.router.navigate(['/dashboard']);
-                  } else {
-                    this.router.navigate(['/complete-profile']);
-                  }
-                },
-                error: () => {
-                  // if API fails, push to complete profile page
-                  this.router.navigate(['/complete-profile']);
-                },
-              });
+
+              this.router.navigate(['/plan-dashboard']);
             } else {
               this.errorMessage =
                 'Registration succeeded but login tokens were not received.';

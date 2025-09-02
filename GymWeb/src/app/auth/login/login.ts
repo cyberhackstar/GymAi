@@ -66,18 +66,7 @@ export class Login {
           this.tokenService.setToken(res.accessToken);
           this.tokenService.setRefreshToken(res.refreshToken);
 
-          this.userService.isProfileCompleted().subscribe({
-            next: (completed) => {
-              if (completed) {
-                this.router.navigate(['/dashboard']);
-              } else {
-                this.router.navigate(['/complete-profile']);
-              }
-            },
-            error: () => {
-              this.router.navigate(['/complete-profile']);
-            },
-          });
+          this.router.navigate(['/plan-dashboard']);
         } else {
           this.errorMessage = 'Login failed: Tokens not received.';
         }
