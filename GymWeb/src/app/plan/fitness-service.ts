@@ -1,8 +1,10 @@
+// optimized-fitness.service.ts - UPDATED TO MATCH BACKEND
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface User {
+// ===== DTOs - UPDATED TO MATCH BACKEND EXACTLY =====
+export interface UserProfileDTO {
   userId?: number;
   name: string;
   email: string;
@@ -11,25 +13,22 @@ export interface User {
   weight: number;
   gender: string;
   goal: string;
-  activity_level: string;
+  activityLevel: string;
   preference: string;
+  profileComplete: boolean;
 }
 
-export interface Food {
-  id: number;
-  name: string;
-  calories_per100g: number;
-  protein_per100g: number;
-  carbs_per100g: number;
-  fat_per100g: number;
-  fiber_per100g: number;
-  diet_type: string;
-  meal_type: string;
+export interface UserProfileCheckDTO {
+  exists: boolean;
+  profileComplete: boolean;
+  user?: UserProfileDTO;
+  message: string;
+}
+
+// Updated to match backend SimpleFoodItemDTO
+export interface SimpleFoodItemDTO {
+  foodName: string; // Changed from 'name' to 'foodName'
   category: string;
-}
-
-export interface FoodItem {
-  food: Food;
   quantity: number;
   calories: number;
   protein: number;
@@ -38,83 +37,79 @@ export interface FoodItem {
   fiber: number;
 }
 
-export interface Meal {
-  meal_type: string;
-  food_items: FoodItem[];
-  total_calories: number;
-  total_protein: number;
-  total_carbs: number;
-  total_fat: number;
+// Updated to match backend SimpleMealDTO
+export interface SimpleMealDTO {
+  mealType: string;
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFat: number;
+  foodItems: SimpleFoodItemDTO[];
 }
 
-export interface DayMealPlan {
-  day_number: number;
-  day_name: string;
-  meals: Meal[];
-  total_daily_calories: number;
-  total_daily_protein: number;
-  total_daily_carbs: number;
-  total_daily_fat: number;
+// Updated to match backend SimpleDayMealPlanDTO
+export interface SimpleDayMealPlanDTO {
+  dayNumber: number;
+  dayName: string;
+  totalDailyCalories: number;
+  totalDailyProtein: number;
+  totalDailyCarbs: number;
+  totalDailyFat: number;
+  meals: SimpleMealDTO[];
 }
 
-export interface DietPlan {
-  user_id: number;
-  daily_plans: DayMealPlan[];
-  daily_calorie_target: number;
-  daily_protein_target: number;
-  daily_carbs_target: number;
-  daily_fat_target: number;
-  created_date: string;
+// Updated to match backend SimpleDietPlanDTO
+export interface SimpleDietPlanDTO {
+  id?: number;
+  userId: number;
+  dailyCalorieTarget: number;
+  dailyProteinTarget: number;
+  dailyCarbsTarget: number;
+  dailyFatTarget: number;
+  createdDate: string;
+  dailyPlans: SimpleDayMealPlanDTO[];
 }
 
-export interface Exercise {
-  id: number;
-  name: string;
+// Updated to match backend SimpleWorkoutExerciseDTO
+export interface SimpleWorkoutExerciseDTO {
+  exerciseName: string; // Changed from 'exercise' to 'exerciseName'
   category: string;
-  muscle_group: string;
+  muscleGroup: string;
   equipment: string;
   difficulty: string;
-  calories_burned_per_minute: number;
   description: string;
   instructions: string;
-}
-
-export interface WorkoutExercise {
-  exercise: Exercise;
   sets: number;
   reps: number;
-  duration_minutes: number;
+  durationMinutes: number;
   weight: number;
-  rest_seconds: number;
-  calories_burned: number;
+  restSeconds: number;
+  caloriesBurned: number;
+  caloriesBurnedPerMinute: number;
 }
 
-export interface DayWorkoutPlan {
-  day_number: number;
-  day_name: string;
-  focus_area: string;
-  exercises: WorkoutExercise[];
-  estimated_duration_minutes: number;
-  total_calories_burned: number;
-  rest_day: boolean;
+// Updated to match backend SimpleDayWorkoutPlanDTO
+export interface SimpleDayWorkoutPlanDTO {
+  dayNumber: number;
+  dayName: string;
+  focusArea: string;
+  restDay: boolean;
+  estimatedDurationMinutes: number;
+  totalCaloriesBurned: number;
+  exercises: SimpleWorkoutExerciseDTO[];
 }
 
-export interface WorkoutPlan {
-  user_id: number;
-  weekly_plan: DayWorkoutPlan[];
-  plan_type: string;
-  difficulty_level: string;
-  created_date: string;
+// Updated to match backend SimpleWorkoutPlanDTO
+export interface SimpleWorkoutPlanDTO {
+  id?: number;
+  userId: number;
+  planType: string;
+  difficultyLevel: string;
+  createdDate: string;
+  weeklyPlan: SimpleDayWorkoutPlanDTO[];
 }
 
-export interface CompleteFitnessPlan {
-  user: User;
-  diet_plan: DietPlan;
-  workout_plan: WorkoutPlan;
-  generated_date: string;
-  summary: string;
-}
-
+// Updated to match backend NutritionAnalysis
 export interface NutritionAnalysis {
   userId: number;
   dailyCalories: number;
@@ -123,12 +118,17 @@ export interface NutritionAnalysis {
   dailyFat: number;
   bmr: number;
   tdee: number;
+  recommendation: string; // Added the missing recommendation property
 }
 
-export interface UserPlansResponse {
-  user: User;
-  dietPlan: DietPlan;
-  workoutPlan: WorkoutPlan;
+// Updated to match backend OptimizedPlansResponseDTO
+export interface OptimizedPlansResponseDTO {
+  user: UserProfileDTO;
+  dietPlan?: SimpleDietPlanDTO;
+  workoutPlan?: SimpleWorkoutPlanDTO;
+  nutritionAnalysis?: NutritionAnalysis;
+  plansExist: boolean;
+  summary: string;
 }
 
 @Injectable({
@@ -139,58 +139,119 @@ export class FitnessService {
 
   constructor(private http: HttpClient) {}
 
-  generateCompletePlan(user: User): Observable<CompleteFitnessPlan> {
-    return this.http.post<CompleteFitnessPlan>(
-      `${this.baseUrl}/generate-complete-plan`,
-      user
+  // Check if user profile exists and is complete
+  checkUserProfile(
+    userProfile: UserProfileDTO
+  ): Observable<UserProfileCheckDTO> {
+    return this.http.post<UserProfileCheckDTO>(
+      `${this.baseUrl}/user/profile-check`,
+      userProfile
     );
   }
 
-  generateDietPlan(user: User): Observable<DietPlan> {
-    return this.http.post<DietPlan>(`${this.baseUrl}/generate-diet-plan`, user);
-  }
-
-  generateWorkoutPlan(user: User): Observable<WorkoutPlan> {
-    return this.http.post<WorkoutPlan>(
-      `${this.baseUrl}/generate-workout-plan`,
-      user
+  // Get user plans (fetches existing or generates if missing)
+  getUserPlansOptimized(
+    userProfile: UserProfileDTO
+  ): Observable<OptimizedPlansResponseDTO> {
+    return this.http.post<OptimizedPlansResponseDTO>(
+      `${this.baseUrl}/user/plans`,
+      userProfile
     );
   }
 
-  getUserPlans(userId: number): Observable<UserPlansResponse> {
-    return this.http.get<UserPlansResponse>(
-      `${this.baseUrl}/user/${userId}/plans`
+  // Create/Update user profile and generate plans
+  completeUserProfile(
+    userProfile: UserProfileDTO
+  ): Observable<OptimizedPlansResponseDTO> {
+    return this.http.post<OptimizedPlansResponseDTO>(
+      `${this.baseUrl}/user/complete-profile`,
+      userProfile
     );
   }
 
-  updateUserAndRegeneratePlans(
-    userId: number,
-    user: User
-  ): Observable<CompleteFitnessPlan> {
-    return this.http.put<CompleteFitnessPlan>(
-      `${this.baseUrl}/user/${userId}/update-and-regenerate`,
-      user
+  // Update user profile only (without regenerating plans)
+  updateUserProfile(userProfile: UserProfileDTO): Observable<UserProfileDTO> {
+    return this.http.put<UserProfileDTO>(
+      `${this.baseUrl}/user/update-profile`,
+      userProfile
     );
   }
 
-  getNutritionAnalysis(userId: number): Observable<NutritionAnalysis> {
-    return this.http.get<NutritionAnalysis>(
-      `${this.baseUrl}/user/${userId}/nutrition-analysis`
+  // Regenerate diet plan only
+  regenerateDietPlan(
+    userProfile: UserProfileDTO
+  ): Observable<SimpleDietPlanDTO> {
+    return this.http.post<SimpleDietPlanDTO>(
+      `${this.baseUrl}/user/regenerate-diet`,
+      userProfile
     );
   }
 
-  // Add these methods to your FitnessService (optional)
-  regenerateDietPlanOnly(userId: number): Observable<DietPlan> {
-    return this.http.post<DietPlan>(
-      `${this.baseUrl}/user/${userId}/regenerate-diet`,
-      {}
+  // Regenerate workout plan only
+  regenerateWorkoutPlan(
+    userProfile: UserProfileDTO
+  ): Observable<SimpleWorkoutPlanDTO> {
+    return this.http.post<SimpleWorkoutPlanDTO>(
+      `${this.baseUrl}/user/regenerate-workout`,
+      userProfile
     );
   }
 
-  regenerateWorkoutPlanOnly(userId: number): Observable<WorkoutPlan> {
-    return this.http.post<WorkoutPlan>(
-      `${this.baseUrl}/user/${userId}/regenerate-workout`,
-      {}
+  // Update profile and regenerate all plans
+  updateProfileAndRegeneratePlans(
+    userProfile: UserProfileDTO
+  ): Observable<OptimizedPlansResponseDTO> {
+    return this.http.put<OptimizedPlansResponseDTO>(
+      `${this.baseUrl}/user/update-and-regenerate`,
+      userProfile
     );
+  }
+
+  // Get nutrition analysis only
+  getNutritionAnalysis(
+    userProfile: UserProfileDTO
+  ): Observable<NutritionAnalysis> {
+    return this.http.post<NutritionAnalysis>(
+      `${this.baseUrl}/user/nutrition-analysis`,
+      userProfile
+    );
+  }
+
+  // Get only diet plan
+  getDietPlan(userProfile: UserProfileDTO): Observable<SimpleDietPlanDTO> {
+    return this.http.post<SimpleDietPlanDTO>(
+      `${this.baseUrl}/user/diet-plan`,
+      userProfile
+    );
+  }
+
+  // Get only workout plan
+  getWorkoutPlan(
+    userProfile: UserProfileDTO
+  ): Observable<SimpleWorkoutPlanDTO> {
+    return this.http.post<SimpleWorkoutPlanDTO>(
+      `${this.baseUrl}/user/workout-plan`,
+      userProfile
+    );
+  }
+
+  // Delete user plans
+  deleteUserPlans(userProfile: UserProfileDTO): Observable<string> {
+    return this.http.post(`${this.baseUrl}/user/plans/delete`, userProfile, {
+      responseType: 'text',
+    });
+  }
+
+  // Get user profile only
+  getUserProfile(userProfile: UserProfileDTO): Observable<UserProfileDTO> {
+    return this.http.post<UserProfileDTO>(
+      `${this.baseUrl}/user/profile`,
+      userProfile
+    );
+  }
+
+  // Health check
+  healthCheck(): Observable<string> {
+    return this.http.get(`${this.baseUrl}/health`, { responseType: 'text' });
   }
 }

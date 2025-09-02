@@ -4,60 +4,93 @@ server:
 spring:
   application:
     name: plan-service
-  jackson:
-    property-naming-strategy: SNAKE_CASE
-
   datasource:
     url: jdbc:postgresql://ep-damp-star-ab0lcdvm-pooler.eu-west-2.aws.neon.tech/gym_ai?sslmode=require&channel_binding=require
     username: neondb_owner
     password: npg_5PnAXGO6FLUt
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
+        format_sql: true
+    show-sql: false
     open-in-view: false
 
+# JWT Configuration
 jwt:
   secret: 7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc
   expiration: 3600000 # 1 hour in ms
 
+# External Services Configuration
+services:
+  auth:
+    url: http://localhost:8081
+  user:
+    url: http://localhost:8082
+  ai:
+    url: http://localhost:8000
+
+# API Integration
+api:
+  wger:
+    url: https://wger.de/api/v2
+    timeout: 30000
+  spoonacular:
+    url: https://api.spoonacular.com
+    key: 37dbf57de68f4d79967bf7ac9c0490e5
+    timeout: 30000
+
+# Logging Configuration
 logging:
   file:
     name: logs/plan-service.log
   level:
     root: INFO
-    # com.gymai.user_service: DEBUG  # Changed from auth_service to user_service
-    # com.gymai.plan_service.feign.SpoonacularClient: DEBUG
-    # feign: DEBUG
+    com.gymai.plan_service: DEBUG
     org.springframework.web.client.RestTemplate: DEBUG
-    org.springframework.http: TRACE
+    org.springframework.http: DEBUG
     org.hibernate.SQL: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN
 
-ai:
-  service:
-    url: http://localhost:8000
-user:
-  service:
-    url: http://localhost:8082
-
-wger:
-  api-url: https://wger.de/api/v2
-
-spoonacular:
-  api-url: https://api.spoonacular.com
-  api:
-    key: 37dbf57de68f4d79967bf7ac9c0490e5
-
+# Management & Monitoring
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+      cors:
+        allowed-origins: "http://localhost:4200"
+        allowed-methods: "*"
+        allowed-headers: "*"
   endpoint:
     health:
       show-details: always
+    metrics:
+      enabled: true
+
+# CORS Configuration
+cors:
+  allowed-origins:
+    - http://localhost:4200
+    - http://localhost:3000
+  allowed-methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    - OPTIONS
+  allowed-headers: "*"
+  allow-credentials: true
+
+# Application Specific Configuration
+app:
+  features:
+    cache-enabled: true
+    ai-integration-enabled: true
+    external-apis-enabled: true
+  limits:
+    max-plan-regenerations-per-day: 5
+    max-users-per-batch: 100

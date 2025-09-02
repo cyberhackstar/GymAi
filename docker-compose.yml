@@ -55,57 +55,57 @@ services:
         max-size: "5m"
         max-file: "2"
 
-  user-service:
-    build:
-      context: ./user-service
-      dockerfile: Dockerfile
-    container_name: user-service
-    hostname: user-service
-    networks:
-      - shared_net
-    environment:
-      ADMIN_URL: http://auth-service:8080
-      # Realistic JVM settings
-      JAVA_OPTS: >-
-        -server
-        -Xmx1536m
-        -Xms1024m
-        -XX:+UseG1GC
-        -XX:MaxGCPauseMillis=100
-        -XX:+UseStringDeduplication
-        -XX:+TieredCompilation
-        -Djava.security.egd=file:/dev/./urandom
-        -Djava.awt.headless=true
-        -Dspring.jmx.enabled=false
-    restart: always
-    depends_on:
-      - auth-service
-    healthcheck:
-      test:
-        ["CMD", "curl", "-f", "http://localhost:8080/actuator/health/readiness"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
-    deploy:
-      resources:
-        limits:
-          memory: 2G
-          cpus: "1.5"
-        reservations:
-          memory: 1.5G
-          cpus: "1.0"
-    volumes:
-      - maven_cache:/root/.m2
-    ulimits:
-      nofile:
-        soft: 65536
-        hard: 65536
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "5m"
-        max-file: "2"
+  # user-service:
+  #   build:
+  #     context: ./user-service
+  #     dockerfile: Dockerfile
+  #   container_name: user-service
+  #   hostname: user-service
+  #   networks:
+  #     - shared_net
+  #   environment:
+  #     ADMIN_URL: http://auth-service:8080
+  #     # Realistic JVM settings
+  #     JAVA_OPTS: >-
+  #       -server
+  #       -Xmx1536m
+  #       -Xms1024m
+  #       -XX:+UseG1GC
+  #       -XX:MaxGCPauseMillis=100
+  #       -XX:+UseStringDeduplication
+  #       -XX:+TieredCompilation
+  #       -Djava.security.egd=file:/dev/./urandom
+  #       -Djava.awt.headless=true
+  #       -Dspring.jmx.enabled=false
+  #   restart: always
+  #   depends_on:
+  #     - auth-service
+  #   healthcheck:
+  #     test:
+  #       ["CMD", "curl", "-f", "http://localhost:8080/actuator/health/readiness"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 60s
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 2G
+  #         cpus: "1.5"
+  #       reservations:
+  #         memory: 1.5G
+  #         cpus: "1.0"
+  #   volumes:
+  #     - maven_cache:/root/.m2
+  #   ulimits:
+  #     nofile:
+  #       soft: 65536
+  #       hard: 65536
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "5m"
+  #       max-file: "2"
 
   plan-service:
     build:
@@ -186,6 +186,7 @@ services:
 networks:
   shared_net:
     name: shared_net
+    external: true
 
 volumes:
   maven_cache:

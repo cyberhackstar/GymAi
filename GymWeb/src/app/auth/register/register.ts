@@ -124,30 +124,65 @@ export class Register {
   }
 
   loginWithGoogle(): void {
-    // ✅ Store redirect URL in sessionStorage before OAuth redirect
-    sessionStorage.setItem('oauth_redirect', '/plan-dashboard');
-
-    // ✅ Simple approach: append the frontend URL to the OAuth URL
-    const currentOrigin = window.location.origin;
-    const oauthUrl = `${environment.authUrl}/oauth2/authorization/google`;
-
-    // ✅ Store the frontend origin in a cookie that backend can read
-    document.cookie = `frontend_origin=${currentOrigin}; path=/; max-age=300`; // 5 minutes
-
-    window.location.href = oauthUrl;
+    this.performOAuth2Login('google');
   }
 
   loginWithGitHub(): void {
-    // ✅ Store redirect URL in sessionStorage before OAuth redirect
+    this.performOAuth2Login('github');
+  }
+
+  private performOAuth2Login(provider: 'google' | 'github'): void {
+    // Store redirect URL in sessionStorage
     sessionStorage.setItem('oauth_redirect', '/plan-dashboard');
 
-    // ✅ Simple approach: append the frontend URL to the OAuth URL
+    // Get current origin
     const currentOrigin = window.location.origin;
-    const oauthUrl = `${environment.authUrl}/oauth2/authorization/github`;
+    console.log('Current origin for OAuth:', currentOrigin);
 
-    // ✅ Store the frontend origin in a cookie that backend can read
-    document.cookie = `frontend_origin=${currentOrigin}; path=/; max-age=300`; // 5 minutes
+    // ✅ Set cookie with proper domain configuration
+    this.setFrontendOriginCookie(currentOrigin);
 
+    // ✅ Add frontend origin as query parameter as fallback
+    const oauthUrl = `${
+      environment.authUrl
+    }/oauth2/authorization/${provider}?frontend_origin=${encodeURIComponent(
+      currentOrigin
+    )}`;
+
+    console.log('Redirecting to OAuth URL:', oauthUrl);
     window.location.href = oauthUrl;
+  }
+
+  private setFrontendOriginCookie(origin: string): void {
+    // ✅ Determine if we're in production or development
+    const isProduction = !origin.includes('localhost');
+
+    if (isProduction) {
+      // ✅ Production: Set cookie with domain for cross-subdomain sharing
+      const domain = this.extractDomain(origin);
+      document.cookie = `frontend_origin=${origin}; path=/; domain=${domain}; max-age=600; SameSite=Lax`;
+      console.log(`Set production cookie for domain: ${domain}`);
+    } else {
+      // ✅ Development: Set cookie without domain restriction
+      document.cookie = `frontend_origin=${origin}; path=/; max-age=600; SameSite=Lax`;
+      console.log('Set development cookie');
+    }
+  }
+
+  private extractDomain(url: string): string {
+    try {
+      const urlObj = new URL(url);
+      const hostname = urlObj.hostname;
+
+      // ✅ Extract root domain (e.g., "neelahouse.cloud" from "gymai.neelahouse.cloud")
+      const parts = hostname.split('.');
+      if (parts.length >= 2) {
+        return '.' + parts.slice(-2).join('.');
+      }
+      return hostname;
+    } catch (error) {
+      console.error('Error extracting domain:', error);
+      return '';
+    }
   }
 }

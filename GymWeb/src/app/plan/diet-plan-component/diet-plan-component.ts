@@ -1,13 +1,17 @@
-// diet-plan.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  DayMealPlan,
-  DietPlan,
-  FitnessService,
-  User,
-} from '../fitness-service';
 import { RouterModule } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import {
+  FitnessService,
+  UserProfileDTO,
+  SimpleDietPlanDTO,
+  SimpleDayMealPlanDTO,
+  SimpleMealDTO,
+  SimpleFoodItemDTO,
+  OptimizedPlansResponseDTO,
+} from '../fitness-service';
+import { Token } from '../../core/services/token';
 
 @Component({
   selector: 'app-diet-plan',
@@ -16,53 +20,112 @@ import { RouterModule } from '@angular/router';
   templateUrl: './diet-plan-component.html',
   styleUrls: ['./diet-plan-component.css'],
 })
-export class DietPlanComponent implements OnInit {
-  user: User | null = null;
-  dietPlan: DietPlan | null = null;
-  selectedDay: DayMealPlan | null = null;
+export class DietPlanComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+
+  userProfile: UserProfileDTO | null = null;
+  dietPlan: SimpleDietPlanDTO | null = null;
+  selectedDay: SimpleDayMealPlanDTO | null = null;
   selectedDayIndex = 0;
   isLoading = false;
 
-  constructor(private fitnessService: FitnessService) {}
+  constructor(
+    private fitnessService: FitnessService,
+    private tokenService: Token
+  ) {}
 
   ngOnInit() {
     this.loadUserData();
   }
 
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   loadUserData() {
-    const savedUser = localStorage.getItem('fitnessUser');
-    if (savedUser) {
-      this.user = JSON.parse(savedUser);
+    const email = this.tokenService.getEmail();
+    const name = this.tokenService.getName();
+    if (email && name) {
+      this.userProfile = {
+        name,
+        email,
+        age: 0,
+        height: 0,
+        weight: 0,
+        gender: '',
+        goal: '',
+        activityLevel: '',
+        preference: '',
+        profileComplete: false,
+      };
       this.loadDietPlan();
+    } else {
+      this.tokenService.email$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((email) => {
+          if (email && !this.userProfile) this.loadUserData();
+        });
     }
   }
 
   loadDietPlan() {
-    if (this.user?.userId) {
+    if (this.userProfile) {
       this.isLoading = true;
-      this.fitnessService.getUserPlans(this.user.userId).subscribe({
-        next: (response) => {
-          this.dietPlan = response.dietPlan;
-          this.selectedDay = this.dietPlan.daily_plans[0];
+      this.fitnessService
+        .getUserPlansOptimized(this.userProfile)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (response) => {
+            this.userProfile = response.user;
+            this.dietPlan = response.dietPlan ?? null;
+            this.selectedDayIndex = 0;
+            this.selectedDay = this.dietPlan?.dailyPlans?.[0] ?? null;
+            this.isLoading = false;
+          },
+          error: (error) => {
+            console.error('Error loading diet plan:', error);
+            this.isLoading = false;
+          },
+        });
+    }
+  }
+
+  selectDay(index: number) {
+    this.selectedDayIndex = index;
+    this.selectedDay = this.dietPlan?.dailyPlans?.[index] ?? null;
+  }
+
+  regenerateDietPlan() {
+    if (!this.userProfile) return;
+    this.isLoading = true;
+    this.fitnessService
+      .regenerateDietPlan(this.userProfile)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (plan) => {
+          this.dietPlan = plan;
+          if (
+            this.dietPlan?.dailyPlans &&
+            this.dietPlan.dailyPlans.length > 0
+          ) {
+            this.selectedDay =
+              this.dietPlan.dailyPlans[this.selectedDayIndex] ??
+              this.dietPlan.dailyPlans[0];
+          } else {
+            this.selectedDay = null;
+          }
           this.isLoading = false;
         },
         error: (error) => {
-          console.error('Error loading diet plan:', error);
+          console.error('Error regenerating diet plan:', error);
           this.isLoading = false;
         },
       });
-    }
-  }
-
-  selectDay(dayIndex: number) {
-    this.selectedDayIndex = dayIndex;
-    if (this.dietPlan) {
-      this.selectedDay = this.dietPlan.daily_plans[dayIndex];
-    }
   }
 
   getMealIcon(mealType: string): string {
-    switch (mealType.toLowerCase()) {
+    switch (mealType?.toLowerCase()) {
       case 'breakfast':
         return 'fa-sun';
       case 'lunch':
@@ -77,28 +140,12 @@ export class DietPlanComponent implements OnInit {
   }
 
   getProgressPercentage(actual: number, target: number): number {
+    if (!target) return 0;
     return Math.min((actual / target) * 100, 100);
   }
 
-  regenerateDietPlan() {
-    if (this.user) {
-      this.isLoading = true;
-      this.fitnessService.generateDietPlan(this.user).subscribe({
-        next: (plan) => {
-          this.dietPlan = plan;
-          this.selectedDay = this.dietPlan.daily_plans[this.selectedDayIndex];
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Error regenerating diet plan:', error);
-          this.isLoading = false;
-        },
-      });
-    }
-  }
-
   getCategoryColor(category: string): string {
-    switch (category.toLowerCase()) {
+    switch (category?.toLowerCase()) {
       case 'grains':
         return '#ffc107';
       case 'protein':
@@ -114,5 +161,130 @@ export class DietPlanComponent implements OnInit {
       default:
         return '#6c757d';
     }
+  }
+
+  getDayName(index: number): string {
+    const days = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ];
+    return days[index] ?? `Day ${index + 1}`;
+  }
+
+  getDayNumber(index: number): number {
+    return index + 1;
+  }
+
+  getMealsOfSelectedDay(): SimpleMealDTO[] {
+    return this.selectedDay?.meals ?? [];
+  }
+
+  getFoodItemsOfMeal(meal: SimpleMealDTO): SimpleFoodItemDTO[] {
+    return meal?.foodItems ?? [];
+  }
+
+  getDailyCalorieTarget(): number {
+    return this.dietPlan?.dailyCalorieTarget ?? 0;
+  }
+
+  getDailyProteinTarget(): number {
+    return this.dietPlan?.dailyProteinTarget ?? 0;
+  }
+
+  getDailyCarbsTarget(): number {
+    return this.dietPlan?.dailyCarbsTarget ?? 0;
+  }
+
+  getDailyFatTarget(): number {
+    return this.dietPlan?.dailyFatTarget ?? 0;
+  }
+
+  getSelectedDayCalories(): number {
+    return this.selectedDay?.totalDailyCalories ?? 0;
+  }
+
+  getSelectedDayProtein(): number {
+    return this.selectedDay?.totalDailyProtein ?? 0;
+  }
+
+  getSelectedDayCarbs(): number {
+    return this.selectedDay?.totalDailyCarbs ?? 0;
+  }
+
+  getSelectedDayFat(): number {
+    return this.selectedDay?.totalDailyFat ?? 0;
+  }
+
+  getCaloriesProgress(): number {
+    return this.getProgressPercentage(
+      this.getSelectedDayCalories(),
+      this.getDailyCalorieTarget()
+    );
+  }
+
+  getProteinProgress(): number {
+    return this.getProgressPercentage(
+      this.getSelectedDayProtein(),
+      this.getDailyProteinTarget()
+    );
+  }
+
+  getCarbsProgress(): number {
+    return this.getProgressPercentage(
+      this.getSelectedDayCarbs(),
+      this.getDailyCarbsTarget()
+    );
+  }
+
+  getFatProgress(): number {
+    return this.getProgressPercentage(
+      this.getSelectedDayFat(),
+      this.getDailyFatTarget()
+    );
+  }
+
+  formatNumber(value: number, decimals: number = 1): string {
+    return value?.toFixed(decimals) ?? '0';
+  }
+
+  getTotalMeals(): number {
+    return this.selectedDay?.meals?.length ?? 0;
+  }
+
+  getWeeklyAverageCalories(): number {
+    if (!this.dietPlan?.dailyPlans?.length) return 0;
+    return (
+      this.dietPlan.dailyPlans.reduce(
+        (sum, day) => sum + (day?.totalDailyCalories ?? 0),
+        0
+      ) / this.dietPlan.dailyPlans.length
+    );
+  }
+
+  getWeeklyAverageProtein(): number {
+    if (!this.dietPlan?.dailyPlans?.length) return 0;
+    return (
+      this.dietPlan.dailyPlans.reduce(
+        (sum, day) => sum + (day?.totalDailyProtein ?? 0),
+        0
+      ) / this.dietPlan.dailyPlans.length
+    );
+  }
+
+  formatMealType(mealType: string): string {
+    return mealType
+      ? mealType.charAt(0).toUpperCase() + mealType.slice(1).toLowerCase()
+      : 'Meal';
+  }
+
+  formatCategory(category: string): string {
+    return category
+      ? category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()
+      : 'Food';
   }
 }

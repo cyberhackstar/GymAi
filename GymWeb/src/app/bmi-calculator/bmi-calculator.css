@@ -134,7 +134,10 @@
 .card-title {
   margin: 0 0 4px;
   font-size: 20px;
-  color: #b8456b;
+  /* color: #b8456b; */
+  background: linear-gradient(90deg, #ff0000, #cd0101);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .card-desc {
   margin: 0;
@@ -197,7 +200,7 @@ select:focus {
 /* BUTTON */
 .btn {
   justify-self: start;
-  background: #ff4c4c;
+  background: linear-gradient(90deg, #d40000, #cd0101);
   color: white;
   border: none;
   border-radius: 14px;

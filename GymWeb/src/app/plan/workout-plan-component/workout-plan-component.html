@@ -1,7 +1,7 @@
 <!-- workout-plan.component.html -->
-<div class="workout-container">
-  <!-- Header -->
-  <div class="workout-header">
+<!-- <div class="workout-container"> -->
+<!-- Header -->
+<!-- <div class="workout-header">
     <div class="header-content">
       <h1><i class="fas fa-dumbbell"></i> Your <span>Workout Plan</span></h1>
       <p *ngIf="user && workoutPlan">
@@ -23,10 +23,10 @@
         Dashboard
       </button>
     </div>
-  </div>
+  </div> -->
 
-  <!-- Workout Overview Stats -->
-  <div class="workout-overview" *ngIf="workoutPlan">
+<!-- Workout Overview Stats -->
+<!-- <div class="workout-overview" *ngIf="workoutPlan">
     <div class="overview-cards">
       <div class="overview-card total-calories">
         <div class="card-icon">
@@ -68,10 +68,10 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <!-- Weekly Schedule Overview -->
-  <div class="weekly-schedule" *ngIf="workoutPlan">
+<!-- Weekly Schedule Overview -->
+<!-- <div class="weekly-schedule" *ngIf="workoutPlan">
     <h3><i class="fas fa-calendar-alt"></i> Weekly Schedule</h3>
     <div class="week-grid">
       <div
@@ -116,12 +116,12 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <!-- Selected Day Details -->
-  <div class="day-details" *ngIf="selectedDay">
-    <!-- Day Summary for Workout Days -->
-    <div class="day-summary" *ngIf="!selectedDay.rest_day">
+<!-- Selected Day Details -->
+<!-- <div class="day-details" *ngIf="selectedDay"> -->
+<!-- Day Summary for Workout Days -->
+<!-- <div class="day-summary" *ngIf="!selectedDay.rest_day">
       <div class="summary-header">
         <div class="summary-title">
           <h2>
@@ -165,10 +165,10 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <!-- Rest Day Card -->
-    <div class="rest-day-card" *ngIf="selectedDay.rest_day">
+<!-- Rest Day Card -->
+<!-- <div class="rest-day-card" *ngIf="selectedDay.rest_day">
       <div class="rest-content">
         <div class="rest-icon">
           <i class="fas fa-bed"></i>
@@ -201,10 +201,10 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <!-- Exercises List -->
-    <div
+<!-- Exercises List -->
+<!-- <div
       class="exercises-section"
       *ngIf="!selectedDay.rest_day && selectedDay.exercises.length > 0"
     >
@@ -282,10 +282,10 @@
                 [class.rotated]="isExerciseExpanded(i)"
               ></i>
             </div>
-          </div>
+          </div> -->
 
-          <!-- Expandable Exercise Details -->
-          <div class="exercise-details" *ngIf="isExerciseExpanded(i)">
+<!-- Expandable Exercise Details -->
+<!-- <div class="exercise-details" *ngIf="isExerciseExpanded(i)">
             <div class="details-grid">
               <div class="detail-section">
                 <h5><i class="fas fa-info-circle"></i> Description</h5>
@@ -365,10 +365,10 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <!-- No Exercises Available -->
-    <div
+<!-- No Exercises Available -->
+<!-- <div
       class="no-exercises"
       *ngIf="!selectedDay.rest_day && selectedDay.exercises.length === 0"
     >
@@ -392,10 +392,10 @@
         </button>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <!-- Workout Tips Section -->
-  <div class="workout-tips" *ngIf="workoutPlan && !isLoading">
+<!-- Workout Tips Section -->
+<!-- <div class="workout-tips" *ngIf="workoutPlan && !isLoading">
     <h3><i class="fas fa-lightbulb"></i> Workout Tips</h3>
     <div class="tips-grid">
       <div class="tip-card">
@@ -428,10 +428,10 @@
         <p>Keep a log of your weights and reps to monitor your improvement.</p>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <!-- Loading Overlay -->
-  <div class="loading-overlay" *ngIf="isLoading">
+<!-- Loading Overlay -->
+<!-- <div class="loading-overlay" *ngIf="isLoading">
     <div class="loading-content">
       <div class="spinner"></div>
       <p>
@@ -442,10 +442,10 @@
         }}
       </p>
     </div>
-  </div>
+  </div> -->
 
-  <!-- No Data State -->
-  <div class="no-data" *ngIf="!workoutPlan && !isLoading">
+<!-- No Data State -->
+<!-- <div class="no-data" *ngIf="!workoutPlan && !isLoading">
     <div class="no-data-content">
       <i class="fas fa-dumbbell"></i>
       <h2>No Workout Plan Found</h2>
@@ -456,4 +456,4 @@
       </button>
     </div>
   </div>
-</div>
+</div> -->

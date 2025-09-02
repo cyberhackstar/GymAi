@@ -138,19 +138,32 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
     }
 
     // ✅ Extract frontend URL from cookie (simplest approach)
+    // Updated OAuth2LoginSuccessHandler.java - Extract frontend URL method
     private String extractFrontendUrlFromState(HttpServletRequest request) {
-        // ✅ First try to get from cookie
+        // ✅ 1. First try query parameter (most reliable)
+        String frontendOrigin = request.getParameter("frontend_origin");
+        if (frontendOrigin != null && !frontendOrigin.trim().isEmpty()) {
+            try {
+                String decodedOrigin = java.net.URLDecoder.decode(frontendOrigin, StandardCharsets.UTF_8);
+                log.info("Found frontend origin in query parameter: {}", decodedOrigin);
+                return decodedOrigin;
+            } catch (Exception e) {
+                log.warn("Failed to decode frontend origin from query parameter: {}", frontendOrigin, e);
+            }
+        }
+
+        // ✅ 2. Try to get from cookie
         if (request.getCookies() != null) {
             for (jakarta.servlet.http.Cookie cookie : request.getCookies()) {
                 if ("frontend_origin".equals(cookie.getName())) {
-                    String frontendOrigin = cookie.getValue();
-                    log.info("Found frontend origin in cookie: {}", frontendOrigin);
-                    return frontendOrigin;
+                    String cookieValue = cookie.getValue();
+                    log.info("Found frontend origin in cookie: {}", cookieValue);
+                    return cookieValue;
                 }
             }
         }
 
-        // ✅ Fallback: extract from referer header
+        // ✅ 3. Fallback: extract from referer header
         String referer = request.getHeader("Referer");
         if (referer != null) {
             try {
@@ -164,6 +177,18 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             } catch (Exception e) {
                 log.warn("Failed to parse referer URL: {}", referer, e);
             }
+        }
+
+        // ✅ 4. Final fallback: Check session storage or use environment-based detection
+        String userAgent = request.getHeader("User-Agent");
+        String host = request.getHeader("Host");
+
+        log.info("Request headers - Host: {}, User-Agent: {}", host, userAgent);
+
+        // If backend host suggests localhost, frontend is likely localhost too
+        if (host != null && host.contains("localhost")) {
+            log.info("Backend is localhost, assuming frontend is localhost:4200");
+            return "http://localhost:4200";
         }
 
         log.warn("No valid frontend URL found, using default");

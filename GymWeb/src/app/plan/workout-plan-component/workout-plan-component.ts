@@ -1,13 +1,17 @@
-// workout-plan.component.ts
-import { Component, OnInit } from '@angular/core';
+// workout-plan.component.ts - UPDATED TO MATCH NEW SERVICE
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  DayWorkoutPlan,
-  FitnessService,
-  User,
-  WorkoutPlan,
-} from '../fitness-service';
 import { RouterModule } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import {
+  FitnessService,
+  UserProfileDTO,
+  SimpleWorkoutPlanDTO,
+  SimpleDayWorkoutPlanDTO,
+  SimpleWorkoutExerciseDTO,
+  OptimizedPlansResponseDTO,
+} from '../fitness-service';
+import { Token } from '../../core/services/token';
 
 @Component({
   selector: 'app-workout-plan',
@@ -16,49 +20,89 @@ import { RouterModule } from '@angular/router';
   templateUrl: './workout-plan-component.html',
   styleUrls: ['./workout-plan-component.css'],
 })
-export class WorkoutPlanComponent implements OnInit {
-  user: User | null = null;
-  workoutPlan: WorkoutPlan | null = null;
-  selectedDay: DayWorkoutPlan | null = null;
+export class WorkoutPlanComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+
+  userProfile: UserProfileDTO | null = null;
+  workoutPlan: SimpleWorkoutPlanDTO | null = null;
+  selectedDay: SimpleDayWorkoutPlanDTO | null = null;
   selectedDayIndex = 0;
   isLoading = false;
   expandedExercises: Set<number> = new Set();
 
-  constructor(private fitnessService: FitnessService) {}
+  constructor(
+    private fitnessService: FitnessService,
+    private tokenService: Token
+  ) {}
 
   ngOnInit() {
     this.loadUserData();
   }
 
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   loadUserData() {
-    const savedUser = localStorage.getItem('fitnessUser');
-    if (savedUser) {
-      this.user = JSON.parse(savedUser);
+    // Get user info from token service
+    const userEmail = this.tokenService.getEmail();
+    const userName = this.tokenService.getName();
+
+    if (userEmail && userName) {
+      // Create user profile for API call
+      this.userProfile = {
+        name: userName,
+        email: userEmail,
+        age: 0, // These will be populated from backend
+        height: 0,
+        weight: 0,
+        gender: '',
+        goal: '',
+        activityLevel: '',
+        preference: '',
+        profileComplete: false,
+      };
       this.loadWorkoutPlan();
+    } else {
+      // Listen for token changes
+      this.tokenService.email$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((email) => {
+          if (email && !this.userProfile) {
+            this.loadUserData();
+          }
+        });
     }
   }
 
   loadWorkoutPlan() {
-    if (this.user?.userId) {
+    if (this.userProfile) {
       this.isLoading = true;
-      this.fitnessService.getUserPlans(this.user.userId).subscribe({
-        next: (response) => {
-          this.workoutPlan = response.workoutPlan;
-          this.selectedDay = this.workoutPlan.weekly_plan[0];
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Error loading workout plan:', error);
-          this.isLoading = false;
-        },
-      });
+      this.fitnessService
+        .getUserPlansOptimized(this.userProfile)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (response: OptimizedPlansResponseDTO) => {
+            this.userProfile = response.user;
+            this.workoutPlan = response.workoutPlan || null;
+            if (this.workoutPlan?.weeklyPlan?.length) {
+              this.selectedDay = this.workoutPlan.weeklyPlan[0];
+            }
+            this.isLoading = false;
+          },
+          error: (error) => {
+            console.error('Error loading workout plan:', error);
+            this.isLoading = false;
+          },
+        });
     }
   }
 
   selectDay(dayIndex: number) {
     this.selectedDayIndex = dayIndex;
-    if (this.workoutPlan) {
-      this.selectedDay = this.workoutPlan.weekly_plan[dayIndex];
+    if (this.workoutPlan?.weeklyPlan) {
+      this.selectedDay = this.workoutPlan.weeklyPlan[dayIndex];
     }
   }
 
@@ -75,7 +119,7 @@ export class WorkoutPlanComponent implements OnInit {
   }
 
   getFocusAreaIcon(focusArea: string): string {
-    switch (focusArea.toLowerCase()) {
+    switch (focusArea?.toLowerCase()) {
       case 'upper_body':
         return 'fa-hand-rock';
       case 'lower_body':
@@ -92,7 +136,7 @@ export class WorkoutPlanComponent implements OnInit {
   }
 
   getMuscleGroupColor(muscleGroup: string): string {
-    switch (muscleGroup.toLowerCase()) {
+    switch (muscleGroup?.toLowerCase()) {
       case 'chest':
         return '#ff4c4c';
       case 'back':
@@ -113,7 +157,7 @@ export class WorkoutPlanComponent implements OnInit {
   }
 
   getEquipmentIcon(equipment: string): string {
-    switch (equipment.toLowerCase()) {
+    switch (equipment?.toLowerCase()) {
       case 'barbell':
         return 'fa-weight-hanging';
       case 'dumbbell':
@@ -128,48 +172,110 @@ export class WorkoutPlanComponent implements OnInit {
   }
 
   regenerateWorkoutPlan() {
-    if (this.user) {
+    if (this.userProfile) {
       this.isLoading = true;
-      this.fitnessService.generateWorkoutPlan(this.user).subscribe({
-        next: (plan) => {
-          this.workoutPlan = plan;
-          this.selectedDay =
-            this.workoutPlan.weekly_plan[this.selectedDayIndex];
-          this.expandedExercises.clear();
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Error regenerating workout plan:', error);
-          this.isLoading = false;
-        },
-      });
+      this.fitnessService
+        .regenerateWorkoutPlan(this.userProfile)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (plan: SimpleWorkoutPlanDTO) => {
+            this.workoutPlan = plan;
+            if (this.workoutPlan?.weeklyPlan?.length) {
+              this.selectedDay =
+                this.workoutPlan.weeklyPlan[this.selectedDayIndex] ||
+                this.workoutPlan.weeklyPlan[0];
+            }
+            this.expandedExercises.clear();
+            this.isLoading = false;
+          },
+          error: (error) => {
+            console.error('Error regenerating workout plan:', error);
+            this.isLoading = false;
+          },
+        });
     }
   }
 
   getTotalWeeklyCalories(): number {
-    if (!this.workoutPlan) return 0;
-    return this.workoutPlan.weekly_plan.reduce(
-      (total, day) => total + day.total_calories_burned,
+    if (!this.workoutPlan?.weeklyPlan) return 0;
+    return this.workoutPlan.weeklyPlan.reduce(
+      (total, day) => total + (day?.totalCaloriesBurned || 0),
       0
     );
   }
 
   getActiveWorkoutDays(): number {
-    if (!this.workoutPlan) return 0;
-    return this.workoutPlan.weekly_plan.filter((day) => !day.rest_day).length;
+    if (!this.workoutPlan?.weeklyPlan) return 0;
+    return this.workoutPlan.weeklyPlan.filter((day) => day && !day.restDay)
+      .length;
   }
 
   getAverageWorkoutDuration(): number {
-    if (!this.workoutPlan) return 0;
-    const activeDays = this.workoutPlan.weekly_plan.filter(
-      (day) => !day.rest_day
+    if (!this.workoutPlan?.weeklyPlan) return 0;
+    const activeDays = this.workoutPlan.weeklyPlan.filter(
+      (day) => day && !day.restDay
     );
     if (activeDays.length === 0) return 0;
 
     const totalDuration = activeDays.reduce(
-      (total, day) => total + day.estimated_duration_minutes,
+      (total, day) => total + (day?.estimatedDurationMinutes || 0),
       0
     );
     return Math.round(totalDuration / activeDays.length);
+  }
+
+  // Helper methods for template
+  getDayName(index: number): string {
+    const days = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ];
+    return days[index] || `Day ${index + 1}`;
+  }
+
+  getDayNumber(index: number): number {
+    return index + 1;
+  }
+
+  formatFocusArea(focusArea: string): string {
+    return (
+      focusArea
+        ?.replace('_', ' ')
+        .toLowerCase()
+        .replace(/\b\w/g, (l) => l.toUpperCase()) || 'General'
+    );
+  }
+
+  formatMuscleGroup(muscleGroup: string): string {
+    return (
+      muscleGroup
+        ?.replace('_', ' ')
+        .toLowerCase()
+        .replace(/\b\w/g, (l) => l.toUpperCase()) || 'General'
+    );
+  }
+
+  formatEquipment(equipment: string): string {
+    return (
+      equipment
+        ?.replace('_', ' ')
+        .toLowerCase()
+        .replace(/\b\w/g, (l) => l.toUpperCase()) || 'None'
+    );
+  }
+
+  // Get exercises for current day
+  getTodayExercises(): SimpleWorkoutExerciseDTO[] {
+    return this.selectedDay?.exercises || [];
+  }
+
+  // Check if current day is rest day
+  isRestDay(): boolean {
+    return this.selectedDay?.restDay || false;
   }
 }

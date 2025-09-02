@@ -1,4 +1,3 @@
-<!-- dashboard.component.html -->
 <div class="dashboard-container">
   <!-- User Form Section -->
   <div class="user-form-section" *ngIf="showUserForm">
@@ -10,7 +9,6 @@
           plan
         </p>
       </div>
-
       <form (ngSubmit)="onSubmit()" class="fitness-form">
         <div class="form-grid">
           <div class="form-group">
@@ -18,67 +16,62 @@
             <input
               type="text"
               id="name"
-              [(ngModel)]="user.name"
+              [(ngModel)]="userProfile.name"
               name="name"
               required
             />
           </div>
-
           <div class="form-group">
             <label for="email">Email</label>
             <input
               type="email"
               id="email"
-              [(ngModel)]="user.email"
+              [(ngModel)]="userProfile.email"
               name="email"
               required
             />
           </div>
-
           <div class="form-group">
             <label for="age">Age</label>
             <input
               type="number"
               id="age"
-              [(ngModel)]="user.age"
+              [(ngModel)]="userProfile.age"
               name="age"
               min="16"
               max="80"
               required
             />
           </div>
-
           <div class="form-group">
             <label for="height">Height (cm)</label>
             <input
               type="number"
               id="height"
-              [(ngModel)]="user.height"
+              [(ngModel)]="userProfile.height"
               name="height"
               min="100"
               max="250"
               required
             />
           </div>
-
           <div class="form-group">
             <label for="weight">Weight (kg)</label>
             <input
               type="number"
               id="weight"
-              [(ngModel)]="user.weight"
+              [(ngModel)]="userProfile.weight"
               name="weight"
               min="30"
               max="200"
               required
             />
           </div>
-
           <div class="form-group">
             <label for="gender">Gender</label>
             <select
               id="gender"
-              [(ngModel)]="user.gender"
+              [(ngModel)]="userProfile.gender"
               name="gender"
               required
             >
@@ -86,22 +79,25 @@
               <option value="FEMALE">Female</option>
             </select>
           </div>
-
           <div class="form-group">
             <label for="goal">Fitness Goal</label>
-            <select id="goal" [(ngModel)]="user.goal" name="goal" required>
+            <select
+              id="goal"
+              [(ngModel)]="userProfile.goal"
+              name="goal"
+              required
+            >
               <option value="WEIGHT_LOSS">Weight Loss</option>
               <option value="WEIGHT_GAIN">Weight Gain</option>
               <option value="MUSCLE_GAIN">Muscle Gain</option>
               <option value="MAINTENANCE">Maintenance</option>
             </select>
           </div>
-
           <div class="form-group">
             <label for="activityLevel">Activity Level</label>
             <select
               id="activityLevel"
-              [(ngModel)]="user.activity_level"
+              [(ngModel)]="userProfile.activityLevel"
               name="activityLevel"
               required
             >
@@ -118,12 +114,11 @@
               </option>
             </select>
           </div>
-
           <div class="form-group">
             <label for="preference">Diet Preference</label>
             <select
               id="preference"
-              [(ngModel)]="user.preference"
+              [(ngModel)]="userProfile.preference"
               name="preference"
               required
             >
@@ -133,14 +128,13 @@
             </select>
           </div>
         </div>
-
         <button type="submit" class="generate-btn" [disabled]="isLoading">
           <i class="fas fa-magic" *ngIf="!isLoading"></i>
           <i class="fas fa-spinner fa-spin" *ngIf="isLoading"></i>
           {{
             isLoading
               ? "Generating..."
-              : completePlan
+              : isProfileComplete
               ? "Update Plan"
               : "Generate Plan"
           }}
@@ -150,16 +144,15 @@
   </div>
 
   <!-- Dashboard Content -->
-  <div class="dashboard-content" *ngIf="!showUserForm && completePlan">
+  <div class="dashboard-content" *ngIf="!showUserForm && plansExist">
     <!-- Header Stats -->
     <div class="stats-header">
       <div class="user-welcome">
         <h1>
-          Welcome back, <span>{{ user.name }}</span>
+          Welcome back, <span>{{ userProfile.name }}</span>
         </h1>
-        <p>{{ completePlan.summary }}</p>
+        <p>{{ plansResponse?.summary }}</p>
       </div>
-
       <div class="quick-actions">
         <button class="action-btn" (click)="editProfile()">
           <i class="fas fa-user-edit"></i>
@@ -175,41 +168,34 @@
     <!-- Stats Cards -->
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-fire"></i>
-        </div>
+        <div class="stat-icon"><i class="fas fa-fire"></i></div>
         <div class="stat-content">
           <h3>
-            {{ completePlan.diet_plan.daily_calorie_target | number : "1.0-0" }}
+            {{
+              dailyCalorieTarget !== null
+                ? (dailyCalorieTarget | number : "1.0-0")
+                : "--"
+            }}
           </h3>
           <p>Daily Calories</p>
         </div>
       </div>
-
       <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-dumbbell"></i>
-        </div>
+        <div class="stat-icon"><i class="fas fa-dumbbell"></i></div>
         <div class="stat-content">
           <h3>{{ getWeeklyWorkouts() }}</h3>
           <p>Workouts/Week</p>
         </div>
       </div>
-
       <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-chart-line"></i>
-        </div>
+        <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
         <div class="stat-content">
           <h3>{{ getBMI() }}</h3>
           <p>BMI ({{ getBMIStatus() }})</p>
         </div>
       </div>
-
       <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-bolt"></i>
-        </div>
+        <div class="stat-icon"><i class="fas fa-bolt"></i></div>
         <div class="stat-content">
           <h3>{{ getAverageCaloriesBurned() }}</h3>
           <p>Avg. Calories Burned</p>
@@ -223,11 +209,15 @@
       <div class="chart-card">
         <div class="chart-header">
           <h3>Weekly Calorie Progress</h3>
-          <span class="chart-subtitle"
-            >Target:
-            {{ completePlan.diet_plan.daily_calorie_target | number : "1.0-0" }}
-            kcal/day</span
-          >
+          <span class="chart-subtitle">
+            Target:
+            {{
+              dailyCalorieTarget !== null
+                ? (dailyCalorieTarget | number : "1.0-0")
+                : "--"
+            }}
+            kcal/day
+          </span>
         </div>
         <div class="chart-content">
           <div class="chart-bar-container">
@@ -240,7 +230,7 @@
                   class="bar"
                   [style.height.%]="(calorie / 3200) * 100"
                   [class.target-met]="
-                    calorie >= completePlan.diet_plan.daily_calorie_target
+                    dailyCalorieTarget !== null && calorie >= dailyCalorieTarget
                   "
                 ></div>
                 <span class="bar-label">{{ weekDays[i] }}</span>
@@ -250,17 +240,18 @@
           </div>
         </div>
       </div>
-
       <!-- Protein Tracking Chart -->
       <div class="chart-card">
         <div class="chart-header">
           <h3>Protein Intake Progress</h3>
-          <span class="chart-subtitle"
-            >Target:
+          <span class="chart-subtitle">
+            Target:
             {{
-              completePlan.diet_plan.daily_protein_target | number : "1.0-0"
-            }}g/day</span
-          >
+              dailyProteinTarget !== null
+                ? (dailyProteinTarget | number : "1.0-0")
+                : "--"
+            }}g/day
+          </span>
         </div>
         <div class="chart-content">
           <div class="chart-bar-container">
@@ -273,7 +264,7 @@
                   class="bar protein-bar"
                   [style.height.%]="(protein / 250) * 100"
                   [class.target-met]="
-                    protein >= completePlan.diet_plan.daily_protein_target
+                    dailyProteinTarget !== null && protein >= dailyProteinTarget
                   "
                 ></div>
                 <span class="bar-label">{{ weekDays[i] }}</span>
@@ -283,7 +274,6 @@
           </div>
         </div>
       </div>
-
       <!-- Workout Completion Chart -->
       <div class="chart-card">
         <div class="chart-header">
@@ -299,17 +289,21 @@
               <div
                 class="workout-indicator"
                 [class.completed]="workout === 1"
-                [class.rest]="completePlan.workout_plan.weekly_plan[i].rest_day"
+                [class.rest]="
+                  weeklyPlan && weeklyPlan[i] && weeklyPlan[i].restDay
+                "
               >
                 <i
                   class="fas"
                   [class.fa-check]="workout === 1"
                   [class.fa-times]="
                     workout === 0 &&
-                    !completePlan.workout_plan.weekly_plan[i].rest_day
+                    weeklyPlan &&
+                    weeklyPlan[i] &&
+                    !weeklyPlan[i].restDay
                   "
                   [class.fa-bed]="
-                    completePlan.workout_plan.weekly_plan[i].rest_day
+                    weeklyPlan && weeklyPlan[i] && weeklyPlan[i].restDay
                   "
                 ></i>
               </div>
@@ -321,47 +315,40 @@
     </div>
 
     <!-- Nutrition Overview -->
-    <div class="nutrition-overview" *ngIf="nutritionAnalysis">
+    <div class="nutrition-overview" *ngIf="nutrition">
       <h3>Nutrition Analysis</h3>
       <div class="nutrition-grid">
         <div class="nutrition-item">
           <div class="nutrition-circle">
             <div class="circle-progress calories-progress">
-              <span>{{ nutritionAnalysis.bmr | number : "1.0-0" }}</span>
+              <span>{{ nutrition.bmr | number : "1.0-0" }}</span>
             </div>
           </div>
           <h4>BMR</h4>
           <p>Basal Metabolic Rate</p>
         </div>
-
         <div class="nutrition-item">
           <div class="nutrition-circle">
             <div class="circle-progress tdee-progress">
-              <span>{{ nutritionAnalysis.tdee | number : "1.0-0" }}</span>
+              <span>{{ nutrition.tdee | number : "1.0-0" }}</span>
             </div>
           </div>
           <h4>TDEE</h4>
           <p>Total Daily Energy</p>
         </div>
-
         <div class="nutrition-item">
           <div class="nutrition-circle">
             <div class="circle-progress protein-progress">
-              <span
-                >{{ nutritionAnalysis.dailyProtein | number : "1.0-0" }}g</span
-              >
+              <span>{{ nutrition.dailyProtein | number : "1.0-0" }}g</span>
             </div>
           </div>
           <h4>Protein</h4>
           <p>Daily Target</p>
         </div>
-
         <div class="nutrition-item">
           <div class="nutrition-circle">
             <div class="circle-progress carbs-progress">
-              <span
-                >{{ nutritionAnalysis.dailyCarbs | number : "1.0-0" }}g</span
-              >
+              <span>{{ nutrition.dailyCarbs | number : "1.0-0" }}g</span>
             </div>
           </div>
           <h4>Carbs</h4>
@@ -371,25 +358,22 @@
     </div>
 
     <!-- Today's Plan Quick View -->
-    <div class="today-plan" *ngIf="completePlan">
+    <div class="today-plan" *ngIf="plansResponse">
       <h3>Today's Plan Overview</h3>
       <div class="today-grid">
         <!-- Today's Meals -->
         <div class="today-section">
           <h4><i class="fas fa-utensils"></i> Today's Meals</h4>
-          <div
-            class="meal-preview"
-            *ngFor="let meal of completePlan.diet_plan.daily_plans[0]?.meals"
-          >
+          <div class="meal-preview" *ngFor="let meal of getTodaysMeals()">
             <div class="meal-info">
-              <span class="meal-type">{{ meal.meal_type }}</span>
+              <span class="meal-type">{{ meal.mealType }}</span>
               <span class="meal-calories"
-                >{{ meal.total_calories | number : "1.0-0" }} kcal</span
+                >{{ meal.totalCalories | number : "1.0-0" }} kcal</span
               >
             </div>
             <div class="meal-items">
-              <span *ngFor="let item of meal.food_items; let last = last">
-                {{ item.food.name }}{{ !last ? "," : "" }}
+              <span *ngFor="let item of meal.foodItems; let last = last">
+                {{ item.foodName }}{{ !last ? "," : "" }}
               </span>
             </div>
           </div>
@@ -398,56 +382,33 @@
         <!-- Today's Workout -->
         <div class="today-section">
           <h4><i class="fas fa-dumbbell"></i> Today's Workout</h4>
-          <div
-            class="workout-preview"
-            *ngIf="
-              completePlan.workout_plan.weekly_plan[0] &&
-              !completePlan.workout_plan.weekly_plan[0].rest_day
-            "
-          >
+          <div class="workout-preview" *ngIf="getTodaysWorkout()">
             <div class="workout-info">
               <span class="workout-focus">{{
-                completePlan.workout_plan.weekly_plan[0].focus_area
+                getTodaysWorkout()?.focusArea
               }}</span>
               <span class="workout-duration"
-                >{{
-                  completePlan.workout_plan.weekly_plan[0]
-                    .estimated_duration_minutes
-                }}
-                min</span
+                >{{ getTodaysWorkout()?.estimatedDurationMinutes }} min</span
               >
             </div>
             <div class="exercise-list">
               <div
                 class="exercise-item"
-                *ngFor="
-                  let ex of completePlan.workout_plan.weekly_plan[0].exercises.slice(
-                    0,
-                    3
-                  )
-                "
+                *ngFor="let ex of getTodaysWorkoutExercises()"
               >
-                {{ ex.exercise.name }} - {{ ex.sets }}x{{
-                  ex.reps || ex.duration_minutes + "min"
+                {{ ex.exerciseName }} - {{ ex.sets }}x{{
+                  ex.reps || ex.durationMinutes + "min"
                 }}
               </div>
               <div
                 class="more-exercises"
-                *ngIf="
-                  completePlan.workout_plan.weekly_plan[0].exercises.length > 3
-                "
+                *ngIf="getTodaysWorkoutExercisesCount() > 3"
               >
-                +{{
-                  completePlan.workout_plan.weekly_plan[0].exercises.length - 3
-                }}
-                more exercises
+                +{{ getTodaysWorkoutExercisesCount() - 3 }} more exercises
               </div>
             </div>
           </div>
-          <div
-            class="rest-day"
-            *ngIf="completePlan.workout_plan.weekly_plan[0]?.rest_day"
-          >
+          <div class="rest-day" *ngIf="isTodayRestDay()">
             <i class="fas fa-bed"></i>
             <p>Rest Day - Recovery Time</p>
           </div>
@@ -456,7 +417,7 @@
     </div>
 
     <!-- Action Buttons -->
-    <div class="action-buttons" *ngIf="completePlan">
+    <div class="action-buttons" *ngIf="plansResponse">
       <button class="primary-btn diet-btn" routerLink="/diet">
         <i class="fas fa-utensils"></i>
         View Diet Plan

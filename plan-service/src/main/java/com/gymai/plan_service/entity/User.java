@@ -20,6 +20,8 @@ public class User {
     private Long userId;
 
     private String name;
+
+    @Column(unique = true, nullable = false)
     private String email;
 
     private Integer age;

@@ -1,4 +1,3 @@
-
 // OptimizedPlansResponseDTO.java
 package com.gymai.plan_service.dto;
 
@@ -14,6 +13,6 @@ public class OptimizedPlansResponseDTO {
   private SimpleDietPlanDTO dietPlan;
   private SimpleWorkoutPlanDTO workoutPlan;
   private NutritionAnalysis nutritionAnalysis;
-  private String summary;
   private boolean plansExist;
+  private String summary;
 }

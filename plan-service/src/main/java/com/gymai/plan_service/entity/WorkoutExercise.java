@@ -1,4 +1,3 @@
-// Updated WorkoutExercise.java - Now a JPA Entity
 package com.gymai.plan_service.entity;
 
 import jakarta.persistence.*;
@@ -19,15 +18,19 @@ public class WorkoutExercise {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "exercise_id")
+    @JoinColumn(name = "exercise_id", nullable = false)
     private Exercise exercise;
 
+    @Column(name = "sets")
     private int sets;
+
+    @Column(name = "reps")
     private int reps;
 
     @Column(name = "duration_minutes")
     private int durationMinutes;
 
+    @Column(name = "weight")
     private double weight;
 
     @Column(name = "rest_seconds")
@@ -51,13 +54,19 @@ public class WorkoutExercise {
         calculateCaloriesBurned();
     }
 
+    @PostLoad
+    @PostPersist
+    @PostUpdate
     private void calculateCaloriesBurned() {
-        if (durationMinutes > 0) {
-            this.caloriesBurned = exercise.getCaloriesBurnedPerMinute() * durationMinutes;
-        } else {
-            // Estimate duration for strength exercises: sets * (reps * 3 seconds + rest)
-            double estimatedMinutes = sets * (reps * 0.05 + restSeconds / 60.0);
-            this.caloriesBurned = exercise.getCaloriesBurnedPerMinute() * estimatedMinutes;
+        if (exercise != null) {
+            if (durationMinutes > 0) {
+                // For timed exercises (usually cardio)
+                this.caloriesBurned = exercise.getCaloriesBurnedPerMinute() * durationMinutes;
+            } else {
+                // For rep-based exercises, estimate time
+                double estimatedMinutes = sets * (reps * 0.05 + restSeconds / 60.0);
+                this.caloriesBurned = exercise.getCaloriesBurnedPerMinute() * estimatedMinutes;
+            }
         }
     }
 }

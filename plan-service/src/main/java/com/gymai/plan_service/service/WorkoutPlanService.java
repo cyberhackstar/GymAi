@@ -1,28 +1,19 @@
 package com.gymai.plan_service.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.gymai.plan_service.entity.DayWorkoutPlan;
-import com.gymai.plan_service.entity.Exercise;
-import com.gymai.plan_service.entity.User;
-import com.gymai.plan_service.entity.WorkoutExercise;
-import com.gymai.plan_service.entity.WorkoutPlan;
-import com.gymai.plan_service.repository.ExerciseRepository;
-import com.gymai.plan_service.repository.WorkoutPlanRepository;
-
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+import com.gymai.plan_service.entity.*;
+import com.gymai.plan_service.repository.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class WorkoutPlanService {
 
     private static final Logger log = LoggerFactory.getLogger(WorkoutPlanService.class);
@@ -33,15 +24,18 @@ public class WorkoutPlanService {
     @Autowired
     private WorkoutPlanRepository workoutPlanRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     public WorkoutPlan generateCustomWorkoutPlan(User user) {
         log.info("Generating workout plan for userId={}, goal={}, activityLevel={}",
                 user.getUserId(), user.getGoal(), user.getActivityLevel());
 
-        // Check if user already has a workout plan
-        Optional<WorkoutPlan> existingPlan = workoutPlanRepository.findLatestByUserIdWithDays(user.getUserId());
-        if (existingPlan.isPresent()) {
+        // Check if user already has a workout plan using safe method
+        WorkoutPlan existingPlan = getExistingWorkoutPlanSafe(user.getUserId());
+        if (existingPlan != null) {
             log.info("Found existing workout plan for userId={}, returning cached plan", user.getUserId());
-            return existingPlan.get();
+            return existingPlan;
         }
 
         return generateNewWorkoutPlan(user);
@@ -53,22 +47,75 @@ public class WorkoutPlanService {
 
         // Delete existing plan
         workoutPlanRepository.deleteByUserId(user.getUserId());
+        entityManager.flush(); // Ensure deletion is committed
 
         // Generate new plan
         return generateNewWorkoutPlan(user);
     }
 
+    @Transactional(readOnly = true)
     public WorkoutPlan getExistingWorkoutPlan(Long userId) {
         log.info("Fetching existing workout plan for userId={}", userId);
-        return workoutPlanRepository.findLatestByUserIdWithDays(userId)
-                .orElse(null);
+        return getExistingWorkoutPlanSafe(userId);
     }
 
+    @Transactional(readOnly = true)
+    private WorkoutPlan getExistingWorkoutPlanSafe(Long userId) {
+        // Step 1: Get basic workout plan
+        List<WorkoutPlan> plans = workoutPlanRepository.findByUserIdOrderByCreatedDateDesc(userId);
+        if (plans.isEmpty()) {
+            return null;
+        }
+
+        WorkoutPlan workoutPlan = plans.get(0);
+
+        // Step 2: Manually load day workout plans
+        List<DayWorkoutPlan> dayWorkoutPlans = entityManager.createQuery(
+                "SELECT dwp FROM DayWorkoutPlan dwp WHERE dwp.workoutPlan.id = :planId ORDER BY dwp.dayNumber",
+                DayWorkoutPlan.class)
+                .setParameter("planId", workoutPlan.getId())
+                .getResultList();
+
+        // Step 3: Load workout exercises for each day plan
+        for (DayWorkoutPlan dayPlan : dayWorkoutPlans) {
+            List<WorkoutExercise> exercises = entityManager.createQuery(
+                    "SELECT we FROM WorkoutExercise we JOIN FETCH we.exercise WHERE we.dayWorkoutPlan.id = :dayPlanId",
+                    WorkoutExercise.class)
+                    .setParameter("dayPlanId", dayPlan.getId())
+                    .getResultList();
+
+            dayPlan.getExercises().clear();
+            dayPlan.getExercises().addAll(exercises);
+
+            // Set back references
+            for (WorkoutExercise exercise : exercises) {
+                exercise.setDayWorkoutPlan(dayPlan);
+            }
+        }
+
+        workoutPlan.getWeeklyPlan().clear();
+        workoutPlan.getWeeklyPlan().addAll(dayWorkoutPlans);
+
+        // Set back references
+        for (DayWorkoutPlan dayPlan : dayWorkoutPlans) {
+            dayPlan.setWorkoutPlan(workoutPlan);
+        }
+
+        log.debug("Successfully loaded workout plan with {} daily plans", dayWorkoutPlans.size());
+        return workoutPlan;
+    }
+
+    @Transactional
     public void deleteUserPlans(Long userId) {
         log.info("Deleting workout plans for userId: {}", userId);
-        workoutPlanRepository.deleteByUserId(userId);
+        List<WorkoutPlan> plans = workoutPlanRepository.findByUserId(userId);
+        if (!plans.isEmpty()) {
+            workoutPlanRepository.deleteAll(plans);
+            log.info("Deleted {} workout plans for userId: {}", plans.size(), userId);
+        }
     }
 
+    @Transactional
     private WorkoutPlan generateNewWorkoutPlan(User user) {
         WorkoutPlan workoutPlan = new WorkoutPlan();
         workoutPlan.setUserId(user.getUserId());
@@ -95,11 +142,13 @@ public class WorkoutPlanService {
             DayWorkoutPlan dayPlan = generateDayWorkout(i + 1, dayNames.get(i), user, planType, difficulty);
             dayPlan.setWorkoutPlan(workoutPlan);
             weeklyPlan.add(dayPlan);
-            log.info("Generated workout for {} (Day {}): focusArea={}, restDay={}",
+            log.debug("Generated workout for {} (Day {}): focusArea={}, restDay={}",
                     dayNames.get(i), i + 1, dayPlan.getFocusArea(), dayPlan.isRestDay());
         }
 
         workoutPlan.setWeeklyPlan(weeklyPlan);
+
+        // Save the complete plan with cascaded entities
         workoutPlan = workoutPlanRepository.save(workoutPlan);
 
         log.info("Completed workout plan generation for userId={} with planId={}", user.getUserId(),
@@ -110,6 +159,7 @@ public class WorkoutPlanService {
     private String determinePlanType(String goal) {
         if (goal == null)
             return "MIXED";
+
         switch (goal.toUpperCase()) {
             case "WEIGHT_LOSS":
                 return "WEIGHT_LOSS";
@@ -127,6 +177,7 @@ public class WorkoutPlanService {
     private String determineDifficulty(String activityLevel) {
         if (activityLevel == null)
             return "BEGINNER";
+
         switch (activityLevel.toUpperCase()) {
             case "SEDENTARY":
             case "LIGHTLY_ACTIVE":
@@ -254,6 +305,7 @@ public class WorkoutPlanService {
                 break;
         }
 
+        // Shuffle and limit to avoid repetitive plans
         Collections.shuffle(exercises);
         return exercises.stream().limit(6).collect(Collectors.toList());
     }
