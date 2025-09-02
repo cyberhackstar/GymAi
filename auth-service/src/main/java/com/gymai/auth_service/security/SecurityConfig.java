@@ -51,7 +51,8 @@ public class SecurityConfig {
                 })
                 .authorizeHttpRequests(auth -> {
                     logger.debug("Configuring authorized endpoints");
-                    auth.requestMatchers("/api/auth/**", "/error", "/actuator/**", "/oauth2/**").permitAll();
+                    auth.requestMatchers("/api/auth/**", "/error", "/actuator/**", "/oauth2/**", "/login",
+                            "/favicon.ico").permitAll();
                     auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
