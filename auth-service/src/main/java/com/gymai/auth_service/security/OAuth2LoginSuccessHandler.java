@@ -1,4 +1,3 @@
-// Corrected OAuth2LoginSuccessHandler.java
 package com.gymai.auth_service.security;
 
 import org.springframework.amqp.core.DirectExchange;
@@ -59,6 +58,8 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             HttpServletResponse response,
             Authentication authentication) throws IOException {
         try {
+            log.info("=== OAuth2 Authentication Success Handler Started ===");
+
             OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
             String provider = getProvider(authentication);
             String email = extractEmail(oauth2User, provider);
@@ -66,29 +67,29 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
             log.info("OAuth login successful for {} via {}", email, provider);
 
-            // ✅ Find or create user
+            // Find or create user
             User user = findOrCreateOAuth2User(email, name, provider);
 
-            // ✅ Generate tokens
+            // Generate tokens
             String accessToken = jwtService.generateAccessToken(user);
             String refreshToken = jwtService.generateRefreshToken(user);
             user.setRefreshToken(refreshToken);
             userRepository.save(user);
 
-            // ✅ Publish event
+            // Publish event
             rabbitMqSender.sendMessageToRoute(
                     new UserEvent(user.getEmail(), user.getName(), "OAUTH_LOGIN"),
                     directExchange.getName(),
                     loginRouting);
 
-            // ✅ Get frontend URL from OAuth2 state parameter
-            String frontendBaseUrl = extractFrontendUrlFromState(request);
-            log.info("Extracted frontend URL from OAuth state: {}", frontendBaseUrl);
+            // Extract frontend URL with comprehensive strategy
+            String frontendBaseUrl = extractFrontendUrlFromRequest(request);
+            log.info("Final frontend URL: {}", frontendBaseUrl);
 
-            // ✅ Resolve frontend redirect URL
+            // Resolve frontend redirect URL
             String redirectUrl = resolveRedirectUrl(frontendBaseUrl);
 
-            // ✅ Create the final redirect URL with tokens
+            // Create the final redirect URL with tokens
             String finalRedirect = String.format(
                     "%s/oauth-callback?access_token=%s&refresh_token=%s&profile_completed=%s",
                     redirectUrl,
@@ -96,103 +97,175 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                     URLEncoder.encode(refreshToken, StandardCharsets.UTF_8),
                     user.isProfileCompleted());
 
-            log.info("Redirecting OAuth user to frontend: {}", finalRedirect);
+            log.info("=== Redirecting OAuth user to frontend: {} ===", finalRedirect);
             response.sendRedirect(finalRedirect);
 
         } catch (Exception e) {
             log.error("OAuth authentication failed", e);
-            response.sendRedirect(defaultFrontendUrl + "/login?error=oauth_failed");
+            // Use the same frontend detection for error redirect
+            String frontendUrl = extractFrontendUrlFromRequest(request);
+            String errorRedirect = (frontendUrl != null ? frontendUrl : defaultFrontendUrl)
+                    + "/login?error=oauth_failed";
+            log.error("Redirecting to error page: {}", errorRedirect);
+            response.sendRedirect(errorRedirect);
         }
     }
 
-    private String resolveRedirectUrl(String redirectUrlParam) {
-        // ✅ First check if the parameter is provided and valid
-        if (redirectUrlParam != null && !redirectUrlParam.trim().isEmpty()) {
-            // ✅ Decode the URL if it's encoded
-            try {
-                String decodedUrl = java.net.URLDecoder.decode(redirectUrlParam, StandardCharsets.UTF_8);
-                log.info("Decoded redirect URL: {}", decodedUrl);
+    private String extractFrontendUrlFromRequest(HttpServletRequest request) {
+        log.info("=== Extracting Frontend URL ===");
 
-                // ✅ Check if the decoded URL is in allowed list
-                if (allowedFrontendUrls.contains(decodedUrl)) {
-                    return decodedUrl;
-                }
+        // Log all request information for debugging
+        logRequestDetails(request);
 
-                // ✅ Check if any allowed URL starts with this base URL (for different
-                // ports/protocols)
-                for (String allowedUrl : allowedFrontendUrls) {
-                    if (decodedUrl.startsWith(extractBaseUrl(allowedUrl))) {
-                        log.info("Using allowed base URL match: {}", decodedUrl);
-                        return decodedUrl;
-                    }
-                }
-
-            } catch (Exception e) {
-                log.warn("Failed to decode redirect URL: {}", redirectUrlParam, e);
-            }
-        }
-
-        log.warn("Redirect URL {} not in allowed list or invalid, using default {}",
-                redirectUrlParam, defaultFrontendUrl);
-        return defaultFrontendUrl;
-    }
-
-    // ✅ Extract frontend URL from cookie (simplest approach)
-    // Updated OAuth2LoginSuccessHandler.java - Extract frontend URL method
-    private String extractFrontendUrlFromState(HttpServletRequest request) {
-        // ✅ 1. First try query parameter (most reliable)
+        // Strategy 1: Query parameter (most reliable for initial OAuth request)
         String frontendOrigin = request.getParameter("frontend_origin");
         if (frontendOrigin != null && !frontendOrigin.trim().isEmpty()) {
             try {
                 String decodedOrigin = java.net.URLDecoder.decode(frontendOrigin, StandardCharsets.UTF_8);
-                log.info("Found frontend origin in query parameter: {}", decodedOrigin);
+                log.info("✅ Found frontend origin in query parameter: {}", decodedOrigin);
                 return decodedOrigin;
             } catch (Exception e) {
                 log.warn("Failed to decode frontend origin from query parameter: {}", frontendOrigin, e);
             }
         }
 
-        // ✅ 2. Try to get from cookie
+        // Strategy 2: Session attribute (set during OAuth initiation)
+        Object sessionFrontendUrl = request.getSession(false) != null
+                ? request.getSession(false).getAttribute("frontend_origin")
+                : null;
+        if (sessionFrontendUrl != null) {
+            String sessionUrl = sessionFrontendUrl.toString();
+            log.info("✅ Found frontend origin in session: {}", sessionUrl);
+            return sessionUrl;
+        }
+
+        // Strategy 3: Cookie
         if (request.getCookies() != null) {
             for (jakarta.servlet.http.Cookie cookie : request.getCookies()) {
                 if ("frontend_origin".equals(cookie.getName())) {
                     String cookieValue = cookie.getValue();
-                    log.info("Found frontend origin in cookie: {}", cookieValue);
+                    log.info("✅ Found frontend origin in cookie: {}", cookieValue);
                     return cookieValue;
                 }
             }
         }
 
-        // ✅ 3. Fallback: extract from referer header
+        // Strategy 4: Referer header analysis
         String referer = request.getHeader("Referer");
         if (referer != null) {
             try {
                 java.net.URL url = new java.net.URL(referer);
                 String baseUrl = url.getProtocol() + "://" + url.getHost();
-                if (url.getPort() != -1) {
+                if (url.getPort() != -1 && url.getPort() != 80 && url.getPort() != 443) {
                     baseUrl += ":" + url.getPort();
                 }
-                log.info("Extracted base URL from referer: {}", baseUrl);
+                log.info("✅ Extracted base URL from referer: {}", baseUrl);
                 return baseUrl;
             } catch (Exception e) {
                 log.warn("Failed to parse referer URL: {}", referer, e);
             }
         }
 
-        // ✅ 4. Final fallback: Check session storage or use environment-based detection
-        String userAgent = request.getHeader("User-Agent");
+        // Strategy 5: Smart environment detection
         String host = request.getHeader("Host");
+        String xForwardedHost = request.getHeader("X-Forwarded-Host");
+        String xForwardedProto = request.getHeader("X-Forwarded-Proto");
 
-        log.info("Request headers - Host: {}, User-Agent: {}", host, userAgent);
+        // Use forwarded headers if available (production behind proxy)
+        if (xForwardedHost != null) {
+            String protocol = xForwardedProto != null ? xForwardedProto : "https";
+            String detectedFrontend = protocol + "://" + xForwardedHost.replace("auth.", "");
+            log.info("✅ Detected frontend from forwarded headers: {}", detectedFrontend);
+            return detectedFrontend;
+        }
 
-        // If backend host suggests localhost, frontend is likely localhost too
+        // Development environment detection
         if (host != null && host.contains("localhost")) {
-            log.info("Backend is localhost, assuming frontend is localhost:4200");
+            log.info("✅ Development environment detected, using localhost:4200");
             return "http://localhost:4200";
         }
 
-        log.warn("No valid frontend URL found, using default");
+        log.warn("❌ No valid frontend URL found using any strategy");
         return null;
+    }
+
+    private void logRequestDetails(HttpServletRequest request) {
+        log.info("Request URL: {}", request.getRequestURL());
+        log.info("Query String: {}", request.getQueryString());
+        log.info("Method: {}", request.getMethod());
+
+        // Log headers
+        log.info("=== Request Headers ===");
+        request.getHeaderNames().asIterator().forEachRemaining(name -> {
+            log.info("Header {}: {}", name, request.getHeader(name));
+        });
+
+        // Log parameters
+        log.info("=== Request Parameters ===");
+        request.getParameterMap().forEach((key, values) -> {
+            log.info("Param {}: {}", key, String.join(",", values));
+        });
+
+        // Log cookies
+        if (request.getCookies() != null) {
+            log.info("=== Cookies ===");
+            for (jakarta.servlet.http.Cookie cookie : request.getCookies()) {
+                log.info("Cookie {}: {}", cookie.getName(), cookie.getValue());
+            }
+        }
+    }
+
+    private String resolveRedirectUrl(String redirectUrlParam) {
+        if (redirectUrlParam != null && !redirectUrlParam.trim().isEmpty()) {
+            try {
+                String decodedUrl = java.net.URLDecoder.decode(redirectUrlParam, StandardCharsets.UTF_8);
+                log.info("Checking decoded redirect URL: {}", decodedUrl);
+
+                // Direct match check
+                if (allowedFrontendUrls.contains(decodedUrl)) {
+                    log.info("✅ Direct match found in allowed URLs");
+                    return decodedUrl;
+                }
+
+                // Base URL matching for flexible subdomain/port handling
+                for (String allowedUrl : allowedFrontendUrls) {
+                    String allowedBase = extractBaseUrl(allowedUrl);
+                    String candidateBase = extractBaseUrl(decodedUrl);
+
+                    if (candidateBase.equals(allowedBase)) {
+                        log.info("✅ Base URL match: {} matches allowed base {}", candidateBase, allowedBase);
+                        return decodedUrl;
+                    }
+                }
+
+                // Localhost special handling
+                if (decodedUrl.contains("localhost") &&
+                        allowedFrontendUrls.stream().anyMatch(url -> url.contains("localhost"))) {
+                    log.info("✅ Localhost URL allowed");
+                    return decodedUrl;
+                }
+
+            } catch (Exception e) {
+                log.warn("Failed to decode/validate redirect URL: {}", redirectUrlParam, e);
+            }
+        }
+
+        log.warn("Using default URL. Redirect URL '{}' not in allowed list: {}",
+                redirectUrlParam, allowedFrontendUrls);
+        return defaultFrontendUrl;
+    }
+
+    private String extractBaseUrl(String url) {
+        try {
+            java.net.URL parsedUrl = new java.net.URL(url);
+            String baseUrl = parsedUrl.getProtocol() + "://" + parsedUrl.getHost();
+            if (parsedUrl.getPort() != -1 && parsedUrl.getPort() != 80 && parsedUrl.getPort() != 443) {
+                baseUrl += ":" + parsedUrl.getPort();
+            }
+            return baseUrl;
+        } catch (Exception e) {
+            return url;
+        }
     }
 
     private User findOrCreateOAuth2User(String email, String name, String provider) {
@@ -253,17 +326,6 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                 return name != null ? name : oauth2User.getAttribute("login");
             default:
                 return "OAuth User";
-        }
-    }
-
-    // ✅ Helper method to extract base URL (protocol + domain)
-    private String extractBaseUrl(String url) {
-        try {
-            java.net.URL parsedUrl = new java.net.URL(url);
-            return parsedUrl.getProtocol() + "://" + parsedUrl.getHost() +
-                    (parsedUrl.getPort() != -1 ? ":" + parsedUrl.getPort() : "");
-        } catch (Exception e) {
-            return url;
         }
     }
 }

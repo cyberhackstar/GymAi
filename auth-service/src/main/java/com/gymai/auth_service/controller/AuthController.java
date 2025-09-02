@@ -9,6 +9,8 @@ import com.gymai.auth_service.entity.User;
 import com.gymai.auth_service.security.JwtService;
 import com.gymai.auth_service.service.AuthService;
 import com.gymai.auth_service.repository.UserRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -201,5 +203,19 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("valid", false, "error", "Invalid token"));
         }
+    }
+
+    @PostMapping("/set-frontend-origin")
+    public ResponseEntity<String> setFrontendOrigin(
+            @RequestBody Map<String, String> request,
+            HttpServletRequest servletRequest) {
+
+        String frontendOrigin = request.get("frontendOrigin");
+        if (frontendOrigin != null) {
+            servletRequest.getSession().setAttribute("frontend_origin", frontendOrigin);
+            log.info("Set frontend origin in session: {}", frontendOrigin);
+            return ResponseEntity.ok("Frontend origin set");
+        }
+        return ResponseEntity.badRequest().body("Invalid request");
     }
 }

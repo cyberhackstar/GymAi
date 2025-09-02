@@ -105,10 +105,11 @@ export class Login {
     const currentOrigin = window.location.origin;
     console.log('Current origin for OAuth:', currentOrigin);
 
-    // ✅ Set cookie with proper domain configuration
+    // Set multiple fallback mechanisms
     this.setFrontendOriginCookie(currentOrigin);
+    this.setFrontendOriginInSession(currentOrigin);
 
-    // ✅ Add frontend origin as query parameter as fallback
+    // Create OAuth URL with frontend origin as query parameter
     const oauthUrl = `${
       environment.authUrl
     }/oauth2/authorization/${provider}?frontend_origin=${encodeURIComponent(
@@ -116,22 +117,45 @@ export class Login {
     )}`;
 
     console.log('Redirecting to OAuth URL:', oauthUrl);
-    window.location.href = oauthUrl;
+
+    // Add a small delay to ensure cookie is set
+    setTimeout(() => {
+      window.location.href = oauthUrl;
+    }, 100);
+  }
+
+  private setFrontendOriginInSession(origin: string): void {
+    // Use fetch to set session attribute on backend
+    fetch(`${environment.authUrl}/api/auth/set-frontend-origin`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ frontendOrigin: origin }),
+      credentials: 'include', // Important for session cookies
+    }).catch((error) => {
+      console.warn('Could not set frontend origin in session:', error);
+    });
   }
 
   private setFrontendOriginCookie(origin: string): void {
     const isProduction = !origin.includes('localhost');
 
     if (isProduction) {
+      // Production: Set cookie with proper domain
       const domain = this.extractDomain(origin);
 
-      // ✅ Production cookie: shared across subdomains, HTTPS only
+      // Set both with and without domain for maximum compatibility
       document.cookie = `frontend_origin=${origin}; path=/; domain=${domain}; max-age=600; SameSite=None; Secure`;
-      console.log(`Set production cookie for domain: ${domain}`);
+      document.cookie = `frontend_origin=${origin}; path=/; max-age=600; SameSite=Lax; Secure`;
+
+      console.log(`Set production cookies for domain: ${domain}`);
     } else {
-      // ✅ Development: no domain, not secure
+      // Development: Multiple cookie variations
       document.cookie = `frontend_origin=${origin}; path=/; max-age=600; SameSite=Lax`;
-      console.log('Set development cookie');
+      document.cookie = `frontend_origin=${origin}; path=/; max-age=600; SameSite=None`;
+
+      console.log('Set development cookies');
     }
   }
 
@@ -139,9 +163,9 @@ export class Login {
     try {
       const urlObj = new URL(url);
       const hostname = urlObj.hostname;
-      const parts = hostname.split('.');
 
-      // ✅ Always take the last two parts (e.g. "neelahouse.cloud")
+      // ✅ Extract root domain (e.g., "neelahouse.cloud" from "gymai.neelahouse.cloud")
+      const parts = hostname.split('.');
       if (parts.length >= 2) {
         return '.' + parts.slice(-2).join('.');
       }

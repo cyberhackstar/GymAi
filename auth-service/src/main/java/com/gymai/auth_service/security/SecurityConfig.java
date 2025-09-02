@@ -22,6 +22,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import jakarta.servlet.http.Cookie;
+
 import java.util.List;
 
 @Configuration
@@ -62,8 +64,27 @@ public class SecurityConfig {
                 })
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
-                        .successHandler(oauth2LoginSuccessHandler) // ✅ wired via constructor
-                        .failureUrl("/login?error=true"))
+                        .successHandler(oauth2LoginSuccessHandler)
+                        .failureHandler((request, response, exception) -> {
+                            logger.error("OAuth2 login failed", exception);
+
+                            // Try to extract frontend URL for error redirect
+                            String frontendOrigin = request.getParameter("frontend_origin");
+                            if (frontendOrigin == null && request.getCookies() != null) {
+                                for (Cookie cookie : request.getCookies()) {
+                                    if ("frontend_origin".equals(cookie.getName())) {
+                                        frontendOrigin = cookie.getValue();
+                                        break;
+                                    }
+                                }
+                            }
+
+                            String errorUrl = (frontendOrigin != null ? frontendOrigin
+                                    : "https://gymai.neelahouse.cloud")
+                                    + "/login?error=oauth_failed&reason=" + exception.getMessage();
+
+                            response.sendRedirect(errorUrl);
+                        }))
                 .sessionManagement(session -> {
                     logger.debug("Setting stateless session management");
                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

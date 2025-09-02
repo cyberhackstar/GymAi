@@ -116,7 +116,7 @@ a {
 
 @media (max-width: 480px) {
   .hero-section {
-    height: 85vh;
+    height: 90vh;
     padding-bottom: 5px;
   }
   .hero-content h1 {
