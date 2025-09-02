@@ -1,5 +1,12 @@
 server:
   port: ${SERVER_PORT:8081}
+  forward-headers-strategy: framework # ✅ Trust X-Forwarded headers
+  use-forward-headers: true # ✅ Allow Spring to use proxy headers
+  tomcat:
+    remoteip:
+      remote-ip-header: x-forwarded-for
+      protocol-header: x-forwarded-proto
+      internal-proxies: ".*" # ✅ Accept forwarded headers from all proxies
 
 spring:
   application:
@@ -13,17 +20,17 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update # auto-create/update schema for dev
-    show-sql: true # show queries in console
-    open-in-view: false # prevents LazyInitializationException in web layer
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
     properties:
       hibernate:
-        format_sql: true # pretty print SQL
+        format_sql: true
 
   rabbitmq:
     addresses: ${CLOUDAMQP_URL:amqps://dnqrhfau:MW512Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau}
     ssl:
-      enabled: true # CloudAMQP requires SSL (amqps)
+      enabled: true
 
   # OAuth2 Configuration
   security:
@@ -68,9 +75,9 @@ event:
 jwt:
   secret: ${JWT_SECRET:7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc}
   access:
-    expiration: ${JWT_ACCESS_EXPIRATION:900000} # 15 minutes (ms)
+    expiration: ${JWT_ACCESS_EXPIRATION:900000}
   refresh:
-    expiration: ${JWT_REFRESH_EXPIRATION:604800000} # 7 days (ms)
+    expiration: ${JWT_REFRESH_EXPIRATION:604800000}
 
 eureka:
   client:

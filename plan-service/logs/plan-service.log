@@ -6245,3 +6245,452 @@ Caused by: org.postgresql.util.PSQLException: ERROR: update or delete on table "
 2025-09-02 13:19:53.024 [http-nio-8083-exec-8] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.875
 2025-09-02 13:19:53.024 [http-nio-8083-exec-8] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 213.44062499999998g, Carbs: 320.1609375g, Fat: 79.05208333333333g
 2025-09-02 13:19:53.024 [http-nio-8083-exec-8] INFO  c.g.p.c.OptimizedFitnessController - Successfully fetched/generated plans for email: sharma2001bhawesh@gmail.com
+2025-09-02 14:29:43.373 [http-nio-8083-exec-2] INFO  c.g.p.c.OptimizedFitnessController - Checking profile status for email: sharma2001bhawesh@gmail.com
+2025-09-02 14:29:43.663 [http-nio-8083-exec-2] INFO  c.g.p.c.OptimizedFitnessController - User not found with email: sharma2001bhawesh@gmail.com
+2025-09-02 14:30:10.227 [http-nio-8083-exec-4] INFO  c.g.p.c.OptimizedFitnessController - Checking profile status for email: sharma2001bhawesh@gmail.com
+2025-09-02 14:30:10.530 [http-nio-8083-exec-4] INFO  c.g.p.c.OptimizedFitnessController - User not found with email: sharma2001bhawesh@gmail.com
+2025-09-02 14:30:29.721 [http-nio-8083-exec-7] INFO  c.g.p.c.OptimizedFitnessController - Completing profile and generating plans for email: sharma2001bhawesh@gmail.com
+2025-09-02 14:30:30.323 [http-nio-8083-exec-7] INFO  c.g.p.c.OptimizedFitnessController - User profile saved for email: sharma2001bhawesh@gmail.com with userId: 1
+2025-09-02 14:30:30.323 [ForkJoinPool.commonPool-worker-18] INFO  c.g.p.service.DietPlanService - Regenerating diet plan for userId=1
+2025-09-02 14:30:30.490 [ForkJoinPool.commonPool-worker-18] INFO  c.g.p.s.NutritionCalculatorService - Calculating nutritional needs for user: User(userId=1, name=Bhawesh Sharma, email=sharma2001bhawesh@gmail.com, age=25, height=170.0, weight=70.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE, preference=VEG)
+2025-09-02 14:30:30.490 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.s.NutritionCalculatorService - Calculated BMR: 1642.5
+2025-09-02 14:30:30.491 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.s.NutritionCalculatorService - Calculated TDEE (with activity level MODERATELY_ACTIVE): 2545.875
+2025-09-02 14:30:30.491 [ForkJoinPool.commonPool-worker-18] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.875
+2025-09-02 14:30:30.491 [ForkJoinPool.commonPool-worker-18] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 213.44062499999998g, Carbs: 320.1609375g, Fat: 79.05208333333333g
+2025-09-02 14:30:30.491 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Calculated needs -> Calories: 2845.875, Protein: 213.44062499999998, Carbs: 320.1609375, Fat: 79.05208333333333
+2025-09-02 14:30:30.494 [ForkJoinPool.commonPool-worker-19] INFO  c.g.p.service.WorkoutPlanService - Regenerating workout plan for userId=1
+2025-09-02 14:30:30.637 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Resolving diet types for preference: VEG
+2025-09-02 14:30:30.637 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Preloading foods for diet types: [VEG, VEGAN] and meal types: [BREAKFAST, LUNCH, DINNER, SNACK]
+2025-09-02 14:30:30.651 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Determined planType=MUSCLE_GAIN for userId=1
+2025-09-02 14:30:30.651 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Determined difficulty=INTERMEDIATE for userId=1
+2025-09-02 14:30:30.820 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 1 (Monday), focusArea=UPPER_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-02 14:30:31.259 [ForkJoinPool.commonPool-worker-18] WARN  c.g.p.service.DietPlanService - No foods found for meal type DINNER. Using LUNCH foods as fallback.
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Monday
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Monday (Day 1) with calorie target: 2845.875
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.46875, Lunch: 996.05625, Dinner: 853.7624999999999, Snack: 284.58750000000003
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.46875
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 73.15874035989718g [Oats]
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 422.05773305084745g [Greek Yogurt]
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added fruit: 199.8507724719101g [Banana]
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.05625
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 94.73361073369566g [Quinoa]
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 386.4011314655172g [Lentils]
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 231.6409883720931g [Sweet Potato]
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.7624999999999
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 81.20023777173913g [Quinoa]
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 234.26410060975607g [Chickpeas]
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 502.2132352941177g [Broccoli]
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.58750000000003
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added snack: 50.0g [Walnuts]
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Tuesday
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Tuesday (Day 2) with calorie target: 2845.875
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.46875, Lunch: 996.05625, Dinner: 853.7624999999999, Snack: 284.58750000000003
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.46875
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-02 14:30:31.400 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 73.15874035989718g [Oats]
+2025-09-02 14:30:31.415 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 422.05773305084745g [Greek Yogurt]
+2025-09-02 14:30:31.415 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added fruit: 199.8507724719101g [Banana]
+2025-09-02 14:30:31.415 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.05625
+2025-09-02 14:30:31.415 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-02 14:30:31.417 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 94.73361073369566g [Quinoa]
+2025-09-02 14:30:31.417 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 589.7701480263157g [Tofu]
+2025-09-02 14:30:31.417 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 585.9154411764708g [Broccoli]
+2025-09-02 14:30:31.418 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.7624999999999
+2025-09-02 14:30:31.418 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-02 14:30:31.419 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 269.2043918918919g [Brown Rice]
+2025-09-02 14:30:31.419 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 331.20096982758616g [Lentils]
+2025-09-02 14:30:31.419 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 502.2132352941177g [Broccoli]
+2025-09-02 14:30:31.419 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.58750000000003
+2025-09-02 14:30:31.419 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-02 14:30:31.419 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added snack: 482.3516949152543g [Greek Yogurt Plain]
+2025-09-02 14:30:31.419 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Wednesday
+2025-09-02 14:30:31.419 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Wednesday (Day 3) with calorie target: 2845.875
+2025-09-02 14:30:31.420 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.46875, Lunch: 996.05625, Dinner: 853.7624999999999, Snack: 284.58750000000003
+2025-09-02 14:30:31.420 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.46875
+2025-09-02 14:30:31.420 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-02 14:30:31.420 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 73.15874035989718g [Oats]
+2025-09-02 14:30:31.420 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 422.05773305084745g [Greek Yogurt]
+2025-09-02 14:30:31.420 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added fruit: 199.8507724719101g [Banana]
+2025-09-02 14:30:31.420 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.05625
+2025-09-02 14:30:31.421 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-02 14:30:31.421 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 94.73361073369566g [Quinoa]
+2025-09-02 14:30:31.421 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 386.4011314655172g [Lentils]
+2025-09-02 14:30:31.421 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 866.1358695652177g [Spinach]
+2025-09-02 14:30:31.421 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.7624999999999
+2025-09-02 14:30:31.421 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-02 14:30:31.421 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 269.2043918918919g [Brown Rice]
+2025-09-02 14:30:31.421 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 199.06379533678754g [Tempeh]
+2025-09-02 14:30:31.421 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 198.54941860465115g [Sweet Potato]
+2025-09-02 14:30:31.421 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.58750000000003
+2025-09-02 14:30:31.422 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-02 14:30:31.422 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added snack: 290.3954081632653g [Cottage Cheese]
+2025-09-02 14:30:31.422 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Thursday
+2025-09-02 14:30:31.422 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Thursday (Day 4) with calorie target: 2845.875
+2025-09-02 14:30:31.422 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.46875, Lunch: 996.05625, Dinner: 853.7624999999999, Snack: 284.58750000000003
+2025-09-02 14:30:31.422 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.46875
+2025-09-02 14:30:31.423 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-02 14:30:31.424 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 73.15874035989718g [Oats]
+2025-09-02 14:30:31.424 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 422.05773305084745g [Greek Yogurt]
+2025-09-02 14:30:31.425 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added fruit: 199.8507724719101g [Banana]
+2025-09-02 14:30:31.425 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.05625
+2025-09-02 14:30:31.425 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-02 14:30:31.425 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 314.0717905405405g [Brown Rice]
+2025-09-02 14:30:31.427 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 273.3081173780488g [Chickpeas]
+2025-09-02 14:30:31.427 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 866.1358695652177g [Spinach]
+2025-09-02 14:30:31.427 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.7624999999999
+2025-09-02 14:30:31.427 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-02 14:30:31.427 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 81.20023777173913g [Quinoa]
+2025-09-02 14:30:31.427 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 331.20096982758616g [Lentils]
+2025-09-02 14:30:31.427 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 198.54941860465115g [Sweet Potato]
+2025-09-02 14:30:31.427 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.58750000000003
+2025-09-02 14:30:31.427 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-02 14:30:31.427 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added snack: 50.0g [Walnuts]
+2025-09-02 14:30:31.428 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Friday
+2025-09-02 14:30:31.428 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Friday (Day 5) with calorie target: 2845.875
+2025-09-02 14:30:31.428 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.46875, Lunch: 996.05625, Dinner: 853.7624999999999, Snack: 284.58750000000003
+2025-09-02 14:30:31.428 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.46875
+2025-09-02 14:30:31.428 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-02 14:30:31.428 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 73.15874035989718g [Oats]
+2025-09-02 14:30:31.428 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 422.05773305084745g [Greek Yogurt]
+2025-09-02 14:30:31.429 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added fruit: 199.8507724719101g [Banana]
+2025-09-02 14:30:31.429 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.05625
+2025-09-02 14:30:31.429 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-02 14:30:31.429 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 314.0717905405405g [Brown Rice]
+2025-09-02 14:30:31.429 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 339.5646306818182g [Black Beans]
+2025-09-02 14:30:31.429 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 866.1358695652177g [Spinach]
+2025-09-02 14:30:31.429 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.7624999999999
+2025-09-02 14:30:31.429 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-02 14:30:31.429 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 81.20023777173913g [Quinoa]
+2025-09-02 14:30:31.430 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 234.26410060975607g [Chickpeas]
+2025-09-02 14:30:31.430 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 742.4021739130435g [Spinach]
+2025-09-02 14:30:31.430 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.58750000000003
+2025-09-02 14:30:31.430 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-02 14:30:31.430 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added snack: 482.3516949152543g [Greek Yogurt Plain]
+2025-09-02 14:30:31.430 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Saturday
+2025-09-02 14:30:31.430 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Saturday (Day 6) with calorie target: 2845.875
+2025-09-02 14:30:31.431 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.46875, Lunch: 996.05625, Dinner: 853.7624999999999, Snack: 284.58750000000003
+2025-09-02 14:30:31.431 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.46875
+2025-09-02 14:30:31.431 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-02 14:30:31.431 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 73.15874035989718g [Oats]
+2025-09-02 14:30:31.431 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 422.05773305084745g [Greek Yogurt]
+2025-09-02 14:30:31.432 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added fruit: 199.8507724719101g [Banana]
+2025-09-02 14:30:31.432 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.05625
+2025-09-02 14:30:31.432 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-02 14:30:31.432 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 94.73361073369566g [Quinoa]
+2025-09-02 14:30:31.432 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 273.3081173780488g [Chickpeas]
+2025-09-02 14:30:31.432 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 866.1358695652177g [Spinach]
+2025-09-02 14:30:31.432 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.7624999999999
+2025-09-02 14:30:31.433 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-02 14:30:31.433 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 269.2043918918919g [Brown Rice]
+2025-09-02 14:30:31.433 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 505.5172697368421g [Tofu]
+2025-09-02 14:30:31.433 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 742.4021739130435g [Spinach]
+2025-09-02 14:30:31.433 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.58750000000003
+2025-09-02 14:30:31.433 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-02 14:30:31.433 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added snack: 482.3516949152543g [Greek Yogurt Plain]
+2025-09-02 14:30:31.434 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Sunday
+2025-09-02 14:30:31.434 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Sunday (Day 7) with calorie target: 2845.875
+2025-09-02 14:30:31.434 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.46875, Lunch: 996.05625, Dinner: 853.7624999999999, Snack: 284.58750000000003
+2025-09-02 14:30:31.434 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.46875
+2025-09-02 14:30:31.434 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-02 14:30:31.434 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 73.15874035989718g [Oats]
+2025-09-02 14:30:31.434 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 422.05773305084745g [Greek Yogurt]
+2025-09-02 14:30:31.434 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added fruit: 199.8507724719101g [Banana]
+2025-09-02 14:30:31.434 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.05625
+2025-09-02 14:30:31.434 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-02 14:30:31.436 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 314.0717905405405g [Brown Rice]
+2025-09-02 14:30:31.436 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 232.24109455958546g [Tempeh]
+2025-09-02 14:30:31.436 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 585.9154411764708g [Broccoli]
+2025-09-02 14:30:31.436 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.7624999999999
+2025-09-02 14:30:31.436 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-02 14:30:31.436 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added grains: 269.2043918918919g [Brown Rice]
+2025-09-02 14:30:31.436 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added protein: 199.06379533678754g [Tempeh]
+2025-09-02 14:30:31.436 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added vegetables: 742.4021739130435g [Spinach]
+2025-09-02 14:30:31.436 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.58750000000003
+2025-09-02 14:30:31.436 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-02 14:30:31.437 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Added snack: 547.2836538461539g [Apple]
+2025-09-02 14:30:31.468 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Fetched 5 exercises for focusArea=UPPER_BODY (difficulty=INTERMEDIATE)
+2025-09-02 14:30:31.468 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Monday (Day 1): focusArea=UPPER_BODY, restDay=false
+2025-09-02 14:30:31.469 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 2 (Tuesday), focusArea=LOWER_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-02 14:30:31.619 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Fetched 0 exercises for focusArea=LOWER_BODY (difficulty=INTERMEDIATE)
+2025-09-02 14:30:31.619 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Tuesday (Day 2): focusArea=LOWER_BODY, restDay=false
+2025-09-02 14:30:31.619 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Day 3 (Wednesday) is marked as REST day for userId=1
+2025-09-02 14:30:31.619 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Wednesday (Day 3): focusArea=REST, restDay=true
+2025-09-02 14:30:31.619 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 4 (Thursday), focusArea=UPPER_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-02 14:30:32.269 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Fetched 5 exercises for focusArea=UPPER_BODY (difficulty=INTERMEDIATE)
+2025-09-02 14:30:32.269 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Thursday (Day 4): focusArea=UPPER_BODY, restDay=false
+2025-09-02 14:30:32.269 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 5 (Friday), focusArea=LOWER_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-02 14:30:32.429 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Fetched 0 exercises for focusArea=LOWER_BODY (difficulty=INTERMEDIATE)
+2025-09-02 14:30:32.429 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Friday (Day 5): focusArea=LOWER_BODY, restDay=false
+2025-09-02 14:30:32.429 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 6 (Saturday), focusArea=FULL_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-02 14:30:32.743 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Fetched 5 exercises for focusArea=FULL_BODY (difficulty=INTERMEDIATE)
+2025-09-02 14:30:32.751 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Saturday (Day 6): focusArea=FULL_BODY, restDay=false
+2025-09-02 14:30:32.751 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Day 7 (Sunday) is marked as REST day for userId=1
+2025-09-02 14:30:32.751 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Sunday (Day 7): focusArea=REST, restDay=true
+2025-09-02 14:30:36.259 [ForkJoinPool.commonPool-worker-19] INFO  c.g.p.service.WorkoutPlanService - Completed workout plan generation for userId=1 with planId=1
+2025-09-02 14:30:47.269 [ForkJoinPool.commonPool-worker-18] INFO  c.g.p.service.DietPlanService - Successfully saved diet plan for userId=1 with planId=1
+2025-09-02 14:30:47.424 [http-nio-8083-exec-7] INFO  c.g.p.s.NutritionCalculatorService - Calculating nutritional needs for user: User(userId=1, name=Bhawesh Sharma, email=sharma2001bhawesh@gmail.com, age=25, height=170.0, weight=70.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE, preference=VEG)
+2025-09-02 14:30:47.425 [http-nio-8083-exec-7] DEBUG c.g.p.s.NutritionCalculatorService - Calculated BMR: 1642.5
+2025-09-02 14:30:47.425 [http-nio-8083-exec-7] DEBUG c.g.p.s.NutritionCalculatorService - Calculated TDEE (with activity level MODERATELY_ACTIVE): 2545.875
+2025-09-02 14:30:47.425 [http-nio-8083-exec-7] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.875
+2025-09-02 14:30:47.425 [http-nio-8083-exec-7] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 213.44062499999998g, Carbs: 320.1609375g, Fat: 79.05208333333333g
+2025-09-02 14:30:47.425 [http-nio-8083-exec-7] INFO  c.g.p.c.OptimizedFitnessController - Successfully completed profile and generated plans for email: sharma2001bhawesh@gmail.com
+2025-09-02 14:31:34.475 [http-nio-8083-exec-1] INFO  c.g.p.c.OptimizedFitnessController - Fetching optimized plans for email: sharma2001bhawesh@gmail.com
+2025-09-02 14:31:34.797 [ForkJoinPool.commonPool-worker-19] INFO  c.g.p.service.WorkoutPlanService - Fetching existing workout plan for userId=1
+2025-09-02 14:31:34.945 [ForkJoinPool.commonPool-worker-18] INFO  c.g.p.service.DietPlanService - Fetching existing diet plan for userId=1
+2025-09-02 14:31:37.499 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.WorkoutPlanService - Successfully loaded workout plan with 7 daily plans
+2025-09-02 14:31:46.136 [ForkJoinPool.commonPool-worker-18] DEBUG c.g.p.service.DietPlanService - Successfully loaded diet plan with 7 daily plans
+2025-09-02 14:31:46.295 [http-nio-8083-exec-1] INFO  c.g.p.s.NutritionCalculatorService - Calculating nutritional needs for user: User(userId=1, name=Bhawesh Sharma, email=sharma2001bhawesh@gmail.com, age=25, height=170.0, weight=70.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE, preference=VEG)
+2025-09-02 14:31:46.296 [http-nio-8083-exec-1] DEBUG c.g.p.s.NutritionCalculatorService - Calculated BMR: 1642.5
+2025-09-02 14:31:46.296 [http-nio-8083-exec-1] DEBUG c.g.p.s.NutritionCalculatorService - Calculated TDEE (with activity level MODERATELY_ACTIVE): 2545.875
+2025-09-02 14:31:46.296 [http-nio-8083-exec-1] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.875
+2025-09-02 14:31:46.297 [http-nio-8083-exec-1] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 213.44062499999998g, Carbs: 320.1609375g, Fat: 79.05208333333333g
+2025-09-02 14:31:46.297 [http-nio-8083-exec-1] INFO  c.g.p.c.OptimizedFitnessController - Successfully fetched/generated plans for email: sharma2001bhawesh@gmail.com
+2025-09-02 14:32:37.686 [http-nio-8083-exec-10] INFO  c.g.p.c.OptimizedFitnessController - Regenerating diet plan for email: sharma2001bhawesh@gmail.com
+2025-09-02 14:32:37.997 [http-nio-8083-exec-10] INFO  c.g.p.service.DietPlanService - Regenerating diet plan for userId=1
+2025-09-02 14:32:38.170 [http-nio-8083-exec-10] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23503
+2025-09-02 14:32:38.170 [http-nio-8083-exec-10] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - ERROR: update or delete on table "diet_plans" violates foreign key constraint "fk2xyfc7exfhitmmhcag9dv9xwg" on table "day_meal_plans"
+  Detail: Key (id)=(1) is still referenced from table "day_meal_plans".
+2025-09-02 14:32:38.330 [http-nio-8083-exec-10] ERROR c.g.p.c.OptimizedFitnessController - Error regenerating diet plan for email: sharma2001bhawesh@gmail.com
+org.springframework.dao.DataIntegrityViolationException: JDBC exception executing SQL [delete from diet_plans dp1_0 where dp1_0.user_id=?] [ERROR: update or delete on table "diet_plans" violates foreign key constraint "fk2xyfc7exfhitmmhcag9dv9xwg" on table "day_meal_plans"
+  Detail: Key (id)=(1) is still referenced from table "day_meal_plans".] [n/a]; SQL [n/a]; constraint [fk2xyfc7exfhitmmhcag9dv9xwg]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:294)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:256)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:560)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:343)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:160)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy4/jdk.proxy4.$Proxy174.deleteByUserId(Unknown Source)
+	at com.gymai.plan_service.service.DietPlanService.regenerateDietPlan(DietPlanService.java:51)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at com.gymai.plan_service.service.DietPlanService$$SpringCGLIB$$0.regenerateDietPlan(<generated>)
+	at com.gymai.plan_service.controller.OptimizedFitnessController.regenerateDietPlan(OptimizedFitnessController.java:230)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:479)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:340)
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:82)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:128)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:323)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:224)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.hibernate.exception.ConstraintViolationException: JDBC exception executing SQL [delete from diet_plans dp1_0 where dp1_0.user_id=?] [ERROR: update or delete on table "diet_plans" violates foreign key constraint "fk2xyfc7exfhitmmhcag9dv9xwg" on table "day_meal_plans"
+  Detail: Key (id)=(1) is still referenced from table "day_meal_plans".] [n/a]
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:97)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94)
+	at org.hibernate.sql.exec.internal.StandardJdbcMutationExecutor.execute(StandardJdbcMutationExecutor.java:104)
+	at org.hibernate.query.sqm.internal.SimpleDeleteQueryPlan.executeUpdate(SimpleDeleteQueryPlan.java:187)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.doExecuteUpdate(QuerySqmImpl.java:521)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.executeUpdate(QuerySqmImpl.java:493)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$ModifyingExecution.doExecute(JpaQueryExecution.java:267)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:93)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:160)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:148)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:170)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:149)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	... 150 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: update or delete on table "diet_plans" violates foreign key constraint "fk2xyfc7exfhitmmhcag9dv9xwg" on table "day_meal_plans"
+  Detail: Key (id)=(1) is still referenced from table "day_meal_plans".
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2734)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:518)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196)
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:157)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)
+	at org.hibernate.sql.exec.internal.StandardJdbcMutationExecutor.execute(StandardJdbcMutationExecutor.java:90)
+	... 168 common frames omitted
+2025-09-02 14:33:17.968 [http-nio-8083-exec-5] INFO  c.g.p.c.OptimizedFitnessController - Checking profile status for email: sharma2001bhawesh@gmail.com
+2025-09-02 14:33:18.291 [http-nio-8083-exec-5] INFO  c.g.p.c.OptimizedFitnessController - Profile complete for email: sharma2001bhawesh@gmail.com
+2025-09-02 14:33:18.313 [http-nio-8083-exec-7] INFO  c.g.p.c.OptimizedFitnessController - Fetching optimized plans for email: sharma2001bhawesh@gmail.com
+2025-09-02 14:33:18.474 [ForkJoinPool.commonPool-worker-19] INFO  c.g.p.service.DietPlanService - Fetching existing diet plan for userId=1
+2025-09-02 14:33:18.626 [ForkJoinPool.commonPool-worker-20] INFO  c.g.p.service.WorkoutPlanService - Fetching existing workout plan for userId=1
+2025-09-02 14:33:21.140 [ForkJoinPool.commonPool-worker-20] DEBUG c.g.p.service.WorkoutPlanService - Successfully loaded workout plan with 7 daily plans
+2025-09-02 14:33:30.087 [ForkJoinPool.commonPool-worker-19] DEBUG c.g.p.service.DietPlanService - Successfully loaded diet plan with 7 daily plans
+2025-09-02 14:33:30.249 [http-nio-8083-exec-7] INFO  c.g.p.s.NutritionCalculatorService - Calculating nutritional needs for user: User(userId=1, name=Bhawesh Sharma, email=sharma2001bhawesh@gmail.com, age=25, height=170.0, weight=70.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE, preference=VEG)
+2025-09-02 14:33:30.249 [http-nio-8083-exec-7] DEBUG c.g.p.s.NutritionCalculatorService - Calculated BMR: 1642.5
+2025-09-02 14:33:30.250 [http-nio-8083-exec-7] DEBUG c.g.p.s.NutritionCalculatorService - Calculated TDEE (with activity level MODERATELY_ACTIVE): 2545.875
+2025-09-02 14:33:30.250 [http-nio-8083-exec-7] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.875
+2025-09-02 14:33:30.250 [http-nio-8083-exec-7] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 213.44062499999998g, Carbs: 320.1609375g, Fat: 79.05208333333333g
+2025-09-02 14:33:30.250 [http-nio-8083-exec-7] INFO  c.g.p.c.OptimizedFitnessController - Successfully fetched/generated plans for email: sharma2001bhawesh@gmail.com
+2025-09-02 15:06:39.907 [http-nio-8083-exec-1] INFO  c.g.p.c.OptimizedFitnessController - Checking profile status for email: sharma2001bhawesh@gmail.com
+2025-09-02 15:06:40.421 [http-nio-8083-exec-1] INFO  c.g.p.c.OptimizedFitnessController - Profile complete for email: sharma2001bhawesh@gmail.com
+2025-09-02 15:06:40.504 [http-nio-8083-exec-3] INFO  c.g.p.c.OptimizedFitnessController - Fetching optimized plans for email: sharma2001bhawesh@gmail.com
+2025-09-02 15:06:40.684 [ForkJoinPool.commonPool-worker-22] INFO  c.g.p.service.WorkoutPlanService - Fetching existing workout plan for userId=1
+2025-09-02 15:06:40.834 [ForkJoinPool.commonPool-worker-21] INFO  c.g.p.service.DietPlanService - Fetching existing diet plan for userId=1
+2025-09-02 15:06:43.177 [ForkJoinPool.commonPool-worker-22] DEBUG c.g.p.service.WorkoutPlanService - Successfully loaded workout plan with 7 daily plans
+2025-09-02 15:06:52.887 [ForkJoinPool.commonPool-worker-21] DEBUG c.g.p.service.DietPlanService - Successfully loaded diet plan with 7 daily plans
+2025-09-02 15:06:53.037 [http-nio-8083-exec-3] INFO  c.g.p.s.NutritionCalculatorService - Calculating nutritional needs for user: User(userId=1, name=Bhawesh Sharma, email=sharma2001bhawesh@gmail.com, age=25, height=170.0, weight=70.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE, preference=VEG)
+2025-09-02 15:06:53.037 [http-nio-8083-exec-3] DEBUG c.g.p.s.NutritionCalculatorService - Calculated BMR: 1642.5
+2025-09-02 15:06:53.037 [http-nio-8083-exec-3] DEBUG c.g.p.s.NutritionCalculatorService - Calculated TDEE (with activity level MODERATELY_ACTIVE): 2545.875
+2025-09-02 15:06:53.037 [http-nio-8083-exec-3] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.875
+2025-09-02 15:06:53.037 [http-nio-8083-exec-3] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 213.44062499999998g, Carbs: 320.1609375g, Fat: 79.05208333333333g
+2025-09-02 15:06:53.044 [http-nio-8083-exec-3] INFO  c.g.p.c.OptimizedFitnessController - Successfully fetched/generated plans for email: sharma2001bhawesh@gmail.com
+2025-09-02 15:08:23.852 [http-nio-8083-exec-5] INFO  c.g.p.c.OptimizedFitnessController - Checking profile status for email: sharma2001bhawesh@gmail.com
+2025-09-02 15:08:24.141 [http-nio-8083-exec-5] INFO  c.g.p.c.OptimizedFitnessController - Profile complete for email: sharma2001bhawesh@gmail.com
+2025-09-02 15:08:24.161 [http-nio-8083-exec-7] INFO  c.g.p.c.OptimizedFitnessController - Fetching optimized plans for email: sharma2001bhawesh@gmail.com
+2025-09-02 15:08:24.306 [ForkJoinPool.commonPool-worker-22] INFO  c.g.p.service.DietPlanService - Fetching existing diet plan for userId=1
+2025-09-02 15:08:24.458 [ForkJoinPool.commonPool-worker-23] INFO  c.g.p.service.WorkoutPlanService - Fetching existing workout plan for userId=1
+2025-09-02 15:08:27.016 [ForkJoinPool.commonPool-worker-23] DEBUG c.g.p.service.WorkoutPlanService - Successfully loaded workout plan with 7 daily plans
+2025-09-02 15:08:34.799 [ForkJoinPool.commonPool-worker-22] DEBUG c.g.p.service.DietPlanService - Successfully loaded diet plan with 7 daily plans
+2025-09-02 15:08:34.937 [http-nio-8083-exec-7] INFO  c.g.p.s.NutritionCalculatorService - Calculating nutritional needs for user: User(userId=1, name=Bhawesh Sharma, email=sharma2001bhawesh@gmail.com, age=25, height=170.0, weight=70.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE, preference=VEG)
+2025-09-02 15:08:34.937 [http-nio-8083-exec-7] DEBUG c.g.p.s.NutritionCalculatorService - Calculated BMR: 1642.5
+2025-09-02 15:08:34.937 [http-nio-8083-exec-7] DEBUG c.g.p.s.NutritionCalculatorService - Calculated TDEE (with activity level MODERATELY_ACTIVE): 2545.875
+2025-09-02 15:08:34.937 [http-nio-8083-exec-7] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.875
+2025-09-02 15:08:34.937 [http-nio-8083-exec-7] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 213.44062499999998g, Carbs: 320.1609375g, Fat: 79.05208333333333g
+2025-09-02 15:08:34.937 [http-nio-8083-exec-7] INFO  c.g.p.c.OptimizedFitnessController - Successfully fetched/generated plans for email: sharma2001bhawesh@gmail.com
+2025-09-02 15:20:29.283 [http-nio-8083-exec-1] INFO  c.g.p.c.OptimizedFitnessController - Checking profile status for email: bhaweshdharma@gmail.com
+2025-09-02 15:20:29.617 [http-nio-8083-exec-1] INFO  c.g.p.c.OptimizedFitnessController - User not found with email: bhaweshdharma@gmail.com

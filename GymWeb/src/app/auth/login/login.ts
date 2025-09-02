@@ -120,16 +120,16 @@ export class Login {
   }
 
   private setFrontendOriginCookie(origin: string): void {
-    // ✅ Determine if we're in production or development
     const isProduction = !origin.includes('localhost');
 
     if (isProduction) {
-      // ✅ Production: Set cookie with domain for cross-subdomain sharing
       const domain = this.extractDomain(origin);
-      document.cookie = `frontend_origin=${origin}; path=/; domain=${domain}; max-age=600; SameSite=Lax`;
+
+      // ✅ Production cookie: shared across subdomains, HTTPS only
+      document.cookie = `frontend_origin=${origin}; path=/; domain=${domain}; max-age=600; SameSite=None; Secure`;
       console.log(`Set production cookie for domain: ${domain}`);
     } else {
-      // ✅ Development: Set cookie without domain restriction
+      // ✅ Development: no domain, not secure
       document.cookie = `frontend_origin=${origin}; path=/; max-age=600; SameSite=Lax`;
       console.log('Set development cookie');
     }
@@ -139,9 +139,9 @@ export class Login {
     try {
       const urlObj = new URL(url);
       const hostname = urlObj.hostname;
-
-      // ✅ Extract root domain (e.g., "neelahouse.cloud" from "gymai.neelahouse.cloud")
       const parts = hostname.split('.');
+
+      // ✅ Always take the last two parts (e.g. "neelahouse.cloud")
       if (parts.length >= 2) {
         return '.' + parts.slice(-2).join('.');
       }
