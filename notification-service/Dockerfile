@@ -1,27 +1,17 @@
-
 # ---- Stage 1: Build Application ----
 FROM maven:3.9.9-eclipse-temurin-21-alpine AS builder
 
-# Set the working directory
 WORKDIR /app
 
-# Copy dependency and project files for caching
+# Copy pom.xml and download dependencies first (better caching)
 COPY pom.xml ./
-COPY .mvn/ ./.mvn/
-# Download dependencies with multi-threaded, parallel build
 RUN --mount=type=cache,target=/root/.m2/repository \
     mvn dependency:go-offline -B -T 2C
 
-# Copy source code
+# Copy the rest of the source and build
 COPY src ./src
-
-# Build the application, skipping tests
 RUN --mount=type=cache,target=/root/.m2/repository \
-    mvn clean package -B -DskipTests=true
-
-# Extract the layered JAR for optimal runtime
-RUN mkdir -p extracted && \
-    java -Djarmode=layertools -jar target/*.jar extract --destination extracted/
+    mvn clean package -B -DskipTests
 
 # ---- Stage 2: Runtime ----
 FROM eclipse-temurin:21-jre-alpine AS runtime
@@ -30,23 +20,18 @@ FROM eclipse-temurin:21-jre-alpine AS runtime
 RUN apk add --no-cache dumb-init curl && \
     adduser -D -g 'spring' spring
 
-# Correctly create the application and logs directories with proper permissions
+# Create app folder and logs directory
 RUN mkdir -p /app/logs && chown -R spring:spring /app
 
-# Set working directory and copy the layered application files
 WORKDIR /app
-COPY --from=builder --chown=spring:spring /app/extracted/dependencies/ ./
-COPY --from=builder --chown=spring:spring /app/extracted/spring-boot-loader/ ./
-COPY --from=builder --chown=spring:spring /app/extracted/snapshot-dependencies/ ./
-COPY --from=builder --chown=spring:spring /app/extracted/application/ ./
 
-# Switch to the non-root user
+# Copy only the built JAR (fat JAR)
+COPY --from=builder --chown=spring:spring /app/target/*.jar app.jar
+
 USER spring
 
-# Expose the application port
 EXPOSE 8080
 
-# Realistic and effective JVM flags
 ENV JAVA_OPTS="\
     -server \
     -XX:MaxRAMPercentage=75.0 \
@@ -55,19 +40,7 @@ ENV JAVA_OPTS="\
     -XX:+UseStringDeduplication \
     -Djava.security.egd=file:/dev/./urandom"
 
-# Health check
 HEALTHCHECK --interval=20s --timeout=5s --start-period=45s --retries=3 \
     CMD curl -f http://localhost:8080/actuator/health || exit 1
 
-# Start the application using dumb-init for proper signal handling
-ENTRYPOINT ["dumb-init", "--", "java", "org.springframework.boot.loader.launch.JarLauncher"]
-
-
-
-
-
-
-
-
-
-
+ENTRYPOINT ["dumb-init", "--", "sh", "-c", "java $JAVA_OPTS -jar app.jar"]
