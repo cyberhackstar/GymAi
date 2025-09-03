@@ -104,4 +104,8 @@ management:
 app:
   frontend:
     default-url: https://gymai.neelahouse.cloud
-    allowed-urls: http://localhost:4200,https://gymai.neelahouse.cloud,https://gymaibybhawesh.netlify.app
+    allowed-urls: >
+      https://gymai.neelahouse.cloud,
+      https://gymaibybhawesh.netlify.app,
+      https://gymaibybhawesh.vercel.app,
+      http://localhost:4200

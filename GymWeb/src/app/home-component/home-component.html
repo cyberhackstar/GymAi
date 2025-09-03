@@ -1,0 +1,282 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <!-- Hero Background -->
+    <div class="hero-background">
+      <img
+        ngSrc="hero-gymai_m5ynys.webp"
+        alt="AI Fitness Hero"
+        priority
+        fill
+        sizes="400vw"
+        class="hero-bg"
+      />
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- Animated Background Elements -->
+    <div class="background-elements">
+      <div class="floating-element element-1">
+        <i class="fas fa-dumbbell"></i>
+      </div>
+      <div class="floating-element element-2">
+        <i class="fas fa-heartbeat"></i>
+      </div>
+      <div class="floating-element element-3">
+        <i class="fas fa-trophy"></i>
+      </div>
+      <div class="floating-element element-4">
+        <i class="fas fa-fire"></i>
+      </div>
+      <div class="floating-element element-5">
+        <i class="fas fa-chart-line"></i>
+      </div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-sparkles"></i>
+        <span>AI-Powered Fitness Revolution</span>
+      </div>
+
+      <h1 class="hero-title">
+        Transform Your Fitness
+        <span class="gradient-text">with AI</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Get personalized workout & diet plans powered by cutting-edge artificial
+        intelligence. Track your progress, achieve your goals, and unlock your
+        true potential.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="btn-primary" (click)="onGetStarted()">
+          <i class="fas fa-rocket"></i>
+          <span>Get Started Free</span>
+        </button>
+        <button class="btn-secondary" (click)="scrollToSection('features')">
+          <i class="fas fa-play"></i>
+          <span>See How It Works</span>
+        </button>
+      </div>
+
+      <div class="hero-features">
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i>
+          <span>No Credit Card Required</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i>
+          <span>14-Day Free Trial</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Cancel Anytime</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" (click)="scrollToSection('stats')">
+      <div class="scroll-line"></div>
+      <div class="scroll-text">Scroll to explore</div>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section" id="stats">
+    <div class="container">
+      <div class="stats-grid animate-on-scroll">
+        <div class="stat-item" *ngFor="let stat of stats; let i = index">
+          <div class="stat-icon" [style.color]="stat.color">
+            <i [class]="stat.icon"></i>
+          </div>
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features/Why Choose Us Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <div class="section-badge">
+          <i class="fas fa-star"></i>
+          <span>Why Choose GymAI?</span>
+        </div>
+        <h2 class="section-title">
+          Unlock Your Potential with
+          <span class="gradient-text">AI Power</span>
+        </h2>
+        <p class="section-subtitle">
+          Experience the future of fitness with our revolutionary AI technology
+          that adapts to your unique needs and goals.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div
+          class="feature-card animate-on-scroll"
+          *ngFor="let benefit of benefits"
+          [style.animation-delay]="benefit.delay"
+        >
+          <div class="card-glow"></div>
+          <div class="card-icon">
+            <i [class]="benefit.icon"></i>
+          </div>
+          <div class="card-content">
+            <h3>{{ benefit.title }}</h3>
+            <p>{{ benefit.description }}</p>
+          </div>
+          <div class="card-hover-effect">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <div class="section-badge">
+          <i class="fas fa-tags"></i>
+          <span>Our Plans</span>
+        </div>
+        <h2 class="section-title">
+          Train Hard. Train Smart.
+          <span class="gradient-text">Pick Your Plan</span>
+        </h2>
+        <p class="section-subtitle">
+          Choose the perfect plan to kickstart your AI-powered fitness
+          transformation journey.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <div
+          class="pricing-card animate-on-scroll"
+          *ngFor="let plan of plans; let i = index"
+          [class.popular]="plan.popular"
+          [style.animation-delay]="i * 0.2 + 's'"
+        >
+          <!-- Popular Badge -->
+          <div *ngIf="plan.popular" class="popular-badge">
+            <i class="fas fa-crown"></i>
+            <span>{{ plan.badge }}</span>
+          </div>
+
+          <!-- Card Header -->
+          <div class="card-header">
+            <h3 class="plan-title">{{ plan.title }}</h3>
+            <div class="plan-price">
+              <div class="price-main">
+                <span class="currency">₹</span>
+                <span class="amount">{{ plan.price }}</span>
+                <span class="period">/mo</span>
+              </div>
+              <div *ngIf="plan.originalPrice" class="price-original">
+                <span>was ${{ plan.originalPrice }}/mo</span>
+              </div>
+            </div>
+            <p class="plan-description">{{ plan.label }}</p>
+          </div>
+
+          <!-- Features List -->
+          <ul class="features-list">
+            <li *ngFor="let feature of plan.features">
+              <i class="fas fa-check"></i>
+              <span>{{ feature }}</span>
+            </li>
+          </ul>
+
+          <!-- CTA Button -->
+          <button
+            class="plan-button"
+            [class.popular-btn]="plan.popular"
+            [style.background]="plan.popular ? plan.color : ''"
+            (click)="onEnrollPlan(plan.title)"
+          >
+            <span>Choose {{ plan.title }}</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+
+          <!-- Card Glow Effect -->
+          <div
+            class="card-glow"
+            [style.background]="
+              'radial-gradient(circle, ' + plan.color + '20, transparent)'
+            "
+          ></div>
+        </div>
+      </div>
+
+      <!-- Money Back Guarantee -->
+      <div class="guarantee-section animate-on-scroll">
+        <div class="guarantee-content">
+          <i class="fas fa-shield-alt"></i>
+          <div class="guarantee-text">
+            <h4>30-Day Money Back Guarantee</h4>
+            <p>
+              Not satisfied? Get a full refund within 30 days, no questions
+              asked.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content animate-on-scroll">
+        <div class="cta-background">
+          <div class="gradient-orb orb-1"></div>
+          <div class="gradient-orb orb-2"></div>
+          <div class="gradient-orb orb-3"></div>
+        </div>
+
+        <div class="cta-text">
+          <h2>Ready to Transform Your Life?</h2>
+          <p>
+            Join thousands of users who have already started their AI-powered
+            fitness journey
+          </p>
+        </div>
+
+        <div class="cta-actions">
+          <button class="cta-primary" (click)="onGetStarted()">
+            <i class="fas fa-rocket"></i>
+            Start Your Journey Now
+          </button>
+          <button class="cta-secondary" (click)="onLearnMore()">
+            <i class="fas fa-info-circle"></i>
+            Learn More About AI
+          </button>
+        </div>
+
+        <div class="cta-stats">
+          <div class="cta-stat">
+            <span class="stat-number">14</span>
+            <span class="stat-text">Day Free Trial</span>
+          </div>
+          <div class="cta-stat">
+            <span class="stat-number">0</span>
+            <span class="stat-text">Setup Fees</span>
+          </div>
+          <div class="cta-stat">
+            <span class="stat-number">24/7</span>
+            <span class="stat-text">Support</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -56,7 +56,7 @@ export class Services implements OnInit {
         'Real-time workout adjustments',
       ],
       pricing: {
-        amount: 29,
+        amount: 2999,
         period: 'month',
         note: 'Billed monthly',
       },
@@ -79,7 +79,7 @@ export class Services implements OnInit {
         'Recipe recommendations',
       ],
       pricing: {
-        amount: 19,
+        amount: 1999,
         period: 'month',
         note: 'Billed monthly',
       },
@@ -100,7 +100,7 @@ export class Services implements OnInit {
         'Detailed progress reports',
       ],
       pricing: {
-        amount: 15,
+        amount: 1599,
         period: 'month',
         note: 'Billed monthly',
       },
@@ -121,7 +121,7 @@ export class Services implements OnInit {
         'Personalized workout modifications',
       ],
       pricing: {
-        amount: 49,
+        amount: 4999,
         period: 'month',
         note: 'Premium service',
       },
@@ -143,7 +143,7 @@ export class Services implements OnInit {
         'Community support',
       ],
       pricing: {
-        amount: 9,
+        amount: 999,
         period: 'month',
         note: 'Community access',
       },
@@ -164,7 +164,7 @@ export class Services implements OnInit {
         'Lifestyle recommendations',
       ],
       pricing: {
-        amount: 39,
+        amount: 3999,
         period: 'month',
         note: 'Complete wellness',
       },

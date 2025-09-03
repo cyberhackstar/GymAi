@@ -129,9 +129,13 @@ export class WorkoutPlanComponent implements OnInit, OnDestroy {
       });
   }
 
-  selectDay(index: number): void {
+  selectDay(index: number, sectionId: string): void {
     this.selectedDayIndex = index;
     this.selectedDay = this.workoutPlan?.weeklyPlan?.[index] ?? null;
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   toggleExerciseDetails(index: number): void {
@@ -314,13 +318,13 @@ export class WorkoutPlanComponent implements OnInit, OnDestroy {
 
   navigateToNextDay(): void {
     if (this.canNavigateToDay(this.selectedDayIndex + 1)) {
-      this.selectDay(this.selectedDayIndex + 1);
+      this.selectDay(this.selectedDayIndex + 1, 'day-details');
     }
   }
 
   navigateToPreviousDay(): void {
     if (this.canNavigateToDay(this.selectedDayIndex - 1)) {
-      this.selectDay(this.selectedDayIndex - 1);
+      this.selectDay(this.selectedDayIndex - 1, 'day-details');
     }
   }
 

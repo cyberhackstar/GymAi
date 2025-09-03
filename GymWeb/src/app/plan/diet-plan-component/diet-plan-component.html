@@ -86,7 +86,7 @@
       <button
         *ngFor="let day of dietPlan?.dailyPlans || []; let i = index"
         [class.active]="selectedDayIndex === i"
-        (click)="selectDay(i)"
+        (click)="selectDay(i, 'day-details')"
         class="day-tab"
       >
         <span class="day-name">{{ day.dayName }}</span>
@@ -98,7 +98,7 @@
   </div>
 
   <!-- Selected Day Details -->
-  <div class="day-details" *ngIf="selectedDay">
+  <div class="day-details" *ngIf="selectedDay" id="day-details">
     <div class="day-summary">
       <h2>{{ selectedDay.dayName }} - Day {{ selectedDay.dayNumber }}</h2>
 

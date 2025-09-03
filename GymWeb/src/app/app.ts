@@ -24,6 +24,7 @@ import { DietPlan } from './dashboard/user-dashboard/diet-plan/diet-plan';
 import { Team } from './team/team';
 import { Services } from './services/services';
 import { DashboardComponent } from './plan/dashboard-component/dashboard-component';
+import { HomeComponent } from './home-component/home-component';
 
 @Component({
   selector: 'app-root',
@@ -55,6 +56,7 @@ import { DashboardComponent } from './plan/dashboard-component/dashboard-compone
     // Team,
     // Services,
     // DashboardComponent,
+    // HomeComponent,
     //
   ],
   templateUrl: './app.html',

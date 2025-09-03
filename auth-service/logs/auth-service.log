@@ -208,3 +208,126 @@
 2025-09-03 01:37:55.458 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - ✅ Direct match found in allowed URLs
 2025-09-03 01:37:55.458 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODQzNjc0LCJleHAiOjE3NTY4NDQ1NzR9.PAk0cNjieL7VF3VHSXQsKjszqpIQuW7wCv-C0_gTvgU&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODQzNjc0LCJleHAiOjE3NTc0NDg0NzR9.4C3iUNRygJXBnEE4FgUNaK7Y3LA05jwzeNL4NNVvTdE&profile_completed=false ===
 2025-09-03 01:37:55.458 [http-nio-8081-exec-9] INFO  c.g.a.s.OAuth2LoginSuccessHandler - === Redirecting OAuth user to frontend: http://localhost:4200/oauth-callback?access_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsIm5hbWUiOiJCaGF3ZXNoIFNoYXJtYSIsImVtYWlsIjoic2hhcm1hMjAwMWJoYXdlc2hAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJwcm92aWRlciI6IkdPT0dMRSIsInByb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJ0eXBlIjoiQUNDRVNTIiwiaWF0IjoxNzU2ODQzNjc0LCJleHAiOjE3NTY4NDQ1NzR9.PAk0cNjieL7VF3VHSXQsKjszqpIQuW7wCv-C0_gTvgU&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFybWEyMDAxYmhhd2VzaEBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNzU2ODQzNjc0LCJleHAiOjE3NTc0NDg0NzR9.4C3iUNRygJXBnEE4FgUNaK7Y3LA05jwzeNL4NNVvTdE&profile_completed=false ===
+2025-09-03 14:00:15.959 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-09-03 14:00:16.049 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 16720 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
+2025-09-03 14:00:16.049 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-09-03 14:00:16.053 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-03 14:00:17.969 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-03 14:00:18.066 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 87 ms. Found 1 JPA repository interface.
+2025-09-03 14:00:18.994 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-09-03 14:00:19.021 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2025-09-03 14:00:19.023 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-03 14:00:19.025 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-03 14:00:19.132 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-03 14:00:19.132 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3000 ms
+2025-09-03 14:00:19.306 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
+2025-09-03 14:00:19.513 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-03 14:00:19.606 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-03 14:00:19.665 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-03 14:00:20.108 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-03 14:00:20.166 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-03 14:00:21.905 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@43b45ce4
+2025-09-03 14:00:21.905 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-03 14:00:22.760 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-03 14:00:24.436 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-03 14:00:25.268 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-03 14:00:25.716 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-09-03 14:00:26.018 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
+2025-09-03 14:00:26.034 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
+2025-09-03 14:00:26.057 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
+2025-09-03 14:00:26.077 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-03 14:00:26.077 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-03 14:00:26.653 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
+2025-09-03 14:00:26.795 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
+2025-09-03 14:00:26.795 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
+2025-09-03 14:00:26.795 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
+2025-09-03 14:00:26.795 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
+2025-09-03 14:00:26.817 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
+2025-09-03 14:00:26.847 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
+2025-09-03 14:00:26.865 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
+2025-09-03 14:00:27.406 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2025-09-03 14:00:27.448 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2025-09-03 14:00:27.464 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 12.46 seconds (process running for 13.074)
+2025-09-03 14:17:27.456 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-03 14:17:27.459 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-03 14:17:27.528 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 69 ms
+2025-09-03 14:17:27.668 [http-nio-8081-exec-3] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /api/auth/set-frontend-origin
+2025-09-03 14:17:27.858 [http-nio-8081-exec-3] INFO  c.g.a.controller.AuthController - Set frontend origin in session: http://localhost:4200
+2025-09-03 15:48:12.802 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@179cfee5 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2025-09-03 15:48:12.820 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h23m50s470ms978µs600ns).
+2025-09-03 15:48:22.837 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@5957e4dc (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2025-09-03 15:48:32.863 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@58764967 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2025-09-03 15:48:42.883 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@1da57d14 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2025-09-03 15:48:52.896 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@3ce388df (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2025-09-03 15:49:02.917 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@617cdd07 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2025-09-03 15:49:12.938 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@314d6417 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2025-09-03 15:49:22.950 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@5b0d11c6 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2025-09-03 15:49:22.950 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m10s133ms270µs800ns).
+2025-09-03 15:59:07.435 [http-nio-8081-exec-8] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /api/auth/set-frontend-origin
+2025-09-03 15:59:07.472 [http-nio-8081-exec-8] INFO  c.g.a.controller.AuthController - Set frontend origin in session: http://localhost:4200
+2025-09-03 16:05:16.960 [http-nio-8081-exec-5] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /api/auth/set-frontend-origin
+2025-09-03 16:05:16.963 [http-nio-8081-exec-5] INFO  c.g.a.controller.AuthController - Set frontend origin in session: http://localhost:4200
+2025-09-03 16:05:36.288 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-03 16:05:36.330 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-03 16:05:36.415 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-03 16:05:36.471 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-03 16:05:38.677 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-09-03 16:05:56.839 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-09-03 16:05:56.936 [main] INFO  c.g.a.AuthServiceApplication - Starting AuthServiceApplication using Java 21.0.8 with PID 20764 (C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\auth-service)
+2025-09-03 16:05:56.936 [main] DEBUG c.g.a.AuthServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-09-03 16:05:56.936 [main] INFO  c.g.a.AuthServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-03 16:05:58.804 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-03 16:05:58.889 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 69 ms. Found 1 JPA repository interface.
+2025-09-03 16:05:59.730 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-09-03 16:05:59.761 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2025-09-03 16:05:59.765 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-03 16:05:59.765 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-03 16:05:59.871 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-03 16:05:59.871 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2863 ms
+2025-09-03 16:06:00.044 [main] INFO  c.g.auth_service.security.JwtService - JWT secret key initialized
+2025-09-03 16:06:00.339 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-03 16:06:00.446 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-03 16:06:00.507 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-03 16:06:00.934 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-03 16:06:00.989 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-03 16:06:03.557 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2459333a
+2025-09-03 16:06:03.557 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-03 16:06:05.206 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-03 16:06:06.543 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-03 16:06:07.671 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-03 16:06:08.227 [main] DEBUG c.g.a.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-09-03 16:06:08.524 [main] INFO  c.g.a.security.SecurityConfig - Initializing BCryptPasswordEncoder
+2025-09-03 16:06:08.539 [main] INFO  c.g.a.security.SecurityConfig - Creating AuthenticationManager
+2025-09-03 16:06:08.567 [main] INFO  c.g.a.security.SecurityConfig - Setting up AuthenticationProvider
+2025-09-03 16:06:08.582 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-03 16:06:08.582 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-03 16:06:09.174 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
+2025-09-03 16:06:09.287 [main] INFO  c.g.a.security.SecurityConfig - Setting up Security Filter Chain
+2025-09-03 16:06:09.289 [main] DEBUG c.g.a.security.SecurityConfig - Disabling CSRF
+2025-09-03 16:06:09.289 [main] DEBUG c.g.a.security.SecurityConfig - Enabling CORS configuration
+2025-09-03 16:06:09.289 [main] INFO  c.g.a.security.SecurityConfig - Configuring CORS
+2025-09-03 16:06:09.295 [main] DEBUG c.g.a.security.SecurityConfig - Configuring authorized endpoints
+2025-09-03 16:06:09.331 [main] DEBUG c.g.a.security.SecurityConfig - Setting authentication entry point
+2025-09-03 16:06:09.344 [main] DEBUG c.g.a.security.SecurityConfig - Setting stateless session management
+2025-09-03 16:06:09.865 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2025-09-03 16:06:09.893 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2025-09-03 16:06:09.915 [main] INFO  c.g.a.AuthServiceApplication - Started AuthServiceApplication in 13.975 seconds (process running for 14.654)
+2025-09-03 16:07:03.258 [http-nio-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-03 16:07:03.261 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-03 16:07:03.320 [http-nio-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 55 ms
+2025-09-03 16:07:03.694 [http-nio-8081-exec-2] DEBUG c.g.a.s.JwtAuthenticationFilter - No Bearer token found in request to: /api/auth/set-frontend-origin
+2025-09-03 16:07:03.876 [http-nio-8081-exec-2] INFO  c.g.a.controller.AuthController - Set frontend origin in session: http://localhost:4200

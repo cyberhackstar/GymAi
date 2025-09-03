@@ -20,9 +20,10 @@ import { WorkoutPlanComponent } from './plan/workout-plan-component/workout-plan
 import { DashboardComponent } from './plan/dashboard-component/dashboard-component';
 import { LearnMore } from './learn-more/learn-more';
 import { UserProfile } from './user-profile/user-profile';
+import { HomeComponent } from './home-component/home-component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'default', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   // Public Routes
   { path: 'login', component: Login },
@@ -38,6 +39,7 @@ export const routes: Routes = [
   { path: 'services', component: Services },
   { path: 'learn-more', component: LearnMore },
   { path: 'user-profile', component: UserProfile },
+  { path: 'home', component: HomeComponent },
 
   // User Routes (Protected in real setup)
   { path: 'dashboard', component: UserDashboard },

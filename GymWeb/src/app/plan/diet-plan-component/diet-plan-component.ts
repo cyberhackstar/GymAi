@@ -131,9 +131,15 @@ export class DietPlanComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectDay(index: number) {
+  selectDay(index: number, sectionId: string) {
     this.selectedDayIndex = index;
     this.selectedDay = this.dietPlan?.dailyPlans?.[index] ?? null;
+    // scrollToSection(sectionId: string): void {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    // }
   }
 
   regenerateDietPlan() {

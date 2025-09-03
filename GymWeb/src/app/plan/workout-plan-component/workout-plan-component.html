@@ -28,7 +28,7 @@
     <div class="week-grid">
       <div
         *ngFor="let day of workoutPlan?.weeklyPlan ?? []; let i = index"
-        (click)="selectDay(i)"
+        (click)="selectDay(i, 'day-details')"
         class="week-day"
         [class.active]="selectedDayIndex === i"
         [class.rest-day]="day.restDay"
@@ -64,7 +64,7 @@
   </div>
 
   <!-- Selected Day Exercises -->
-  <div *ngIf="selectedDay" class="day-summary">
+  <div *ngIf="selectedDay" class="day-summary" id="day-details">
     <h3 *ngIf="!selectedDay.restDay">
       Exercises for {{ selectedDay.dayName }}
     </h3>

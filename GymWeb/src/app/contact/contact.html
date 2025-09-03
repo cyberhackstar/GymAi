@@ -1,90 +1,300 @@
-<section class="contact-section spad">
-  <div class="container">
-    <!-- Title -->
-    <div class="section-title contact-title text-center">
-      <!-- <span>Contact Us</span> -->
-      <h2 class="underline-animate">
-        GET IN <span class="highlight">TOUCH</span>
-      </h2>
+<section class="contact-section">
+  <!-- Hero Section -->
+  <div class="contact-hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="hero-title">GET IN <span class="highlight">TOUCH</span></h1>
+        <p class="hero-subtitle">
+          Ready to transform your fitness journey? Let's connect and make it
+          happen together.
+        </p>
+        <button class="cta-button" (click)="scrollToForm()">
+          <i class="fas fa-paper-plane"></i>
+          Start Conversation
+        </button>
+      </div>
+      <div class="hero-visual">
+        <div class="floating-elements">
+          <div class="element element-1">
+            <i class="fas fa-dumbbell"></i>
+          </div>
+          <div class="element element-2">
+            <i class="fas fa-heart"></i>
+          </div>
+          <div class="element element-3">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <div class="element element-4">
+            <i class="fas fa-fire"></i>
+          </div>
+        </div>
+        <div class="contact-illustration">
+          <i class="fas fa-comments"></i>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="row mt-5">
-      <!-- Contact Info -->
+  <!-- Stats Section -->
+  <div class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item" *ngFor="let stat of stats">
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-      <div class="col-lg-6 mb-5 mb-lg-0">
-        <div class="contact-card glass-card">
-          <!-- Header inside card -->
-          <div class="contact-card-header text-center">
-            <i class="fa fa-comments"></i>
-            <h4>Let’s Connect</h4>
-            <p>We’d love to hear from you! Reach us through any of these:</p>
+  <div class="container">
+    <!-- Contact Info & Form -->
+    <div class="contact-content">
+      <div class="contact-grid">
+        <!-- Contact Information -->
+        <div class="contact-info">
+          <div class="info-header">
+            <h2>Let's Connect</h2>
+            <p>
+              We're here to help you achieve your fitness goals. Reach out
+              through any of these channels.
+            </p>
           </div>
 
-          <div class="contact-widget">
-            <div class="cw-text">
-              <i class="fa fa-map-marker"></i>
+          <div class="info-cards">
+            <div class="info-card" *ngFor="let info of contactInfo">
+              <div class="card-icon">
+                <i [class]="info.icon"></i>
+              </div>
+              <div class="card-content">
+                <h4>{{ info.title }}</h4>
+                <p>{{ info.value }}</p>
+                <a
+                  *ngIf="info.link"
+                  [href]="info.link"
+                  target="_blank"
+                  class="card-link"
+                >
+                  {{ info.linkText }}
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+                <span *ngIf="!info.link && info.linkText" class="card-extra">
+                  {{ info.linkText }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="social-section">
+            <h3>Follow Our Journey</h3>
+            <div class="social-links">
               <a
-                href="https://www.google.com/maps/place/Sanganer+Thana+Flyover,+Jaipur,+Rajasthan+302029"
+                *ngFor="let social of socialLinks"
+                [href]="social.url"
                 target="_blank"
+                class="social-link"
+                [style.--social-color]="social.color"
               >
-                84 Thane Tonk Rd, Jaipur,<br />RJ 302029
+                <i [class]="social.icon"></i>
+                <span>{{ social.name }}</span>
               </a>
-            </div>
-            <div class="cw-text">
-              <i class="fa fa-mobile"></i>
-              <a href="tel:+917742261033">+91 77422 61033</a>
-            </div>
-            <div class="cw-text">
-              <i class="fa fa-envelope"></i>
-              <a href="mailto:gymai@neelahouse.cloud">gymai@neelahouse.cloud</a>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Contact Form -->
-      <div class="col-lg-6">
-        <div class="glass-card leave-comment">
-          <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
-            <input
-              type="text"
-              placeholder="Name"
-              name="name"
-              ngModel
-              required
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              name="email"
-              ngModel
-              required
-            />
-            <input type="text" placeholder="Website" name="website" ngModel />
-            <textarea
-              placeholder="Comment"
-              name="comment"
-              ngModel
-              required
-            ></textarea>
-            <button type="submit" [disabled]="contactForm.invalid">
-              Submit
-            </button>
-          </form>
+        <!-- Contact Form -->
+        <div class="contact-form-section">
+          <div class="form-container" id="contact-form">
+            <div class="form-header">
+              <h2>Send Us a Message</h2>
+              <p>
+                Have questions? We'd love to hear from you. Send us a message
+                and we'll respond as soon as possible.
+              </p>
+            </div>
+
+            <!-- Success Message -->
+            <div *ngIf="formSubmitted" class="success-message">
+              <i class="fas fa-check-circle"></i>
+              <h3>Message Sent Successfully!</h3>
+              <p>
+                Thank you for reaching out. We'll get back to you within 24
+                hours.
+              </p>
+            </div>
+
+            <!-- Contact Form -->
+            <form
+              *ngIf="!formSubmitted"
+              (ngSubmit)="onSubmit(contactForm)"
+              #contactForm="ngForm"
+              class="contact-form"
+            >
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Full Name *</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    ngModel
+                    required
+                    #nameInput="ngModel"
+                  />
+                  <div class="input-icon">
+                    <i class="fas fa-user"></i>
+                  </div>
+                  <div
+                    *ngIf="nameInput.invalid && nameInput.touched"
+                    class="error-message"
+                  >
+                    Name is required
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email Address *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    ngModel
+                    required
+                    email
+                    #emailInput="ngModel"
+                  />
+                  <div class="input-icon">
+                    <i class="fas fa-envelope"></i>
+                  </div>
+                  <div
+                    *ngIf="emailInput.invalid && emailInput.touched"
+                    class="error-message"
+                  >
+                    <span *ngIf="emailInput.errors?.['required']"
+                      >Email is required</span
+                    >
+                    <span *ngIf="emailInput.errors?.['email']"
+                      >Please enter a valid email</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter your phone number"
+                    ngModel
+                  />
+                  <div class="input-icon">
+                    <i class="fas fa-phone"></i>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="subject">Subject</label>
+                  <select id="subject" name="subject" ngModel>
+                    <option value="">Select a topic</option>
+                    <option value="general">General Inquiry</option>
+                    <option value="membership">Membership</option>
+                    <option value="training">Personal Training</option>
+                    <option value="support">Technical Support</option>
+                    <option value="feedback">Feedback</option>
+                  </select>
+                  <div class="input-icon">
+                    <i class="fas fa-tag"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Tell us about your fitness goals or ask us anything..."
+                  rows="5"
+                  ngModel
+                  required
+                  #messageInput="ngModel"
+                ></textarea>
+                <div class="input-icon textarea-icon">
+                  <i class="fas fa-comment"></i>
+                </div>
+                <div
+                  *ngIf="messageInput.invalid && messageInput.touched"
+                  class="error-message"
+                >
+                  Message is required
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="submit-button"
+                [disabled]="contactForm.invalid || isFormSubmitting"
+                [class.loading]="isFormSubmitting"
+              >
+                <span *ngIf="!isFormSubmitting">
+                  <i class="fas fa-paper-plane"></i>
+                  Send Message
+                </span>
+                <span *ngIf="isFormSubmitting" class="loading-text">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  Sending...
+                </span>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Google Map -->
-    <div class="map mt-5">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4090.077975496513!2d75.793653535837!3d26.820227794771828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396dcbdfbd846b3d%3A0x61fa6ed9ecb0db25!2sQ.No.1%2F7%2C%20Tonk%20Rd%2C%20near%20Treebo%20Dream%20Palace%2C%20Airport%20Colony%2C%20Sanganer%2C%20Jaipur%2C%20Rajasthan%20302029!5e0!3m2!1sen!2sin!4v1754674903838!5m2!1sen!2sin"
-        width="100%"
-        height="450"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
+    <div class="map-section">
+      <div class="map-header">
+        <h2>Visit Our Location</h2>
+        <p>
+          Come visit us at our state-of-the-art facility in the heart of Jaipur
+        </p>
+      </div>
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4090.077975496513!2d75.793653535837!3d26.820227794771828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396dcbdfbd846b3d%3A0x61fa6ed9ecb0db25!2sQ.No.1%2F7%2C%20Tonk%20Rd%2C%20near%20Treebo%20Dream%20Palace%2C%20Airport%20Colony%2C%20Sanganer%2C%20Jaipur%2C%20Rajasthan%20302029!5e0!3m2!1sen!2sin!4v1754674903838!5m2!1sen!2sin"
+          width="100%"
+          height="450"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        >
+        </iframe>
+        <div class="map-overlay">
+          <div class="location-card">
+            <div class="location-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="location-info">
+              <h4>GymAI Fitness Center</h4>
+              <p>84 Thane Tonk Rd<br />Jaipur, RJ 302029</p>
+              <a
+                href="https://www.google.com/maps/place/Sanganer+Thana+Flyover,+Jaipur,+Rajasthan+302029"
+                target="_blank"
+                class="directions-btn"
+              >
+                <i class="fas fa-directions"></i>
+                Get Directions
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

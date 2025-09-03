@@ -376,7 +376,7 @@
 
 /* Primary Button */
 .btn-primary {
-  background: #ff4c4c;
+  background: linear-gradient(90deg, #e90303, #a90000);
   color: #fff;
   border: none;
 }
