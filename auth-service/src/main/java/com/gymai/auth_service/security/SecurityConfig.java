@@ -20,11 +20,10 @@ import org.springframework.security.oauth2.client.web.AuthorizationRequestReposi
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import jakarta.servlet.http.Cookie;
 
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final JwtAuthenticationEntryPoint authEntryPoint;
     private final UserDetailsService userDetailsService;
-    private final OAuth2LoginSuccessHandler oauth2LoginSuccessHandler; // ✅ constructor injected
+    private final OAuth2LoginSuccessHandler oauth2LoginSuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -55,8 +54,8 @@ public class SecurityConfig {
                 })
                 .authorizeHttpRequests(auth -> {
                     logger.debug("Configuring authorized endpoints");
-                    auth.requestMatchers("/api/auth/**", "/error", "/actuator/**", "/oauth2/**", "/login",
-                            "/favicon.ico").permitAll();
+                    auth.requestMatchers("/api/auth/**", "/error", "/actuator/**", "/oauth2/**",
+                            "/login/**", "/favicon.ico").permitAll();
                     auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
@@ -66,27 +65,66 @@ public class SecurityConfig {
                 })
                 .oauth2Login(oauth2 -> oauth2
                         .authorizationEndpoint(auth -> auth
-                                .authorizationRequestRepository(cookieAuthorizationRequestRepository()))
+                                .authorizationRequestRepository(cookieAuthorizationRequestRepository())
+                                .baseUri("/oauth2/authorization"))
+                        .redirectionEndpoint(redirect -> redirect
+                                .baseUri("/login/oauth2/code/*"))
                         .loginPage("/login")
                         .successHandler(oauth2LoginSuccessHandler)
                         .failureHandler((request, response, exception) -> {
-                            logger.error("OAuth2 login failed", exception);
-                            String frontendOrigin = request.getParameter("frontend_origin");
-                            String errorUrl = (frontendOrigin != null ? frontendOrigin
-                                    : "https://gymai.neelahouse.cloud")
-                                    + "/login?error=oauth_failed&reason=" + exception.getMessage();
+                            logger.error("OAuth2 login failed: {}", exception.getMessage());
+
+                            // Extract frontend URL using same logic as success handler
+                            String frontendOrigin = extractFrontendOrigin(request);
+                            String errorUrl = frontendOrigin + "/login?error=oauth_failed&reason=" +
+                                    java.net.URLEncoder.encode(exception.getMessage(),
+                                            java.nio.charset.StandardCharsets.UTF_8);
+
+                            logger.info("Redirecting to error URL: {}", errorUrl);
                             response.sendRedirect(errorUrl);
                         }))
-
                 .sessionManagement(session -> {
-                    logger.debug("Setting stateless session management");
-                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                    logger.debug("Configuring session for OAuth state management");
+                    // Allow sessions for OAuth but keep stateless for JWT
+                    session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+                    session.maximumSessions(1).maxSessionsPreventsLogin(false);
+                    session.sessionFixation().migrateSession();
                 })
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
                 .build();
+    }
+
+    private String extractFrontendOrigin(jakarta.servlet.http.HttpServletRequest request) {
+        // Try session first
+        Object sessionOrigin = request.getSession(false) != null
+                ? request.getSession(false).getAttribute("frontend_origin")
+                : null;
+        if (sessionOrigin != null) {
+            return sessionOrigin.toString();
+        }
+
+        // Try cookies
+        if (request.getCookies() != null) {
+            for (jakarta.servlet.http.Cookie cookie : request.getCookies()) {
+                if ("frontend_origin".equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+
+        // Try X-Forwarded headers to detect frontend
+        String xForwardedHost = request.getHeader("X-Forwarded-Host");
+        if (xForwardedHost != null) {
+            String protocol = "https"; // Default to HTTPS for production
+            String frontendHost = xForwardedHost.replace("auth-service-", "");
+            return protocol + "://" + frontendHost;
+        }
+
+        // Default fallback
+        return "https://gymai.neelahouse.cloud";
     }
 
     @Bean
@@ -119,14 +157,23 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         logger.info("Configuring CORS");
         CorsConfiguration config = new CorsConfiguration();
+
+        // Specific allowed origins
         config.setAllowedOrigins(List.of(
                 "http://localhost:4200",
+                "http://localhost:3000",
                 "https://gymaibybhawesh.netlify.app",
                 "https://gymai.neelahouse.cloud",
-                "https://gym-ai.vercel.app"));
+                "https://gym-ai.vercel.app",
+                // Allow your auth service for OAuth callbacks
+                "http://auth-service-gymai.neelahouse.cloud",
+                "https://auth-service-gymai.neelahouse.cloud"));
+
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin"));
+        config.setExposedHeaders(List.of("Authorization"));
         config.setAllowCredentials(true);
+        config.setMaxAge(3600L); // Cache preflight for 1 hour
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

@@ -84,12 +84,11 @@ export class Register {
         this.authService.login(loginPayload).subscribe({
           next: (res: LoginResponse) => {
             if (res && res.accessToken && res.refreshToken) {
-              // ✅ Save tokens
+              // Save tokens
               this.tokenService.setToken(res.accessToken);
               this.tokenService.setRefreshToken(res.refreshToken);
 
-              // Step 3: Check if profile is completed
-
+              // Navigate to dashboard
               this.router.navigate(['/plan-dashboard']);
             } else {
               this.errorMessage =
@@ -128,23 +127,39 @@ export class Register {
     const currentOrigin = window.location.origin;
     console.log('Current origin for OAuth:', currentOrigin);
 
-    // Set multiple fallback mechanisms
-    this.setFrontendOriginCookie(currentOrigin);
-    this.setFrontendOriginInSession(currentOrigin);
+    // Set frontend origin using multiple strategies
+    this.setFrontendOriginStrategies(currentOrigin);
 
-    // Create OAuth URL with frontend origin as query parameter
-    const oauthUrl = `${
-      environment.authUrl
-    }/oauth2/authorization/${provider}?frontend_origin=${encodeURIComponent(
-      currentOrigin
-    )}`;
+    // CRITICAL: Pass frontend origin in the initial OAuth request state
+    // This embeds it in the OAuth flow state parameter
+    const stateData = {
+      frontend_origin: currentOrigin,
+      timestamp: Date.now(),
+    };
+
+    const encodedState = btoa(JSON.stringify(stateData));
+
+    // Create OAuth URL with frontend origin in multiple places
+    const oauthUrl =
+      `${environment.authUrl}/oauth2/authorization/${provider}` +
+      `?frontend_origin=${encodeURIComponent(currentOrigin)}` +
+      `&state=${encodedState}`;
 
     console.log('Redirecting to OAuth URL:', oauthUrl);
 
-    // Add a small delay to ensure cookie is set
-    setTimeout(() => {
-      window.location.href = oauthUrl;
-    }, 100);
+    // Redirect to OAuth provider
+    window.location.href = oauthUrl;
+  }
+
+  private setFrontendOriginStrategies(origin: string): void {
+    // Strategy 1: Set session via API call
+    this.setFrontendOriginInSession(origin);
+
+    // Strategy 2: Set multiple cookie variants
+    this.setFrontendOriginCookies(origin);
+
+    // Strategy 3: Store in localStorage as backup
+    localStorage.setItem('oauth_frontend_origin', origin);
   }
 
   private setFrontendOriginInSession(origin: string): void {
@@ -156,25 +171,42 @@ export class Register {
       },
       body: JSON.stringify({ frontendOrigin: origin }),
       credentials: 'include', // Important for session cookies
-    }).catch((error) => {
-      console.warn('Could not set frontend origin in session:', error);
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log('Successfully set frontend origin in session');
+        } else {
+          console.warn(
+            'Failed to set frontend origin in session:',
+            response.status
+          );
+        }
+      })
+      .catch((error) => {
+        console.warn('Could not set frontend origin in session:', error);
+      });
   }
 
-  private setFrontendOriginCookie(origin: string): void {
+  private setFrontendOriginCookies(origin: string): void {
     const isProduction = !origin.includes('localhost');
+    const cookieOptions = {
+      path: '/',
+      maxAge: 600, // 10 minutes
+    };
 
     if (isProduction) {
-      // Production: Set cookie with proper domain
+      // Production: Set cookies with proper domain and security
       const domain = this.extractDomain(origin);
 
-      // Set both with and without domain for maximum compatibility
-      document.cookie = `frontend_origin=${origin}; path=/; domain=${domain}; max-age=600; SameSite=None; Secure`;
+      // Set with domain
+      document.cookie = `frontend_origin=${origin}; path=/; domain=${domain}; max-age=600; SameSite=Lax; Secure`;
+
+      // Set without domain as fallback
       document.cookie = `frontend_origin=${origin}; path=/; max-age=600; SameSite=Lax; Secure`;
 
       console.log(`Set production cookies for domain: ${domain}`);
     } else {
-      // Development: Multiple cookie variations
+      // Development: Set cookies with relaxed security
       document.cookie = `frontend_origin=${origin}; path=/; max-age=600; SameSite=Lax`;
       document.cookie = `frontend_origin=${origin}; path=/; max-age=600; SameSite=None`;
 
@@ -187,7 +219,7 @@ export class Register {
       const urlObj = new URL(url);
       const hostname = urlObj.hostname;
 
-      // ✅ Extract root domain (e.g., "neelahouse.cloud" from "gymai.neelahouse.cloud")
+      // Extract root domain (e.g., "neelahouse.cloud" from "gymai.neelahouse.cloud")
       const parts = hostname.split('.');
       if (parts.length >= 2) {
         return '.' + parts.slice(-2).join('.');

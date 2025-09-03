@@ -77,17 +77,21 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             userRepository.save(user);
 
             // Publish event
-            rabbitMqSender.sendMessageToRoute(
-                    new UserEvent(user.getEmail(), user.getName(), "OAUTH_LOGIN"),
-                    directExchange.getName(),
-                    loginRouting);
+            try {
+                rabbitMqSender.sendMessageToRoute(
+                        new UserEvent(user.getEmail(), user.getName(), "OAUTH_LOGIN"),
+                        directExchange.getName(),
+                        loginRouting);
+                log.info("Successfully sent OAuth login event");
+            } catch (Exception e) {
+                log.warn("Failed to send OAuth login event, continuing with login", e);
+            }
 
-            // Extract frontend URL with comprehensive strategy
+            // Extract frontend URL
             String frontendBaseUrl = extractFrontendUrlFromRequest(request);
-            log.info("Final frontend URL: {}", frontendBaseUrl);
-
-            // Resolve frontend redirect URL
             String redirectUrl = resolveRedirectUrl(frontendBaseUrl);
+
+            log.info("Final redirect URL: {}", redirectUrl);
 
             // Create the final redirect URL with tokens
             String finalRedirect = String.format(
@@ -97,185 +101,158 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                     URLEncoder.encode(refreshToken, StandardCharsets.UTF_8),
                     user.isProfileCompleted());
 
-            // Clear the temporary OAuth2 authorization request cookie
-            clearOAuth2AuthRequestCookie(response);
+            // Clear OAuth cookies
+            clearOAuth2Cookies(response);
 
-            // Redirect user to frontend with tokens
-            log.info("=== Redirecting OAuth user to frontend: {} ===", finalRedirect);
-            log.info("=== Redirecting OAuth user to frontend: {} ===", finalRedirect);
+            log.info("Redirecting OAuth user to: {}", finalRedirect);
             response.sendRedirect(finalRedirect);
 
         } catch (Exception e) {
-            log.error("OAuth authentication failed", e);
-            // Use the same frontend detection for error redirect
-            String frontendUrl = extractFrontendUrlFromRequest(request);
-            String errorRedirect = (frontendUrl != null ? frontendUrl : defaultFrontendUrl)
-                    + "/login?error=oauth_failed";
-            log.error("Redirecting to error page: {}", errorRedirect);
-            response.sendRedirect(errorRedirect);
+            log.error("OAuth authentication processing failed", e);
+            handleOAuthError(request, response, e);
         }
     }
 
     private String extractFrontendUrlFromRequest(HttpServletRequest request) {
         log.info("=== Extracting Frontend URL ===");
 
-        // Log all request information for debugging
-        logRequestDetails(request);
+        // Strategy 1: Session attribute (most reliable)
+        Object sessionFrontendUrl = request.getSession(false) != null
+                ? request.getSession(false).getAttribute("frontend_origin")
+                : null;
+        if (sessionFrontendUrl != null) {
+            String sessionUrl = sessionFrontendUrl.toString();
+            log.info("Found frontend origin in session: {}", sessionUrl);
+            return sessionUrl;
+        }
 
-        // Strategy 1: Query parameter (most reliable for initial OAuth request)
+        // Strategy 2: Cookie
+        if (request.getCookies() != null) {
+            for (jakarta.servlet.http.Cookie cookie : request.getCookies()) {
+                if ("frontend_origin".equals(cookie.getName())) {
+                    String cookieValue = cookie.getValue();
+                    log.info("Found frontend origin in cookie: {}", cookieValue);
+                    return cookieValue;
+                }
+            }
+        }
+
+        // Strategy 3: Query parameter (less reliable for callback)
         String frontendOrigin = request.getParameter("frontend_origin");
         if (frontendOrigin != null && !frontendOrigin.trim().isEmpty()) {
             try {
                 String decodedOrigin = java.net.URLDecoder.decode(frontendOrigin, StandardCharsets.UTF_8);
-                log.info("✅ Found frontend origin in query parameter: {}", decodedOrigin);
+                log.info("Found frontend origin in query parameter: {}", decodedOrigin);
                 return decodedOrigin;
             } catch (Exception e) {
                 log.warn("Failed to decode frontend origin from query parameter: {}", frontendOrigin, e);
             }
         }
 
-        // Strategy 2: Session attribute (set during OAuth initiation)
-        Object sessionFrontendUrl = request.getSession(false) != null
-                ? request.getSession(false).getAttribute("frontend_origin")
-                : null;
-        if (sessionFrontendUrl != null) {
-            String sessionUrl = sessionFrontendUrl.toString();
-            log.info("✅ Found frontend origin in session: {}", sessionUrl);
-            return sessionUrl;
-        }
-
-        // Strategy 3: Cookie
-        if (request.getCookies() != null) {
-            for (jakarta.servlet.http.Cookie cookie : request.getCookies()) {
-                if ("frontend_origin".equals(cookie.getName())) {
-                    String cookieValue = cookie.getValue();
-                    log.info("✅ Found frontend origin in cookie: {}", cookieValue);
-                    return cookieValue;
-                }
-            }
-        }
-
         // Strategy 4: Referer header analysis
         String referer = request.getHeader("Referer");
-        if (referer != null) {
-            try {
-                java.net.URL url = new java.net.URL(referer);
-                String baseUrl = url.getProtocol() + "://" + url.getHost();
-                if (url.getPort() != -1 && url.getPort() != 80 && url.getPort() != 443) {
-                    baseUrl += ":" + url.getPort();
-                }
-                log.info("✅ Extracted base URL from referer: {}", baseUrl);
-                return baseUrl;
-            } catch (Exception e) {
-                log.warn("Failed to parse referer URL: {}", referer, e);
+        if (referer != null && referer.contains("accounts.google.com")) {
+            // This is coming from Google, try to extract from request context
+            String xForwardedHost = request.getHeader("X-Forwarded-Host");
+            String xForwardedProto = request.getHeader("X-Forwarded-Proto");
+
+            if (xForwardedHost != null) {
+                String protocol = xForwardedProto != null ? xForwardedProto : "https";
+                // Convert auth subdomain to main domain
+                String frontendHost = xForwardedHost.replace("auth-service-", "");
+                String detectedFrontend = protocol + "://" + frontendHost;
+                log.info("Detected frontend from forwarded headers: {}", detectedFrontend);
+                return detectedFrontend;
             }
         }
 
-        // Strategy 5: Smart environment detection
+        // Strategy 5: Development environment detection
         String host = request.getHeader("Host");
-        String xForwardedHost = request.getHeader("X-Forwarded-Host");
-        String xForwardedProto = request.getHeader("X-Forwarded-Proto");
-
-        // Use forwarded headers if available (production behind proxy)
-        if (xForwardedHost != null) {
-            String protocol = xForwardedProto != null ? xForwardedProto : "https";
-            String detectedFrontend = protocol + "://" + xForwardedHost.replace("auth.", "");
-            log.info("✅ Detected frontend from forwarded headers: {}", detectedFrontend);
-            return detectedFrontend;
-        }
-
-        // Development environment detection
-        if (host != null && host.contains("localhost")) {
-            log.info("✅ Development environment detected, using localhost:4200");
+        if (host != null && (host.contains("localhost") || host.contains("127.0.0.1"))) {
+            log.info("Development environment detected, using localhost:4200");
             return "http://localhost:4200";
         }
 
-        log.warn("❌ No valid frontend URL found using any strategy");
+        log.warn("No valid frontend URL found, using default");
         return null;
     }
 
-    private void logRequestDetails(HttpServletRequest request) {
-        log.info("Request URL: {}", request.getRequestURL());
-        log.info("Query String: {}", request.getQueryString());
-        log.info("Method: {}", request.getMethod());
-
-        // Log headers
-        log.info("=== Request Headers ===");
-        request.getHeaderNames().asIterator().forEachRemaining(name -> {
-            log.info("Header {}: {}", name, request.getHeader(name));
-        });
-
-        // Log parameters
-        log.info("=== Request Parameters ===");
-        request.getParameterMap().forEach((key, values) -> {
-            log.info("Param {}: {}", key, String.join(",", values));
-        });
-
-        // Log cookies
-        if (request.getCookies() != null) {
-            log.info("=== Cookies ===");
-            for (jakarta.servlet.http.Cookie cookie : request.getCookies()) {
-                log.info("Cookie {}: {}", cookie.getName(), cookie.getValue());
-            }
-        }
-    }
-
-    private String resolveRedirectUrl(String redirectUrlParam) {
-        if (redirectUrlParam != null && !redirectUrlParam.trim().isEmpty()) {
+    private String resolveRedirectUrl(String candidateUrl) {
+        if (candidateUrl != null && !candidateUrl.trim().isEmpty()) {
             try {
-                String decodedUrl = java.net.URLDecoder.decode(redirectUrlParam, StandardCharsets.UTF_8);
-                log.info("Checking decoded redirect URL: {}", decodedUrl);
+                String decodedUrl = java.net.URLDecoder.decode(candidateUrl, StandardCharsets.UTF_8);
 
                 // Direct match check
                 if (allowedFrontendUrls.contains(decodedUrl)) {
-                    log.info("✅ Direct match found in allowed URLs");
+                    log.info("Direct match found in allowed URLs");
                     return decodedUrl;
                 }
 
-                // Base URL matching for flexible subdomain/port handling
+                // Base URL matching
                 for (String allowedUrl : allowedFrontendUrls) {
-                    String allowedBase = extractBaseUrl(allowedUrl);
-                    String candidateBase = extractBaseUrl(decodedUrl);
-
-                    if (candidateBase.equals(allowedBase)) {
-                        log.info("✅ Base URL match: {} matches allowed base {}", candidateBase, allowedBase);
+                    if (urlsMatch(decodedUrl, allowedUrl)) {
+                        log.info("URL match found: {} matches {}", decodedUrl, allowedUrl);
                         return decodedUrl;
                     }
                 }
 
                 // Localhost special handling
-                if (decodedUrl.contains("localhost") &&
-                        allowedFrontendUrls.stream().anyMatch(url -> url.contains("localhost"))) {
-                    log.info("✅ Localhost URL allowed");
+                if (decodedUrl.contains("localhost") || decodedUrl.contains("127.0.0.1")) {
+                    log.info("Localhost URL allowed");
                     return decodedUrl;
                 }
 
             } catch (Exception e) {
-                log.warn("Failed to decode/validate redirect URL: {}", redirectUrlParam, e);
+                log.warn("Failed to validate redirect URL: {}", candidateUrl, e);
             }
         }
 
-        log.warn("Using default URL. Redirect URL '{}' not in allowed list: {}",
-                redirectUrlParam, allowedFrontendUrls);
+        log.info("Using default frontend URL: {}", defaultFrontendUrl);
         return defaultFrontendUrl;
     }
 
-    private String extractBaseUrl(String url) {
+    private boolean urlsMatch(String url1, String url2) {
         try {
-            java.net.URL parsedUrl = new java.net.URL(url);
-            String baseUrl = parsedUrl.getProtocol() + "://" + parsedUrl.getHost();
-            if (parsedUrl.getPort() != -1 && parsedUrl.getPort() != 80 && parsedUrl.getPort() != 443) {
-                baseUrl += ":" + parsedUrl.getPort();
-            }
-            return baseUrl;
+            java.net.URL parsed1 = new java.net.URL(url1);
+            java.net.URL parsed2 = new java.net.URL(url2);
+
+            return parsed1.getProtocol().equals(parsed2.getProtocol()) &&
+                    parsed1.getHost().equals(parsed2.getHost()) &&
+                    parsed1.getPort() == parsed2.getPort();
         } catch (Exception e) {
-            return url;
+            return url1.equals(url2);
         }
+    }
+
+    private void handleOAuthError(HttpServletRequest request, HttpServletResponse response, Exception e)
+            throws IOException {
+        String frontendUrl = extractFrontendUrlFromRequest(request);
+        String errorRedirect = (frontendUrl != null ? frontendUrl : defaultFrontendUrl)
+                + "/login?error=oauth_failed&message=" + URLEncoder.encode(e.getMessage(), StandardCharsets.UTF_8);
+        log.error("Redirecting to error page: {}", errorRedirect);
+        response.sendRedirect(errorRedirect);
+    }
+
+    private void clearOAuth2Cookies(HttpServletResponse response) {
+        // Clear OAuth2 authorization request cookie
+        jakarta.servlet.http.Cookie authRequestCookie = new jakarta.servlet.http.Cookie(
+                HttpCookieOAuth2AuthorizationRequestRepository.OAUTH2_AUTH_REQUEST_COOKIE_NAME, null);
+        authRequestCookie.setPath("/");
+        authRequestCookie.setHttpOnly(true);
+        authRequestCookie.setMaxAge(0);
+        response.addCookie(authRequestCookie);
+
+        // Clear frontend origin cookie after use
+        jakarta.servlet.http.Cookie frontendCookie = new jakarta.servlet.http.Cookie("frontend_origin", null);
+        frontendCookie.setPath("/");
+        frontendCookie.setMaxAge(0);
+        response.addCookie(frontendCookie);
     }
 
     private User findOrCreateOAuth2User(String email, String name, String provider) {
         return userRepository.findByEmail(email)
                 .map(existing -> {
+                    // Update provider if user was previously local
                     if (existing.getProvider() == AuthProvider.LOCAL) {
                         existing.setProvider(AuthProvider.valueOf(provider.toUpperCase()));
                         return userRepository.save(existing);
@@ -291,10 +268,17 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                             .profileCompleted(false)
                             .build();
                     User saved = userRepository.save(newUser);
-                    rabbitMqSender.sendMessageToRoute(
-                            new UserEvent(saved.getEmail(), saved.getName(), "OAUTH_REGISTRATION"),
-                            directExchange.getName(),
-                            registrationRouting);
+
+                    // Send registration event (with error handling)
+                    try {
+                        rabbitMqSender.sendMessageToRoute(
+                                new UserEvent(saved.getEmail(), saved.getName(), "OAUTH_REGISTRATION"),
+                                directExchange.getName(),
+                                registrationRouting);
+                    } catch (Exception e) {
+                        log.warn("Failed to send registration event", e);
+                    }
+
                     return saved;
                 });
     }
@@ -333,15 +317,4 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                 return "OAuth User";
         }
     }
-
-    private void clearOAuth2AuthRequestCookie(HttpServletResponse response) {
-        jakarta.servlet.http.Cookie cookie = new jakarta.servlet.http.Cookie(
-                HttpCookieOAuth2AuthorizationRequestRepository.OAUTH2_AUTH_REQUEST_COOKIE_NAME,
-                null);
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
-        cookie.setMaxAge(0); // immediately expire
-        response.addCookie(cookie);
-    }
-
 }
