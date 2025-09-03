@@ -1,7 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { Token } from '../../core/services/token';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -14,20 +15,46 @@ export class Navbar {
   menuOpen = false;
   activeDropdown: string | null = null;
   isLoggedIn = false;
+  userRole: string | null = null; // NEW: track user role
+  currentRoute = '';
 
   constructor(private tokenService: Token, private router: Router) {
     this.checkLoginStatus();
-    // subscribe to token changes to update login state dynamically
+
+    // Subscribe to token changes to update login state dynamically
     this.tokenService.token$.subscribe(() => this.checkLoginStatus());
+
+    // Subscribe to route changes to track current route
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.currentRoute = event.url;
+      });
   }
 
   checkLoginStatus() {
-    this.isLoggedIn = !!this.tokenService.getToken();
+    // this.isLoggedIn = !!this.tokenService.getToken();
+    const token = this.tokenService.getToken();
+    this.isLoggedIn = !!token;
+
+    if (this.isLoggedIn) {
+      // Assuming token contains role claim
+      this.userRole = this.tokenService.getName(); // implement in Token service
+    } else {
+      this.userRole = null;
+    }
   }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
     if (!this.menuOpen) this.activeDropdown = null;
+
+    // Prevent body scroll when menu is open
+    if (this.menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   }
 
   toggleDropdown(name: string) {
@@ -36,18 +63,27 @@ export class Navbar {
 
   logout(): void {
     this.tokenService.clearToken();
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/login']);
+    this.closeMenu();
   }
 
-  // Close menu when clicking outside or on any menu item
   closeMenu() {
     this.menuOpen = false;
     this.activeDropdown = null;
+    document.body.style.overflow = '';
   }
 
-  // Optional: close menu on ESC key
-  // @HostListener('document:keydown.escape', ['$event'])
-  // onEscape(event: KeyboardEvent) {
-  //   this.closeMenu();
-  // }
+  @HostListener('document:keydown', ['$event'])
+  onEscape(event: KeyboardEvent) {
+    if (event.key === 'Escape' && this.menuOpen) {
+      this.closeMenu();
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    if (event.target.innerWidth > 991 && this.menuOpen) {
+      this.closeMenu();
+    }
+  }
 }

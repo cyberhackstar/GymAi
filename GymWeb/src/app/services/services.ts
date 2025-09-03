@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 interface ServicePricing {
   amount: number;
@@ -226,7 +227,7 @@ export class Services implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.animateOnLoad();
@@ -252,13 +253,15 @@ export class Services implements OnInit {
   }
 
   onStartFreeTrialClick(): void {
-    console.log('Start Free Trial clicked');
+    // console.log('Start Free Trial clicked');
+    this.router.navigate(['/register']);
     // Add free trial signup logic
     this.trackUserAction('start_free_trial');
   }
 
   onContactUsClick(): void {
-    console.log('Contact Us clicked');
+    // console.log('Contact Us clicked');
+    this.router.navigate(['/contact']);
     // Add contact form or navigation logic
     this.trackUserAction('contact_us');
   }

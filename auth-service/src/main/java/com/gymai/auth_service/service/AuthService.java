@@ -125,7 +125,7 @@ public class AuthService {
             log.info("New OAuth user created: {} via {}", email, provider);
 
             // Publish registration event for OAuth users
-            UserEvent event = new UserEvent(savedUser.getEmail(), savedUser.getName(), "OAUTH_REGISTRATION");
+            UserEvent event = new UserEvent(savedUser.getEmail(), savedUser.getName(), "REGISTRATION");
             rabbitMqSender.sendMessageToRoute(event, directExchange.getName(), registrationRouting);
 
             return savedUser;
@@ -141,7 +141,7 @@ public class AuthService {
         userRepository.save(user);
 
         // Publish login event for OAuth users
-        UserEvent event = new UserEvent(user.getEmail(), user.getName(), "OAUTH_LOGIN");
+        UserEvent event = new UserEvent(user.getEmail(), user.getName(), "LOGIN");
         rabbitMqSender.sendMessageToRoute(event, directExchange.getName(), loginRouting);
 
         return new AuthResponse(accessToken, refreshToken);

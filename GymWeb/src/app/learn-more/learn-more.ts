@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 interface Feature {
   icon: string;
@@ -34,6 +34,7 @@ interface PricingPlan {
   styleUrls: ['./learn-more.css'],
 })
 export class LearnMore {
+  constructor(private router: Router) {}
   features: Feature[] = [
     {
       icon: 'fas fa-brain',
@@ -115,7 +116,7 @@ export class LearnMore {
   pricingPlans: PricingPlan[] = [
     {
       name: 'Basic',
-      price: '$9.99',
+      price: '₹999',
       period: '/month',
       features: [
         'Basic AI workout plans',
@@ -128,7 +129,7 @@ export class LearnMore {
     },
     {
       name: 'Pro',
-      price: '$19.99',
+      price: '₹1999',
       period: '/month',
       popular: true,
       features: [
@@ -143,7 +144,7 @@ export class LearnMore {
     },
     {
       name: 'Elite',
-      price: '$39.99',
+      price: '₹2999',
       period: '/month',
       features: [
         'Premium AI coaching',
@@ -214,7 +215,8 @@ export class LearnMore {
 
   onGetStarted(): void {
     // Navigate to signup or dashboard
-    console.log('Get Started clicked');
+    this.router.navigate(['/register']);
+    // console.log('Get Started clicked');
   }
 
   onSelectPlan(plan: string): void {

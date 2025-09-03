@@ -270,7 +270,7 @@
 
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.2);
-  border-color: #ff4c4c;
+  border-color: #ffffff;
   transform: translateY(-2px);
 }
 
@@ -581,6 +581,7 @@
   margin-bottom: 25px;
   position: relative;
   z-index: 2;
+  margin: auto;
 }
 
 .card-icon i {
@@ -747,14 +748,14 @@
 
 .currency {
   font-size: 1.2rem;
-  color: #ff4c4c;
+  color: #ff2a2a;
   font-weight: 600;
 }
 
 .amount {
   font-size: 3.5rem;
   font-weight: 900;
-  color: #ff4c4c;
+  color: #ff2a2a;
 }
 
 .period {

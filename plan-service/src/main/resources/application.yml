@@ -94,3 +94,12 @@ app:
   limits:
     max-plan-regenerations-per-day: 5
     max-users-per-batch: 100
+# Cache configuration
+# cache:
+#   redis:
+#     ttl:
+#       user-profile: 3600 # 1 hour
+#       diet-plan: 86400 # 24 hours
+#       workout-plan: 86400 # 24 hours
+#       nutrition-analysis: 3600 # 1 hour
+#       plans-response: 7200 # 2 hours

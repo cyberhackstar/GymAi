@@ -1,10 +1,10 @@
 /* RESET */
-
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
 a {
   text-decoration: none;
   color: inherit;
@@ -13,7 +13,7 @@ a {
 
 .canvas-menu li a:hover {
   text-decoration: none;
-  color: red;
+  color: #ff4c4c;
 }
 
 /* HEADER SECTION */
@@ -35,108 +35,188 @@ a {
 .logo a {
   display: flex;
   align-items: center;
-  font-size: 24px; /* Slightly larger logo font */
+  font-size: 24px;
   font-weight: bold;
   color: white;
   gap: 5px;
+  transition: transform 0.3s ease;
 }
+
+.logo a:hover {
+  transform: scale(1.05);
+}
+
 .logo span {
   font-family: "Trade Winds", cursive;
 }
 
 .highlight {
-  background: linear-gradient(90deg, #ff0000, #cd0101);
+  background: linear-gradient(90deg, #ff4c4c, #ff0000);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
 /* NAVIGATION MENU */
 .nav-menu ul {
   display: flex;
-  gap: 25px; /* Increased gap between menu items */
+  gap: 25px;
   align-items: center;
 }
+
 .nav-menu li {
   position: relative;
 }
+
 .nav-menu a {
   color: #fff;
   font-weight: 600;
-  font-size: 17px; /* Increased nav font size for better readability */
-  padding: 0px 0; /* Adjusted padding */
-  transition: color 0.3s, transform 0.3s ease-in-out;
+  font-size: 17px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(10px);
 }
-.nav-menu a:hover,
-.nav-menu a.active {
-  color: red;
+
+.nav-icon-left {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* Hover effect */
+.nav-menu a:hover {
+  color: #ff4c4c;
+  background: rgba(255, 76, 76, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 76, 76, 0.25);
+}
+
+.nav-menu a:hover .nav-icon-left {
+  opacity: 1;
   transform: scale(1.1);
 }
 
-/* DROPDOWN MENU */
-.has-dropdown:hover .dropdown {
-  display: flex;
-}
-
-.dropdown {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  flex-direction: column;
-  background: #222;
-  min-width: 200px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 100;
-}
-.dropdown li a {
-  padding: 10px 15px;
+/* Active state styling */
+.nav-menu a.active {
   color: #fff;
-  font-weight: normal;
-}
-.dropdown li a:hover {
-  background: #333;
+  background: linear-gradient(135deg, #ff4c4c, #ff0000);
+  box-shadow: 0 4px 15px rgba(255, 76, 76, 0.4);
+  transform: translateY(-1px);
 }
 
-/* TOP RIGHT SOCIAL + SEARCH */
+.nav-menu a.active .nav-icon-left {
+  opacity: 1;
+  color: #fff;
+}
+
+.nav-menu a.active:hover {
+  color: #fff;
+  background: linear-gradient(135deg, #ff0000, #cd0101);
+  box-shadow: 0 8px 25px rgba(255, 76, 76, 0.6);
+}
+
+/* Glowing effect for active items */
+.nav-menu a.active::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #b90000, #9c1919, #840000);
+  border-radius: 14px;
+  z-index: -1;
+  opacity: 0.5;
+  filter: blur(8px);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* TOP RIGHT USER ACTIONS */
 .top-option {
   display: flex;
   align-items: center;
-  gap: 25px; /* Spacing between search, social, and user actions */
+  gap: 25px;
 }
 
-.top-option .to-search i {
-  font-size: 26px;
-  color: #fff;
-  transition: color 0.3s, transform 0.3s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.to-social {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-.to-social a i {
-  font-size: 26px;
-  color: #fff;
-  transition: color 0.3s, transform 0.3s ease-in-out;
-}
 .user-actions {
   display: flex;
   align-items: center;
   gap: 15px;
 }
-.user-actions .nav-icon i {
-  font-size: 26px;
-  color: #fff;
-  transition: color 0.3s, transform 0.3s ease-in-out;
+
+.user-actions .nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-.top-option .to-search i:hover,
-.top-option .to-social a i:hover,
-.top-option .user-actions a i:hover {
-  color: red;
-  transform: scale(1.2);
+.user-actions .nav-icon i {
+  font-size: 18px;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.user-actions .nav-icon:hover {
+  background: rgba(255, 76, 76, 0.15);
+  border-color: #ff4c4c;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 76, 76, 0.3);
+}
+
+.user-actions .nav-icon:hover i {
+  color: #ff4c4c;
+  transform: scale(1.1);
+}
+
+/* Active state for user icons */
+.user-actions .nav-icon.active {
+  background: linear-gradient(135deg, #ff4c4c, #ff0000);
+  border-color: #ff0000;
+  box-shadow: 0 4px 15px rgba(255, 76, 76, 0.4);
+}
+
+.user-actions .nav-icon.active i {
+  color: #fff;
+}
+
+.user-actions .nav-icon.active:hover {
+  background: linear-gradient(135deg, #ff0000, #cd0101);
+  box-shadow: 0 8px 25px rgba(255, 76, 76, 0.6);
+}
+
+/* Logout icon special styling */
+.logout-icon:hover {
+  background: rgba(220, 53, 69, 0.15) !important;
+  border-color: #dc3545 !important;
+}
+
+.logout-icon:hover i {
+  color: #dc3545 !important;
 }
 
 /* CANVAS TOGGLE ICON */
@@ -145,6 +225,15 @@ a {
   font-size: 24px;
   cursor: pointer;
   color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.canvas-open:hover {
+  color: #ff4c4c;
+  background: rgba(255, 76, 76, 0.1);
+  transform: scale(1.1);
 }
 
 /* OFFCANVAS OVERLAY */
@@ -154,6 +243,7 @@ a {
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
   z-index: 998;
+  backdrop-filter: blur(5px);
 }
 .offcanvas-menu-overlay.active {
   display: block;
@@ -166,9 +256,9 @@ a {
   right: -300px;
   width: 280px;
   height: 100%;
-  background: #111;
+  background: linear-gradient(135deg, #111 0%, #0d0d0d 100%);
   padding: 20px;
-  transition: right 0.4s ease;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 999;
 }
 .offcanvas-menu-wrapper.active {
@@ -180,46 +270,89 @@ a {
   color: #fff;
   cursor: pointer;
   margin-bottom: 20px;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.canvas-close:hover {
+  color: #ff4c4c;
+  background: rgba(255, 76, 76, 0.1);
+  transform: scale(1.1);
 }
 
 /* MOBILE NAVIGATION */
 .canvas-menu ul {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 8px;
 }
 .canvas-menu li {
   position: relative;
 }
-.canvas-menu li a,
-.canvas-menu .dropdown-toggle {
+.canvas-menu li a {
   color: #fff;
   font-weight: 600;
-  display: block; /* Ensures the whole clickable area is a block */
-  padding: 10px 0;
+  display: block;
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 5px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
 }
-.canvas-menu .dropdown {
-  display: none;
-  flex-direction: column;
-  background: #222;
-  margin-top: 10px;
+
+.canvas-menu li a:hover {
+  color: #ff4c4c;
+  background: rgba(255, 76, 76, 0.1);
+  border-color: rgba(255, 76, 76, 0.3);
+  transform: translateX(5px);
 }
-.canvas-menu .dropdown.active {
-  display: flex;
+
+/* Active state for mobile menu */
+.canvas-menu li a.active {
+  color: #fff;
+  background: linear-gradient(135deg, #ff4c4c, #ff0000);
+  border-color: #ff0000;
+  box-shadow: 0 4px 15px rgba(255, 76, 76, 0.3);
 }
+
 .canvas-social {
   display: flex;
   gap: 15px;
-  margin-top: 30px;
+  margin-top: 40px;
   align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.canvas-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
 .canvas-social a i {
   color: #fff;
-  font-size: 22px; /* Increased mobile social icon size */
-  transition: color 0.3s;
+  font-size: 18px;
+  transition: all 0.3s ease;
 }
+
+.canvas-social a:hover {
+  background: rgba(255, 76, 76, 0.15);
+  border-color: #ff4c4c;
+  transform: scale(1.1);
+}
+
 .canvas-social a:hover i {
-  color: red;
+  color: #ff4c4c;
 }
 
 /* RESPONSIVE */
@@ -234,63 +367,15 @@ a {
 }
 @media (max-width: 768px) {
   .header-content {
-    padding: 0 20px; /* Add some horizontal padding for smaller screens */
+    padding: 0 20px;
   }
   .offcanvas-menu-wrapper {
     width: 250px;
   }
 }
 
-/* USER ICONS (Desktop & Mobile) */
-.user-actions a,
-.canvas-social a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px; /* Uniform icon size */
-  color: #fff;
-  transition: color 0.3s, transform 0.3s ease-in-out;
-}
-
-/* Hover effect for user & logout icons */
-.user-actions a:hover i,
-.canvas-social a:hover i {
-  color: #ff4c4c; /* Red accent */
-  transform: scale(1.2);
-  transition: color 0.3s, transform 0.3s ease-in-out;
-}
-
-/* Mobile menu icons */
-.canvas-social a i {
-  font-size: 24px;
-}
-
-/* Adjust spacing in mobile menu */
-.canvas-social {
-  display: flex;
-  gap: 15px;
-  margin-top: 30px;
-  align-items: center;
-}
-
-/* Optional: cursor pointer for icons */
-.user-actions a,
-.canvas-social a {
-  cursor: pointer;
-}
-
-/* Optional: smooth transition for mobile toggle */
-.canvas-open i,
-.canvas-close i {
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-.canvas-open i:hover,
-.canvas-close i:hover {
-  color: #ff4c4c;
-  transform: scale(1.2);
-}
-
-/* Ensure mobile overlay closes menu nicely */
-.offcanvas-menu-overlay.active {
-  cursor: pointer;
+/* Smooth transitions */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

@@ -1,5 +1,4 @@
 <!-- Overlay for mobile menu -->
-
 <div
   class="offcanvas-menu-overlay"
   [class.active]="menuOpen"
@@ -14,29 +13,99 @@
 
   <nav class="canvas-menu mobile-menu">
     <ul>
-      <li (click)="closeMenu()"><a routerLink="/">Home</a></li>
-      <li (click)="closeMenu()"><a routerLink="/about">About Us</a></li>
-      <li (click)="closeMenu()"><a routerLink="/calculator">Calculator</a></li>
-      <li (click)="closeMenu()"><a routerLink="/services">Services</a></li>
-      <li (click)="closeMenu()"><a routerLink="/team">Our Team</a></li>
+      <!-- Default (not logged in) -->
+      <ng-container *ngIf="!isLoggedIn">
+        <li (click)="closeMenu()">
+          <a
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Home
+          </a>
+        </li>
+        <li (click)="closeMenu()">
+          <a routerLink="/about" routerLinkActive="active"> About Us </a>
+        </li>
+        <li (click)="closeMenu()">
+          <a routerLink="/calculator" routerLinkActive="active"> Calculator </a>
+        </li>
+        <li (click)="closeMenu()">
+          <a routerLink="/services" routerLinkActive="active"> Services </a>
+        </li>
+        <li (click)="closeMenu()">
+          <a routerLink="/team" routerLinkActive="active"> Our Team </a>
+        </li>
+        <li (click)="closeMenu()">
+          <a routerLink="/contact" routerLinkActive="active"> Contact </a>
+        </li>
+      </ng-container>
 
-      <li (click)="closeMenu()"><a routerLink="/contact">Contact</a></li>
+      <!-- Logged in as USER -->
+      <ng-container *ngIf="isLoggedIn">
+        <li>
+          <a routerLink="/team" routerLinkActive="active">
+            <i class="fa fa-tachometer-alt nav-icon-left"></i>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a routerLink="/team" routerLinkActive="active">
+            <i class="fa fa-utensils nav-icon-left"></i>
+            Diet
+          </a>
+        </li>
+        <li>
+          <a routerLink="/team" routerLinkActive="active">
+            <i class="fa fa-dumbbell nav-icon-left"></i>
+            Workout
+          </a>
+        </li>
+        <li>
+          <a routerLink="/team" routerLinkActive="active">
+            <i class="fa fa-comment-dots nav-icon-left"></i>
+            Feedback
+          </a>
+        </li>
+      </ng-container>
+
+      <!-- Logged in as ADMIN -->
+      <!-- <ng-container *ngIf="isLoggedIn && userRole === 'ADMIN'">
+            <li>
+              <a routerLink="/team" routerLinkActive="active">
+                <i class="fa fa-tachometer-alt nav-icon-left"></i>
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <a routerLink="/team" routerLinkActive="active">
+                <i class="fa fa-users-cog nav-icon-left"></i>
+                Client
+              </a>
+            </li>
+            <li>
+              <a routerLink="/team" routerLinkActive="active">
+                <i class="fa fa-comment-dots nav-icon-left"></i>
+                Feedback
+              </a>
+            </li>
+          </ng-container> -->
     </ul>
   </nav>
 
   <div class="canvas-social">
     <ng-container *ngIf="isLoggedIn; else mobileLoginIcon">
-      <a class="nav-icon" routerLink="/user-profile">
-        <i class="fa fa-user" (click)="closeMenu()"></i>
+      <a class="nav-icon" routerLink="/user-profile" (click)="closeMenu()">
+        <i class="fa fa-user"></i>
       </a>
-      <a class="nav-icon logout-icon" (click)="logout()">
-        <i class="fa fa-sign-out" (click)="closeMenu()"></i>
+      <a class="nav-icon logout-icon" (click)="logout(); closeMenu()">
+        <i class="fa fa-sign-out"></i>
       </a>
     </ng-container>
 
     <ng-template #mobileLoginIcon>
-      <a class="nav-icon" routerLink="/login">
-        <i class="fa fa-sign-in-alt" (click)="closeMenu()"></i>
+      <a class="nav-icon" routerLink="/login" (click)="closeMenu()">
+        <i class="fa fa-sign-in-alt"></i>
       </a>
     </ng-template>
   </div>
@@ -56,19 +125,99 @@
 
       <nav class="nav-menu">
         <ul>
-          <li>
-            <a
-              routerLink="/"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              >Home</a
-            >
-          </li>
-          <li><a routerLink="/about">About Us</a></li>
-          <li><a routerLink="/calculator">Calculator</a></li>
-          <li><a routerLink="/services">Services</a></li>
-          <li><a routerLink="/team">Our Team</a></li>
-          <li><a routerLink="/contact">Contact</a></li>
+          <!-- Default (not logged in) -->
+          <ng-container *ngIf="!isLoggedIn">
+            <li>
+              <a
+                routerLink="/home"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <i class="fa fa-home nav-icon-left"></i>
+                Home
+              </a>
+            </li>
+            <li>
+              <a routerLink="/about" routerLinkActive="active">
+                <i class="fa fa-info-circle nav-icon-left"></i>
+                About Us
+              </a>
+            </li>
+            <li>
+              <a routerLink="/calculator" routerLinkActive="active">
+                <i class="fa fa-calculator nav-icon-left"></i>
+                Calculator
+              </a>
+            </li>
+            <li>
+              <a routerLink="/services" routerLinkActive="active">
+                <i class="fa fa-dumbbell nav-icon-left"></i>
+                Services
+              </a>
+            </li>
+            <li>
+              <a routerLink="/team" routerLinkActive="active">
+                <i class="fa fa-users nav-icon-left"></i>
+                Our Team
+              </a>
+            </li>
+            <li>
+              <a routerLink="/contact" routerLinkActive="active">
+                <i class="fa fa-envelope nav-icon-left"></i>
+                Contact
+              </a>
+            </li>
+          </ng-container>
+
+          <!-- Logged in as USER -->
+          <ng-container *ngIf="isLoggedIn">
+            <li>
+              <a routerLink="/team" routerLinkActive="active">
+                <i class="fa fa-tachometer-alt nav-icon-left"></i>
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <a routerLink="/team" routerLinkActive="active">
+                <i class="fa fa-utensils nav-icon-left"></i>
+                Diet
+              </a>
+            </li>
+            <li>
+              <a routerLink="/team" routerLinkActive="active">
+                <i class="fa fa-dumbbell nav-icon-left"></i>
+                Workout
+              </a>
+            </li>
+            <li>
+              <a routerLink="/team" routerLinkActive="active">
+                <i class="fa fa-comment-dots nav-icon-left"></i>
+                Feedback
+              </a>
+            </li>
+          </ng-container>
+
+          <!-- Logged in as ADMIN -->
+          <!-- <ng-container *ngIf="isLoggedIn && userRole === 'ADMIN'">
+            <li>
+              <a routerLink="/team" routerLinkActive="active">
+                <i class="fa fa-tachometer-alt nav-icon-left"></i>
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <a routerLink="/team" routerLinkActive="active">
+                <i class="fa fa-users-cog nav-icon-left"></i>
+                Client
+              </a>
+            </li>
+            <li>
+              <a routerLink="/team" routerLinkActive="active">
+                <i class="fa fa-comment-dots nav-icon-left"></i>
+                Feedback
+              </a>
+            </li>
+          </ng-container> -->
         </ul>
       </nav>
 
@@ -76,16 +225,26 @@
         <div class="user-actions">
           <!-- Profile or Login -->
           <ng-container *ngIf="isLoggedIn; else loginIcon">
-            <a class="nav-icon" routerLink="/user-profile">
+            <a
+              class="nav-icon"
+              routerLink="/user-profile"
+              routerLinkActive="active"
+              title="Profile"
+            >
               <i class="fa fa-user"></i>
             </a>
-            <a class="nav-icon logout-icon" (click)="logout()">
+            <a class="nav-icon logout-icon" (click)="logout()" title="Logout">
               <i class="fa fa-sign-out"></i>
             </a>
           </ng-container>
 
           <ng-template #loginIcon>
-            <a class="nav-icon" routerLink="/login">
+            <a
+              class="nav-icon"
+              routerLink="/login"
+              routerLinkActive="active"
+              title="Login"
+            >
               <i class="fa fa-sign-in-alt"></i>
             </a>
           </ng-template>
