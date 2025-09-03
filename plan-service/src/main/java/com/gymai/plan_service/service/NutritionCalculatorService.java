@@ -22,13 +22,18 @@ public class NutritionCalculatorService {
         log.info("Adjusted target calories for goal {}: {}", user.getGoal(), targetCalories);
 
         // Calculate macronutrient targets
-        MacroTargets macros = calculateMacroTargets(targetCalories, user.getGoal());
+        MacroTargets macros = calculateMacroTargets(user, targetCalories, user.getGoal());
         log.info("Macro targets -> Protein: {}g, Carbs: {}g, Fat: {}g", macros.protein, macros.carbs, macros.fat);
 
-        return new NutritionalNeeds(targetCalories, macros.protein, macros.carbs, macros.fat);
+        return new NutritionalNeeds(
+                Math.round(targetCalories),
+                Math.round(macros.protein),
+                Math.round(macros.carbs),
+                Math.round(macros.fat));
     }
 
     private double calculateBMR(User user) {
+        // Mifflin-St Jeor Equation (most accurate widely used formula)
         if ("MALE".equalsIgnoreCase(user.getGender())) {
             return (10 * user.getWeight()) + (6.25 * user.getHeight()) - (5 * user.getAge()) + 5;
         } else {
@@ -39,19 +44,19 @@ public class NutritionCalculatorService {
     private double calculateTDEE(double bmr, String activityLevel) {
         double activityMultiplier;
         switch (activityLevel.toUpperCase()) {
-            case "SEDENTARY":
+            case "SEDENTARY": // little to no exercise
                 activityMultiplier = 1.2;
                 break;
-            case "LIGHTLY_ACTIVE":
+            case "LIGHTLY_ACTIVE": // light exercise 1–3 days/week
                 activityMultiplier = 1.375;
                 break;
-            case "MODERATELY_ACTIVE":
+            case "MODERATELY_ACTIVE": // moderate exercise 3–5 days/week
                 activityMultiplier = 1.55;
                 break;
-            case "VERY_ACTIVE":
+            case "VERY_ACTIVE": // hard exercise 6–7 days/week
                 activityMultiplier = 1.725;
                 break;
-            case "EXTREMELY_ACTIVE":
+            case "EXTREMELY_ACTIVE": // very intense training / physical job
                 activityMultiplier = 1.9;
                 break;
             default:
@@ -64,58 +69,63 @@ public class NutritionCalculatorService {
     private double adjustCaloriesForGoal(double tdee, String goal) {
         switch (goal.toUpperCase()) {
             case "WEIGHT_LOSS":
-                return tdee - 500; // deficit
+                return tdee - 500; // ~0.45 kg loss per week
             case "WEIGHT_GAIN":
-                return tdee + 500; // surplus
+                return tdee + 500; // ~0.45 kg gain per week
             case "MUSCLE_GAIN":
-                return tdee + 300; // surplus
+                return tdee + 300; // lean bulk approach
             case "MAINTENANCE":
             default:
                 return tdee;
         }
     }
 
-    private MacroTargets calculateMacroTargets(double calories, String goal) {
+    private MacroTargets calculateMacroTargets(User user, double calories, String goal) {
         double protein, carbs, fat;
 
+        // Protein recommendation based on body weight (grams/kg)
+        double proteinPerKg;
         switch (goal.toUpperCase()) {
             case "WEIGHT_LOSS":
-                protein = calories * 0.35 / 4;
-                carbs = calories * 0.35 / 4;
-                fat = calories * 0.30 / 9;
+                proteinPerKg = 2.0; // higher protein to preserve muscle
                 break;
             case "MUSCLE_GAIN":
-                protein = calories * 0.30 / 4;
-                carbs = calories * 0.45 / 4;
-                fat = calories * 0.25 / 9;
+                proteinPerKg = 1.8; // optimal for hypertrophy
                 break;
             case "WEIGHT_GAIN":
-                protein = calories * 0.25 / 4;
-                carbs = calories * 0.50 / 4;
-                fat = calories * 0.25 / 9;
+                proteinPerKg = 1.6; // moderate surplus protein
                 break;
             case "MAINTENANCE":
             default:
-                protein = calories * 0.25 / 4;
-                carbs = calories * 0.45 / 4;
-                fat = calories * 0.30 / 9;
+                proteinPerKg = 1.6;
         }
+
+        protein = proteinPerKg * user.getWeight();
+        double proteinCalories = protein * 4;
+
+        // Fat: 25% of calories
+        double fatCalories = calories * 0.25;
+        fat = fatCalories / 9;
+
+        // Carbs = remaining calories
+        double carbsCalories = calories - (proteinCalories + fatCalories);
+        carbs = carbsCalories / 4;
 
         return new MacroTargets(protein, carbs, fat);
     }
 
     // Inner classes for data structure
     public static class NutritionalNeeds {
-        public final double calories;
-        public final double protein;
-        public final double carbs;
-        public final double fat;
+        public final long calories;
+        public final long protein;
+        public final long carbs;
+        public final long fat;
 
         public NutritionalNeeds(double calories, double protein, double carbs, double fat) {
-            this.calories = calories;
-            this.protein = protein;
-            this.carbs = carbs;
-            this.fat = fat;
+            this.calories = Math.round(calories);
+            this.protein = Math.round(protein);
+            this.carbs = Math.round(carbs);
+            this.fat = Math.round(fat);
         }
     }
 

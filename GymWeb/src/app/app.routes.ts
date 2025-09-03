@@ -21,6 +21,7 @@ import { DashboardComponent } from './plan/dashboard-component/dashboard-compone
 import { LearnMore } from './learn-more/learn-more';
 import { UserProfile } from './user-profile/user-profile';
 import { HomeComponent } from './home-component/home-component';
+import { SupportTicketUser } from './dashboard/user-dashboard/support-ticket-user/support-ticket-user';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -40,6 +41,7 @@ export const routes: Routes = [
   { path: 'learn-more', component: LearnMore },
   { path: 'user-profile', component: UserProfile },
   { path: 'home', component: HomeComponent },
+  {path:'user-ticket', component: SupportTicketUser},
 
   // User Routes (Protected in real setup)
   { path: 'dashboard', component: UserDashboard },
