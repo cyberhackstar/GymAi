@@ -274,3 +274,11 @@
 2025-09-04 18:13:18.803 [http-nio-8081-exec-1] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
 2025-09-04 18:13:19.478 [http-nio-8081-exec-1] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=test@test.com, name=test, eventType=LOGIN)
 2025-09-04 18:13:19.478 [http-nio-8081-exec-1] INFO  c.g.a.controller.AuthController - Login successful for email: test@test.com
+2025-09-04 19:51:05.094 [http-nio-8081-exec-4] INFO  c.g.a.controller.AuthController - Login attempt for email: test@test.com
+2025-09-04 19:51:05.101 [http-nio-8081-exec-4] INFO  c.g.auth_service.service.AuthService - Authenticating user: test@test.com
+2025-09-04 19:51:05.101 [http-nio-8081-exec-4] DEBUG c.g.a.security.MyUserDetailsService - Attempting to load user by email: test@test.com
+2025-09-04 19:51:05.466 [http-nio-8081-exec-4] INFO  c.g.a.security.MyUserDetailsService - User found: test@test.com
+2025-09-04 19:51:05.467 [http-nio-8081-exec-4] DEBUG c.g.a.security.UserPrinciple - Created UserPrinciple for user: test@test.com
+2025-09-04 19:51:05.467 [http-nio-8081-exec-4] DEBUG c.g.a.security.UserPrinciple - Authorities: USER
+2025-09-04 19:51:06.205 [http-nio-8081-exec-4] INFO  c.g.a.messaging.RabbitMqSender - ✅ Sent message to exchange [gymai.events] with routing key [user.login]: UserEvent(email=test@test.com, name=test, eventType=LOGIN)
+2025-09-04 19:51:06.205 [http-nio-8081-exec-4] INFO  c.g.a.controller.AuthController - Login successful for email: test@test.com

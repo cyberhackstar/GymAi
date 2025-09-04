@@ -1,68 +1,301 @@
-<div class="gymai-page">
-  <h1 class="gymai-title">My Support Tickets</h1>
-
-  <!-- New Ticket Form -->
-  <div class="gymai-bar ticket-form">
-    <input
-      class="gymai-input"
-      [(ngModel)]="newTicket.subject"
-      placeholder="Subject"
-    />
-    <textarea
-      class="gymai-input"
-      [(ngModel)]="newTicket.description"
-      placeholder="Describe your issue"
-    ></textarea>
-    <button class="gymai-btn gymai-btn-primary" (click)="submitTicket()">
-      Submit Ticket
-    </button>
+<div class="support-container">
+  <!-- Hero Header Section -->
+  <div class="hero-header">
+    <div class="hero-background">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-headset"></i>
+        Support Center
+      </div>
+      <h1 class="hero-title">
+        My Support <span class="gradient-text">Tickets</span>
+      </h1>
+      <p class="hero-subtitle">
+        Track and manage your support requests with our advanced ticketing
+        system
+      </p>
+    </div>
   </div>
 
-  <!-- Ticket List -->
-  <div class="table-container">
-    <table class="gymai-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Subject</th>
-          <th>Status</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let ticket of tickets" (click)="openTicket(ticket)">
-          <td>{{ ticket.id }}</td>
-          <td>{{ ticket.subject }}</td>
-          <td>
-            <span class="status-badge" [ngClass]="ticket.status">
+  <div class="content-wrapper">
+    <!-- Success Message -->
+    <div class="success-message">
+      <i class="fas fa-check-circle"></i>
+      Ticket submitted successfully!
+    </div>
+
+    <!-- New Ticket Form -->
+    <div class="ticket-form-section">
+      <div class="section-header">
+        <div class="section-badge">
+          <i class="fas fa-plus"></i>
+          New Ticket
+        </div>
+        <h2 class="section-title">Create Support Ticket</h2>
+        <p class="section-subtitle">
+          Fill out the form below to submit your support request
+        </p>
+      </div>
+
+      <div class="ticket-form-card">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-heading"></i>
+              Subject *
+            </label>
+            <input
+              class="form-input"
+              [(ngModel)]="newTicket.subject"
+              placeholder="Brief description of your issue"
+              type="text"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-flag"></i>
+              Priority
+            </label>
+            <select class="form-select" [(ngModel)]="newTicket.priority">
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+
+          <div class="form-group full-width">
+            <label class="form-label">
+              <i class="fas fa-align-left"></i>
+              Description *
+            </label>
+            <textarea
+              class="form-textarea"
+              [(ngModel)]="newTicket.description"
+              placeholder="Provide detailed information about your issue"
+              rows="4"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button
+              class="btn-primary"
+              [class.loading]="isLoading"
+              [disabled]="
+                !newTicket.subject || !newTicket.description || isLoading
+              "
+              (click)="submitTicket()"
+            >
+              <span *ngIf="!isLoading">
+                <i class="fas fa-paper-plane"></i>
+                Submit Ticket
+              </span>
+              <span *ngIf="isLoading" class="loading-content">
+                <i class="fas fa-spinner fa-spin"></i>
+                Submitting...
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <div class="filter-buttons">
+        <button
+          class="filter-btn"
+          [class.active]="filterStatus === 'all'"
+          (click)="setFilter('all')"
+        >
+          <i class="fas fa-list"></i>
+          All Tickets
+        </button>
+        <button
+          class="filter-btn"
+          [class.active]="filterStatus === 'open'"
+          (click)="setFilter('open')"
+        >
+          <i class="fas fa-clock"></i>
+          Open
+        </button>
+        <button
+          class="filter-btn"
+          [class.active]="filterStatus === 'inprogress'"
+          (click)="setFilter('inprogress')"
+        >
+          <i class="fas fa-spinner"></i>
+          In Progress
+        </button>
+        <button
+          class="filter-btn"
+          [class.active]="filterStatus === 'resolved'"
+          (click)="setFilter('resolved')"
+        >
+          <i class="fas fa-check-circle"></i>
+          Resolved
+        </button>
+      </div>
+    </div>
+
+    <!-- Tickets List -->
+    <div class="tickets-section">
+      <div class="section-header">
+        <div class="section-badge">
+          <i class="fas fa-ticket-alt"></i>
+          Your Tickets
+        </div>
+        <h2 class="section-title">Support Tickets</h2>
+        <p class="section-subtitle">
+          View and manage your submitted support requests
+        </p>
+      </div>
+
+      <div class="tickets-grid" *ngIf="filteredTickets.length > 0">
+        <div
+          class="ticket-card"
+          *ngFor="let ticket of filteredTickets; trackBy: trackByTicketId"
+          (click)="openTicket(ticket)"
+        >
+          <div class="ticket-header">
+            <div class="ticket-id">
+              <i class="fas fa-hashtag"></i>
+              {{ ticket.id }}
+            </div>
+            <div
+              class="ticket-priority"
+              [class]="'priority-' + ticket.priority?.toLowerCase()"
+            >
+              <i [class]="getPriorityIcon(ticket.priority || 'Medium')"></i>
+              {{ ticket.priority }}
+            </div>
+          </div>
+
+          <div class="ticket-content">
+            <h3 class="ticket-subject">{{ ticket.subject }}</h3>
+            <p class="ticket-description">
+              {{ ticket.description | slice : 0 : 100
+              }}{{ ticket.description.length > 100 ? "..." : "" }}
+            </p>
+          </div>
+
+          <div class="ticket-footer">
+            <div
+              class="ticket-status"
+              [class]="
+                'status-' + ticket.status.toLowerCase().replace(' ', '-')
+              "
+            >
+              <i [class]="getStatusIcon(ticket.status)"></i>
               {{ ticket.status }}
-            </span>
-          </td>
-          <td>{{ ticket.date }}</td>
-        </tr>
-      </tbody>
-    </table>
+            </div>
+            <div class="ticket-date">
+              <i class="fas fa-calendar-alt"></i>
+              {{ ticket.date }}
+            </div>
+          </div>
+
+          <div class="card-hover-effect">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="filteredTickets.length === 0">
+        <div class="empty-icon">
+          <i class="fas fa-inbox"></i>
+        </div>
+        <h3>No tickets found</h3>
+        <p>
+          No tickets match the current filter. Try adjusting your filter or
+          create a new ticket.
+        </p>
+      </div>
+    </div>
   </div>
 
   <!-- Modal -->
-  <div
-    class="modal-overlay"
-    *ngIf="selectedTicket"
-    (click)="closeModal($event)"
-  >
+  <div class="modal-overlay" *ngIf="selectedTicket" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
-      <h2>Ticket #{{ selectedTicket.id }}</h2>
-      <p><strong>Subject:</strong> {{ selectedTicket.subject }}</p>
-      <p><strong>Status:</strong> {{ selectedTicket.status }}</p>
-      <p><strong>Date:</strong> {{ selectedTicket.date }}</p>
-      <p><strong>Description:</strong></p>
-      <p>{{ selectedTicket.description }}</p>
-      <button
-        class="gymai-btn gymai-btn-primary"
-        (click)="selectedTicket = null"
-      >
-        Close
-      </button>
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fas fa-ticket-alt"></i>
+          Ticket #{{ selectedTicket.id }}
+        </div>
+        <button class="modal-close" (click)="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="ticket-details">
+          <div class="detail-grid">
+            <div class="detail-item">
+              <label>Subject</label>
+              <span>{{ selectedTicket.subject }}</span>
+            </div>
+            <div class="detail-item">
+              <label>Status</label>
+              <div
+                class="ticket-status"
+                [class]="
+                  'status-' +
+                  selectedTicket.status.toLowerCase().replace(' ', '-')
+                "
+              >
+                <i [class]="getStatusIcon(selectedTicket.status)"></i>
+                {{ selectedTicket.status }}
+              </div>
+            </div>
+            <div class="detail-item">
+              <label>Priority</label>
+              <div
+                class="ticket-priority"
+                [class]="'priority-' + selectedTicket.priority?.toLowerCase()"
+              >
+                <i
+                  [class]="getPriorityIcon(selectedTicket.priority || 'Medium')"
+                ></i>
+                {{ selectedTicket.priority }}
+              </div>
+            </div>
+            <div class="detail-item">
+              <label>Date Created</label>
+              <span>
+                <i class="fas fa-calendar-alt"></i>
+                {{ selectedTicket.date }}
+              </span>
+            </div>
+          </div>
+
+          <div class="description-section">
+            <label>Description</label>
+            <div class="description-content">
+              {{ selectedTicket.description }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeModal()">
+          <i class="fas fa-times"></i>
+          Close
+        </button>
+        <button
+          class="btn-primary"
+          *ngIf="selectedTicket.status !== 'Resolved'"
+        >
+          <i class="fas fa-comment"></i>
+          Add Comment
+        </button>
+      </div>
     </div>
   </div>
 </div>

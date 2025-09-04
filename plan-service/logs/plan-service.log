@@ -6725,3 +6725,18 @@ java.lang.RuntimeException: User not found with email: null
 2025-09-04 18:15:35.708 [http-nio-8083-exec-8] INFO  c.g.p.c.OptimizedFitnessController - Fetching user profile for email: test@test.com
 2025-09-04 18:15:35.747 [http-nio-8083-exec-8] DEBUG c.g.p.service.CacheService - Retrieved cached user profile for email: test@test.com
 2025-09-04 18:15:35.749 [http-nio-8083-exec-8] DEBUG c.g.p.c.OptimizedFitnessController - Retrieved user profile from cache for email: test@test.com
+2025-09-04 19:51:06.559 [http-nio-8083-exec-1] INFO  c.g.p.c.OptimizedFitnessController - Checking profile status for email: test@test.com
+2025-09-04 19:51:07.297 [http-nio-8083-exec-1] DEBUG c.g.p.service.CacheService - Cached user profile for email: test@test.com
+2025-09-04 19:51:07.297 [http-nio-8083-exec-1] INFO  c.g.p.c.OptimizedFitnessController - Profile complete for email: test@test.com
+2025-09-04 19:51:07.365 [http-nio-8083-exec-3] INFO  c.g.p.c.OptimizedFitnessController - Fetching optimized plans for email: test@test.com
+2025-09-04 19:51:07.451 [http-nio-8083-exec-3] DEBUG c.g.p.service.CacheService - Retrieved cached plans response for email: test@test.com
+2025-09-04 19:51:07.453 [http-nio-8083-exec-3] INFO  c.g.p.c.OptimizedFitnessController - Retrieved complete plans from cache for email: test@test.com
+2025-09-04 19:56:07.392 [http-nio-8083-exec-6] INFO  c.g.p.c.OptimizedFitnessController - Checking profile status for email: test@test.com
+2025-09-04 19:56:07.421 [http-nio-8083-exec-6] DEBUG c.g.p.service.CacheService - Retrieved cached user profile for email: test@test.com
+2025-09-04 19:56:07.421 [http-nio-8083-exec-6] DEBUG c.g.p.c.OptimizedFitnessController - Found cached profile for email: test@test.com
+2025-09-04 19:56:07.508 [http-nio-8083-exec-8] INFO  c.g.p.c.OptimizedFitnessController - Fetching optimized plans for email: test@test.com
+2025-09-04 19:56:07.554 [http-nio-8083-exec-8] DEBUG c.g.p.service.CacheService - Retrieved cached plans response for email: test@test.com
+2025-09-04 19:56:07.554 [http-nio-8083-exec-8] INFO  c.g.p.c.OptimizedFitnessController - Retrieved complete plans from cache for email: test@test.com
+2025-09-04 19:56:38.445 [http-nio-8083-exec-1] INFO  c.g.p.c.OptimizedFitnessController - Fetching optimized plans for email: test@test.com
+2025-09-04 19:56:38.494 [http-nio-8083-exec-1] DEBUG c.g.p.service.CacheService - Retrieved cached plans response for email: test@test.com
+2025-09-04 19:56:38.494 [http-nio-8083-exec-1] INFO  c.g.p.c.OptimizedFitnessController - Retrieved complete plans from cache for email: test@test.com

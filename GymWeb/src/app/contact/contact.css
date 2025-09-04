@@ -575,6 +575,63 @@
   color: #ccc;
 }
 
+.form-select {
+  cursor: pointer;
+
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+  /* -webkit-appearance: none;
+  -moz-appearance: none;
+   appearance: none;  */
+}
+/* Remove native dropdown arrows for all browsers */
+.form-select::-webkit-outer-spin-button,
+.form-select::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-select::-ms-expand {
+  display: none;
+}
+
+.form-select::-moz-focus-inner {
+  border: 0;
+}
+
+/* Firefox specific fix */
+.form-select {
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  text-overflow: "";
+}
+
+.form-select option {
+  background: #1a1a1a;
+  color: #fff;
+  /* padding: 8px 16px; */
+  border: none;
+}
+
+.form-select option:hover {
+  background: rgba(255, 76, 76, 0.1);
+}
+
+.form-select option:checked {
+  background: rgba(255, 76, 76, 0.2);
+  color: #ff4c4c;
+  /* font-weight: 600; */
+}
+
+/* Ensure single arrow on focus */
+/* .form-select:focus {
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+} */
+
 .input-icon {
   position: absolute;
   right: 15px;

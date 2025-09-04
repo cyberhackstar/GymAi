@@ -31,31 +31,31 @@ export class LoadingSpinner implements OnInit, OnDestroy {
   motivationQuotes: MotivationQuote[] = [
     {
       text: "The only bad workout is the one that didn't happen.",
-      author: 'Unknown',
+      author: 'GymAi',
     },
     {
       text: 'Push yourself because no one else is going to do it for you.',
-      author: 'Unknown',
+      author: 'GymAi',
     },
     {
       text: "Your body can do it. It's your mind you need to convince.",
-      author: 'Unknown',
+      author: 'GymAi',
     },
-    { text: "Don't wish for it. Work for it.", author: 'Unknown' },
+    { text: "Don't wish for it. Work for it.", author: 'GymAi' },
     {
       text: 'The pain you feel today will be the strength you feel tomorrow.',
-      author: 'Unknown',
+      author: 'GymAi',
     },
-    { text: "Success isn't given. It's earned in the gym.", author: 'Unknown' },
-    { text: 'Train like a beast, look like a beauty.', author: 'Unknown' },
-    { text: 'Sweat is fat crying.', author: 'Unknown' },
-    { text: 'Champions train, losers complain.', author: 'Unknown' },
-    { text: 'No pain, no gain. Shut up and train.', author: 'Unknown' },
+    { text: "Success isn't given. It's earned in the gym.", author: 'GymAi' },
+    { text: 'Train like a beast, look like a beauty.', author: 'GymAi' },
+    { text: 'Sweat is fat crying.', author: 'GymAi' },
+    { text: 'Champions train, losers complain.', author: 'GymAi' },
+    { text: 'No pain, no gain. Shut up and train.', author: 'GymAi' },
     {
       text: "You don't get what you wish for. You get what you work for.",
-      author: 'Unknown',
+      author: 'GymAi',
     },
-    { text: 'The gym is not a place for excuses.', author: 'Unknown' },
+    { text: 'The gym is not a place for excuses.', author: 'GymAi' },
   ];
 
   get currentQuote(): MotivationQuote {
@@ -80,7 +80,7 @@ export class LoadingSpinner implements OnInit, OnDestroy {
   get exerciseName(): string {
     switch (this.exercise) {
       case 'shoulder-press':
-        return 'Shoulder Press';
+        return 'Loading...';
       case 'bench-press':
         return 'Bench Press';
       case 'deadlift':

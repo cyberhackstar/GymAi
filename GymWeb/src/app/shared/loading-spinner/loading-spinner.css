@@ -119,14 +119,14 @@
 
 .shoulder-press-container .left-arm {
   top: 40px;
-  left: 30px;
+  left: 60%;
   transform-origin: top center;
   animation: shoulderPressLeft 2s infinite ease-in-out;
 }
 
 .shoulder-press-container .right-arm {
   top: 40px;
-  right: 30px;
+  right: 60%;
   transform-origin: top center;
   animation: shoulderPressRight 2s infinite ease-in-out;
 }
@@ -144,7 +144,26 @@
   bottom: -20px;
   left: 1px;
   transform-origin: top center;
-  animation: shoulderPressForearm 2s infinite ease-in-out;
+  /* animation: shoulderPressForearm 2s infinite ease-in-out; */
+}
+
+.shoulder-press-container .left-forearm {
+  width: 6px;
+  height: 22px;
+  position: absolute;
+  bottom: -20px;
+  left: 1px;
+  transform-origin: top center;
+  animation: shoulderPressForearmLeft 2s infinite ease-in-out;
+}
+.shoulder-press-container .right-forearm {
+  width: 6px;
+  height: 22px;
+  position: absolute;
+  bottom: -20px;
+  left: 1px;
+  transform-origin: top center;
+  animation: shoulderPressForearmRight 2s infinite ease-in-out;
 }
 
 .shoulder-press-container .weight {
@@ -211,7 +230,7 @@
   }
 }
 
-@keyframes shoulderPressForearm {
+@keyframes shoulderPressForearmLeft {
   0% {
     transform: rotate(30deg);
   }
@@ -226,6 +245,23 @@
   }
   100% {
     transform: rotate(30deg);
+  }
+}
+@keyframes shoulderPressForearmRight {
+  0% {
+    transform: rotate(-30deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(-30deg);
   }
 }
 
@@ -943,8 +979,8 @@
 
 .quote-icon {
   position: absolute;
-  top: 15px;
-  left: 20px;
+  top: 20px;
+  left: 11px;
   color: #ff4c4c;
   font-size: 1.2rem;
   opacity: 0.7;
@@ -955,7 +991,7 @@
   font-style: italic;
   font-size: 1rem;
   line-height: 1.4;
-  margin: 0 0 15px 0;
+  margin: 5px 0 15px 5px;
   padding-left: 20px;
   animation: fadeInOut 4s infinite;
 }
@@ -1050,6 +1086,10 @@
 @media (max-width: 480px) {
   .loading-container {
     padding: 15px;
+  }
+
+  .platform {
+    bottom: -5px;
   }
 
   .exercise-animation {

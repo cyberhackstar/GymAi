@@ -28,6 +28,7 @@
               id="email"
               [(ngModel)]="userProfile.email"
               name="email"
+              disabled
               required
             />
           </div>
@@ -433,7 +434,7 @@
 
   <!-- Loading Overlay -->
   <div class="loading-overlay" *ngIf="isLoading">
-    <app-loading-spinner message="Generating your diet and workout...">
+    <app-loading-spinner message="Cooking workouts and plating diets">
     </app-loading-spinner>
   </div>
 </div>

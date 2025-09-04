@@ -46,6 +46,8 @@ interface Stat {
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('statsSection', { static: false }) statsSection!: ElementRef;
 
+  isLoading: boolean = true;
+
   constructor(private router: Router) {}
 
   isMobile = window.innerWidth <= 768;
