@@ -1,24 +1,23 @@
 package com.gymai.plan_service.service;
 
 import com.gymai.plan_service.dto.*;
-import com.gymai.plan_service.entity.DietPlan;
-import com.gymai.plan_service.entity.User;
-import com.gymai.plan_service.entity.WorkoutPlan;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
 public class CacheService {
 
-  @Autowired
+  @Autowired(required = false)
   private RedisTemplate<String, Object> redisTemplate;
+
+  @Value("${cache.redis.enabled:false}")
+  private boolean cacheEnabled;
 
   // Cache Keys
   private static final String USER_PROFILE_KEY = "user:profile:";
@@ -30,239 +29,268 @@ public class CacheService {
   private static final String EXERCISES_BY_FOCUS_KEY = "exercises:focus:";
 
   // TTL in seconds
-  private static final long USER_PROFILE_TTL = 3600; // 1 hour
-  private static final long DIET_PLAN_TTL = 86400; // 24 hours
-  private static final long WORKOUT_PLAN_TTL = 86400; // 24 hours
-  private static final long NUTRITION_ANALYSIS_TTL = 3600; // 1 hour
-  private static final long PLANS_RESPONSE_TTL = 7200; // 2 hours
-  private static final long FOODS_BY_PREFERENCE_TTL = 21600; // 6 hours
-  private static final long EXERCISES_BY_FOCUS_TTL = 21600; // 6 hours
+  private static final long USER_PROFILE_TTL = 3600;
+  private static final long DIET_PLAN_TTL = 86400;
+  private static final long WORKOUT_PLAN_TTL = 86400;
+  private static final long NUTRITION_ANALYSIS_TTL = 3600;
+  private static final long PLANS_RESPONSE_TTL = 7200;
+  private static final long FOODS_BY_PREFERENCE_TTL = 21600;
+  private static final long EXERCISES_BY_FOCUS_TTL = 21600;
 
-  // User Profile Caching
-  public void cacheUserProfile(String email, UserProfileDTO userProfile) {
+  private boolean isCacheAvailableInternal() {
+    return cacheEnabled && redisTemplate != null;
+  }
+
+  // Safe cache operations with ClassCastException handling
+  private <T> T safeGet(String key, Class<T> expectedClass) {
+    if (!isCacheAvailableInternal()) {
+      return null;
+    }
+
     try {
-      String key = USER_PROFILE_KEY + email;
-      redisTemplate.opsForValue().set(key, userProfile, USER_PROFILE_TTL, TimeUnit.SECONDS);
-      log.debug("Cached user profile for email: {}", email);
+      Object cached = redisTemplate.opsForValue().get(key);
+      if (cached != null && expectedClass.isInstance(cached)) {
+        return expectedClass.cast(cached);
+      }
+    } catch (ClassCastException e) {
+      log.warn("ClassCastException for key: {} - clearing cache entry. Error: {}", key, e.getMessage());
+      // Clear the problematic cache entry
+      try {
+        redisTemplate.delete(key);
+      } catch (Exception deleteEx) {
+        log.warn("Failed to delete problematic cache entry: {}", key);
+      }
     } catch (Exception e) {
-      log.error("Error caching user profile for email: {}", email, e);
+      log.warn("Error retrieving from cache for key: {} - {}", key, e.getMessage());
+    }
+    return null;
+  }
+
+  private void safeSet(String key, Object value, long ttl) {
+    if (!isCacheAvailableInternal()) {
+      return;
+    }
+
+    try {
+      redisTemplate.opsForValue().set(key, value, ttl, TimeUnit.SECONDS);
+    } catch (Exception e) {
+      log.warn("Failed to cache for key: {} - {}", key, e.getMessage());
     }
   }
 
-  public UserProfileDTO getCachedUserProfile(String email) {
-    try {
-      String key = USER_PROFILE_KEY + email;
-      Object cached = redisTemplate.opsForValue().get(key);
-      if (cached instanceof UserProfileDTO) {
-        log.debug("Retrieved cached user profile for email: {}", email);
-        return (UserProfileDTO) cached;
-      }
-    } catch (Exception e) {
-      log.error("Error retrieving cached user profile for email: {}", email, e);
+  // User Profile Caching
+  public void cacheUserProfile(String email, UserProfileDTO userProfile) {
+    if (!isCacheAvailableInternal()) {
+      log.debug("Cache disabled - skipping user profile caching for email: {}", email);
+      return;
     }
-    return null;
+
+    String key = USER_PROFILE_KEY + email;
+    safeSet(key, userProfile, USER_PROFILE_TTL);
+    log.debug("Cached user profile for email: {}", email);
+  }
+
+  public UserProfileDTO getCachedUserProfile(String email) {
+    String key = USER_PROFILE_KEY + email;
+    UserProfileDTO cached = safeGet(key, UserProfileDTO.class);
+    if (cached != null) {
+      log.debug("Retrieved cached user profile for email: {}", email);
+    }
+    return cached;
   }
 
   // Diet Plan Caching
   public void cacheDietPlan(Long userId, SimpleDietPlanDTO dietPlan) {
-    try {
-      String key = DIET_PLAN_KEY + userId;
-      redisTemplate.opsForValue().set(key, dietPlan, DIET_PLAN_TTL, TimeUnit.SECONDS);
-      log.debug("Cached diet plan for userId: {}", userId);
-    } catch (Exception e) {
-      log.error("Error caching diet plan for userId: {}", userId, e);
+    if (!isCacheAvailableInternal()) {
+      log.debug("Cache disabled - skipping diet plan caching for userId: {}", userId);
+      return;
     }
+
+    String key = DIET_PLAN_KEY + userId;
+    safeSet(key, dietPlan, DIET_PLAN_TTL);
+    log.debug("Cached diet plan for userId: {}", userId);
   }
 
   public SimpleDietPlanDTO getCachedDietPlan(Long userId) {
-    try {
-      String key = DIET_PLAN_KEY + userId;
-      Object cached = redisTemplate.opsForValue().get(key);
-      if (cached instanceof SimpleDietPlanDTO) {
-        log.debug("Retrieved cached diet plan for userId: {}", userId);
-        return (SimpleDietPlanDTO) cached;
-      }
-    } catch (Exception e) {
-      log.error("Error retrieving cached diet plan for userId: {}", userId, e);
+    String key = DIET_PLAN_KEY + userId;
+    SimpleDietPlanDTO cached = safeGet(key, SimpleDietPlanDTO.class);
+    if (cached != null) {
+      log.debug("Retrieved cached diet plan for userId: {}", userId);
     }
-    return null;
+    return cached;
   }
 
   // Workout Plan Caching
   public void cacheWorkoutPlan(Long userId, SimpleWorkoutPlanDTO workoutPlan) {
-    try {
-      String key = WORKOUT_PLAN_KEY + userId;
-      redisTemplate.opsForValue().set(key, workoutPlan, WORKOUT_PLAN_TTL, TimeUnit.SECONDS);
-      log.debug("Cached workout plan for userId: {}", userId);
-    } catch (Exception e) {
-      log.error("Error caching workout plan for userId: {}", userId, e);
+    if (!isCacheAvailableInternal()) {
+      log.debug("Cache disabled - skipping workout plan caching for userId: {}", userId);
+      return;
     }
+
+    String key = WORKOUT_PLAN_KEY + userId;
+    safeSet(key, workoutPlan, WORKOUT_PLAN_TTL);
+    log.debug("Cached workout plan for userId: {}", userId);
   }
 
   public SimpleWorkoutPlanDTO getCachedWorkoutPlan(Long userId) {
-    try {
-      String key = WORKOUT_PLAN_KEY + userId;
-      Object cached = redisTemplate.opsForValue().get(key);
-      if (cached instanceof SimpleWorkoutPlanDTO) {
-        log.debug("Retrieved cached workout plan for userId: {}", userId);
-        return (SimpleWorkoutPlanDTO) cached;
-      }
-    } catch (Exception e) {
-      log.error("Error retrieving cached workout plan for userId: {}", userId, e);
+    String key = WORKOUT_PLAN_KEY + userId;
+    SimpleWorkoutPlanDTO cached = safeGet(key, SimpleWorkoutPlanDTO.class);
+    if (cached != null) {
+      log.debug("Retrieved cached workout plan for userId: {}", userId);
     }
-    return null;
+    return cached;
   }
 
   // Nutrition Analysis Caching
   public void cacheNutritionAnalysis(Long userId, NutritionAnalysis analysis) {
-    try {
-      String key = NUTRITION_ANALYSIS_KEY + userId;
-      redisTemplate.opsForValue().set(key, analysis, NUTRITION_ANALYSIS_TTL, TimeUnit.SECONDS);
-      log.debug("Cached nutrition analysis for userId: {}", userId);
-    } catch (Exception e) {
-      log.error("Error caching nutrition analysis for userId: {}", userId, e);
-    }
+    String key = NUTRITION_ANALYSIS_KEY + userId;
+    safeSet(key, analysis, NUTRITION_ANALYSIS_TTL);
+    log.debug("Cached nutrition analysis for userId: {}", userId);
   }
 
   public NutritionAnalysis getCachedNutritionAnalysis(Long userId) {
-    try {
-      String key = NUTRITION_ANALYSIS_KEY + userId;
-      Object cached = redisTemplate.opsForValue().get(key);
-      if (cached instanceof NutritionAnalysis) {
-        log.debug("Retrieved cached nutrition analysis for userId: {}", userId);
-        return (NutritionAnalysis) cached;
-      }
-    } catch (Exception e) {
-      log.error("Error retrieving cached nutrition analysis for userId: {}", userId, e);
+    String key = NUTRITION_ANALYSIS_KEY + userId;
+    NutritionAnalysis cached = safeGet(key, NutritionAnalysis.class);
+    if (cached != null) {
+      log.debug("Retrieved cached nutrition analysis for userId: {}", userId);
     }
-    return null;
+    return cached;
   }
 
   // Complete Plans Response Caching
   public void cachePlansResponse(String email, OptimizedPlansResponseDTO response) {
-    try {
-      String key = PLANS_RESPONSE_KEY + email;
-      redisTemplate.opsForValue().set(key, response, PLANS_RESPONSE_TTL, TimeUnit.SECONDS);
-      log.debug("Cached complete plans response for email: {}", email);
-    } catch (Exception e) {
-      log.error("Error caching plans response for email: {}", email, e);
-    }
+    String key = PLANS_RESPONSE_KEY + email;
+    safeSet(key, response, PLANS_RESPONSE_TTL);
+    log.debug("Cached complete plans response for email: {}", email);
   }
 
   public OptimizedPlansResponseDTO getCachedPlansResponse(String email) {
-    try {
-      String key = PLANS_RESPONSE_KEY + email;
-      Object cached = redisTemplate.opsForValue().get(key);
-      if (cached instanceof OptimizedPlansResponseDTO) {
-        log.debug("Retrieved cached plans response for email: {}", email);
-        return (OptimizedPlansResponseDTO) cached;
-      }
-    } catch (Exception e) {
-      log.error("Error retrieving cached plans response for email: {}", email, e);
+    String key = PLANS_RESPONSE_KEY + email;
+    OptimizedPlansResponseDTO cached = safeGet(key, OptimizedPlansResponseDTO.class);
+    if (cached != null) {
+      log.debug("Retrieved cached plans response for email: {}", email);
     }
-    return null;
+    return cached;
   }
 
-  // Foods by Preference Caching
-  @SuppressWarnings("unchecked")
+  // Foods by Preference Caching - SKIP CACHING OF ENTITY OBJECTS
   public void cacheFoodsByPreference(String preference, Object foods) {
-    try {
-      String key = FOODS_BY_PREFERENCE_KEY + preference;
-      redisTemplate.opsForValue().set(key, foods, FOODS_BY_PREFERENCE_TTL, TimeUnit.SECONDS);
-      log.debug("Cached foods for preference: {}", preference);
-    } catch (Exception e) {
-      log.error("Error caching foods for preference: {}", preference, e);
-    }
+    // Disable caching of entity objects to avoid ClassCastException
+    log.debug("Skipping foods cache for preference: {} to avoid ClassCastException", preference);
+    // Don't cache Food entities - they cause classloader issues
   }
 
   public Object getCachedFoodsByPreference(String preference) {
-    try {
-      String key = FOODS_BY_PREFERENCE_KEY + preference;
-      Object cached = redisTemplate.opsForValue().get(key);
-      if (cached != null) {
-        log.debug("Retrieved cached foods for preference: {}", preference);
-        return cached;
-      }
-    } catch (Exception e) {
-      log.error("Error retrieving cached foods for preference: {}", preference, e);
-    }
+    // Always return null to force database lookup
+    log.debug("Skipping foods cache lookup for preference: {} to avoid ClassCastException", preference);
     return null;
   }
 
-  // Exercises by Focus Area Caching
+  // Exercises by Focus Area Caching - SKIP CACHING OF ENTITY OBJECTS
   public void cacheExercisesByFocus(String focusArea, String difficulty, Object exercises) {
-    try {
-      String key = EXERCISES_BY_FOCUS_KEY + focusArea + ":" + difficulty;
-      redisTemplate.opsForValue().set(key, exercises, EXERCISES_BY_FOCUS_TTL, TimeUnit.SECONDS);
-      log.debug("Cached exercises for focusArea: {} and difficulty: {}", focusArea, difficulty);
-    } catch (Exception e) {
-      log.error("Error caching exercises for focusArea: {} and difficulty: {}", focusArea, difficulty, e);
-    }
+    // Disable caching of entity objects to avoid ClassCastException
+    log.debug("Skipping exercises cache for focusArea: {} and difficulty: {} to avoid ClassCastException",
+        focusArea, difficulty);
+    // Don't cache Exercise entities - they cause classloader issues
   }
 
   public Object getCachedExercisesByFocus(String focusArea, String difficulty) {
-    try {
-      String key = EXERCISES_BY_FOCUS_KEY + focusArea + ":" + difficulty;
-      Object cached = redisTemplate.opsForValue().get(key);
-      if (cached != null) {
-        log.debug("Retrieved cached exercises for focusArea: {} and difficulty: {}", focusArea, difficulty);
-        return cached;
-      }
-    } catch (Exception e) {
-      log.error("Error retrieving cached exercises for focusArea: {} and difficulty: {}", focusArea, difficulty, e);
-    }
+    // Always return null to force database lookup
+    log.debug("Skipping exercises cache lookup for focusArea: {} and difficulty: {} to avoid ClassCastException",
+        focusArea, difficulty);
     return null;
   }
 
   // Cache Invalidation Methods
   public void invalidateUserCache(String email) {
+    if (!isCacheAvailableInternal()) {
+      return;
+    }
+
     try {
       redisTemplate.delete(USER_PROFILE_KEY + email);
       redisTemplate.delete(PLANS_RESPONSE_KEY + email);
       log.debug("Invalidated user cache for email: {}", email);
     } catch (Exception e) {
-      log.error("Error invalidating user cache for email: {}", email, e);
+      log.warn("Failed to invalidate user cache for email: {} - {}", email, e.getMessage());
     }
   }
 
   public void invalidateUserPlansCache(Long userId) {
+    if (!isCacheAvailableInternal()) {
+      return;
+    }
+
     try {
       redisTemplate.delete(DIET_PLAN_KEY + userId);
       redisTemplate.delete(WORKOUT_PLAN_KEY + userId);
       redisTemplate.delete(NUTRITION_ANALYSIS_KEY + userId);
       log.debug("Invalidated plans cache for userId: {}", userId);
     } catch (Exception e) {
-      log.error("Error invalidating plans cache for userId: {}", userId, e);
+      log.warn("Failed to invalidate plans cache for userId: {} - {}", userId, e.getMessage());
     }
   }
 
   public void invalidateAllUserCache(String email, Long userId) {
+    if (!isCacheAvailableInternal()) {
+      return;
+    }
+
     try {
       invalidateUserCache(email);
       invalidateUserPlansCache(userId);
+      // Also clear any food/exercise caches that might cause issues
+      clearFoodAndExerciseCaches();
       log.debug("Invalidated all cache for email: {} and userId: {}", email, userId);
     } catch (Exception e) {
-      log.error("Error invalidating all cache for email: {} and userId: {}", email, userId, e);
+      log.warn("Failed to invalidate all cache for email: {} and userId: {} - {}", email, userId, e.getMessage());
     }
   }
 
-  // Cache Statistics
-  public boolean isCacheAvailable() {
+  private void clearFoodAndExerciseCaches() {
+    if (!isCacheAvailableInternal()) {
+      return;
+    }
+
     try {
-      redisTemplate.opsForValue().set("health:check", "ok", 5, TimeUnit.SECONDS);
-      return "ok".equals(redisTemplate.opsForValue().get("health:check"));
+      // Clear all food and exercise caches that might have classloader issues
+      redisTemplate.delete(redisTemplate.keys(FOODS_BY_PREFERENCE_KEY + "*"));
+      redisTemplate.delete(redisTemplate.keys(EXERCISES_BY_FOCUS_KEY + "*"));
+      log.debug("Cleared food and exercise caches");
     } catch (Exception e) {
-      log.error("Redis cache is not available", e);
+      log.warn("Failed to clear food and exercise caches: {}", e.getMessage());
+    }
+  }
+
+  // Cache Health Check
+  public boolean isCacheAvailable() {
+    if (!isCacheAvailableInternal()) {
+      return false;
+    }
+
+    try {
+      String testKey = "health:check:" + System.currentTimeMillis();
+      redisTemplate.opsForValue().set(testKey, "ok", 5, TimeUnit.SECONDS);
+      boolean result = "ok".equals(redisTemplate.opsForValue().get(testKey));
+      redisTemplate.delete(testKey);
+      return result;
+    } catch (Exception e) {
+      log.warn("Redis cache health check failed: {}", e.getMessage());
       return false;
     }
   }
 
   public void clearAllCache() {
+    if (!isCacheAvailableInternal()) {
+      log.warn("Cannot clear cache - Redis not available");
+      return;
+    }
+
     try {
       redisTemplate.getConnectionFactory().getConnection().flushAll();
       log.info("Cleared all Redis cache");
     } catch (Exception e) {
-      log.error("Error clearing all cache", e);
+      log.error("Error clearing all cache: {}", e.getMessage());
     }
   }
 }

@@ -32,6 +32,9 @@ public class OptimizedFitnessController {
   private NutritionCalculatorService nutritionCalculatorService;
 
   @Autowired
+  private CacheService cacheService;
+
+  @Autowired
   private UserMapper userMapper;
 
   @Autowired
@@ -40,12 +43,23 @@ public class OptimizedFitnessController {
   @Autowired
   private WorkoutPlanMapper workoutPlanMapper;
 
-  // Check if user profile exists and is complete
+  // Check if user profile exists and is complete (with caching)
   @PostMapping("/user/profile-check")
   public ResponseEntity<UserProfileCheckDTO> checkUserProfile(@RequestBody UserProfileDTO userRequest) {
     log.info("Checking profile status for email: {}", userRequest.getEmail());
 
     try {
+      // Check cache first
+      UserProfileDTO cachedProfile = cacheService.getCachedUserProfile(userRequest.getEmail());
+      if (cachedProfile != null) {
+        log.debug("Found cached profile for email: {}", userRequest.getEmail());
+        if (cachedProfile.isProfileComplete()) {
+          return ResponseEntity.ok(UserProfileCheckDTO.complete(cachedProfile));
+        } else {
+          return ResponseEntity.ok(UserProfileCheckDTO.incomplete(cachedProfile));
+        }
+      }
+
       Optional<User> userOpt = userRepository.findByEmail(userRequest.getEmail());
 
       if (!userOpt.isPresent()) {
@@ -55,6 +69,9 @@ public class OptimizedFitnessController {
 
       User user = userOpt.get();
       UserProfileDTO userDTO = userMapper.toDTO(user);
+
+      // Cache the profile
+      cacheService.cacheUserProfile(userRequest.getEmail(), userDTO);
 
       if (userDTO.isProfileComplete()) {
         log.info("Profile complete for email: {}", userRequest.getEmail());
@@ -71,12 +88,20 @@ public class OptimizedFitnessController {
     }
   }
 
-  // Get user plans (optimized) - fetches existing or generates if missing
+  // Get user plans (optimized with Redis caching) - fetches existing or generates
+  // if missing
   @PostMapping("/user/plans")
   public ResponseEntity<OptimizedPlansResponseDTO> getUserPlansOptimized(@RequestBody UserProfileDTO userRequest) {
     log.info("Fetching optimized plans for email: {}", userRequest.getEmail());
 
     try {
+      // Check complete plans cache first
+      OptimizedPlansResponseDTO cachedResponse = cacheService.getCachedPlansResponse(userRequest.getEmail());
+      if (cachedResponse != null) {
+        log.info("Retrieved complete plans from cache for email: {}", userRequest.getEmail());
+        return ResponseEntity.ok(cachedResponse);
+      }
+
       Optional<User> userOpt = userRepository.findByEmail(userRequest.getEmail());
 
       if (!userOpt.isPresent()) {
@@ -86,6 +111,9 @@ public class OptimizedFitnessController {
 
       User user = userOpt.get();
       UserProfileDTO userDTO = userMapper.toDTO(user);
+
+      // Cache user profile if not already cached
+      cacheService.cacheUserProfile(userRequest.getEmail(), userDTO);
 
       // Check if profile is complete
       if (!userDTO.isProfileComplete()) {
@@ -97,34 +125,51 @@ public class OptimizedFitnessController {
         return ResponseEntity.ok(response);
       }
 
-      // Use parallel execution for better performance
+      // Use parallel execution for better performance with caching
       CompletableFuture<SimpleDietPlanDTO> dietPlanFuture = CompletableFuture.supplyAsync(() -> {
+        // Check cache first
+        SimpleDietPlanDTO cachedDietPlan = cacheService.getCachedDietPlan(user.getUserId());
+        if (cachedDietPlan != null) {
+          return cachedDietPlan;
+        }
+
         var existingDietPlan = dietPlanService.getExistingDietPlan(user.getUserId());
         if (existingDietPlan == null) {
           log.info("Generating new diet plan for user: {}", userRequest.getEmail());
           var newDietPlan = dietPlanService.generateCustomDietPlan(user);
           return dietPlanMapper.toDTO(newDietPlan);
         }
-        return dietPlanMapper.toDTO(existingDietPlan);
+        SimpleDietPlanDTO planDTO = dietPlanMapper.toDTO(existingDietPlan);
+        // Cache the result
+        cacheService.cacheDietPlan(user.getUserId(), planDTO);
+        return planDTO;
       });
 
       CompletableFuture<SimpleWorkoutPlanDTO> workoutPlanFuture = CompletableFuture.supplyAsync(() -> {
+        // Check cache first
+        SimpleWorkoutPlanDTO cachedWorkoutPlan = cacheService.getCachedWorkoutPlan(user.getUserId());
+        if (cachedWorkoutPlan != null) {
+          return cachedWorkoutPlan;
+        }
+
         var existingWorkoutPlan = workoutPlanService.getExistingWorkoutPlan(user.getUserId());
         if (existingWorkoutPlan == null) {
           log.info("Generating new workout plan for user: {}", userRequest.getEmail());
           var newWorkoutPlan = workoutPlanService.generateCustomWorkoutPlan(user);
           return workoutPlanMapper.toDTO(newWorkoutPlan);
         }
-        return workoutPlanMapper.toDTO(existingWorkoutPlan);
+        SimpleWorkoutPlanDTO planDTO = workoutPlanMapper.toDTO(existingWorkoutPlan);
+        // Cache the result
+        cacheService.cacheWorkoutPlan(user.getUserId(), planDTO);
+        return planDTO;
       });
 
       // Wait for both plans to complete
       SimpleDietPlanDTO dietPlanDTO = dietPlanFuture.join();
       SimpleWorkoutPlanDTO workoutPlanDTO = workoutPlanFuture.join();
 
-      // Get nutrition analysis
-      var needs = nutritionCalculatorService.calculateNutritionalNeeds(user);
-      NutritionAnalysis nutritionAnalysis = createNutritionAnalysis(user, needs);
+      // Get nutrition analysis (with caching)
+      NutritionAnalysis nutritionAnalysis = getCachedOrCalculateNutrition(user);
 
       OptimizedPlansResponseDTO response = new OptimizedPlansResponseDTO();
       response.setUser(userDTO);
@@ -134,7 +179,10 @@ public class OptimizedFitnessController {
       response.setPlansExist(true);
       response.setSummary(generateSummary(userDTO, dietPlanDTO, workoutPlanDTO));
 
-      log.info("Successfully fetched/generated plans for email: {}", userRequest.getEmail());
+      // Cache the complete response
+      cacheService.cachePlansResponse(userRequest.getEmail(), response);
+
+      log.info("Successfully fetched/generated and cached plans for email: {}", userRequest.getEmail());
       return ResponseEntity.ok(response);
 
     } catch (Exception e) {
@@ -144,13 +192,12 @@ public class OptimizedFitnessController {
     }
   }
 
-  // Create/Update user profile and generate plans
   @PostMapping("/user/complete-profile")
   public ResponseEntity<OptimizedPlansResponseDTO> completeUserProfile(@RequestBody UserProfileDTO userProfile) {
-    log.info("Completing profile and generating plans for email: {}", userProfile.getEmail());
+    log.info("Completing (create/update) profile and generating plans for email: {}", userProfile.getEmail());
 
     try {
-      // Find or create user
+      // Find existing user or create a new one
       User user = userRepository.findByEmail(userProfile.getEmail()).orElse(new User());
 
       // Update user details from DTO
@@ -158,34 +205,43 @@ public class OptimizedFitnessController {
       final User savedUser = userRepository.save(user);
       log.info("User profile saved for email: {} with userId: {}", userProfile.getEmail(), savedUser.getUserId());
 
-      // Generate fresh plans in parallel
-      CompletableFuture<SimpleDietPlanDTO> dietPlanFuture = CompletableFuture.supplyAsync(() -> {
-        var dietPlan = dietPlanService.regenerateDietPlan(savedUser);
-        return dietPlanMapper.toDTO(dietPlan);
-      });
+      // Invalidate old caches for this user (important before regenerating)
+      cacheService.invalidateAllUserCache(userProfile.getEmail(), savedUser.getUserId());
 
-      CompletableFuture<SimpleWorkoutPlanDTO> workoutPlanFuture = CompletableFuture.supplyAsync(() -> {
-        var workoutPlan = workoutPlanService.regenerateWorkoutPlan(savedUser);
-        return workoutPlanMapper.toDTO(workoutPlan);
-      });
+      // Generate fresh diet + workout plans in parallel
+      CompletableFuture<SimpleDietPlanDTO> dietPlanFuture = CompletableFuture
+          .supplyAsync(() -> dietPlanMapper.toDTO(dietPlanService.regenerateDietPlan(savedUser)));
 
-      // Wait for completion
+      CompletableFuture<SimpleWorkoutPlanDTO> workoutPlanFuture = CompletableFuture
+          .supplyAsync(() -> workoutPlanMapper.toDTO(workoutPlanService.regenerateWorkoutPlan(savedUser)));
+
+      // Wait for both to finish
       SimpleDietPlanDTO dietPlanDTO = dietPlanFuture.join();
       SimpleWorkoutPlanDTO workoutPlanDTO = workoutPlanFuture.join();
 
-      // Get nutrition analysis
+      // Nutrition analysis
       var needs = nutritionCalculatorService.calculateNutritionalNeeds(savedUser);
       NutritionAnalysis nutritionAnalysis = createNutritionAnalysis(savedUser, needs);
 
+      // Cache nutrition analysis
+      cacheService.cacheNutritionAnalysis(savedUser.getUserId(), nutritionAnalysis);
+
+      // Build response
+      UserProfileDTO updatedUserDTO = userMapper.toDTO(savedUser);
       OptimizedPlansResponseDTO response = new OptimizedPlansResponseDTO();
-      response.setUser(userMapper.toDTO(savedUser));
+      response.setUser(updatedUserDTO);
       response.setDietPlan(dietPlanDTO);
       response.setWorkoutPlan(workoutPlanDTO);
       response.setNutritionAnalysis(nutritionAnalysis);
       response.setPlansExist(true);
-      response.setSummary(generateSummary(userMapper.toDTO(savedUser), dietPlanDTO, workoutPlanDTO));
+      response.setSummary(generateSummary(updatedUserDTO, dietPlanDTO, workoutPlanDTO));
 
-      log.info("Successfully completed profile and generated plans for email: {}", userProfile.getEmail());
+      // Cache everything
+      cacheService.cacheUserProfile(userProfile.getEmail(), updatedUserDTO);
+      cacheService.cachePlansResponse(userProfile.getEmail(), response);
+
+      log.info("Successfully completed profile (create/update) and generated plans for email: {}",
+          userProfile.getEmail());
       return ResponseEntity.ok(response);
 
     } catch (Exception e) {
@@ -195,30 +251,113 @@ public class OptimizedFitnessController {
     }
   }
 
-  // Update user profile only (without regenerating plans)
-  @PutMapping("/user/update-profile")
-  public ResponseEntity<UserProfileDTO> updateUserProfile(@RequestBody UserProfileDTO userProfile) {
-    log.info("Updating profile for email: {}", userProfile.getEmail());
+  // // Create/Update user profile and generate plans (with cache invalidation)
+  // @PostMapping("/user/complete-profile")
+  // public ResponseEntity<OptimizedPlansResponseDTO>
+  // completeUserProfile(@RequestBody UserProfileDTO userProfile) {
+  // log.info("Completing profile and generating plans for email: {}",
+  // userProfile.getEmail());
 
-    try {
-      User user = userRepository.findByEmail(userProfile.getEmail())
-          .orElseThrow(() -> new RuntimeException("User not found with email: " + userProfile.getEmail()));
+  // try {
+  // // Find or create user
+  // User user = userRepository.findByEmail(userProfile.getEmail()).orElse(new
+  // User());
 
-      // Update user details
-      updateUserFromDTO(user, userProfile);
-      user = userRepository.save(user);
-      UserProfileDTO updatedProfile = userMapper.toDTO(user);
+  // // Update user details from DTO
+  // updateUserFromDTO(user, userProfile);
+  // final User savedUser = userRepository.save(user);
+  // log.info("User profile saved for email: {} with userId: {}",
+  // userProfile.getEmail(), savedUser.getUserId());
 
-      log.info("Profile updated successfully for email: {}", userProfile.getEmail());
-      return ResponseEntity.ok(updatedProfile);
+  // // Invalidate existing caches since we're regenerating
+  // cacheService.invalidateAllUserCache(userProfile.getEmail(),
+  // savedUser.getUserId());
 
-    } catch (Exception e) {
-      log.error("Error updating profile for email: {}", userProfile.getEmail(), e);
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-    }
-  }
+  // // Generate fresh plans in parallel
+  // CompletableFuture<SimpleDietPlanDTO> dietPlanFuture =
+  // CompletableFuture.supplyAsync(() -> {
+  // var dietPlan = dietPlanService.regenerateDietPlan(savedUser);
+  // return dietPlanMapper.toDTO(dietPlan);
+  // });
 
-  // Regenerate diet plan only
+  // CompletableFuture<SimpleWorkoutPlanDTO> workoutPlanFuture =
+  // CompletableFuture.supplyAsync(() -> {
+  // var workoutPlan = workoutPlanService.regenerateWorkoutPlan(savedUser);
+  // return workoutPlanMapper.toDTO(workoutPlan);
+  // });
+
+  // // Wait for completion
+  // SimpleDietPlanDTO dietPlanDTO = dietPlanFuture.join();
+  // SimpleWorkoutPlanDTO workoutPlanDTO = workoutPlanFuture.join();
+
+  // // Get nutrition analysis
+  // var needs = nutritionCalculatorService.calculateNutritionalNeeds(savedUser);
+  // NutritionAnalysis nutritionAnalysis = createNutritionAnalysis(savedUser,
+  // needs);
+
+  // // Cache nutrition analysis
+  // cacheService.cacheNutritionAnalysis(savedUser.getUserId(),
+  // nutritionAnalysis);
+
+  // UserProfileDTO updatedUserDTO = userMapper.toDTO(savedUser);
+  // OptimizedPlansResponseDTO response = new OptimizedPlansResponseDTO();
+  // response.setUser(updatedUserDTO);
+  // response.setDietPlan(dietPlanDTO);
+  // response.setWorkoutPlan(workoutPlanDTO);
+  // response.setNutritionAnalysis(nutritionAnalysis);
+  // response.setPlansExist(true);
+  // response.setSummary(generateSummary(updatedUserDTO, dietPlanDTO,
+  // workoutPlanDTO));
+
+  // // Cache everything
+  // cacheService.cacheUserProfile(userProfile.getEmail(), updatedUserDTO);
+  // cacheService.cachePlansResponse(userProfile.getEmail(), response);
+
+  // log.info("Successfully completed profile and generated plans for email: {}",
+  // userProfile.getEmail());
+  // return ResponseEntity.ok(response);
+
+  // } catch (Exception e) {
+  // log.error("Error completing profile for email: {}", userProfile.getEmail(),
+  // e);
+  // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+  // .body(createErrorResponse(userProfile.getEmail(), "Error completing
+  // profile"));
+  // }
+  // }
+
+  // // Update user profile only (with cache update)
+  // @PutMapping("/user/update-profile")
+  // public ResponseEntity<UserProfileDTO> updateUserProfile(@RequestBody
+  // UserProfileDTO userProfile) {
+  // log.info("Updating profile for email: {}", userProfile.getEmail());
+
+  // try {
+  // User user = userRepository.findByEmail(userProfile.getEmail())
+  // .orElseThrow(() -> new RuntimeException("User not found with email: " +
+  // userProfile.getEmail()));
+
+  // // Update user details
+  // updateUserFromDTO(user, userProfile);
+  // user = userRepository.save(user);
+  // UserProfileDTO updatedProfile = userMapper.toDTO(user);
+
+  // // Update cache
+  // cacheService.cacheUserProfile(userProfile.getEmail(), updatedProfile);
+  // // Invalidate plans response cache since profile changed
+  // cacheService.invalidateUserCache(userProfile.getEmail());
+
+  // log.info("Profile updated successfully for email: {}",
+  // userProfile.getEmail());
+  // return ResponseEntity.ok(updatedProfile);
+
+  // } catch (Exception e) {
+  // log.error("Error updating profile for email: {}", userProfile.getEmail(), e);
+  // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+  // }
+  // }
+
+  // Regenerate diet plan only (with cache invalidation)
   @PostMapping("/user/regenerate-diet")
   public ResponseEntity<SimpleDietPlanDTO> regenerateDietPlan(@RequestBody UserProfileDTO userRequest) {
     log.info("Regenerating diet plan for email: {}", userRequest.getEmail());
@@ -226,6 +365,10 @@ public class OptimizedFitnessController {
     try {
       User user = userRepository.findByEmail(userRequest.getEmail())
           .orElseThrow(() -> new RuntimeException("User not found with email: " + userRequest.getEmail()));
+
+      // Invalidate relevant caches
+      cacheService.invalidateUserCache(userRequest.getEmail());
+      cacheService.invalidateUserPlansCache(user.getUserId());
 
       var dietPlan = dietPlanService.regenerateDietPlan(user);
       SimpleDietPlanDTO dietPlanDTO = dietPlanMapper.toDTO(dietPlan);
@@ -239,7 +382,7 @@ public class OptimizedFitnessController {
     }
   }
 
-  // Regenerate workout plan only
+  // Regenerate workout plan only (with cache invalidation)
   @PostMapping("/user/regenerate-workout")
   public ResponseEntity<SimpleWorkoutPlanDTO> regenerateWorkoutPlan(@RequestBody UserProfileDTO userRequest) {
     log.info("Regenerating workout plan for email: {}", userRequest.getEmail());
@@ -247,6 +390,10 @@ public class OptimizedFitnessController {
     try {
       User user = userRepository.findByEmail(userRequest.getEmail())
           .orElseThrow(() -> new RuntimeException("User not found with email: " + userRequest.getEmail()));
+
+      // Invalidate relevant caches
+      cacheService.invalidateUserCache(userRequest.getEmail());
+      cacheService.invalidateUserPlansCache(user.getUserId());
 
       var workoutPlan = workoutPlanService.regenerateWorkoutPlan(user);
       SimpleWorkoutPlanDTO workoutPlanDTO = workoutPlanMapper.toDTO(workoutPlan);
@@ -260,77 +407,7 @@ public class OptimizedFitnessController {
     }
   }
 
-  // Update profile and regenerate all plans
-  @PutMapping("/user/update-and-regenerate")
-  public ResponseEntity<OptimizedPlansResponseDTO> updateProfileAndRegeneratePlans(
-      @RequestBody UserProfileDTO userProfile) {
-    log.info("Updating profile and regenerating plans for email: {}", userProfile.getEmail());
-
-    try {
-      User user = userRepository.findByEmail(userProfile.getEmail())
-          .orElseThrow(() -> new RuntimeException("User not found with email: " + userProfile.getEmail()));
-
-      // Update user details
-      updateUserFromDTO(user, userProfile);
-      final User savedUser = userRepository.save(user);
-
-      // Regenerate plans in parallel
-      CompletableFuture<SimpleDietPlanDTO> dietPlanFuture = CompletableFuture.supplyAsync(() -> {
-        var dietPlan = dietPlanService.regenerateDietPlan(savedUser);
-        return dietPlanMapper.toDTO(dietPlan);
-      });
-
-      CompletableFuture<SimpleWorkoutPlanDTO> workoutPlanFuture = CompletableFuture.supplyAsync(() -> {
-        var workoutPlan = workoutPlanService.regenerateWorkoutPlan(savedUser);
-        return workoutPlanMapper.toDTO(workoutPlan);
-      });
-
-      SimpleDietPlanDTO dietPlanDTO = dietPlanFuture.join();
-      SimpleWorkoutPlanDTO workoutPlanDTO = workoutPlanFuture.join();
-
-      // Get updated nutrition analysis
-      var needs = nutritionCalculatorService.calculateNutritionalNeeds(savedUser);
-      NutritionAnalysis nutritionAnalysis = createNutritionAnalysis(savedUser, needs);
-
-      OptimizedPlansResponseDTO response = new OptimizedPlansResponseDTO();
-      response.setUser(userMapper.toDTO(savedUser));
-      response.setDietPlan(dietPlanDTO);
-      response.setWorkoutPlan(workoutPlanDTO);
-      response.setNutritionAnalysis(nutritionAnalysis);
-      response.setPlansExist(true);
-      response.setSummary(generateSummary(userMapper.toDTO(savedUser), dietPlanDTO, workoutPlanDTO));
-
-      log.info("Successfully updated profile and regenerated plans for email: {}", userProfile.getEmail());
-      return ResponseEntity.ok(response);
-
-    } catch (Exception e) {
-      log.error("Error updating profile and regenerating plans for email: {}", userProfile.getEmail(), e);
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body(createErrorResponse(userProfile.getEmail(), "Error updating profile and regenerating plans"));
-    }
-  }
-
-  // Get nutrition analysis only
-  @PostMapping("/user/nutrition-analysis")
-  public ResponseEntity<NutritionAnalysis> getNutritionAnalysis(@RequestBody UserProfileDTO userRequest) {
-    log.info("Getting nutrition analysis for email: {}", userRequest.getEmail());
-
-    try {
-      User user = userRepository.findByEmail(userRequest.getEmail())
-          .orElseThrow(() -> new RuntimeException("User not found with email: " + userRequest.getEmail()));
-
-      var needs = nutritionCalculatorService.calculateNutritionalNeeds(user);
-      NutritionAnalysis analysis = createNutritionAnalysis(user, needs);
-
-      return ResponseEntity.ok(analysis);
-
-    } catch (Exception e) {
-      log.error("Error getting nutrition analysis for email: {}", userRequest.getEmail(), e);
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-    }
-  }
-
-  // Get only diet plan
+  // Get only diet plan (with caching)
   @PostMapping("/user/diet-plan")
   public ResponseEntity<SimpleDietPlanDTO> getDietPlan(@RequestBody UserProfileDTO userRequest) {
     log.info("Fetching diet plan for email: {}", userRequest.getEmail());
@@ -339,12 +416,23 @@ public class OptimizedFitnessController {
       User user = userRepository.findByEmail(userRequest.getEmail())
           .orElseThrow(() -> new RuntimeException("User not found with email: " + userRequest.getEmail()));
 
+      // Check cache first
+      SimpleDietPlanDTO cachedPlan = cacheService.getCachedDietPlan(user.getUserId());
+      if (cachedPlan != null) {
+        log.debug("Retrieved diet plan from cache for email: {}", userRequest.getEmail());
+        return ResponseEntity.ok(cachedPlan);
+      }
+
       var dietPlan = dietPlanService.getExistingDietPlan(user.getUserId());
       if (dietPlan == null) {
         dietPlan = dietPlanService.generateCustomDietPlan(user);
       }
 
       SimpleDietPlanDTO dietPlanDTO = dietPlanMapper.toDTO(dietPlan);
+
+      // Cache the result
+      cacheService.cacheDietPlan(user.getUserId(), dietPlanDTO);
+
       return ResponseEntity.ok(dietPlanDTO);
 
     } catch (Exception e) {
@@ -353,7 +441,7 @@ public class OptimizedFitnessController {
     }
   }
 
-  // Get only workout plan
+  // Get only workout plan (with caching)
   @PostMapping("/user/workout-plan")
   public ResponseEntity<SimpleWorkoutPlanDTO> getWorkoutPlan(@RequestBody UserProfileDTO userRequest) {
     log.info("Fetching workout plan for email: {}", userRequest.getEmail());
@@ -362,12 +450,23 @@ public class OptimizedFitnessController {
       User user = userRepository.findByEmail(userRequest.getEmail())
           .orElseThrow(() -> new RuntimeException("User not found with email: " + userRequest.getEmail()));
 
+      // Check cache first
+      SimpleWorkoutPlanDTO cachedPlan = cacheService.getCachedWorkoutPlan(user.getUserId());
+      if (cachedPlan != null) {
+        log.debug("Retrieved workout plan from cache for email: {}", userRequest.getEmail());
+        return ResponseEntity.ok(cachedPlan);
+      }
+
       var workoutPlan = workoutPlanService.getExistingWorkoutPlan(user.getUserId());
       if (workoutPlan == null) {
         workoutPlan = workoutPlanService.generateCustomWorkoutPlan(user);
       }
 
       SimpleWorkoutPlanDTO workoutPlanDTO = workoutPlanMapper.toDTO(workoutPlan);
+
+      // Cache the result
+      cacheService.cacheWorkoutPlan(user.getUserId(), workoutPlanDTO);
+
       return ResponseEntity.ok(workoutPlanDTO);
 
     } catch (Exception e) {
@@ -376,6 +475,7 @@ public class OptimizedFitnessController {
     }
   }
 
+  // Delete user plans (with cache invalidation)
   @PostMapping("/user/plans/delete")
   public ResponseEntity<String> deleteUserPlans(@RequestBody UserProfileDTO userRequest) {
     log.info("Deleting plans for email: {}", userRequest.getEmail());
@@ -384,11 +484,13 @@ public class OptimizedFitnessController {
       User user = userRepository.findByEmail(userRequest.getEmail())
           .orElseThrow(() -> new RuntimeException("User not found with email: " + userRequest.getEmail()));
 
-      // Now this will work because cascade delete handles child records automatically
+      // Invalidate all caches first
+      cacheService.invalidateAllUserCache(userRequest.getEmail(), user.getUserId());
+
       CompletableFuture<Void> deleteDiet = CompletableFuture
-          .runAsync(() -> dietPlanService.deleteUserPlans(user.getUserId()));
+          .runAsync(() -> dietPlanService.deleteUserDietPlans(user.getUserId()));
       CompletableFuture<Void> deleteWorkout = CompletableFuture
-          .runAsync(() -> workoutPlanService.deleteUserPlans(user.getUserId()));
+          .runAsync(() -> workoutPlanService.deleteUserWorkoutPlans(user.getUserId()));
 
       CompletableFuture.allOf(deleteDiet, deleteWorkout).join();
 
@@ -402,16 +504,27 @@ public class OptimizedFitnessController {
     }
   }
 
-  // Get user profile only
+  // Get user profile only (with caching)
   @PostMapping("/user/profile")
   public ResponseEntity<UserProfileDTO> getUserProfile(@RequestBody UserProfileDTO userRequest) {
     log.info("Fetching user profile for email: {}", userRequest.getEmail());
 
     try {
+      // Check cache first
+      UserProfileDTO cachedProfile = cacheService.getCachedUserProfile(userRequest.getEmail());
+      if (cachedProfile != null) {
+        log.debug("Retrieved user profile from cache for email: {}", userRequest.getEmail());
+        return ResponseEntity.ok(cachedProfile);
+      }
+
       User user = userRepository.findByEmail(userRequest.getEmail())
           .orElseThrow(() -> new RuntimeException("User not found with email: " + userRequest.getEmail()));
 
       UserProfileDTO userDTO = userMapper.toDTO(user);
+
+      // Cache the result
+      cacheService.cacheUserProfile(userRequest.getEmail(), userDTO);
+
       return ResponseEntity.ok(userDTO);
 
     } catch (Exception e) {
@@ -420,13 +533,48 @@ public class OptimizedFitnessController {
     }
   }
 
-  // Health check endpoint (public)
+  // Health check endpoint (also checks Redis connectivity)
   @GetMapping("/health")
   public ResponseEntity<String> healthCheck() {
-    return ResponseEntity.ok("Fitness Plan Service is running");
+    boolean redisHealthy = cacheService.isCacheAvailable();
+    String healthStatus = "Fitness Plan Service is running";
+    if (redisHealthy) {
+      healthStatus += " - Redis Cache: OK";
+    } else {
+      healthStatus += " - Redis Cache: UNAVAILABLE";
+    }
+    return ResponseEntity.ok(healthStatus);
+  }
+
+  // Cache management endpoint (for debugging/admin)
+  @PostMapping("/admin/cache/clear")
+  public ResponseEntity<String> clearCache() {
+    try {
+      cacheService.clearAllCache();
+      return ResponseEntity.ok("Cache cleared successfully");
+    } catch (Exception e) {
+      log.error("Error clearing cache", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .body("Error clearing cache");
+    }
   }
 
   // ===== HELPER METHODS =====
+
+  private NutritionAnalysis getCachedOrCalculateNutrition(User user) {
+    // Check cache first
+    NutritionAnalysis cachedAnalysis = cacheService.getCachedNutritionAnalysis(user.getUserId());
+    if (cachedAnalysis != null) {
+      return cachedAnalysis;
+    }
+
+    // Calculate and cache
+    var needs = nutritionCalculatorService.calculateNutritionalNeeds(user);
+    NutritionAnalysis analysis = createNutritionAnalysis(user, needs);
+    cacheService.cacheNutritionAnalysis(user.getUserId(), analysis);
+
+    return analysis;
+  }
 
   private void updateUserFromDTO(User user, UserProfileDTO userProfile) {
     user.setEmail(userProfile.getEmail());

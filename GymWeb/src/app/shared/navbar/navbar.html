@@ -43,25 +43,25 @@
 
       <!-- Logged in as USER -->
       <ng-container *ngIf="isLoggedIn">
-        <li>
+        <li (click)="closeMenu()">
           <a routerLink="/plan-dashboard" routerLinkActive="active">
             <i class="fa fa-tachometer-alt nav-icon-left"></i>
             Dashboard
           </a>
         </li>
-        <li>
+        <li (click)="closeMenu()">
           <a routerLink="/diet" routerLinkActive="active">
             <i class="fa fa-utensils nav-icon-left"></i>
             Diet
           </a>
         </li>
-        <li>
+        <li (click)="closeMenu()">
           <a routerLink="/workout" routerLinkActive="active">
             <i class="fa fa-dumbbell nav-icon-left"></i>
             Workout
           </a>
         </li>
-        <li>
+        <li (click)="closeMenu()">
           <a routerLink="/user-ticket" routerLinkActive="active">
             <i class="fa fa-comment-dots nav-icon-left"></i>
             Feedback
@@ -71,19 +71,19 @@
 
       <!-- Logged in as ADMIN -->
       <!-- <ng-container *ngIf="isLoggedIn && userRole === 'ADMIN'">
-            <li>
+            <li (click)="closeMenu()">
               <a routerLink="/team" routerLinkActive="active">
                 <i class="fa fa-tachometer-alt nav-icon-left"></i>
                 Dashboard
               </a>
             </li>
-            <li>
+            <li(click)="closeMenu()">
               <a routerLink="/team" routerLinkActive="active">
                 <i class="fa fa-users-cog nav-icon-left"></i>
                 Client
               </a>
             </li>
-            <li>
+            <li (click)="closeMenu()">
               <a routerLink="/team" routerLinkActive="active">
                 <i class="fa fa-comment-dots nav-icon-left"></i>
                 Feedback

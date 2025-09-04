@@ -4,11 +4,15 @@ server:
 spring:
   application:
     name: plan-service
+
+  # Database Configuration
   datasource:
     url: jdbc:postgresql://ep-damp-star-ab0lcdvm-pooler.eu-west-2.aws.neon.tech/gym_ai?sslmode=require&channel_binding=require
     username: neondb_owner
     password: npg_5PnAXGO6FLUt
     driver-class-name: org.postgresql.Driver
+
+  # JPA Configuration
   jpa:
     hibernate:
       ddl-auto: update
@@ -19,6 +23,33 @@ spring:
     show-sql: false
     open-in-view: false
 
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+
+  # Redis Configuration - Works for both local and production
+  data:
+    redis:
+      # Use your Upstash Redis URL for both environments
+      url: ${REDIS_URL:redis://default:AdR-AAIncDEzOTQyNTBjODE4OTg0YTgxYmEwNWRlZDAzYzc0YTc1MnAxNTQzOTg@boss-fly-54398.upstash.io:6379}
+      timeout: ${REDIS_TIMEOUT:5000ms}
+      database: ${REDIS_DATABASE:0}
+
+      # SSL Configuration for Upstash
+      ssl:
+        enabled: ${REDIS_SSL_ENABLED:true}
+
+      # Connection Pool Configuration
+      lettuce:
+        pool:
+          max-active: ${REDIS_POOL_MAX_ACTIVE:10}
+          max-idle: ${REDIS_POOL_MAX_IDLE:8}
+          min-idle: ${REDIS_POOL_MIN_IDLE:2}
+          max-wait: ${REDIS_POOL_MAX_WAIT:2000ms}
+        shutdown-timeout: 100ms
+
 # JWT Configuration
 jwt:
   secret: 7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc
@@ -27,11 +58,11 @@ jwt:
 # External Services Configuration
 services:
   auth:
-    url: http://localhost:8081
+    url: ${AUTH_SERVICE_URL:http://localhost:8081}
   user:
-    url: http://localhost:8082
+    url: ${USER_SERVICE_URL:http://localhost:8082}
   ai:
-    url: http://localhost:8000
+    url: ${AI_SERVICE_URL:http://localhost:8000}
 
 # API Integration
 api:
@@ -48,12 +79,15 @@ logging:
   file:
     name: logs/plan-service.log
   level:
-    root: INFO
-    com.gymai.plan_service: DEBUG
-    org.springframework.web.client.RestTemplate: DEBUG
-    org.springframework.http: DEBUG
-    org.hibernate.SQL: WARN
+    root: ${LOG_LEVEL_ROOT:INFO}
+    com.gymai.plan_service: ${LOG_LEVEL_APP:DEBUG}
+    org.springframework.web.client.RestTemplate: ${LOG_LEVEL_REST:DEBUG}
+    org.springframework.http: ${LOG_LEVEL_HTTP:DEBUG}
+    org.hibernate.SQL: ${LOG_LEVEL_SQL:WARN}
     org.hibernate.type.descriptor.sql.BasicBinder: WARN
+    # Redis logging
+    org.springframework.data.redis: ${LOG_LEVEL_REDIS:INFO}
+    io.lettuce.core: WARN
 
 # Management & Monitoring
 management:
@@ -62,7 +96,9 @@ management:
       exposure:
         include: "*"
       cors:
-        allowed-origins: "http://localhost:4200"
+        allowed-origins:
+          - ${FRONTEND_URL:http://localhost:4200}
+          - ${ADMIN_URL:http://localhost:3000}
         allowed-methods: "*"
         allowed-headers: "*"
   endpoint:
@@ -70,12 +106,16 @@ management:
       show-details: always
     metrics:
       enabled: true
+  # Enable Redis health indicator
+  health:
+    redis:
+      enabled: true
 
 # CORS Configuration
 cors:
   allowed-origins:
-    - http://localhost:4200
-    - http://localhost:3000
+    - ${FRONTEND_URL:http://localhost:4200}
+    - ${ADMIN_URL:http://localhost:3000}
   allowed-methods:
     - GET
     - POST
@@ -88,18 +128,31 @@ cors:
 # Application Specific Configuration
 app:
   features:
-    cache-enabled: true
-    ai-integration-enabled: true
-    external-apis-enabled: true
+    cache-enabled: ${CACHE_ENABLED:true}
+    ai-integration-enabled: ${AI_INTEGRATION_ENABLED:true}
+    external-apis-enabled: ${EXTERNAL_APIS_ENABLED:true}
   limits:
-    max-plan-regenerations-per-day: 5
-    max-users-per-batch: 100
-# Cache configuration
-# cache:
-#   redis:
-#     ttl:
-#       user-profile: 3600 # 1 hour
-#       diet-plan: 86400 # 24 hours
-#       workout-plan: 86400 # 24 hours
-#       nutrition-analysis: 3600 # 1 hour
-#       plans-response: 7200 # 2 hours
+    max-plan-regenerations-per-day: ${MAX_PLAN_REGENERATIONS:5}
+    max-users-per-batch: ${MAX_USERS_PER_BATCH:100}
+  environment: ${APP_ENVIRONMENT:development}
+
+# Cache Configuration - Enabled by default since you're using Redis everywhere
+cache:
+  redis:
+    enabled: ${CACHE_ENABLED:true}
+    ttl:
+      user-profile: ${CACHE_TTL_USER_PROFILE:3600} # 1 hour (3600 seconds)
+      diet-plan: ${CACHE_TTL_DIET_PLAN:86400} # 24 hours (86400 seconds)
+      workout-plan: ${CACHE_TTL_WORKOUT_PLAN:86400} # 24 hours (86400 seconds)
+      nutrition-analysis: ${CACHE_TTL_NUTRITION:3600} # 1 hour (3600 seconds)
+      plans-response: ${CACHE_TTL_PLANS_RESPONSE:7200} # 2 hours (7200 seconds)
+      foods-by-preference: ${CACHE_TTL_FOODS:21600} # 6 hours (21600 seconds)
+      exercises-by-focus: ${CACHE_TTL_EXERCISES:21600} # 6 hours (21600 seconds)
+
+    # Cache key prefixes
+    key-prefix: ${CACHE_KEY_PREFIX:fitness:}
+
+    # Fallback settings when Redis is temporarily unavailable
+    fallback:
+      enabled: true
+      log-errors: true

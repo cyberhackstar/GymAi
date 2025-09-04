@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -23,11 +24,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@ConditionalOnProperty(name = "cache.redis.enabled", havingValue = "true")
 @EnableCaching
 @Slf4j
 public class RedisConfig {
 
   @Bean
+  @ConditionalOnProperty(name = "cache.redis.enabled", havingValue = "true")
   public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
     RedisTemplate<String, Object> template = new RedisTemplate<>();
     template.setConnectionFactory(connectionFactory);
@@ -48,6 +51,7 @@ public class RedisConfig {
   }
 
   @Bean
+  @ConditionalOnProperty(name = "cache.redis.enabled", havingValue = "true")
   public GenericJackson2JsonRedisSerializer jsonRedisSerializer() {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.setVisibility(objectMapper.getSerializationConfig().getDefaultVisibilityChecker()
@@ -65,6 +69,7 @@ public class RedisConfig {
   }
 
   @Bean
+  @ConditionalOnProperty(name = "cache.redis.enabled", havingValue = "true")
   public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
     RedisCacheConfiguration defaultConfig = RedisCacheConfiguration.defaultCacheConfig()
         .serializeKeysWith(org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair
@@ -84,9 +89,24 @@ public class RedisConfig {
     cacheConfigurations.put("foods-by-preference", defaultConfig.entryTtl(Duration.ofHours(6)));
     cacheConfigurations.put("exercises-by-focus", defaultConfig.entryTtl(Duration.ofHours(6)));
 
+    log.info("Redis CacheManager configured with {} cache configurations", cacheConfigurations.size());
+
     return RedisCacheManager.builder(connectionFactory)
         .cacheDefaults(defaultConfig)
         .withInitialCacheConfigurations(cacheConfigurations)
         .build();
+  }
+}
+
+// Fallback configuration when Redis is disabled
+@Configuration
+@ConditionalOnProperty(name = "cache.redis.enabled", havingValue = "false", matchIfMissing = true)
+@Slf4j
+class NoCacheConfig {
+
+  @Bean
+  public CacheManager cacheManager() {
+    log.info("Redis disabled - using no-op cache manager");
+    return new org.springframework.cache.support.NoOpCacheManager();
   }
 }

@@ -3,10 +3,14 @@ package com.gymai.plan_service.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.gymai.plan_service.entity.*;
 import com.gymai.plan_service.repository.*;
+import com.gymai.plan_service.dto.SimpleWorkoutPlanDTO;
+import com.gymai.plan_service.mapper.WorkoutPlanMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.*;
@@ -24,6 +28,12 @@ public class WorkoutPlanService {
     @Autowired
     private WorkoutPlanRepository workoutPlanRepository;
 
+    @Autowired
+    private CacheService cacheService;
+
+    @Autowired
+    private WorkoutPlanMapper workoutPlanMapper;
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -31,10 +41,25 @@ public class WorkoutPlanService {
         log.info("Generating workout plan for userId={}, goal={}, activityLevel={}",
                 user.getUserId(), user.getGoal(), user.getActivityLevel());
 
+        // Validate user inputs
+        validateUserInputs(user);
+
+        // Check cache first
+        SimpleWorkoutPlanDTO cachedPlan = cacheService.getCachedWorkoutPlan(user.getUserId());
+        if (cachedPlan != null) {
+            log.info("Found cached workout plan for userId={}, returning cached plan", user.getUserId());
+            WorkoutPlan existingPlan = getExistingWorkoutPlanSafe(user.getUserId());
+            if (existingPlan != null) {
+                return existingPlan;
+            }
+        }
+
         // Check if user already has a workout plan using safe method
         WorkoutPlan existingPlan = getExistingWorkoutPlanSafe(user.getUserId());
         if (existingPlan != null) {
-            log.info("Found existing workout plan for userId={}, returning cached plan", user.getUserId());
+            log.info("Found existing workout plan for userId={}, caching and returning plan", user.getUserId());
+            SimpleWorkoutPlanDTO planDTO = workoutPlanMapper.toDTO(existingPlan);
+            cacheService.cacheWorkoutPlan(user.getUserId(), planDTO);
             return existingPlan;
         }
 
@@ -42,11 +67,23 @@ public class WorkoutPlanService {
     }
 
     @Transactional
+    @CacheEvict(value = "workout-plans", key = "#user.userId")
     public WorkoutPlan regenerateWorkoutPlan(User user) {
         log.info("Regenerating workout plan for userId={}", user.getUserId());
 
+        // Validate user inputs
+        validateUserInputs(user);
+
+        // Clear cache
+        cacheService.invalidateUserPlansCache(user.getUserId());
+
         // Delete existing plan
-        workoutPlanRepository.deleteByUserId(user.getUserId());
+        List<WorkoutPlan> plans = workoutPlanRepository.findByUserId(user.getUserId());
+
+        for (WorkoutPlan plan : plans) {
+            workoutPlanRepository.delete(plan); // <-- Hibernate cascades delete
+            log.info("Deleted {} workout plans for userId={}", plans.size(), user.getUserId());
+        }
         entityManager.flush(); // Ensure deletion is committed
 
         // Generate new plan
@@ -54,8 +91,16 @@ public class WorkoutPlanService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "workout-plans", key = "#userId")
     public WorkoutPlan getExistingWorkoutPlan(Long userId) {
         log.info("Fetching existing workout plan for userId={}", userId);
+
+        // Check cache first
+        SimpleWorkoutPlanDTO cachedPlan = cacheService.getCachedWorkoutPlan(userId);
+        if (cachedPlan != null) {
+            log.debug("Retrieved workout plan from cache for userId={}", userId);
+        }
+
         return getExistingWorkoutPlanSafe(userId);
     }
 
@@ -106,14 +151,21 @@ public class WorkoutPlanService {
     }
 
     @Transactional
-    public void deleteUserPlans(Long userId) {
+    @CacheEvict(value = "workout-plans", key = "#userId")
+    public void deleteUserWorkoutPlans(Long userId) {
         log.info("Deleting workout plans for userId: {}", userId);
+
+        cacheService.invalidateUserPlansCache(userId);
+
         List<WorkoutPlan> plans = workoutPlanRepository.findByUserId(userId);
-        if (!plans.isEmpty()) {
-            workoutPlanRepository.deleteAll(plans);
-            log.info("Deleted {} workout plans for userId: {}", plans.size(), userId);
+
+        for (WorkoutPlan plan : plans) {
+            workoutPlanRepository.delete(plan); // <-- Hibernate cascades delete
+
         }
+        log.info("Deleted {} workout plans for userId={}", plans.size(), userId);
     }
+    // List<DietPlan> plans = dietPlanRepository.findByUserId(userId);
 
     @Transactional
     private WorkoutPlan generateNewWorkoutPlan(User user) {
@@ -133,6 +185,9 @@ public class WorkoutPlanService {
         // Save workout plan first to get ID
         workoutPlan = workoutPlanRepository.save(workoutPlan);
 
+        // Validate that we have exercises available
+        validateExerciseAvailability(planType, difficulty);
+
         // Generate 7-day plan
         List<String> dayNames = Arrays.asList("Monday", "Tuesday", "Wednesday",
                 "Thursday", "Friday", "Saturday", "Sunday");
@@ -142,8 +197,9 @@ public class WorkoutPlanService {
             DayWorkoutPlan dayPlan = generateDayWorkout(i + 1, dayNames.get(i), user, planType, difficulty);
             dayPlan.setWorkoutPlan(workoutPlan);
             weeklyPlan.add(dayPlan);
-            log.debug("Generated workout for {} (Day {}): focusArea={}, restDay={}",
-                    dayNames.get(i), i + 1, dayPlan.getFocusArea(), dayPlan.isRestDay());
+            log.debug("Generated workout for {} (Day {}): focusArea={}, restDay={}, exerciseCount={}",
+                    dayNames.get(i), i + 1, dayPlan.getFocusArea(), dayPlan.isRestDay(),
+                    dayPlan.getExercises() != null ? dayPlan.getExercises().size() : 0);
         }
 
         workoutPlan.setWeeklyPlan(weeklyPlan);
@@ -151,41 +207,132 @@ public class WorkoutPlanService {
         // Save the complete plan with cascaded entities
         workoutPlan = workoutPlanRepository.save(workoutPlan);
 
-        log.info("Completed workout plan generation for userId={} with planId={}", user.getUserId(),
-                workoutPlan.getId());
+        // Cache the result
+        SimpleWorkoutPlanDTO planDTO = workoutPlanMapper.toDTO(workoutPlan);
+        cacheService.cacheWorkoutPlan(user.getUserId(), planDTO);
+
+        log.info("Completed workout plan generation and cached for userId={} with planId={}",
+                user.getUserId(), workoutPlan.getId());
         return workoutPlan;
     }
 
-    private String determinePlanType(String goal) {
-        if (goal == null)
-            return "MIXED";
+    private void validateUserInputs(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null");
+        }
+        if (user.getUserId() == null) {
+            throw new IllegalArgumentException("User ID cannot be null");
+        }
+        if (user.getGoal() == null || user.getGoal().trim().isEmpty()) {
+            log.warn("Goal is null/empty for userId={}. Setting default to MAINTENANCE", user.getUserId());
+            user.setGoal("MAINTENANCE");
+        }
+        if (user.getActivityLevel() == null || user.getActivityLevel().trim().isEmpty()) {
+            log.warn("Activity level is null/empty for userId={}. Setting default to LIGHTLY_ACTIVE", user.getUserId());
+            user.setActivityLevel("LIGHTLY_ACTIVE");
+        }
+    }
 
-        switch (goal.toUpperCase()) {
+    private void validateExerciseAvailability(String planType, String difficulty) {
+        // Check if we have exercises for the required focus areas
+        List<String> requiredFocusAreas = getRequiredFocusAreasForPlanType(planType);
+        for (String focusArea : requiredFocusAreas) {
+            List<Exercise> exercises = getExercisesForFocusAreaValidation(focusArea, difficulty);
+            if (exercises.isEmpty()) {
+                log.warn("No exercises found for focusArea={}, difficulty={}. Plan quality may be reduced.",
+                        focusArea, difficulty);
+            }
+        }
+    }
+
+    private List<String> getRequiredFocusAreasForPlanType(String planType) {
+        switch (planType.toUpperCase()) {
             case "WEIGHT_LOSS":
+                return Arrays.asList("CARDIO", "UPPER_BODY", "LOWER_BODY", "FULL_BODY");
+            case "MUSCLE_GAIN":
+            case "STRENGTH":
+                return Arrays.asList("UPPER_BODY", "LOWER_BODY", "FULL_BODY");
+            case "MIXED":
+            default:
+                return Arrays.asList("UPPER_BODY", "LOWER_BODY", "FULL_BODY", "CARDIO");
+        }
+    }
+
+    private List<Exercise> getExercisesForFocusAreaValidation(String focusArea, String difficulty) {
+        List<Exercise> exercises = new ArrayList<>();
+
+        switch (focusArea.toUpperCase()) {
+            case "CARDIO":
+                exercises.addAll(exerciseRepository.findByCategoryAndDifficulty("CARDIO", difficulty));
+                break;
+            case "UPPER_BODY":
+                exercises.addAll(exerciseRepository.findByMuscleGroupAndDifficulty("CHEST", difficulty));
+                exercises.addAll(exerciseRepository.findByMuscleGroupAndDifficulty("BACK", difficulty));
+                exercises.addAll(exerciseRepository.findByMuscleGroupAndDifficulty("ARMS", difficulty));
+                exercises.addAll(exerciseRepository.findByMuscleGroupAndDifficulty("SHOULDERS", difficulty));
+                break;
+            case "LOWER_BODY":
+                exercises.addAll(exerciseRepository.findByMuscleGroupAndDifficulty("LEGS", difficulty));
+                break;
+            case "FULL_BODY":
+                exercises.addAll(exerciseRepository.findByMuscleGroupAndDifficulty("FULL_BODY", difficulty));
+                exercises.addAll(exerciseRepository.findByMuscleGroupAndDifficulty("CORE", difficulty));
+                break;
+        }
+
+        return exercises.stream()
+                .filter(exercise -> exercise != null &&
+                        exercise.getName() != null && !exercise.getName().trim().isEmpty())
+                .collect(Collectors.toList());
+    }
+
+    private String determinePlanType(String goal) {
+        if (goal == null || goal.trim().isEmpty()) {
+            return "MIXED";
+        }
+
+        switch (goal.toUpperCase().trim()) {
+            case "WEIGHT_LOSS":
+            case "LOSE_WEIGHT":
+            case "FAT_LOSS":
                 return "WEIGHT_LOSS";
             case "MUSCLE_GAIN":
+            case "BUILD_MUSCLE":
+            case "BULK":
                 return "MUSCLE_GAIN";
             case "WEIGHT_GAIN":
+            case "GAIN_WEIGHT":
             case "STRENGTH":
+            case "GET_STRONGER":
                 return "STRENGTH";
             case "MAINTENANCE":
+            case "MAINTAIN":
+            case "GENERAL_FITNESS":
+            case "MIXED":
             default:
                 return "MIXED";
         }
     }
 
     private String determineDifficulty(String activityLevel) {
-        if (activityLevel == null)
+        if (activityLevel == null || activityLevel.trim().isEmpty()) {
             return "BEGINNER";
+        }
 
-        switch (activityLevel.toUpperCase()) {
+        switch (activityLevel.toUpperCase().trim()) {
             case "SEDENTARY":
+            case "INACTIVE":
             case "LIGHTLY_ACTIVE":
+            case "LIGHT":
                 return "BEGINNER";
             case "MODERATELY_ACTIVE":
+            case "MODERATE":
                 return "INTERMEDIATE";
             case "VERY_ACTIVE":
+            case "ACTIVE":
             case "EXTREMELY_ACTIVE":
+            case "VERY_ACTIVE_ATHLETE":
+            case "ADVANCED":
                 return "ADVANCED";
             default:
                 return "BEGINNER";
@@ -208,15 +355,23 @@ public class WorkoutPlanService {
 
         DayWorkoutPlan dayPlan = new DayWorkoutPlan(dayNumber, dayName, focusArea);
 
-        // Get exercises for focus area
+        // Get exercises for focus area (with caching)
         List<Exercise> exercises = getExercisesForFocusArea(focusArea, planType, difficulty);
         log.debug("Fetched {} exercises for focusArea={} (difficulty={})",
                 exercises.size(), focusArea, difficulty);
 
+        if (exercises.isEmpty()) {
+            log.warn("No exercises available for focusArea={}, difficulty={}. Creating empty day plan.",
+                    focusArea, difficulty);
+            return dayPlan;
+        }
+
         for (Exercise exercise : exercises) {
             WorkoutExercise workoutExercise = createWorkoutExercise(exercise, planType, difficulty);
             dayPlan.addExercise(workoutExercise);
-            log.trace("Added exercise={} to Day {} plan", exercise.getName(), dayNumber);
+            log.trace("Added exercise={} to Day {} plan with sets={}, reps={}, duration={}, rest={}",
+                    exercise.getName(), dayNumber, workoutExercise.getSets(),
+                    workoutExercise.getReps(), workoutExercise.getDurationMinutes(), workoutExercise.getRestSeconds());
         }
 
         return dayPlan;
@@ -283,7 +438,21 @@ public class WorkoutPlanService {
         return "FULL_BODY"; // fallback
     }
 
+    @SuppressWarnings("unchecked")
     private List<Exercise> getExercisesForFocusArea(String focusArea, String planType, String difficulty) {
+        // Check cache first
+        Object cachedExercises = cacheService.getCachedExercisesByFocus(focusArea, difficulty);
+        if (cachedExercises instanceof List) {
+            log.debug("Retrieved exercises from cache for focusArea={}, difficulty={}", focusArea, difficulty);
+            List<Exercise> exercises = (List<Exercise>) cachedExercises;
+            // Shuffle and limit to avoid repetitive plans
+            Collections.shuffle(exercises);
+            return exercises.stream()
+                    .filter(ex -> ex != null && ex.getName() != null && !ex.getName().trim().isEmpty())
+                    .limit(6)
+                    .collect(Collectors.toList());
+        }
+
         List<Exercise> exercises = new ArrayList<>();
 
         switch (focusArea.toUpperCase()) {
@@ -304,6 +473,23 @@ public class WorkoutPlanService {
                 exercises.addAll(exerciseRepository.findByMuscleGroupAndDifficulty("CORE", difficulty));
                 break;
         }
+
+        // Filter out invalid exercises
+        exercises = exercises.stream()
+                .filter(exercise -> exercise != null &&
+                        exercise.getName() != null && !exercise.getName().trim().isEmpty())
+                .collect(Collectors.toList());
+
+        // If no exercises found for specific difficulty, try with beginner difficulty
+        // as fallback
+        if (exercises.isEmpty() && !"BEGINNER".equals(difficulty)) {
+            log.warn("No exercises found for focusArea={}, difficulty={}. Trying with BEGINNER difficulty as fallback.",
+                    focusArea, difficulty);
+            return getExercisesForFocusArea(focusArea, planType, "BEGINNER");
+        }
+
+        // Cache the result before shuffling
+        cacheService.cacheExercisesByFocus(focusArea, difficulty, new ArrayList<>(exercises));
 
         // Shuffle and limit to avoid repetitive plans
         Collections.shuffle(exercises);

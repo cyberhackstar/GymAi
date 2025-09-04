@@ -116,10 +116,10 @@ public class NutritionCalculatorService {
 
     // Inner classes for data structure
     public static class NutritionalNeeds {
-        public final long calories;
-        public final long protein;
-        public final long carbs;
-        public final long fat;
+        public double calories;
+        public double protein;
+        public double carbs;
+        public double fat;
 
         public NutritionalNeeds(double calories, double protein, double carbs, double fat) {
             this.calories = Math.round(calories);
