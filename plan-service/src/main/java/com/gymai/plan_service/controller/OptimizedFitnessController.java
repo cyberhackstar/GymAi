@@ -12,6 +12,8 @@ import com.gymai.plan_service.service.*;
 import lombok.extern.slf4j.Slf4j;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @RestController
 @RequestMapping("/api/fitness")
@@ -42,6 +44,11 @@ public class OptimizedFitnessController {
 
   @Autowired
   private WorkoutPlanMapper workoutPlanMapper;
+
+  // Helper method to round to 1 decimal place
+  private double roundTo1Decimal(double value) {
+    return new BigDecimal(value).setScale(1, RoundingMode.HALF_UP).doubleValue();
+  }
 
   // Check if user profile exists and is complete (with caching)
   @PostMapping("/user/profile-check")
@@ -127,41 +134,51 @@ public class OptimizedFitnessController {
 
       // Use parallel execution for better performance with caching
       CompletableFuture<SimpleDietPlanDTO> dietPlanFuture = CompletableFuture.supplyAsync(() -> {
-        // Check cache first
-        SimpleDietPlanDTO cachedDietPlan = cacheService.getCachedDietPlan(user.getUserId());
-        if (cachedDietPlan != null) {
-          return cachedDietPlan;
-        }
+        try {
+          // Check cache first for DTO
+          SimpleDietPlanDTO cachedDietPlan = cacheService.getCachedDietPlan(user.getUserId());
+          if (cachedDietPlan != null) {
+            return cachedDietPlan;
+          }
 
-        var existingDietPlan = dietPlanService.getExistingDietPlan(user.getUserId());
-        if (existingDietPlan == null) {
-          log.info("Generating new diet plan for user: {}", userRequest.getEmail());
-          var newDietPlan = dietPlanService.generateCustomDietPlan(user);
-          return dietPlanMapper.toDTO(newDietPlan);
+          var existingDietPlan = dietPlanService.getExistingDietPlan(user.getUserId());
+          if (existingDietPlan == null) {
+            log.info("Generating new diet plan for user: {}", userRequest.getEmail());
+            var newDietPlan = dietPlanService.generateCustomDietPlan(user);
+            return dietPlanMapper.toDTO(newDietPlan);
+          }
+          SimpleDietPlanDTO planDTO = dietPlanMapper.toDTO(existingDietPlan);
+          // Cache the DTO result
+          cacheService.cacheDietPlan(user.getUserId(), planDTO);
+          return planDTO;
+        } catch (Exception e) {
+          log.error("Error processing diet plan for user: {}", user.getUserId(), e);
+          throw new RuntimeException("Error processing diet plan", e);
         }
-        SimpleDietPlanDTO planDTO = dietPlanMapper.toDTO(existingDietPlan);
-        // Cache the result
-        cacheService.cacheDietPlan(user.getUserId(), planDTO);
-        return planDTO;
       });
 
       CompletableFuture<SimpleWorkoutPlanDTO> workoutPlanFuture = CompletableFuture.supplyAsync(() -> {
-        // Check cache first
-        SimpleWorkoutPlanDTO cachedWorkoutPlan = cacheService.getCachedWorkoutPlan(user.getUserId());
-        if (cachedWorkoutPlan != null) {
-          return cachedWorkoutPlan;
-        }
+        try {
+          // Check cache first for DTO
+          SimpleWorkoutPlanDTO cachedWorkoutPlan = cacheService.getCachedWorkoutPlan(user.getUserId());
+          if (cachedWorkoutPlan != null) {
+            return cachedWorkoutPlan;
+          }
 
-        var existingWorkoutPlan = workoutPlanService.getExistingWorkoutPlan(user.getUserId());
-        if (existingWorkoutPlan == null) {
-          log.info("Generating new workout plan for user: {}", userRequest.getEmail());
-          var newWorkoutPlan = workoutPlanService.generateCustomWorkoutPlan(user);
-          return workoutPlanMapper.toDTO(newWorkoutPlan);
+          var existingWorkoutPlan = workoutPlanService.getExistingWorkoutPlan(user.getUserId());
+          if (existingWorkoutPlan == null) {
+            log.info("Generating new workout plan for user: {}", userRequest.getEmail());
+            var newWorkoutPlan = workoutPlanService.generateCustomWorkoutPlan(user);
+            return workoutPlanMapper.toDTO(newWorkoutPlan);
+          }
+          SimpleWorkoutPlanDTO planDTO = workoutPlanMapper.toDTO(existingWorkoutPlan);
+          // Cache the DTO result
+          cacheService.cacheWorkoutPlan(user.getUserId(), planDTO);
+          return planDTO;
+        } catch (Exception e) {
+          log.error("Error processing workout plan for user: {}", user.getUserId(), e);
+          throw new RuntimeException("Error processing workout plan", e);
         }
-        SimpleWorkoutPlanDTO planDTO = workoutPlanMapper.toDTO(existingWorkoutPlan);
-        // Cache the result
-        cacheService.cacheWorkoutPlan(user.getUserId(), planDTO);
-        return planDTO;
       });
 
       // Wait for both plans to complete
@@ -251,111 +268,33 @@ public class OptimizedFitnessController {
     }
   }
 
-  // // Create/Update user profile and generate plans (with cache invalidation)
-  // @PostMapping("/user/complete-profile")
-  // public ResponseEntity<OptimizedPlansResponseDTO>
-  // completeUserProfile(@RequestBody UserProfileDTO userProfile) {
-  // log.info("Completing profile and generating plans for email: {}",
-  // userProfile.getEmail());
+  // Update user profile only (with cache update)
+  @PutMapping("/user/update-profile")
+  public ResponseEntity<UserProfileDTO> updateUserProfile(@RequestBody UserProfileDTO userProfile) {
+    log.info("Updating profile for email: {}", userProfile.getEmail());
 
-  // try {
-  // // Find or create user
-  // User user = userRepository.findByEmail(userProfile.getEmail()).orElse(new
-  // User());
+    try {
+      User user = userRepository.findByEmail(userProfile.getEmail())
+          .orElseThrow(() -> new RuntimeException("User not found with email: " + userProfile.getEmail()));
 
-  // // Update user details from DTO
-  // updateUserFromDTO(user, userProfile);
-  // final User savedUser = userRepository.save(user);
-  // log.info("User profile saved for email: {} with userId: {}",
-  // userProfile.getEmail(), savedUser.getUserId());
+      // Update user details
+      updateUserFromDTO(user, userProfile);
+      user = userRepository.save(user);
+      UserProfileDTO updatedProfile = userMapper.toDTO(user);
 
-  // // Invalidate existing caches since we're regenerating
-  // cacheService.invalidateAllUserCache(userProfile.getEmail(),
-  // savedUser.getUserId());
+      // Update cache
+      cacheService.cacheUserProfile(userProfile.getEmail(), updatedProfile);
+      // Invalidate plans response cache since profile changed
+      cacheService.invalidateUserCache(userProfile.getEmail());
 
-  // // Generate fresh plans in parallel
-  // CompletableFuture<SimpleDietPlanDTO> dietPlanFuture =
-  // CompletableFuture.supplyAsync(() -> {
-  // var dietPlan = dietPlanService.regenerateDietPlan(savedUser);
-  // return dietPlanMapper.toDTO(dietPlan);
-  // });
+      log.info("Profile updated successfully for email: {}", userProfile.getEmail());
+      return ResponseEntity.ok(updatedProfile);
 
-  // CompletableFuture<SimpleWorkoutPlanDTO> workoutPlanFuture =
-  // CompletableFuture.supplyAsync(() -> {
-  // var workoutPlan = workoutPlanService.regenerateWorkoutPlan(savedUser);
-  // return workoutPlanMapper.toDTO(workoutPlan);
-  // });
-
-  // // Wait for completion
-  // SimpleDietPlanDTO dietPlanDTO = dietPlanFuture.join();
-  // SimpleWorkoutPlanDTO workoutPlanDTO = workoutPlanFuture.join();
-
-  // // Get nutrition analysis
-  // var needs = nutritionCalculatorService.calculateNutritionalNeeds(savedUser);
-  // NutritionAnalysis nutritionAnalysis = createNutritionAnalysis(savedUser,
-  // needs);
-
-  // // Cache nutrition analysis
-  // cacheService.cacheNutritionAnalysis(savedUser.getUserId(),
-  // nutritionAnalysis);
-
-  // UserProfileDTO updatedUserDTO = userMapper.toDTO(savedUser);
-  // OptimizedPlansResponseDTO response = new OptimizedPlansResponseDTO();
-  // response.setUser(updatedUserDTO);
-  // response.setDietPlan(dietPlanDTO);
-  // response.setWorkoutPlan(workoutPlanDTO);
-  // response.setNutritionAnalysis(nutritionAnalysis);
-  // response.setPlansExist(true);
-  // response.setSummary(generateSummary(updatedUserDTO, dietPlanDTO,
-  // workoutPlanDTO));
-
-  // // Cache everything
-  // cacheService.cacheUserProfile(userProfile.getEmail(), updatedUserDTO);
-  // cacheService.cachePlansResponse(userProfile.getEmail(), response);
-
-  // log.info("Successfully completed profile and generated plans for email: {}",
-  // userProfile.getEmail());
-  // return ResponseEntity.ok(response);
-
-  // } catch (Exception e) {
-  // log.error("Error completing profile for email: {}", userProfile.getEmail(),
-  // e);
-  // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-  // .body(createErrorResponse(userProfile.getEmail(), "Error completing
-  // profile"));
-  // }
-  // }
-
-  // // Update user profile only (with cache update)
-  // @PutMapping("/user/update-profile")
-  // public ResponseEntity<UserProfileDTO> updateUserProfile(@RequestBody
-  // UserProfileDTO userProfile) {
-  // log.info("Updating profile for email: {}", userProfile.getEmail());
-
-  // try {
-  // User user = userRepository.findByEmail(userProfile.getEmail())
-  // .orElseThrow(() -> new RuntimeException("User not found with email: " +
-  // userProfile.getEmail()));
-
-  // // Update user details
-  // updateUserFromDTO(user, userProfile);
-  // user = userRepository.save(user);
-  // UserProfileDTO updatedProfile = userMapper.toDTO(user);
-
-  // // Update cache
-  // cacheService.cacheUserProfile(userProfile.getEmail(), updatedProfile);
-  // // Invalidate plans response cache since profile changed
-  // cacheService.invalidateUserCache(userProfile.getEmail());
-
-  // log.info("Profile updated successfully for email: {}",
-  // userProfile.getEmail());
-  // return ResponseEntity.ok(updatedProfile);
-
-  // } catch (Exception e) {
-  // log.error("Error updating profile for email: {}", userProfile.getEmail(), e);
-  // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-  // }
-  // }
+    } catch (Exception e) {
+      log.error("Error updating profile for email: {}", userProfile.getEmail(), e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+  }
 
   // Regenerate diet plan only (with cache invalidation)
   @PostMapping("/user/regenerate-diet")
@@ -416,7 +355,7 @@ public class OptimizedFitnessController {
       User user = userRepository.findByEmail(userRequest.getEmail())
           .orElseThrow(() -> new RuntimeException("User not found with email: " + userRequest.getEmail()));
 
-      // Check cache first
+      // Check cache first for DTO
       SimpleDietPlanDTO cachedPlan = cacheService.getCachedDietPlan(user.getUserId());
       if (cachedPlan != null) {
         log.debug("Retrieved diet plan from cache for email: {}", userRequest.getEmail());
@@ -430,7 +369,7 @@ public class OptimizedFitnessController {
 
       SimpleDietPlanDTO dietPlanDTO = dietPlanMapper.toDTO(dietPlan);
 
-      // Cache the result
+      // Cache the DTO result
       cacheService.cacheDietPlan(user.getUserId(), dietPlanDTO);
 
       return ResponseEntity.ok(dietPlanDTO);
@@ -450,7 +389,7 @@ public class OptimizedFitnessController {
       User user = userRepository.findByEmail(userRequest.getEmail())
           .orElseThrow(() -> new RuntimeException("User not found with email: " + userRequest.getEmail()));
 
-      // Check cache first
+      // Check cache first for DTO
       SimpleWorkoutPlanDTO cachedPlan = cacheService.getCachedWorkoutPlan(user.getUserId());
       if (cachedPlan != null) {
         log.debug("Retrieved workout plan from cache for email: {}", userRequest.getEmail());
@@ -464,7 +403,7 @@ public class OptimizedFitnessController {
 
       SimpleWorkoutPlanDTO workoutPlanDTO = workoutPlanMapper.toDTO(workoutPlan);
 
-      // Cache the result
+      // Cache the DTO result
       cacheService.cacheWorkoutPlan(user.getUserId(), workoutPlanDTO);
 
       return ResponseEntity.ok(workoutPlanDTO);
@@ -559,6 +498,24 @@ public class OptimizedFitnessController {
     }
   }
 
+  // Get nutrition analysis only (with caching)
+  @PostMapping("/user/nutrition-analysis")
+  public ResponseEntity<NutritionAnalysis> getNutritionAnalysis(@RequestBody UserProfileDTO userRequest) {
+    log.info("Fetching nutrition analysis for email: {}", userRequest.getEmail());
+
+    try {
+      User user = userRepository.findByEmail(userRequest.getEmail())
+          .orElseThrow(() -> new RuntimeException("User not found with email: " + userRequest.getEmail()));
+
+      NutritionAnalysis nutritionAnalysis = getCachedOrCalculateNutrition(user);
+      return ResponseEntity.ok(nutritionAnalysis);
+
+    } catch (Exception e) {
+      log.error("Error fetching nutrition analysis for email: {}", userRequest.getEmail(), e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+  }
+
   // ===== HELPER METHODS =====
 
   private NutritionAnalysis getCachedOrCalculateNutrition(User user) {
@@ -591,12 +548,12 @@ public class OptimizedFitnessController {
   private NutritionAnalysis createNutritionAnalysis(User user, NutritionCalculatorService.NutritionalNeeds needs) {
     NutritionAnalysis nutritionAnalysis = new NutritionAnalysis();
     nutritionAnalysis.setUserId(user.getUserId());
-    nutritionAnalysis.setDailyCalories(needs.calories);
-    nutritionAnalysis.setDailyProtein(needs.protein);
-    nutritionAnalysis.setDailyCarbs(needs.carbs);
-    nutritionAnalysis.setDailyFat(needs.fat);
-    nutritionAnalysis.setBmr(calculateBMR(user));
-    nutritionAnalysis.setTdee(needs.calories);
+    nutritionAnalysis.setDailyCalories(roundTo1Decimal(needs.calories));
+    nutritionAnalysis.setDailyProtein(roundTo1Decimal(needs.protein));
+    nutritionAnalysis.setDailyCarbs(roundTo1Decimal(needs.carbs));
+    nutritionAnalysis.setDailyFat(roundTo1Decimal(needs.fat));
+    nutritionAnalysis.setBmr(roundTo1Decimal(calculateBMR(user)));
+    nutritionAnalysis.setTdee(roundTo1Decimal(needs.calories));
     return nutritionAnalysis;
   }
 
@@ -617,7 +574,7 @@ public class OptimizedFitnessController {
         .filter(day -> !day.isRestDay())
         .count();
 
-    return String.format("Complete fitness plan for %s - Goal: %s | Daily Calories: %.0f | Workout Days: %d/week",
+    return String.format("Complete fitness plan for %s - Goal: %s | Daily Calories: %.1f | Workout Days: %d/week",
         user.getName(), user.getGoal(), dietPlan.getDailyCalorieTarget(), workoutDays);
   }
 

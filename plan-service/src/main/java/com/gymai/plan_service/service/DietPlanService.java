@@ -15,6 +15,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Service
 @Transactional
@@ -40,13 +42,18 @@ public class DietPlanService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    // Helper method to round to 1 decimal place
+    private double roundTo1Decimal(double value) {
+        return new BigDecimal(value).setScale(1, RoundingMode.HALF_UP).doubleValue();
+    }
+
     public DietPlan generateCustomDietPlan(User user) {
         log.info("Generating custom diet plan for user: {} (preference: {})", user.getUserId(), user.getPreference());
 
-        // Check cache first
+        // Check cache first for DTO, not entity
         SimpleDietPlanDTO cachedPlan = cacheService.getCachedDietPlan(user.getUserId());
         if (cachedPlan != null) {
-            log.info("Found cached diet plan for userId={}, returning cached plan", user.getUserId());
+            log.info("Found cached diet plan for userId={}, fetching full entity", user.getUserId());
             DietPlan existingPlan = getExistingDietPlanSafe(user.getUserId());
             if (existingPlan != null) {
                 return existingPlan;
@@ -56,7 +63,7 @@ public class DietPlanService {
         // Check if user already has a diet plan using safe method
         DietPlan existingPlan = getExistingDietPlanSafe(user.getUserId());
         if (existingPlan != null) {
-            log.info("Found existing diet plan for userId={}, caching and returning plan", user.getUserId());
+            log.info("Found existing diet plan for userId={}, caching DTO and returning plan", user.getUserId());
             SimpleDietPlanDTO planDTO = dietPlanMapper.toDTO(existingPlan);
             cacheService.cacheDietPlan(user.getUserId(), planDTO);
             return existingPlan;
@@ -74,7 +81,6 @@ public class DietPlanService {
         cacheService.invalidateUserPlansCache(user.getUserId());
 
         // Delete existing plan
-        // cacheService.invalidateUserPlansCache(userId);
         List<DietPlan> plans = dietPlanRepository.findByUserId(user.getUserId());
         for (DietPlan plan : plans) {
             dietPlanRepository.delete(plan); // This triggers cascade and orphan removal.
@@ -87,14 +93,13 @@ public class DietPlanService {
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(value = "diet-plans", key = "#userId")
     public DietPlan getExistingDietPlan(Long userId) {
         log.info("Fetching existing diet plan for userId={}", userId);
 
-        // Check cache first
+        // Check cache first for DTO, not entity
         SimpleDietPlanDTO cachedPlan = cacheService.getCachedDietPlan(userId);
         if (cachedPlan != null) {
-            log.debug("Retrieved diet plan from cache for userId={}", userId);
+            log.debug("Retrieved diet plan DTO from cache for userId={}, fetching full entity", userId);
         }
 
         return getExistingDietPlanSafe(userId);
@@ -180,13 +185,11 @@ public class DietPlanService {
         // Calculate nutritional needs
         NutritionCalculatorService.NutritionalNeeds needs = nutritionCalculator.calculateNutritionalNeeds(user);
 
-        // Round off nutrition values to 2 decimal places
-        needs.calories = Math.round(needs.calories * 100.0) / 100.0;
-
-        needs.protein = Math.round(needs.protein * 100.0) / 100.0;
-
-        needs.carbs = Math.round(needs.carbs * 100.0) / 100.0;
-        needs.fat = Math.round(needs.fat * 100.0) / 100.0;
+        // Round off nutrition values to 1 decimal place
+        needs.calories = roundTo1Decimal(needs.calories);
+        needs.protein = roundTo1Decimal(needs.protein);
+        needs.carbs = roundTo1Decimal(needs.carbs);
+        needs.fat = roundTo1Decimal(needs.fat);
 
         log.debug("Calculated needs -> Calories: {}, Protein: {}, Carbs: {}, Fat: {}",
                 needs.calories, needs.protein, needs.carbs, needs.fat);
@@ -225,7 +228,7 @@ public class DietPlanService {
         // Save the complete plan with all relationships
         dietPlan = dietPlanRepository.save(dietPlan);
 
-        // Cache the result
+        // Cache the DTO result (not the entity)
         SimpleDietPlanDTO planDTO = dietPlanMapper.toDTO(dietPlan);
         cacheService.cacheDietPlan(user.getUserId(), planDTO);
 
@@ -290,11 +293,11 @@ public class DietPlanService {
 
         DayMealPlan dayPlan = new DayMealPlan(dayNumber, dayName);
 
-        // Calorie distribution - rounded to 2 decimal places
-        double breakfastCalories = Math.round(needs.calories * 0.25 * 100.0) / 100.0;
-        double lunchCalories = Math.round(needs.calories * 0.35 * 100.0) / 100.0;
-        double dinnerCalories = Math.round(needs.calories * 0.30 * 100.0) / 100.0;
-        double snackCalories = Math.round(needs.calories * 0.10 * 100.0) / 100.0;
+        // Calorie distribution - rounded to 1 decimal place
+        double breakfastCalories = roundTo1Decimal(needs.calories * 0.25);
+        double lunchCalories = roundTo1Decimal(needs.calories * 0.35);
+        double dinnerCalories = roundTo1Decimal(needs.calories * 0.30);
+        double snackCalories = roundTo1Decimal(needs.calories * 0.10);
 
         log.debug("Meal distribution -> Breakfast: {}, Lunch: {}, Dinner: {}, Snack: {}",
                 breakfastCalories, lunchCalories, dinnerCalories, snackCalories);
@@ -350,18 +353,18 @@ public class DietPlanService {
         double remainingCalories = targetCalories;
 
         if (grains.isPresent()) {
-            double grainsCalories = Math.round(targetCalories * 0.4 * 100.0) / 100.0;
+            double grainsCalories = roundTo1Decimal(targetCalories * 0.4);
             double quantity = Math.max(50,
-                    Math.round(((grainsCalories / grains.get().getCaloriesPer100g()) * 100) * 100.0) / 100.0);
+                    roundTo1Decimal(((grainsCalories / grains.get().getCaloriesPer100g()) * 100)));
             breakfast.addFoodItem(new FoodItem(grains.get(), quantity));
             remainingCalories -= grainsCalories;
             log.debug("Added grains: {}g [{}] - {} calories", quantity, grains.get().getName(), grainsCalories);
         }
 
         if (protein.isPresent()) {
-            double proteinCalories = Math.round(targetCalories * 0.35 * 100.0) / 100.0;
+            double proteinCalories = roundTo1Decimal(targetCalories * 0.35);
             double quantity = Math.max(30,
-                    Math.round(((proteinCalories / protein.get().getCaloriesPer100g()) * 100) * 100.0) / 100.0);
+                    roundTo1Decimal(((proteinCalories / protein.get().getCaloriesPer100g()) * 100)));
             breakfast.addFoodItem(new FoodItem(protein.get(), quantity));
             remainingCalories -= proteinCalories;
             log.debug("Added protein: {}g [{}] - {} calories", quantity, protein.get().getName(), proteinCalories);
@@ -369,7 +372,7 @@ public class DietPlanService {
 
         if (fruits.isPresent() && remainingCalories > 0) {
             double quantity = Math.max(100,
-                    Math.round(((remainingCalories / fruits.get().getCaloriesPer100g()) * 100) * 100.0) / 100.0);
+                    roundTo1Decimal(((remainingCalories / fruits.get().getCaloriesPer100g()) * 100)));
             breakfast.addFoodItem(new FoodItem(fruits.get(), quantity));
             log.debug("Added fruit: {}g [{}] - {} calories", quantity, fruits.get().getName(), remainingCalories);
         }
@@ -391,18 +394,18 @@ public class DietPlanService {
         double remainingCalories = targetCalories;
 
         if (grains.isPresent()) {
-            double grainsCalories = Math.round(targetCalories * 0.35 * 100.0) / 100.0;
+            double grainsCalories = roundTo1Decimal(targetCalories * 0.35);
             double quantity = Math.max(80,
-                    Math.round(((grainsCalories / grains.get().getCaloriesPer100g()) * 100) * 100.0) / 100.0);
+                    roundTo1Decimal(((grainsCalories / grains.get().getCaloriesPer100g()) * 100)));
             meal.addFoodItem(new FoodItem(grains.get(), quantity));
             remainingCalories -= grainsCalories;
             log.debug("Added grains: {}g [{}] - {} calories", quantity, grains.get().getName(), grainsCalories);
         }
 
         if (protein.isPresent()) {
-            double proteinCalories = Math.round(targetCalories * 0.45 * 100.0) / 100.0;
+            double proteinCalories = roundTo1Decimal(targetCalories * 0.45);
             double quantity = Math.max(100,
-                    Math.round(((proteinCalories / protein.get().getCaloriesPer100g()) * 100) * 100.0) / 100.0);
+                    roundTo1Decimal(((proteinCalories / protein.get().getCaloriesPer100g()) * 100)));
             meal.addFoodItem(new FoodItem(protein.get(), quantity));
             remainingCalories -= proteinCalories;
             log.debug("Added protein: {}g [{}] - {} calories", quantity, protein.get().getName(), proteinCalories);
@@ -410,7 +413,7 @@ public class DietPlanService {
 
         if (vegetables.isPresent() && remainingCalories > 0) {
             double quantity = Math.max(150,
-                    Math.round(((remainingCalories / vegetables.get().getCaloriesPer100g()) * 100) * 100.0) / 100.0);
+                    roundTo1Decimal(((remainingCalories / vegetables.get().getCaloriesPer100g()) * 100)));
             meal.addFoodItem(new FoodItem(vegetables.get(), quantity));
             log.debug("Added vegetables: {}g [{}] - {} calories", quantity, vegetables.get().getName(),
                     remainingCalories);
@@ -433,7 +436,7 @@ public class DietPlanService {
         if (!snackFoods.isEmpty()) {
             Food selectedSnack = snackFoods.get((int) (Math.random() * snackFoods.size()));
             double quantity = Math.max(50,
-                    Math.round(((targetCalories / selectedSnack.getCaloriesPer100g()) * 100) * 10.0) / 10.0);
+                    roundTo1Decimal(((targetCalories / selectedSnack.getCaloriesPer100g()) * 100)));
             snack.addFoodItem(new FoodItem(selectedSnack, quantity));
             log.debug("Added snack: {}g [{}] - {} calories", quantity, selectedSnack.getName(), targetCalories);
         } else {

@@ -1,4 +1,3 @@
-// WorkoutPlanMapper.java
 package com.gymai.plan_service.mapper;
 
 import java.util.List;
@@ -6,9 +5,16 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import com.gymai.plan_service.dto.*;
 import com.gymai.plan_service.entity.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Component
 public class WorkoutPlanMapper {
+
+  // Helper method to round to 1 decimal place
+  private double roundTo1Decimal(double value) {
+    return new BigDecimal(value).setScale(1, RoundingMode.HALF_UP).doubleValue();
+  }
 
   public SimpleWorkoutPlanDTO toDTO(WorkoutPlan workoutPlan) {
     if (workoutPlan == null)
@@ -36,7 +42,7 @@ public class WorkoutPlanMapper {
     dto.setFocusArea(dayPlan.getFocusArea());
     dto.setRestDay(dayPlan.isRestDay());
     dto.setEstimatedDurationMinutes(dayPlan.getEstimatedDurationMinutes());
-    dto.setTotalCaloriesBurned(dayPlan.getTotalCaloriesBurned());
+    dto.setTotalCaloriesBurned(roundTo1Decimal(dayPlan.getTotalCaloriesBurned()));
 
     List<SimpleWorkoutExerciseDTO> exercisesDTO = dayPlan.getExercises().stream()
         .map(this::toWorkoutExerciseDTO)

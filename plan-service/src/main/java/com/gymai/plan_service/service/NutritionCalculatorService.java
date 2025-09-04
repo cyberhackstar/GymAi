@@ -3,22 +3,31 @@ package com.gymai.plan_service.service;
 import org.springframework.stereotype.Service;
 import com.gymai.plan_service.entity.User;
 import lombok.extern.slf4j.Slf4j;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
-// NutritionCalculatorService.java
 @Service
 @Slf4j
 public class NutritionCalculatorService {
+
+    // Helper method to round to 1 decimal place
+    private double roundTo1Decimal(double value) {
+        return new BigDecimal(value).setScale(1, RoundingMode.HALF_UP).doubleValue();
+    }
 
     public NutritionalNeeds calculateNutritionalNeeds(User user) {
         log.info("Calculating nutritional needs for user: {}", user);
 
         double bmr = calculateBMR(user);
+        bmr = roundTo1Decimal(bmr);
         log.debug("Calculated BMR: {}", bmr);
 
         double tdee = calculateTDEE(bmr, user.getActivityLevel());
+        tdee = roundTo1Decimal(tdee);
         log.debug("Calculated TDEE (with activity level {}): {}", user.getActivityLevel(), tdee);
 
         double targetCalories = adjustCaloriesForGoal(tdee, user.getGoal());
+        targetCalories = roundTo1Decimal(targetCalories);
         log.info("Adjusted target calories for goal {}: {}", user.getGoal(), targetCalories);
 
         // Calculate macronutrient targets
@@ -26,10 +35,10 @@ public class NutritionCalculatorService {
         log.info("Macro targets -> Protein: {}g, Carbs: {}g, Fat: {}g", macros.protein, macros.carbs, macros.fat);
 
         return new NutritionalNeeds(
-                Math.round(targetCalories),
-                Math.round(macros.protein),
-                Math.round(macros.carbs),
-                Math.round(macros.fat));
+                targetCalories,
+                macros.protein,
+                macros.carbs,
+                macros.fat);
     }
 
     private double calculateBMR(User user) {
@@ -101,15 +110,18 @@ public class NutritionCalculatorService {
         }
 
         protein = proteinPerKg * user.getWeight();
+        protein = roundTo1Decimal(protein);
         double proteinCalories = protein * 4;
 
         // Fat: 25% of calories
         double fatCalories = calories * 0.25;
         fat = fatCalories / 9;
+        fat = roundTo1Decimal(fat);
 
         // Carbs = remaining calories
         double carbsCalories = calories - (proteinCalories + fatCalories);
         carbs = carbsCalories / 4;
+        carbs = roundTo1Decimal(carbs);
 
         return new MacroTargets(protein, carbs, fat);
     }
@@ -122,10 +134,10 @@ public class NutritionCalculatorService {
         public double fat;
 
         public NutritionalNeeds(double calories, double protein, double carbs, double fat) {
-            this.calories = Math.round(calories);
-            this.protein = Math.round(protein);
-            this.carbs = Math.round(carbs);
-            this.fat = Math.round(fat);
+            this.calories = calories;
+            this.protein = protein;
+            this.carbs = carbs;
+            this.fat = fat;
         }
     }
 

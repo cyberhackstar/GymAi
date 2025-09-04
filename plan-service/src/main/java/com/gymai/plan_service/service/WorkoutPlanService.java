@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.gymai.plan_service.entity.*;
@@ -15,6 +14,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Service
 @Transactional
@@ -37,6 +38,11 @@ public class WorkoutPlanService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    // Helper method to round to 1 decimal place
+    private double roundTo1Decimal(double value) {
+        return new BigDecimal(value).setScale(1, RoundingMode.HALF_UP).doubleValue();
+    }
+
     public WorkoutPlan generateCustomWorkoutPlan(User user) {
         log.info("Generating workout plan for userId={}, goal={}, activityLevel={}",
                 user.getUserId(), user.getGoal(), user.getActivityLevel());
@@ -44,10 +50,10 @@ public class WorkoutPlanService {
         // Validate user inputs
         validateUserInputs(user);
 
-        // Check cache first
+        // Check cache first for DTO, not entity
         SimpleWorkoutPlanDTO cachedPlan = cacheService.getCachedWorkoutPlan(user.getUserId());
         if (cachedPlan != null) {
-            log.info("Found cached workout plan for userId={}, returning cached plan", user.getUserId());
+            log.info("Found cached workout plan for userId={}, fetching full entity", user.getUserId());
             WorkoutPlan existingPlan = getExistingWorkoutPlanSafe(user.getUserId());
             if (existingPlan != null) {
                 return existingPlan;
@@ -57,7 +63,7 @@ public class WorkoutPlanService {
         // Check if user already has a workout plan using safe method
         WorkoutPlan existingPlan = getExistingWorkoutPlanSafe(user.getUserId());
         if (existingPlan != null) {
-            log.info("Found existing workout plan for userId={}, caching and returning plan", user.getUserId());
+            log.info("Found existing workout plan for userId={}, caching DTO and returning plan", user.getUserId());
             SimpleWorkoutPlanDTO planDTO = workoutPlanMapper.toDTO(existingPlan);
             cacheService.cacheWorkoutPlan(user.getUserId(), planDTO);
             return existingPlan;
@@ -81,9 +87,9 @@ public class WorkoutPlanService {
         List<WorkoutPlan> plans = workoutPlanRepository.findByUserId(user.getUserId());
 
         for (WorkoutPlan plan : plans) {
-            workoutPlanRepository.delete(plan); // <-- Hibernate cascades delete
-            log.info("Deleted {} workout plans for userId={}", plans.size(), user.getUserId());
+            workoutPlanRepository.delete(plan); // Hibernate cascades delete
         }
+        log.info("Deleted {} workout plans for userId={}", plans.size(), user.getUserId());
         entityManager.flush(); // Ensure deletion is committed
 
         // Generate new plan
@@ -91,14 +97,13 @@ public class WorkoutPlanService {
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(value = "workout-plans", key = "#userId")
     public WorkoutPlan getExistingWorkoutPlan(Long userId) {
         log.info("Fetching existing workout plan for userId={}", userId);
 
-        // Check cache first
+        // Check cache first for DTO, not entity
         SimpleWorkoutPlanDTO cachedPlan = cacheService.getCachedWorkoutPlan(userId);
         if (cachedPlan != null) {
-            log.debug("Retrieved workout plan from cache for userId={}", userId);
+            log.debug("Retrieved workout plan DTO from cache for userId={}, fetching full entity", userId);
         }
 
         return getExistingWorkoutPlanSafe(userId);
@@ -160,12 +165,10 @@ public class WorkoutPlanService {
         List<WorkoutPlan> plans = workoutPlanRepository.findByUserId(userId);
 
         for (WorkoutPlan plan : plans) {
-            workoutPlanRepository.delete(plan); // <-- Hibernate cascades delete
-
+            workoutPlanRepository.delete(plan); // Hibernate cascades delete
         }
         log.info("Deleted {} workout plans for userId={}", plans.size(), userId);
     }
-    // List<DietPlan> plans = dietPlanRepository.findByUserId(userId);
 
     @Transactional
     private WorkoutPlan generateNewWorkoutPlan(User user) {
@@ -207,7 +210,7 @@ public class WorkoutPlanService {
         // Save the complete plan with cascaded entities
         workoutPlan = workoutPlanRepository.save(workoutPlan);
 
-        // Cache the result
+        // Cache the DTO result (not the entity)
         SimpleWorkoutPlanDTO planDTO = workoutPlanMapper.toDTO(workoutPlan);
         cacheService.cacheWorkoutPlan(user.getUserId(), planDTO);
 
@@ -498,23 +501,66 @@ public class WorkoutPlanService {
 
     private WorkoutExercise createWorkoutExercise(Exercise exercise, String planType, String difficulty) {
         int sets, reps, duration, rest;
+        double weight = 0.0;
 
         if ("CARDIO".equalsIgnoreCase(exercise.getCategory())) {
             sets = 1;
             reps = 0;
             duration = getDurationForDifficulty(difficulty);
             rest = 60;
+            weight = 0.0;
         } else {
             sets = getSetsForDifficulty(difficulty);
             reps = getRepsForGoal(planType);
             duration = 0;
             rest = getRestForDifficulty(difficulty);
+            weight = getDefaultWeightForExercise(exercise, difficulty);
         }
 
-        log.trace("Created workoutExercise: exercise={}, sets={}, reps={}, duration={}, rest={}",
-                exercise.getName(), sets, reps, duration, rest);
+        log.trace("Created workoutExercise: exercise={}, sets={}, reps={}, duration={}, weight={}, rest={}",
+                exercise.getName(), sets, reps, duration, weight, rest);
 
-        return new WorkoutExercise(exercise, sets, reps, duration, 0, rest);
+        return new WorkoutExercise(exercise, sets, reps, duration, roundTo1Decimal(weight), rest);
+    }
+
+    private double getDefaultWeightForExercise(Exercise exercise, String difficulty) {
+        // This is a simple weight estimation - you might want to make this more
+        // sophisticated
+        double baseWeight;
+
+        String muscleGroup = exercise.getMuscleGroup() != null ? exercise.getMuscleGroup().toUpperCase() : "UNKNOWN";
+
+        switch (muscleGroup) {
+            case "CHEST":
+            case "BACK":
+                baseWeight = 20.0;
+                break;
+            case "LEGS":
+                baseWeight = 30.0;
+                break;
+            case "SHOULDERS":
+            case "ARMS":
+                baseWeight = 15.0;
+                break;
+            case "CORE":
+            case "FULL_BODY":
+                baseWeight = 0.0; // Bodyweight exercises
+                break;
+            default:
+                baseWeight = 10.0;
+        }
+
+        // Adjust based on difficulty
+        switch (difficulty.toUpperCase()) {
+            case "BEGINNER":
+                return roundTo1Decimal(baseWeight * 0.7);
+            case "INTERMEDIATE":
+                return roundTo1Decimal(baseWeight);
+            case "ADVANCED":
+                return roundTo1Decimal(baseWeight * 1.5);
+            default:
+                return roundTo1Decimal(baseWeight);
+        }
     }
 
     private int getDurationForDifficulty(String difficulty) {
