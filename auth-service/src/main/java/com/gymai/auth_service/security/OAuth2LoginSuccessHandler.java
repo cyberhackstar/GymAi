@@ -79,7 +79,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             // Publish event
             try {
                 rabbitMqSender.sendMessageToRoute(
-                        new UserEvent(user.getEmail(), user.getName(), "OAUTH_LOGIN"),
+                        new UserEvent(user.getEmail(), user.getName(), "LOGIN"),
                         directExchange.getName(),
                         loginRouting);
                 log.info("Successfully sent OAuth login event");
@@ -272,7 +272,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                     // Send registration event (with error handling)
                     try {
                         rabbitMqSender.sendMessageToRoute(
-                                new UserEvent(saved.getEmail(), saved.getName(), "OAUTH_REGISTRATION"),
+                                new UserEvent(saved.getEmail(), saved.getName(), "REGISTRATION"),
                                 directExchange.getName(),
                                 registrationRouting);
                     } catch (Exception e) {

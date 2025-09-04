@@ -25,11 +25,6 @@ public interface WorkoutPlanRepository extends JpaRepository<WorkoutPlan, Long> 
         return plans.isEmpty() ? Optional.empty() : Optional.of(plans.get(0));
     }
 
-    // @Modifying
-    // @Transactional
-    // @Query("DELETE FROM WorkoutPlan wp WHERE wp.userId = :userId")
-    // void deleteByUserId(@Param("userId") Long userId);
-
     boolean existsByUserId(Long userId);
 
 }

@@ -26,10 +26,5 @@ public interface DietPlanRepository extends JpaRepository<DietPlan, Long> {
         return plans.isEmpty() ? Optional.empty() : Optional.of(plans.get(0));
     }
 
-    // @Modifying
-    // @Transactional
-    // @Query("DELETE FROM DietPlan dp WHERE dp.userId = :userId")
-    // void deleteByUserId(@Param("userId") Long userId);
-
     boolean existsByUserId(Long userId);
 }
