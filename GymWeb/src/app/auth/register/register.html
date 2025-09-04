@@ -163,7 +163,8 @@
           </div>
         </div>
 
-        <button type="submit" [disabled]="registerForm.invalid">
+        <button type="submit" [disabled]="registerForm.invalid || isLoading">
+          <i class="fas fa-sync-alt" [class.fa-spin]="isLoading"></i>
           Register
         </button>
 

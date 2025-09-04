@@ -37,6 +37,7 @@ export class Register {
   errorMessage = '';
   showPassword = false;
   showConfirmPassword = false;
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -62,6 +63,7 @@ export class Register {
   }
 
   onSubmit(): void {
+    this.isLoading = true;
     if (this.registerForm.invalid) {
       this.errorMessage = 'Please fill out all required fields.';
       return;

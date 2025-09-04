@@ -15,8 +15,8 @@ export class Token {
   token$ = new BehaviorSubject<string | null>(null);
   refreshToken$ = new BehaviorSubject<string | null>(null);
   userId$ = new BehaviorSubject<string | null>(null);
-  name$ = new BehaviorSubject<string | null>(null);
-  email$ = new BehaviorSubject<string | null>(null);
+  name$ = new BehaviorSubject<string | undefined>(undefined);
+  email$ = new BehaviorSubject<string | undefined>(undefined);
 
   constructor() {
     // Sync from storage after BehaviorSubjects are initialized
@@ -108,14 +108,14 @@ export class Token {
     return localStorage.getItem(this.userIdKey);
   }
 
-  getName(): string | null {
-    if (typeof localStorage === 'undefined') return null;
-    return localStorage.getItem(this.nameKey);
+  getName(): string | undefined {
+    if (typeof localStorage === 'undefined') return undefined;
+    return localStorage.getItem(this.nameKey) ?? undefined;
   }
 
-  getEmail(): string | null {
-    if (typeof localStorage === 'undefined') return null;
-    return localStorage.getItem(this.emailKey);
+  getEmail(): string | undefined {
+    if (typeof localStorage === 'undefined') return undefined;
+    return localStorage.getItem(this.emailKey) ?? undefined;
   }
 
   // ===== Decode JWT =====

@@ -582,6 +582,7 @@
   position: relative;
   z-index: 2;
   margin: auto;
+  margin-bottom: 15px;
 }
 
 .card-icon i {
@@ -596,6 +597,7 @@
   color: #fff;
   position: relative;
   z-index: 2;
+  text-align: center;
 }
 
 .card-content p {
@@ -604,6 +606,7 @@
   font-size: 1rem;
   position: relative;
   z-index: 2;
+  text-align: center;
 }
 
 .card-hover-effect {

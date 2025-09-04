@@ -75,7 +75,7 @@ event:
 jwt:
   secret: ${JWT_SECRET:7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc}
   access:
-    expiration: ${JWT_ACCESS_EXPIRATION:900000}
+    expiration: ${JWT_ACCESS_EXPIRATION:9000000}
   refresh:
     expiration: ${JWT_REFRESH_EXPIRATION:604800000}
 

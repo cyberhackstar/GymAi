@@ -126,8 +126,18 @@
           <a routerLink="/forgot-password">Forgot password?</a>
         </div>
 
-        <button type="submit" [disabled]="loginForm.invalid">Login</button>
-
+        <button type="submit" [disabled]="loginForm.invalid || isLoading">
+          <i class="fas fa-sync-alt" [class.fa-spin]="isLoading"></i>
+          Login
+        </button>
+        <!-- <button
+        class="action-btn"
+        (click)="regenerateDietPlan()"
+        [disabled]="isLoading"
+      >
+        <i class="fas fa-sync-alt" [class.fa-spin]="isLoading"></i>
+        Regenerate Plan
+      </button> -->
         <div class="signup-hint">
           Don't have an account?
           <a routerLink="/register">Create one</a>

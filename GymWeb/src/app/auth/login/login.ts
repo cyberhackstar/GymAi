@@ -36,12 +36,11 @@ export class Login {
   loginForm: FormGroup;
   errorMessage = '';
   showPassword = false;
-  // isLoading: boolean = true;
+  isLoading: boolean = false;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: Token,
-    private userService: UserProfileService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -55,6 +54,7 @@ export class Login {
   }
 
   onSubmit(): void {
+    this.isLoading = true;
     if (this.loginForm.invalid) {
       this.errorMessage = 'Please enter a valid email and password.';
       return;

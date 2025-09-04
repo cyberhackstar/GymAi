@@ -39,7 +39,7 @@ export class Navbar {
 
     if (this.isLoggedIn) {
       // Assuming token contains role claim
-      this.userRole = this.tokenService.getName(); // implement in Token service
+      this.userRole = this.tokenService.getName() ?? null; // implement in Token service
     } else {
       this.userRole = null;
     }
