@@ -6,21 +6,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FitnessService } from '../plan/fitness-service';
-
-export interface UserProfileDTO {
-  userId?: number;
-  name: string;
-  email: string;
-  age: number;
-  height: number;
-  weight: number;
-  gender: string;
-  goal: string;
-  activityLevel: string;
-  preference: string;
-  profileComplete: boolean;
-}
+import { FitnessService, UserProfileDTO } from '../plan/fitness-service';
+import { Token } from '../core/services/token';
 
 @Component({
   selector: 'app-user-profile',
@@ -83,7 +70,11 @@ export class UserProfile implements OnInit {
     { value: 'VEGAN', label: 'Vegan', icon: '🌱' },
   ];
 
-  constructor(private fb: FormBuilder, private fitnessService: FitnessService) {
+  constructor(
+    private fb: FormBuilder,
+    private fitnessService: FitnessService,
+    private tokenService: Token
+  ) {
     this.profileForm = this.createForm();
   }
 
@@ -94,7 +85,11 @@ export class UserProfile implements OnInit {
   createForm(): FormGroup {
     return this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
+      // ✅ email is disabled here, always
+      email: [
+        { value: '', disabled: true },
+        [Validators.required, Validators.email],
+      ],
       age: ['', [Validators.required, Validators.min(13), Validators.max(120)]],
       height: [
         '',
@@ -113,37 +108,30 @@ export class UserProfile implements OnInit {
 
   loadUserProfile() {
     this.isLoading = true;
-    // Simulate loading existing profile - replace with actual service call
-    setTimeout(() => {
-      this.userProfile = {
-        userId: 2,
-        name: 'test',
-        email: 'test@test.com',
-        age: 25,
-        height: 170.0,
-        weight: 70.0,
-        gender: 'MALE',
-        goal: 'MUSCLE_GAIN',
-        activityLevel: 'MODERATELY_ACTIVE',
-        preference: 'VEG',
-        profileComplete: true,
-      };
-
-      if (this.userProfile) {
-        this.profileForm.patchValue(this.userProfile);
-      }
-      this.isLoading = false;
-    }, 1000);
-  }
-
-  toggleEdit() {
-    this.isEditing = !this.isEditing;
     this.clearMessages();
 
-    if (!this.isEditing && this.userProfile) {
-      // Reset form if canceling edit
-      this.profileForm.patchValue(this.userProfile);
-    }
+    const email = this.tokenService.getEmail();
+    const name = this.tokenService.getName();
+
+    const dto: Partial<UserProfileDTO> = {
+      email: email ?? '',
+      name: name ?? '',
+    };
+
+    this.fitnessService.getUserProfile(dto as UserProfileDTO).subscribe({
+      next: (response: UserProfileDTO) => {
+        this.userProfile = response;
+        if (this.userProfile) {
+          this.profileForm.patchValue(this.userProfile);
+        }
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.errorMessage = 'Failed to load profile. Please try again.';
+        console.error('Profile load error:', error);
+      },
+    });
   }
 
   saveProfile() {
@@ -152,14 +140,16 @@ export class UserProfile implements OnInit {
       this.clearMessages();
 
       const updatedProfile: UserProfileDTO = {
-        ...this.profileForm.value,
+        ...this.profileForm.getRawValue(), // ✅ includes disabled fields
         userId: this.userProfile?.userId,
         profileComplete: true,
+        email: this.tokenService.getEmail(), // enforce token email
+        name: this.tokenService.getName(), // enforce token name
       };
 
-      this.fitnessService.getUserProfile(updatedProfile).subscribe({
+      this.fitnessService.completeUserProfile(updatedProfile).subscribe({
         next: (response) => {
-          this.userProfile = response;
+          this.userProfile = response.user;
           this.isEditing = false;
           this.isSaving = false;
           this.successMessage = 'Profile updated successfully!';
@@ -179,9 +169,24 @@ export class UserProfile implements OnInit {
 
   markFormGroupTouched() {
     Object.keys(this.profileForm.controls).forEach((key) => {
-      const control = this.profileForm.get(key);
-      control?.markAsTouched();
+      this.profileForm.get(key)?.markAsTouched();
     });
+  }
+
+  toggleEdit(): void {
+    this.isEditing = !this.isEditing;
+
+    if (this.isEditing) {
+      this.profileForm.get('gender')?.enable();
+      this.profileForm.get('goal')?.enable();
+      this.profileForm.get('activityLevel')?.enable();
+      this.profileForm.get('preference')?.enable();
+    } else {
+      this.profileForm.get('gender')?.disable();
+      this.profileForm.get('goal')?.disable();
+      this.profileForm.get('activityLevel')?.disable();
+      this.profileForm.get('preference')?.disable();
+    }
   }
 
   clearMessages() {
@@ -189,6 +194,7 @@ export class UserProfile implements OnInit {
     this.successMessage = '';
   }
 
+  // BMI helpers ...
   getBMI(): number {
     if (this.userProfile?.height && this.userProfile?.weight) {
       const heightInMeters = this.userProfile.height / 100;
@@ -219,7 +225,6 @@ export class UserProfile implements OnInit {
     return '';
   }
 
-  // Helper methods for template
   getGoalLabel(): string {
     return (
       this.goalOptions.find((g) => g.value === this.userProfile?.goal)?.label ||

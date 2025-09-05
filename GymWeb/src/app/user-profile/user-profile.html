@@ -120,6 +120,7 @@
           </div>
 
           <div class="form-grid">
+            <!-- Name -->
             <div class="form-group">
               <label for="name">Full Name *</label>
               <div class="input-wrapper">
@@ -140,6 +141,7 @@
               }
             </div>
 
+            <!-- Email -->
             <div class="form-group">
               <label for="email">Email Address *</label>
               <div class="input-wrapper">
@@ -160,6 +162,7 @@
               }
             </div>
 
+            <!-- Age -->
             <div class="form-group">
               <label for="age">Age *</label>
               <div class="input-wrapper">
@@ -182,13 +185,13 @@
               }
             </div>
 
+            <!-- Gender -->
             <div class="form-group">
               <label for="gender">Gender *</label>
               <div class="select-wrapper">
                 <select
                   id="gender"
                   formControlName="gender"
-                  [disabled]="!isEditing"
                   [class.readonly]="!isEditing"
                 >
                   <option value="">Select Gender</option>
@@ -198,6 +201,7 @@
                   </option>
                   }
                 </select>
+
                 <i class="fas fa-venus-mars input-icon"></i>
               </div>
               @if (getFieldError('gender')) {
@@ -217,6 +221,7 @@
           </div>
 
           <div class="form-grid">
+            <!-- Height -->
             <div class="form-group">
               <label for="height">Height (cm) *</label>
               <div class="input-wrapper">
@@ -239,6 +244,7 @@
               }
             </div>
 
+            <!-- Weight -->
             <div class="form-group">
               <label for="weight">Weight (kg) *</label>
               <div class="input-wrapper">
@@ -289,7 +295,6 @@
                   type="radio"
                   [value]="goal.value"
                   formControlName="goal"
-                  [disabled]="!isEditing"
                   style="display: none"
                 />
               </div>
@@ -328,7 +333,6 @@
                   type="radio"
                   [value]="activity.value"
                   formControlName="activityLevel"
-                  [disabled]="!isEditing"
                   style="display: none"
                 />
               </div>
@@ -363,7 +367,6 @@
                   type="radio"
                   [value]="pref.value"
                   formControlName="preference"
-                  [disabled]="!isEditing"
                   style="display: none"
                 />
               </div>
