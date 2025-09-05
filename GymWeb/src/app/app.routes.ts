@@ -21,6 +21,7 @@ import { HomeComponent } from './home-component/home-component';
 import { SupportTicketUser } from './dashboard/user-dashboard/support-ticket-user/support-ticket-user';
 import { authGuard } from './core/guards/auth-guard';
 import { ProgressTracker } from './progress-tracker/progress-tracker';
+import { UserProfile } from './user-profile/user-profile';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -54,6 +55,7 @@ export const routes: Routes = [
   { path: 'tracker', component: ProgressTracker, canActivate: [authGuard] },
 
   { path: 'diet', component: DietPlanComponent, canActivate: [authGuard] },
+  { path: 'user-profile', component: UserProfile, canActivate: [authGuard] },
   {
     path: 'workout',
     component: WorkoutPlanComponent,
