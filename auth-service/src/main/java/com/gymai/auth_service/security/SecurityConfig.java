@@ -20,12 +20,11 @@ import org.springframework.security.oauth2.client.web.AuthorizationRequestReposi
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.List;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -54,9 +53,17 @@ public class SecurityConfig {
                 })
                 .authorizeHttpRequests(auth -> {
                     logger.debug("Configuring authorized endpoints");
-                    auth.requestMatchers("/api/auth/**", "/error", "/actuator/**", "/oauth2/**",
-                            "/login/**", "/favicon.ico").permitAll();
+                    // Allow OPTIONS requests for all endpoints (required for CORS preflight)
                     auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+                    // Public endpoints
+                    auth.requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/refresh").permitAll();
+                    auth.requestMatchers("/error", "/actuator/**").permitAll();
+                    // OAuth2 endpoints
+                    auth.requestMatchers("/oauth2/**", "/login/**").permitAll();
+                    auth.requestMatchers("/api/auth/set-frontend-origin").permitAll();
+                    // Static resources
+                    auth.requestMatchers("/favicon.ico", "/static/**", "/public/**").permitAll();
+                    // All other requests require authentication
                     auth.anyRequest().authenticated();
                 })
                 .exceptionHandling(eh -> {
@@ -158,8 +165,16 @@ public class SecurityConfig {
         logger.info("Configuring CORS");
         CorsConfiguration config = new CorsConfiguration();
 
-        // Specific allowed origins
-        config.setAllowedOrigins(List.of(
+        // Allow all origins during development - be more restrictive in production
+        config.setAllowedOriginPatterns(Arrays.asList(
+                "https://*.neelahouse.cloud",
+                "https://*.netlify.app",
+                "https://*.vercel.app",
+                "http://localhost:*",
+                "http://127.0.0.1:*"));
+
+        // Specific allowed origins for production
+        config.setAllowedOrigins(Arrays.asList(
                 "http://localhost:4200",
                 "http://localhost:3000",
                 "https://gymaibybhawesh.netlify.app",
@@ -169,11 +184,20 @@ public class SecurityConfig {
                 "http://auth-service-gymai.neelahouse.cloud",
                 "https://auth-service-gymai.neelahouse.cloud"));
 
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin"));
-        config.setExposedHeaders(List.of("Authorization"));
+        // Allow all HTTP methods
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"));
+
+        // Allow all headers
+        config.setAllowedHeaders(Arrays.asList("*"));
+
+        // Expose headers that frontend might need
+        config.setExposedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Total-Count"));
+
+        // Allow credentials (required for cookies and authorization headers)
         config.setAllowCredentials(true);
-        config.setMaxAge(3600L); // Cache preflight for 1 hour
+
+        // Cache preflight response for 1 hour
+        config.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

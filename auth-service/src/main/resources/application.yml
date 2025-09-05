@@ -1,6 +1,6 @@
 server:
   port: ${SERVER_PORT:8081}
-  forward-headers-strategy: native # ✅ Trust X-Forwarded headers
+  forward-headers-strategy: framework # ✅ Trust X-Forwarded headers
   use-forward-headers: true # ✅ Allow Spring to use proxy headers
   tomcat:
     remoteip:
@@ -11,6 +11,24 @@ server:
 spring:
   application:
     name: auth-service
+
+  web:
+    cors:
+      allowed-origins:
+        - "http://localhost:4200"
+        - "https://gymai.neelahouse.cloud"
+        - "https://gymaibybhawesh.netlify.app"
+      allowed-methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+        - PATCH
+        - HEAD
+      allowed-headers: "*"
+      allow-credentials: true
+      max-age: 3600
 
   datasource:
     url: jdbc:postgresql://ep-damp-star-ab0lcdvm-pooler.eu-west-2.aws.neon.tech/gym_ai?sslmode=require&channel_binding=require
