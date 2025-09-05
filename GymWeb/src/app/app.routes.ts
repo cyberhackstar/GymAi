@@ -19,7 +19,7 @@ import { DashboardComponent } from './plan/dashboard-component/dashboard-compone
 import { LearnMore } from './learn-more/learn-more';
 import { HomeComponent } from './home-component/home-component';
 import { SupportTicketUser } from './dashboard/user-dashboard/support-ticket-user/support-ticket-user';
-import { authGuard } from './core/guards/auth-guard';
+import { authGuard, fastAuthGuard } from './core/guards/auth-guard';
 import { ProgressTracker } from './progress-tracker/progress-tracker';
 import { UserProfile } from './user-profile/user-profile';
 
@@ -44,7 +44,7 @@ export const routes: Routes = [
   {
     path: 'user-ticket',
     component: SupportTicketUser,
-    canActivate: [authGuard],
+    canActivate: [fastAuthGuard],
   },
 
   // User Routes (Protected in real setup)
@@ -52,19 +52,23 @@ export const routes: Routes = [
   // { path: 'plan', component: Plan },
   { path: 'progress', component: Progress },
   { path: 'subscription', component: Pricing },
-  { path: 'tracker', component: ProgressTracker, canActivate: [authGuard] },
+  { path: 'tracker', component: ProgressTracker, canActivate: [fastAuthGuard] },
 
-  { path: 'diet', component: DietPlanComponent, canActivate: [authGuard] },
-  { path: 'user-profile', component: UserProfile, canActivate: [authGuard] },
+  { path: 'diet', component: DietPlanComponent, canActivate: [fastAuthGuard] },
+  {
+    path: 'user-profile',
+    component: UserProfile,
+    canActivate: [fastAuthGuard],
+  },
   {
     path: 'workout',
     component: WorkoutPlanComponent,
-    canActivate: [authGuard],
+    canActivate: [fastAuthGuard],
   },
   {
     path: 'plan-dashboard',
     component: DashboardComponent,
-    canActivate: [authGuard],
+    canActivate: [fastAuthGuard],
   },
 
   // Admin Routes (Also protected in real setup)
