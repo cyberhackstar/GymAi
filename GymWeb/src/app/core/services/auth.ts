@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, tap, catchError, throwError } from 'rxjs';
+import {
+  Observable,
+  BehaviorSubject,
+  tap,
+  catchError,
+  throwError,
+  of,
+  timer,
+} from 'rxjs';
 import { Token } from './token';
 import { environment } from '../../../environments/environment';
 
@@ -41,18 +49,71 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<UserInfo | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
+  // Cache user info to avoid frequent API calls
+  private userInfoCache: UserInfo | null = null;
+  private userInfoCacheTime: number = 0;
+  private readonly CACHE_DURATION = 5 * 60 * 1000; // 5 minutes cache
+
+  // Track validation state to avoid duplicate calls
+  private isValidating = false;
+  private lastValidationTime = 0;
+  private readonly VALIDATION_COOLDOWN = 30 * 1000; // 30 seconds cooldown
+
   constructor(private http: HttpClient, private tokenService: Token) {
-    // Initialize current user if token exists
-    this.initializeCurrentUser();
+    // Initialize current user from token if available
+    this.initializeFromToken();
+
+    // Set up periodic token refresh check
+    this.setupTokenRefreshCheck();
   }
 
-  private initializeCurrentUser(): void {
+  private initializeFromToken(): void {
     const token = this.tokenService.getToken();
-    if (token) {
-      this.getCurrentUser().subscribe({
-        next: (user) => this.currentUserSubject.next(user),
+    if (token && !this.tokenService.isTokenExpired()) {
+      // Extract user info from token instead of making API call
+      this.extractUserFromToken(token);
+    }
+  }
+
+  private extractUserFromToken(token: string): void {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      if (payload) {
+        const userInfo: UserInfo = {
+          id: payload.userId,
+          email: payload.email,
+          name: payload.name,
+          role: payload.role,
+          provider: payload.provider,
+          profileCompleted: payload.profileCompleted,
+        };
+        this.currentUserSubject.next(userInfo);
+        this.userInfoCache = userInfo;
+        this.userInfoCacheTime = Date.now();
+      }
+    } catch (error) {
+      console.error('Error extracting user from token:', error);
+    }
+  }
+
+  private setupTokenRefreshCheck(): void {
+    // Check token expiration every 5 minutes
+    timer(0, 5 * 60 * 1000).subscribe(() => {
+      const token = this.tokenService.getToken();
+      if (token && this.tokenService.isTokenExpiringSoon(10)) {
+        console.log('Token expiring soon, attempting refresh...');
+        this.refreshTokenSilently();
+      }
+    });
+  }
+
+  private refreshTokenSilently(): void {
+    const refreshToken = this.tokenService.getRefreshToken();
+    if (refreshToken) {
+      this.refreshToken(refreshToken).subscribe({
+        next: () => console.log('Token refreshed silently'),
         error: (error) => {
-          console.error('Error initializing current user:', error);
+          console.log('Silent token refresh failed:', error);
           this.logout();
         },
       });
@@ -103,23 +164,76 @@ export class AuthService {
       );
   }
 
+  // Optimized getCurrentUser - uses cache when possible
   getCurrentUser(): Observable<UserInfo> {
+    // Return cached data if available and fresh
+    if (this.userInfoCache && this.isCacheValid()) {
+      console.log('Returning cached user info');
+      return of(this.userInfoCache);
+    }
+
+    // Check if we can extract from token
+    const token = this.tokenService.getToken();
+    if (token && !this.tokenService.isTokenExpired()) {
+      this.extractUserFromToken(token);
+      if (this.userInfoCache) {
+        return of(this.userInfoCache);
+      }
+    }
+
+    // Only call API if cache is invalid and we have a valid token
+    console.log('Fetching user info from API');
     return this.http.get<UserInfo>(`${this.baseUrl}/me`).pipe(
       tap((user) => {
         this.currentUserSubject.next(user);
+        this.userInfoCache = user;
+        this.userInfoCacheTime = Date.now();
       }),
       catchError((error) => {
         console.error('Get current user error:', error);
+        // Don't clear cache on error - might be temporary network issue
         return throwError(() => error);
       })
     );
   }
 
+  // Optimized token validation - reduces API calls
   validateToken(): Observable<any> {
+    // Skip validation if done recently
+    const now = Date.now();
+    if (
+      this.isValidating ||
+      now - this.lastValidationTime < this.VALIDATION_COOLDOWN
+    ) {
+      console.log('Skipping token validation - done recently');
+      return of({ valid: true });
+    }
+
+    // Check token locally first
+    const token = this.tokenService.getToken();
+    if (!token) {
+      return throwError(() => new Error('No token available'));
+    }
+
+    if (this.tokenService.isTokenExpired()) {
+      console.log('Token expired locally');
+      return throwError(() => new Error('Token expired'));
+    }
+
+    // Only validate with server if necessary
+    this.isValidating = true;
+    this.lastValidationTime = now;
+
     return this.http.get(`${this.baseUrl}/validate`).pipe(
+      tap(() => {
+        console.log('Server token validation successful');
+      }),
       catchError((error) => {
         console.error('Token validation error:', error);
         return throwError(() => error);
+      }),
+      tap(() => {
+        this.isValidating = false;
       })
     );
   }
@@ -128,14 +242,15 @@ export class AuthService {
     const logoutRequest = this.http.post(`${this.baseUrl}/logout`, {}).pipe(
       catchError((error) => {
         console.error('Logout error:', error);
-        // Even if logout fails on server, clear local storage
-        return throwError(() => error);
+        return of(null); // Don't fail logout on server error
       })
     );
 
-    // Clear tokens and user info
+    // Clear all local data
     this.tokenService.clearToken();
     this.currentUserSubject.next(null);
+    this.userInfoCache = null;
+    this.userInfoCacheTime = 0;
 
     return logoutRequest;
   }
@@ -143,35 +258,56 @@ export class AuthService {
   private handleAuthResponse(response: AuthResponse): void {
     if (response.accessToken) {
       this.tokenService.setToken(response.accessToken);
+      // Extract user info from new token
+      this.extractUserFromToken(response.accessToken);
     }
     if (response.refreshToken) {
       this.tokenService.setRefreshToken(response.refreshToken);
     }
-
-    // Get updated user info after successful auth
-    this.getCurrentUser().subscribe({
-      next: (user) => this.currentUserSubject.next(user),
-      error: (error) =>
-        console.error('Error getting user info after auth:', error),
-    });
   }
 
+  private isCacheValid(): any {
+    return (
+      this.userInfoCache &&
+      Date.now() - this.userInfoCacheTime < this.CACHE_DURATION
+    );
+  }
+
+  // Quick authentication check without API calls
   isAuthenticated(): boolean {
-    const token = this.tokenService.getToken();
-    return token !== null;
+    return (
+      this.tokenService.hasValidAccessToken() ||
+      this.tokenService.canRefreshToken()
+    );
   }
 
+  // Quick admin check from local data
   isAdmin(): boolean {
-    const currentUser = this.currentUserSubject.value;
-    return currentUser?.role === 'ADMIN';
+    // Check from cache first
+    if (this.userInfoCache && this.isCacheValid()) {
+      return this.userInfoCache.role === 'ADMIN';
+    }
+
+    // Fallback to token
+    return this.tokenService.isAdmin();
   }
 
+  // Quick role check from local data
   hasRole(role: string): boolean {
-    const currentUser = this.currentUserSubject.value;
-    return currentUser?.role === role;
+    // Check from cache first
+    if (this.userInfoCache && this.isCacheValid()) {
+      return this.userInfoCache.role === role;
+    }
+
+    // Fallback to token
+    return this.tokenService.hasRole(role);
   }
 
+  // Get current user without API call
   getCurrentUserValue(): UserInfo | null {
+    if (this.userInfoCache && this.isCacheValid()) {
+      return this.userInfoCache;
+    }
     return this.currentUserSubject.value;
   }
 
@@ -180,13 +316,22 @@ export class AuthService {
     this.tokenService.setToken(accessToken);
     this.tokenService.setRefreshToken(refreshToken);
 
-    // Get user info after OAuth login
-    this.getCurrentUser().subscribe({
-      next: (user) => this.currentUserSubject.next(user),
-      error: (error) => {
-        console.error('Error getting user info after OAuth:', error);
-        this.logout();
-      },
-    });
+    // Extract user info from token instead of API call
+    this.extractUserFromToken(accessToken);
+  }
+
+  // Force refresh user info (bypasses cache)
+  refreshUserInfo(): Observable<UserInfo> {
+    this.userInfoCache = null;
+    this.userInfoCacheTime = 0;
+    return this.getCurrentUser();
+  }
+
+  // Clear all caches
+  clearCache(): void {
+    this.userInfoCache = null;
+    this.userInfoCacheTime = 0;
+    this.lastValidationTime = 0;
+    this.isValidating = false;
   }
 }

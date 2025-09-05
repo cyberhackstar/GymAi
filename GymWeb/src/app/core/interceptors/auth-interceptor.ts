@@ -30,7 +30,8 @@ export const authInterceptor: HttpInterceptorFn = (
     req.url.includes('/auth/login') ||
     req.url.includes('/auth/register') ||
     req.url.includes('/oauth2/') ||
-    req.url.includes('/login/oauth2/');
+    req.url.includes('/login/oauth2/') ||
+    req.url.includes('/cors/test');
 
   let authReq = req;
   if (token && !isAuthRequest) {
