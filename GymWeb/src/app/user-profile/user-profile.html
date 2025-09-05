@@ -1,0 +1,383 @@
+<div class="profile-container">
+  <!-- Loading Overlay -->
+  @if (isLoading) {
+  <div class="loading-overlay">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p>Loading your profile...</p>
+    </div>
+  </div>
+  }
+
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <div class="header-content">
+      <h1>
+        <i class="fas fa-user-circle"></i>
+        My <span>Profile</span>
+      </h1>
+      <p>Manage your personal information and fitness preferences</p>
+    </div>
+    <div class="header-actions">
+      <button
+        class="action-btn"
+        [class.secondary]="isEditing"
+        (click)="toggleEdit()"
+        [disabled]="isSaving"
+      >
+        <i
+          class="fas"
+          [class.fa-edit]="!isEditing"
+          [class.fa-times]="isEditing"
+        ></i>
+        {{ isEditing ? "Cancel" : "Edit Profile" }}
+      </button>
+      @if (isEditing) {
+      <button
+        class="action-btn primary"
+        (click)="saveProfile()"
+        [disabled]="!profileForm.valid || isSaving"
+      >
+        <i class="fas fa-save"></i>
+        @if (!isSaving) {
+        <span>Save Changes</span>
+        } @if (isSaving) {
+        <span>Saving...</span>
+        }
+      </button>
+      }
+    </div>
+  </div>
+
+  <!-- Success/Error Messages -->
+  @if (successMessage) {
+  <div class="message success">
+    <i class="fas fa-check-circle"></i>
+    {{ successMessage }}
+  </div>
+  } @if (errorMessage) {
+  <div class="message error">
+    <i class="fas fa-exclamation-circle"></i>
+    {{ errorMessage }}
+  </div>
+  }
+
+  <!-- Profile Content -->
+  @if (userProfile) {
+  <div class="profile-content">
+    <!-- Profile Overview Cards -->
+    @if (!isEditing) {
+    <div class="overview-section">
+      <div class="overview-cards">
+        <div class="overview-card bmi">
+          <div class="card-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="card-content">
+            <h3>{{ getBMI() }}</h3>
+            <p>BMI - {{ getBMICategory() }}</p>
+          </div>
+        </div>
+        <div class="overview-card goal">
+          <div class="card-icon">
+            <i class="fas fa-target"></i>
+          </div>
+          <div class="card-content">
+            <h3>{{ getGoalLabel() }}</h3>
+            <p>Fitness Goal</p>
+          </div>
+        </div>
+        <div class="overview-card activity">
+          <div class="card-icon">
+            <i class="fas fa-running"></i>
+          </div>
+          <div class="card-content">
+            <h3>{{ getActivityLabel() }}</h3>
+            <p>Activity Level</p>
+          </div>
+        </div>
+        <div class="overview-card preference">
+          <div class="card-icon">
+            <i class="fas fa-utensils"></i>
+          </div>
+          <div class="card-content">
+            <h3>{{ getPreferenceLabel() }}</h3>
+            <p>Diet Preference</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Profile Form -->
+    <form [formGroup]="profileForm" class="profile-form">
+      <div class="form-sections">
+        <!-- Personal Information -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="fas fa-user"></i>
+            <h2>Personal Information</h2>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <div class="input-wrapper">
+                <input
+                  id="name"
+                  type="text"
+                  formControlName="name"
+                  [readonly]="!isEditing"
+                  [class.readonly]="!isEditing"
+                  placeholder="Enter your full name"
+                />
+                <i class="fas fa-user input-icon"></i>
+              </div>
+              @if (getFieldError('name')) {
+              <div class="error">
+                {{ getFieldError("name") }}
+              </div>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <div class="input-wrapper">
+                <input
+                  id="email"
+                  type="email"
+                  formControlName="email"
+                  [readonly]="!isEditing"
+                  [class.readonly]="!isEditing"
+                  placeholder="Enter your email"
+                />
+                <i class="fas fa-envelope input-icon"></i>
+              </div>
+              @if (getFieldError('email')) {
+              <div class="error">
+                {{ getFieldError("email") }}
+              </div>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="age">Age *</label>
+              <div class="input-wrapper">
+                <input
+                  id="age"
+                  type="number"
+                  formControlName="age"
+                  [readonly]="!isEditing"
+                  [class.readonly]="!isEditing"
+                  placeholder="Enter your age"
+                  min="13"
+                  max="120"
+                />
+                <i class="fas fa-birthday-cake input-icon"></i>
+              </div>
+              @if (getFieldError('age')) {
+              <div class="error">
+                {{ getFieldError("age") }}
+              </div>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="gender">Gender *</label>
+              <div class="select-wrapper">
+                <select
+                  id="gender"
+                  formControlName="gender"
+                  [disabled]="!isEditing"
+                  [class.readonly]="!isEditing"
+                >
+                  <option value="">Select Gender</option>
+                  @for (option of genderOptions; track option.value) {
+                  <option [value]="option.value">
+                    {{ option.label }}
+                  </option>
+                  }
+                </select>
+                <i class="fas fa-venus-mars input-icon"></i>
+              </div>
+              @if (getFieldError('gender')) {
+              <div class="error">
+                {{ getFieldError("gender") }}
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Physical Measurements -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="fas fa-weight"></i>
+            <h2>Physical Measurements</h2>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="height">Height (cm) *</label>
+              <div class="input-wrapper">
+                <input
+                  id="height"
+                  type="number"
+                  formControlName="height"
+                  [readonly]="!isEditing"
+                  [class.readonly]="!isEditing"
+                  placeholder="Enter height in cm"
+                  min="100"
+                  max="250"
+                />
+                <i class="fas fa-ruler-vertical input-icon"></i>
+              </div>
+              @if (getFieldError('height')) {
+              <div class="error">
+                {{ getFieldError("height") }}
+              </div>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="weight">Weight (kg) *</label>
+              <div class="input-wrapper">
+                <input
+                  id="weight"
+                  type="number"
+                  formControlName="weight"
+                  [readonly]="!isEditing"
+                  [class.readonly]="!isEditing"
+                  placeholder="Enter weight in kg"
+                  min="30"
+                  max="300"
+                />
+                <i class="fas fa-weight-hanging input-icon"></i>
+              </div>
+              @if (getFieldError('weight')) {
+              <div class="error">
+                {{ getFieldError("weight") }}
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Fitness Preferences -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="fas fa-dumbbell"></i>
+            <h2>Fitness Preferences</h2>
+          </div>
+
+          <!-- Goals -->
+          <div class="form-group">
+            <label>Fitness Goal *</label>
+            <div class="radio-grid goals">
+              @for (goal of goalOptions; track goal.value) {
+              <div
+                class="radio-card"
+                [class.selected]="profileForm.get('goal')?.value === goal.value"
+                [class.disabled]="!isEditing"
+                (click)="
+                  isEditing && profileForm.get('goal')?.setValue(goal.value)
+                "
+              >
+                <div class="radio-icon">{{ goal.icon }}</div>
+                <div class="radio-label">{{ goal.label }}</div>
+                <input
+                  type="radio"
+                  [value]="goal.value"
+                  formControlName="goal"
+                  [disabled]="!isEditing"
+                  style="display: none"
+                />
+              </div>
+              }
+            </div>
+            @if (getFieldError('goal')) {
+            <div class="error">
+              {{ getFieldError("goal") }}
+            </div>
+            }
+          </div>
+
+          <!-- Activity Level -->
+          <div class="form-group">
+            <label>Activity Level *</label>
+            <div class="radio-list">
+              @for (activity of activityLevelOptions; track activity.value) {
+              <div
+                class="radio-item"
+                [class.selected]="
+                  profileForm.get('activityLevel')?.value === activity.value
+                "
+                [class.disabled]="!isEditing"
+                (click)="
+                  isEditing &&
+                    profileForm.get('activityLevel')?.setValue(activity.value)
+                "
+              >
+                <div class="radio-content">
+                  <div class="radio-title">{{ activity.label }}</div>
+                  <div class="radio-description">
+                    {{ activity.description }}
+                  </div>
+                </div>
+                <input
+                  type="radio"
+                  [value]="activity.value"
+                  formControlName="activityLevel"
+                  [disabled]="!isEditing"
+                  style="display: none"
+                />
+              </div>
+              }
+            </div>
+            @if (getFieldError('activityLevel')) {
+            <div class="error">
+              {{ getFieldError("activityLevel") }}
+            </div>
+            }
+          </div>
+
+          <!-- Diet Preference -->
+          <div class="form-group">
+            <label>Diet Preference *</label>
+            <div class="radio-grid preferences">
+              @for (pref of preferenceOptions; track pref.value) {
+              <div
+                class="radio-card"
+                [class.selected]="
+                  profileForm.get('preference')?.value === pref.value
+                "
+                [class.disabled]="!isEditing"
+                (click)="
+                  isEditing &&
+                    profileForm.get('preference')?.setValue(pref.value)
+                "
+              >
+                <div class="radio-icon">{{ pref.icon }}</div>
+                <div class="radio-label">{{ pref.label }}</div>
+                <input
+                  type="radio"
+                  [value]="pref.value"
+                  formControlName="preference"
+                  [disabled]="!isEditing"
+                  style="display: none"
+                />
+              </div>
+              }
+            </div>
+            @if (getFieldError('preference')) {
+            <div class="error">
+              {{ getFieldError("preference") }}
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  }
+</div>
