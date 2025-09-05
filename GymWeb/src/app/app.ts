@@ -4,61 +4,11 @@ import { WorkoutPlan } from './components/workout-plan/workout-plan';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Navbar } from './shared/navbar/navbar';
-import { Login } from './auth/login/login';
-import { Register } from './auth/register/register';
-import { Progress } from './progress/progress/progress';
-import { Pricing } from './subscription/pricing/pricing';
-import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
-import { WhyChooseUs } from './dashboard/why-choose-us/why-choose-us';
-import { Contact } from './contact/contact';
-import { BmiCalculator } from './bmi-calculator/bmi-calculator';
 import { Footer } from './shared/footer/footer';
-import { Hero } from './dashboard/hero/hero';
-import { ForgotPassword } from './auth/forgot-password/forgot-password';
-import { UserDashboard } from './dashboard/user-dashboard/user-dashboard';
-import { UserSummary } from './dashboard/user-dashboard/user-summary/user-summary';
-import { UserManagement } from './admin/user-management/user-management';
-import { SupportTicketAdmin } from './admin/support-ticket-admin/support-ticket-admin';
-import { SupportTicketUser } from './dashboard/user-dashboard/support-ticket-user/support-ticket-user';
-import { DietPlan } from './dashboard/user-dashboard/diet-plan/diet-plan';
-import { Team } from './team/team';
-import { Services } from './services/services';
-import { DashboardComponent } from './plan/dashboard-component/dashboard-component';
-import { HomeComponent } from './home-component/home-component';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    CommonModule,
-    HttpClientModule,
-    // Register,
-    // Login,
-    Navbar,
-    // WorkoutPlan,
-    // UserDashboard,
-    // Plan,
-    // Progress,
-    // Pricing,
-    // AdminDashboard,
-    // WhyChooseUs,
-    // Pricing,
-    // Contact,
-    // BmiCalculator,
-    Footer,
-    // UserSummary,
-    // Hero,
-    // ForgotPassword,
-    // UserManagement,
-    // SupportTicketAdmin,
-    // SupportTicketUser,
-    // DietPlan,
-    // Team,
-    // Services,
-    // DashboardComponent,
-    // HomeComponent,
-    //
-  ],
+  imports: [RouterOutlet, CommonModule, HttpClientModule, Navbar, Footer],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

@@ -59,25 +59,25 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       value: '10K+',
       label: 'Active Users',
       icon: 'fas fa-users',
-      color: '#ff4c4c',
+      color: '#d11d1dff',
     },
     {
-      value: '50+',
-      label: 'AI Trainers',
-      icon: 'fas fa-robot',
-      color: '#00d4ff',
+      value: '1M+',
+      label: 'Workouts Generated',
+      icon: 'fas fa-dumbbell',
+      color: '#d11d1dff',
     },
     {
       value: '95%',
       label: 'Success Rate',
       icon: 'fas fa-chart-line',
-      color: '#00ff88',
+      color: '#d11d1dff',
     },
     {
       value: '24/7',
       label: 'Support',
       icon: 'fas fa-headset',
-      color: '#ffd700',
+      color: '#d11d1dff',
     },
   ];
 

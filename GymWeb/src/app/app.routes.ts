@@ -5,8 +5,6 @@ import { Progress } from './progress/progress/progress';
 import { Pricing } from './subscription/pricing/pricing';
 import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { ForgotPassword } from './auth/forgot-password/forgot-password';
-import { CompleteProfile } from './user/complete-profile/complete-profile';
-import { UserDashboard } from './dashboard/user-dashboard/user-dashboard';
 import { BmiCalculator } from './bmi-calculator/bmi-calculator';
 import { Contact } from './contact/contact';
 import { DefaultDashboard } from './dashboard/default-dashboard/default-dashboard';
@@ -19,9 +17,10 @@ import { DietPlanComponent } from './plan/diet-plan-component/diet-plan-componen
 import { WorkoutPlanComponent } from './plan/workout-plan-component/workout-plan-component';
 import { DashboardComponent } from './plan/dashboard-component/dashboard-component';
 import { LearnMore } from './learn-more/learn-more';
-import { UserProfile } from './user-profile/user-profile';
 import { HomeComponent } from './home-component/home-component';
 import { SupportTicketUser } from './dashboard/user-dashboard/support-ticket-user/support-ticket-user';
+import { authGuard } from './core/guards/auth-guard';
+import { ProgressTracker } from './progress-tracker/progress-tracker';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -39,20 +38,32 @@ export const routes: Routes = [
   { path: 'team', component: Team },
   { path: 'services', component: Services },
   { path: 'learn-more', component: LearnMore },
-  { path: 'user-profile', component: UserProfile },
+  // { path: 'user-profile', component: UserProfile },
   { path: 'home', component: HomeComponent },
-  {path:'user-ticket', component: SupportTicketUser},
+  {
+    path: 'user-ticket',
+    component: SupportTicketUser,
+    canActivate: [authGuard],
+  },
 
   // User Routes (Protected in real setup)
-  { path: 'dashboard', component: UserDashboard },
+  // { path: 'dashboard', component: UserDashboard },
   // { path: 'plan', component: Plan },
   { path: 'progress', component: Progress },
   { path: 'subscription', component: Pricing },
-  { path: 'complete-profile', component: CompleteProfile },
+  { path: 'tracker', component: ProgressTracker, canActivate: [authGuard] },
 
-  { path: 'diet', component: DietPlanComponent },
-  { path: 'workout', component: WorkoutPlanComponent },
-  { path: 'plan-dashboard', component: DashboardComponent },
+  { path: 'diet', component: DietPlanComponent, canActivate: [authGuard] },
+  {
+    path: 'workout',
+    component: WorkoutPlanComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'plan-dashboard',
+    component: DashboardComponent,
+    canActivate: [authGuard],
+  },
 
   // Admin Routes (Also protected in real setup)
   { path: 'admin', component: AdminDashboard },

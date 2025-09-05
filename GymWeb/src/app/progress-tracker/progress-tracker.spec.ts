@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserSummary } from './user-summary';
+import { ProgressTracker } from './progress-tracker';
 
-describe('UserSummary', () => {
-  let component: UserSummary;
-  let fixture: ComponentFixture<UserSummary>;
+describe('ProgressTracker', () => {
+  let component: ProgressTracker;
+  let fixture: ComponentFixture<ProgressTracker>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserSummary]
+      imports: [ProgressTracker]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UserSummary);
+    fixture = TestBed.createComponent(ProgressTracker);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

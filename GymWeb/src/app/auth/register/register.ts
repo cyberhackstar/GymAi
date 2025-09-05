@@ -10,8 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { Token } from '../../core/services/token';
-import { AuthService } from '../../core/services/auth';
-import { UserProfileService } from '../../core/services/user';
+import { AuthResponse, AuthService } from '../../core/services/auth';
 import {
   LoginRequest,
   LoginResponse,
@@ -43,7 +42,6 @@ export class Register {
     private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: Token,
-    private userService: UserProfileService,
     private router: Router
   ) {
     this.registerForm = this.fb.group({
@@ -84,7 +82,7 @@ export class Register {
         const loginPayload: LoginRequest = { email, password };
 
         this.authService.login(loginPayload).subscribe({
-          next: (res: LoginResponse) => {
+          next: (res: AuthResponse) => {
             if (res && res.accessToken && res.refreshToken) {
               // Save tokens
               this.tokenService.setToken(res.accessToken);

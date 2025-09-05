@@ -11,9 +11,8 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
-import { AuthService } from '../../core/services/auth';
+import { AuthResponse, AuthService } from '../../core/services/auth';
 import { LoginRequest, LoginResponse } from '../../models/auth.model';
-import { UserProfileService } from '../../core/services/user';
 import { environment } from '../../../environments/environment';
 import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner';
 
@@ -63,7 +62,7 @@ export class Login {
     const payload: LoginRequest = this.loginForm.value;
 
     this.authService.login(payload).subscribe({
-      next: (res: LoginResponse) => {
+      next: (res: AuthResponse) => {
         if (res && res.accessToken && res.refreshToken) {
           this.tokenService.setToken(res.accessToken);
           this.tokenService.setRefreshToken(res.refreshToken);

@@ -62,9 +62,15 @@
           </a>
         </li>
         <li (click)="closeMenu()">
+          <a routerLink="/tracker" routerLinkActive="active">
+            <i class="fas fa-bullseye nav-icon-left"></i>
+            Tracker
+          </a>
+        </li>
+        <li (click)="closeMenu()">
           <a routerLink="/user-ticket" routerLinkActive="active">
             <i class="fa fa-comment-dots nav-icon-left"></i>
-            Feedback
+            Support
           </a>
         </li>
       </ng-container>
@@ -189,10 +195,16 @@
                 Workout
               </a>
             </li>
+            <li (click)="closeMenu()">
+              <a routerLink="/tracker" routerLinkActive="active">
+                <i class="fas fa-bullseye nav-icon-left"></i>
+                Tracker
+              </a>
+            </li>
             <li>
               <a routerLink="/user-ticket" routerLinkActive="active">
                 <i class="fa fa-comment-dots nav-icon-left"></i>
-                Feedback
+                Support
               </a>
             </li>
           </ng-container>

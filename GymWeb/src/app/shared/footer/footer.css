@@ -79,7 +79,7 @@
 }
 .footer-social .social-icons {
   display: flex;
-  /* gap: 20px; */
+  gap: 11px;
   padding-left: 2px;
   flex-wrap: wrap;
 }

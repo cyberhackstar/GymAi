@@ -1,0 +1,615 @@
+<div class="progress-tracker-container">
+  <!-- Header Section -->
+  <div class="tracker-header">
+    <div class="header-content">
+      <div class="date-navigation">
+        <button class="nav-btn" (click)="changeDate('prev')">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="date-info">
+          <h2 class="current-date">{{ getTodayString() }}</h2>
+          <input type="date" [(ngModel)]="selectedDate" class="date-picker" />
+        </div>
+        <button class="nav-btn" (click)="changeDate('next')">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Gamification Stats -->
+      <div class="gamification-stats">
+        <div class="level-badge">
+          <div class="level-icon">🏆</div>
+          <div class="level-info">
+            <span class="level-text">Level {{ userStats.level }}</span>
+            <div class="level-progress">
+              <div
+                class="level-fill"
+                [style.width.%]="getLevelProgress()"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div class="streak-badge">
+          <div class="streak-icon">{{ getStreakEmoji() }}</div>
+          <div class="streak-info">
+            <span class="streak-text">{{ userStats.streak }} Day Streak</span>
+            <span class="points-text">{{ userStats.totalPoints }} pts</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-stats">
+        <div class="stat-item">
+          <span class="stat-value">{{ progressData.calories.consumed }}</span>
+          <span class="stat-label">Calories</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{
+            progressData.steps.current | number
+          }}</span>
+          <span class="stat-label">Steps</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ progressData.water.consumed }}</span>
+          <span class="stat-label">Glasses</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Goals Progress -->
+    <div class="daily-goals-progress">
+      <div class="goals-header">
+        <h4>Daily Goals Progress</h4>
+        <span class="goals-count"
+          >{{ dailyGoalsCompleted }}/{{ totalDailyGoals }}</span
+        >
+      </div>
+      <div class="goals-bar">
+        <div
+          class="goals-fill"
+          [style.width.%]="getDailyGoalsPercentage()"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Motivation Message -->
+  <div
+    class="motivation-overlay"
+    [class.show]="showMotivation"
+    *ngIf="currentMotivation"
+  >
+    <div
+      class="motivation-card"
+      [class]="'motivation-' + currentMotivation.type"
+    >
+      <div class="motivation-icon">{{ currentMotivation.icon }}</div>
+      <p class="motivation-text">{{ currentMotivation.message }}</p>
+      <button class="motivation-close" (click)="showMotivation = false">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Dashboard -->
+  <div class="dashboard-grid">
+    <!-- Progress Cards Section -->
+    <div class="progress-section">
+      <h3 class="section-title">
+        <i class="fas fa-chart-line"></i>
+        Today's Progress
+      </h3>
+
+      <div class="progress-cards">
+        <!-- Calories Card -->
+        <div class="progress-card calories-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <div class="card-info">
+              <h4>Calories</h4>
+              <p>
+                {{ progressData.calories.consumed }} /
+                {{ progressData.calories.target }} kcal
+              </p>
+            </div>
+            <div class="card-percentage">
+              <span class="progress-emoji">{{
+                getProgressEmoji(
+                  progressData.calories.consumed,
+                  progressData.calories.target
+                )
+              }}</span>
+              {{
+                getProgressPercentage(
+                  progressData.calories.consumed,
+                  progressData.calories.target
+                ) | number : "1.0-0"
+              }}%
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill"
+              [style.width.%]="
+                getProgressPercentage(
+                  progressData.calories.consumed,
+                  progressData.calories.target
+                )
+              "
+              [style.background-color]="
+                getProgressColor(
+                  getProgressPercentage(
+                    progressData.calories.consumed,
+                    progressData.calories.target
+                  )
+                )
+              "
+            ></div>
+          </div>
+          <!-- Quick Add Input -->
+          <div class="quick-add-section">
+            <div class="quick-add-input">
+              <input
+                type="number"
+                [(ngModel)]="quickAddValues['calories']"
+                placeholder="Add calories"
+                class="quick-input"
+                min="0"
+                max="2000"
+              />
+              <button
+                class="quick-add-btn"
+                (click)="quickAddProgress('calories')"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Water Card -->
+        <div class="progress-card water-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-tint"></i>
+            </div>
+            <div class="card-info">
+              <h4>Water Intake</h4>
+              <p>
+                {{ progressData.water.consumed }} /
+                {{ progressData.water.target }} glasses
+              </p>
+            </div>
+            <div class="card-percentage">
+              <span class="progress-emoji">{{
+                getProgressEmoji(
+                  progressData.water.consumed,
+                  progressData.water.target
+                )
+              }}</span>
+              {{
+                getProgressPercentage(
+                  progressData.water.consumed,
+                  progressData.water.target
+                ) | number : "1.0-0"
+              }}%
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill"
+              [style.width.%]="
+                getProgressPercentage(
+                  progressData.water.consumed,
+                  progressData.water.target
+                )
+              "
+              [style.background-color]="
+                getProgressColor(
+                  getProgressPercentage(
+                    progressData.water.consumed,
+                    progressData.water.target
+                  )
+                )
+              "
+            ></div>
+          </div>
+          <!-- Quick Add Input -->
+          <div class="quick-add-section">
+            <div class="quick-add-input">
+              <input
+                type="number"
+                [(ngModel)]="quickAddValues['water']"
+                placeholder="Glasses"
+                class="quick-input"
+                min="1"
+                max="5"
+              />
+              <button class="quick-add-btn" (click)="quickAddProgress('water')">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Steps Card -->
+        <div class="progress-card steps-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-walking"></i>
+            </div>
+            <div class="card-info">
+              <h4>Steps</h4>
+              <p>
+                {{ progressData.steps.current | number }} /
+                {{ progressData.steps.target | number }} steps
+              </p>
+            </div>
+            <div class="card-percentage">
+              <span class="progress-emoji">{{
+                getProgressEmoji(
+                  progressData.steps.current,
+                  progressData.steps.target
+                )
+              }}</span>
+              {{
+                getProgressPercentage(
+                  progressData.steps.current,
+                  progressData.steps.target
+                ) | number : "1.0-0"
+              }}%
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill"
+              [style.width.%]="
+                getProgressPercentage(
+                  progressData.steps.current,
+                  progressData.steps.target
+                )
+              "
+              [style.background-color]="
+                getProgressColor(
+                  getProgressPercentage(
+                    progressData.steps.current,
+                    progressData.steps.target
+                  )
+                )
+              "
+            ></div>
+          </div>
+          <!-- Quick Add Input -->
+          <div class="quick-add-section">
+            <div class="quick-add-input">
+              <input
+                type="number"
+                [(ngModel)]="quickAddValues['steps']"
+                placeholder="Add steps"
+                class="quick-input"
+                min="0"
+                max="10000"
+                step="100"
+              />
+              <button class="quick-add-btn" (click)="quickAddProgress('steps')">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workout Card -->
+        <div class="progress-card workout-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-dumbbell"></i>
+            </div>
+            <div class="card-info">
+              <h4>Workout</h4>
+              <p>
+                {{ progressData.workout.completed }} /
+                {{ progressData.workout.target }} min
+              </p>
+            </div>
+            <div class="card-percentage">
+              <span class="progress-emoji">{{
+                getProgressEmoji(
+                  progressData.workout.completed,
+                  progressData.workout.target
+                )
+              }}</span>
+              {{
+                getProgressPercentage(
+                  progressData.workout.completed,
+                  progressData.workout.target
+                ) | number : "1.0-0"
+              }}%
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill"
+              [style.width.%]="
+                getProgressPercentage(
+                  progressData.workout.completed,
+                  progressData.workout.target
+                )
+              "
+              [style.background-color]="
+                getProgressColor(
+                  getProgressPercentage(
+                    progressData.workout.completed,
+                    progressData.workout.target
+                  )
+                )
+              "
+            ></div>
+          </div>
+          <!-- Quick Add Input -->
+          <div class="quick-add-section">
+            <div class="quick-add-input">
+              <input
+                type="number"
+                [(ngModel)]="quickAddValues['workout']"
+                placeholder="Add minutes"
+                class="quick-input"
+                min="0"
+                max="180"
+                step="5"
+              />
+              <button
+                class="quick-add-btn"
+                (click)="quickAddProgress('workout')"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sleep Card -->
+        <div class="progress-card sleep-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-bed"></i>
+            </div>
+            <div class="card-info">
+              <h4>Sleep</h4>
+              <p>
+                {{ progressData.sleep.hours }} /
+                {{ progressData.sleep.target }} hours
+              </p>
+            </div>
+            <div class="card-percentage">
+              <span class="progress-emoji">{{
+                getProgressEmoji(
+                  progressData.sleep.hours,
+                  progressData.sleep.target
+                )
+              }}</span>
+              {{
+                getProgressPercentage(
+                  progressData.sleep.hours,
+                  progressData.sleep.target
+                ) | number : "1.0-0"
+              }}%
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill"
+              [style.width.%]="
+                getProgressPercentage(
+                  progressData.sleep.hours,
+                  progressData.sleep.target
+                )
+              "
+              [style.background-color]="
+                getProgressColor(
+                  getProgressPercentage(
+                    progressData.sleep.hours,
+                    progressData.sleep.target
+                  )
+                )
+              "
+            ></div>
+          </div>
+        </div>
+
+        <!-- Weight Card -->
+        <div class="progress-card weight-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-weight"></i>
+            </div>
+            <div class="card-info">
+              <h4>Weight</h4>
+              <p>
+                {{ progressData.weight.current }} kg (Goal:
+                {{ progressData.weight.target }} kg)
+              </p>
+            </div>
+            <div class="card-percentage">
+              <i
+                class="fas fa-arrow-down"
+                *ngIf="progressData.weight.current > progressData.weight.target"
+              ></i>
+              {{
+                progressData.weight.current - progressData.weight.target
+                  | number : "1.1-1"
+              }}
+              kg
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill weight-progress"
+              [style.width.%]="75"
+            ></div>
+          </div>
+          <!-- Quick Update Weight -->
+          <div class="quick-add-section">
+            <div class="quick-add-input">
+              <input
+                type="number"
+                [(ngModel)]="quickAddValues['weight']"
+                [placeholder]="progressData.weight.current.toString()"
+                class="quick-input"
+                min="30"
+                max="200"
+                step="0.1"
+              />
+              <button
+                class="quick-add-btn"
+                (click)="quickAddProgress('weight')"
+              >
+                <i class="fas fa-sync"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions Section -->
+    <div class="quick-actions-section">
+      <h3 class="section-title">
+        <i class="fas fa-bolt"></i>
+        Quick Actions
+      </h3>
+
+      <div class="quick-actions-grid">
+        <button
+          *ngFor="let action of quickActions"
+          class="quick-action-btn"
+          [style.border-color]="action.color"
+          (click)="quickAction(action.action)"
+        >
+          <div class="action-icon" [style.color]="action.color">
+            {{ action.icon }}
+          </div>
+          <span>{{ action.title }}</span>
+          <i class="fas fa-plus action-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Daily Activities Section -->
+    <div class="activities-section">
+      <h3 class="section-title">
+        <i class="fas fa-list-alt"></i>
+        Today's Activities
+      </h3>
+
+      <div class="activities-list">
+        <div
+          *ngFor="let activity of dailyActivities.slice(0, 6)"
+          class="activity-item"
+          [class]="'activity-' + activity.type"
+        >
+          <div class="activity-icon">
+            {{ activity.icon }}
+          </div>
+          <div class="activity-content">
+            <h5>{{ activity.title }}</h5>
+            <p>{{ activity.value }} {{ activity.unit }}</p>
+          </div>
+          <div class="activity-time">
+            {{ activity.time }}
+          </div>
+        </div>
+
+        <div class="view-all-btn" *ngIf="dailyActivities.length > 6">
+          <button class="btn-link">
+            View All Activities
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weekly Overview -->
+    <div class="weekly-section">
+      <h3 class="section-title">
+        <i class="fas fa-calendar-week"></i>
+        Weekly Overview
+      </h3>
+
+      <div class="weekly-chart">
+        <div class="chart-container">
+          <div
+            *ngFor="let day of weeklyStats"
+            class="day-bar"
+            [class.active]="day.day === 'Thu'"
+          >
+            <div class="bar-container">
+              <div
+                class="bar calories-bar"
+                [style.height.%]="(day.calories / 2500) * 100"
+              ></div>
+              <div
+                class="bar water-bar"
+                [style.height.%]="(day.water / 10) * 100"
+              ></div>
+              <div
+                class="bar steps-bar"
+                [style.height.%]="(day.steps / 12000) * 100"
+              ></div>
+            </div>
+            <span class="day-label">{{ day.day }}</span>
+          </div>
+        </div>
+
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-color calories-legend"></div>
+            <span>Calories</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color water-legend"></div>
+            <span>Water</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color steps-legend"></div>
+            <span>Steps</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements Section -->
+    <div class="achievements-section">
+      <h3 class="section-title">
+        <i class="fas fa-trophy"></i>
+        Achievements
+      </h3>
+
+      <div class="achievements-grid">
+        <div
+          *ngFor="let achievement of achievements"
+          class="achievement-item"
+          [class.unlocked]="achievement.unlocked"
+        >
+          <div class="achievement-icon">
+            {{ achievement.icon }}
+          </div>
+          <div class="achievement-content">
+            <h5>{{ achievement.title }}</h5>
+            <p>{{ achievement.description }}</p>
+          </div>
+          <div class="achievement-status">
+            <i class="fas fa-check" *ngIf="achievement.unlocked"></i>
+            <i class="fas fa-lock" *ngIf="!achievement.unlocked"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Action Button -->
+  <button class="fab" title="Add New Entry">
+    <i class="fas fa-plus"></i>
+  </button>
+</div>
