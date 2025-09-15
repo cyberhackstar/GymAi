@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Debug Auth Service",
+      "request": "launch",
+      "mainClass": "com.gymai.auth_service.AuthServiceApplication",
+      "projectName": "auth-service",
+      "envFile": "${workspaceFolder}/auth-service/.env"
+    },
+    {
+      "type": "java",
+      "name": "Debug User Service",
+      "request": "launch",
+      "mainClass": "com.gymai.user_service.UserServiceApplication",
+      "projectName": "user-service",
+      "envFile": "${workspaceFolder}/user-service/.env"
+    },
+    {
+      "type": "java",
+      "name": "Debug Plan Service",
+      "request": "launch",
+      "mainClass": "com.gymai.plan_service.PlanServiceApplication",
+      "projectName": "plan-service",
+      "envFile": "${workspaceFolder}/plan-service/.env"
+    }
+  ]
+}

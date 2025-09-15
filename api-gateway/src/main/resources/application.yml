@@ -4,30 +4,164 @@ server:
 spring:
   application:
     name: api-gateway
-
+  
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true # automatically maps services from Eureka
-          lower-case-service-id: true
+      default-filters:
+        - name: Retry
+          args:
+            retries: 3
+            backoff:
+              firstBackoff: 100ms
+              maxBackoff: 2s
+              factor: 2
+        - name: CircuitBreaker
+          args:
+            name: default
+            fallbackUri: /fallback
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter:
+              replenish-rate: 10
+              burst-capacity: 20
+              requested-tokens: 1
+            key-resolver: "#{@userKeyResolver}"
+      
       routes:
-        - id: user-service
-          uri: lb://user-service
+        # Auth Service - Public endpoints (no authentication required)
+        - id: auth-public
+          uri: http://auth-service:8080
           predicates:
-            - Path=/users/**
-
-        - id: plan-service
-          uri: lb://plan-service
+            - Path=/api/auth/login, /api/auth/register, /api/auth/refresh, /api/auth/set-frontend-origin
+            - Method=POST,OPTIONS
+          filters:
+            - StripPrefix=2
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter:
+                  replenish-rate: 5
+                  burst-capacity: 10
+        
+        # OAuth2 endpoints (no authentication required)
+        - id: auth-oauth
+          uri: http://auth-service:8080
           predicates:
-            - Path=/plans/**
-
+            - Path=/api/auth/oauth2/**, /api/auth/login/oauth2/**
+          filters:
+            - StripPrefix=2
+        
+        # Auth Service - Protected endpoints
         - id: auth-service
-          uri: lb://auth-service
+          uri: http://auth-service:8080
           predicates:
-            - Path=/auth/**
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=2
+            - name: AuthenticationFilter
+        
+        # User Service
+        - id: user-service
+          uri: http://user-service:8080
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=2
+            - name: AuthenticationFilter
+        
+        # Plan Service
+        - id: plan-service
+          uri: http://plan-service:8080
+          predicates:
+            - Path=/api/plans/**
+          filters:
+            - StripPrefix=2
+            - name: AuthenticationFilter
+        
+        # Notification Service
+        - id: notification-service
+          uri: http://notification-service:8080
+          predicates:
+            - Path=/api/notifications/**
+          filters:
+            - StripPrefix=2
+            - name: AuthenticationFilter
+      
+      httpclient:
+        connect-timeout: 5000
+        response-timeout: 30s
+        pool:
+          max-idle-time: 30s
+          max-life-time: 60s
+        ssl:
+          use-insecure-trust-manager: false
+  
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
+    timeout: 2000ms
+    jedis:
+      pool:
+        max-active: 10
+        max-idle: 5
+        min-idle: 1
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:mySecretKey}
+  access-expiration: ${JWT_ACCESS_EXPIRATION:3600000}
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:86400000}
+
+# Management and Monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,gateway
+  endpoint:
+    health:
+      show-details: when_authorized
+    gateway:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+# Logging
+logging:
+  level:
+    com.gym.gateway: ${LOG_LEVEL:INFO}
+    org.springframework.cloud.gateway: ${LOG_LEVEL:INFO}
+    reactor.netty.http.client: ${LOG_LEVEL:INFO}
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level [%X{traceId:-},%X{spanId:-}] %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId:-},%X{spanId:-}] %logger{36} - %msg%n"
+
+# Circuit Breaker
+resilience4j:
+  circuitbreaker:
+    instances:
+      default:
+        register-health-indicator: true
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 30s
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+  
+  timelimiter:
+    instances:
+      default:
+        timeout-duration: 3s
+
+# Rate Limiting
+rate-limiting:
+  default-rate: 100
+  default-capacity: 200
+  auth-rate: 10
+  auth-capacity: 20
