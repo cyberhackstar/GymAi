@@ -1,40 +1,18 @@
 server:
   port: ${SERVER_PORT:8081}
-  forward-headers-strategy: framework # ✅ Trust X-Forwarded headers
-  use-forward-headers: true # ✅ Allow Spring to use proxy headers
+  forward-headers-strategy: framework
+  use-forward-headers: true
   tomcat:
     remoteip:
       remote-ip-header: x-forwarded-for
       protocol-header: x-forwarded-proto
-      internal-proxies: ".*" # ✅ Accept forwarded headers from all proxies
+      internal-proxies: ".*"
 
 spring:
   application:
     name: auth-service
-
-  web:
-    cors:
-      allowed-origins:
-        - "http://localhost:4200"
-        - "https://gymai.neelahouse.cloud"
-        - "https://gymaibybhawesh.netlify.app"
-      allowed-methods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-        - OPTIONS
-        - PATCH
-        - HEAD
-      allowed-headers: "*"
-      allow-credentials: true
-      max-age: 3600
-
-  datasource:
-    url: jdbc:postgresql://ep-damp-star-ab0lcdvm-pooler.eu-west-2.aws.neon.tech/gym_ai?sslmode=require&channel_binding=require
-    username: neondb_owner
-    password: npg_5PnAXGO6FLUt
-    driver-class-name: org.postgresql.Driver
+  profiles:
+    active: dev   # default profile, can be overridden by ENV var
 
   jpa:
     hibernate:
@@ -45,57 +23,27 @@ spring:
       hibernate:
         format_sql: true
 
-  rabbitmq:
-    addresses: ${CLOUDAMQP_URL:amqps://dnqrhfau:MW512Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau}
-    ssl:
-      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
 
-  # OAuth2 Configuration
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: ${GOOGLE_CLIENT_ID}
-            client-secret: ${GOOGLE_CLIENT_SECRET}
-            scope:
-              - email
-              - profile
-            redirect-uri: "https://auth-service-gymai.neelahouse.cloud/login/oauth2/code/{registrationId}"
-
-          github:
-            client-id: ${GITHUB_CLIENT_ID}
-            client-secret: ${GITHUB_CLIENT_SECRET}
-            scope:
-              - user:email
-              - read:user
-            redirect-uri: "https://auth-service-gymai.neelahouse.cloud/login/oauth2/code/{registrationId}"
-
-        provider:
-          google:
-            authorization-uri: https://accounts.google.com/o/oauth2/auth
-            token-uri: https://oauth2.googleapis.com/token
-            user-info-uri: https://www.googleapis.com/oauth2/v2/userinfo
-            user-name-attribute: email
-
-          github:
-            authorization-uri: https://github.com/login/oauth/authorize
-            token-uri: https://github.com/login/oauth/access_token
-            user-info-uri: https://api.github.com/user
-            user-name-attribute: login
+jwt:
+  secret: ${JWT_SECRET}
+  access:
+    expiration: ${JWT_ACCESS_EXPIRATION}
+  refresh:
+    expiration: ${JWT_REFRESH_EXPIRATION}
 
 event:
   exchange: ${EVENT_EXCHANGE:gymai.events}
   routing:
     registration: ${REGISTRATION_ROUTING_KEY:user.registration}
     login: ${LOGIN_ROUTING_KEY:user.login}
-
-jwt:
-  secret: ${JWT_SECRET:7ace60a838bde7dc46e8065031ee2ccfba62cb79d5b1b4642fa50a0b88f78efc}
-  access:
-    expiration: ${JWT_ACCESS_EXPIRATION:9000000}
-  refresh:
-    expiration: ${JWT_REFRESH_EXPIRATION:604800000}
 
 eureka:
   client:
@@ -109,16 +57,6 @@ logging:
     root: INFO
     com.gymai.auth_service: DEBUG
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always
-
-# Application Configuration
 app:
   frontend:
     default-url: https://gymai.neelahouse.cloud

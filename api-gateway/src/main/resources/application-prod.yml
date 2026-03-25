@@ -1,0 +1,119 @@
+server:
+  port: 8080
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
+
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 3000
+        response-timeout: 10s
+        pool:
+          max-idle-time: 15s
+          max-life-time: 30s
+      
+      default-filters:
+        - name: Retry
+          args:
+            retries: 2
+            backoff:
+              firstBackoff: 50ms
+              maxBackoff: 1s
+              factor: 2
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter:
+              replenish-rate: 5
+              burst-capacity: 10
+
+  redis:
+    host: ${REDIS_HOST:redis}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
+    timeout: 1000ms
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 4
+        min-idle: 1
+
+# Production JWT settings - use environment variables
+jwt:
+  secret: ${JWT_SECRET}
+  access-expiration: ${JWT_ACCESS_EXPIRATION}
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION}
+
+# Production logging
+logging:
+  level:
+    com.gym.gateway: INFO
+    org.springframework.cloud.gateway: WARN
+    reactor.netty.http.client: WARN
+    org.springframework.security: WARN
+    org.springframework.web: WARN
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: /var/log/api-gateway.log
+
+# Circuit breaker settings for production
+resilience4j:
+  circuitbreaker:
+    instances:
+      default:
+        register-health-indicator: true
+        sliding-window-size: 20
+        minimum-number-of-calls: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 60s
+        permitted-number-of-calls-in-half-open-state: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+      
+      auth-service-cb:
+        sliding-window-size: 15
+        minimum-number-of-calls: 8
+        failure-rate-threshold: 40
+        wait-duration-in-open-state: 30s
+      
+      user-service-cb:
+        sliding-window-size: 15
+        minimum-number-of-calls: 8
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 45s
+        
+      plan-service-cb:
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 60
+        wait-duration-in-open-state: 30s
+        
+      notification-service-cb:
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 70
+        wait-duration-in-open-state: 20s
+
+# Rate limiting for production
+rate-limiting:
+  default-rate: 60
+  default-capacity: 120
+  auth-rate: 5
+  auth-capacity: 10
+
+# Management endpoints for production
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: never
+  metrics:
+    export:
+      prometheus:
+        enabled: true

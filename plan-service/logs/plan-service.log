@@ -1,40 +1,40 @@
-2025-09-05 12:23:25.974 [restartedMain] INFO  c.g.p.PlanServiceApplication - Starting PlanServiceApplication using Java 21.0.8 with PID 9840 (C:\Users\bikku\OneDrive\Desktop\GymAi\plan-service\target\classes started by bikku in C:\Users\bikku\OneDrive\Desktop\GymAi\plan-service)
-2025-09-05 12:23:25.974 [restartedMain] DEBUG c.g.p.PlanServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
-2025-09-05 12:23:25.990 [restartedMain] INFO  c.g.p.PlanServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-05 12:23:26.041 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-09-05 12:23:26.041 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-09-05 12:23:27.607 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2025-09-05 12:23:27.613 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-05 12:23:27.840 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 222 ms. Found 10 JPA repository interfaces.
-2025-09-05 12:23:27.867 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2025-09-05 12:23:27.867 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2025-09-05 12:23:27.897 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.DayMealPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-09-05 12:23:27.899 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.DayWorkoutPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-09-05 12:23:27.899 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.DietPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-09-05 12:23:27.900 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.ExerciseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-09-05 12:23:27.900 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.FoodItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-09-05 12:23:27.901 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.FoodRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-09-05 12:23:27.901 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.MealRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-09-05 12:23:27.902 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-09-05 12:23:27.902 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.WorkoutExerciseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-09-05 12:23:27.903 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.WorkoutPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-09-05 12:23:27.903 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
-2025-09-05 12:23:28.271 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=aee4c4fa-522a-387f-b184-4081e9c23e57
-2025-09-05 12:23:29.076 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
-2025-09-05 12:23:29.100 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8083"]
-2025-09-05 12:23:29.102 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-05 12:23:29.103 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-09-05 12:23:29.187 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-05 12:23:29.188 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3146 ms
-2025-09-05 12:23:29.604 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-05 12:23:29.703 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-09-05 12:23:29.742 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-05 12:23:30.142 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-05 12:23:30.187 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-05 12:23:32.264 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6711c0df
-2025-09-05 12:23:32.267 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-05 12:23:32.802 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-09-05 12:23:33.281 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2025-09-15 12:19:27.635 [restartedMain] INFO  c.g.p.PlanServiceApplication - Starting PlanServiceApplication using Java 21.0.8 with PID 6196 (C:\Users\padma\Desktop\GymAi\plan-service\target\classes started by padma in C:\Users\padma\Desktop\GymAi\plan-service)
+2025-09-15 12:19:27.643 [restartedMain] DEBUG c.g.p.PlanServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-09-15 12:19:27.644 [restartedMain] INFO  c.g.p.PlanServiceApplication - The following 1 profile is active: "dev"
+2025-09-15 12:19:27.725 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-15 12:19:27.726 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-15 12:19:29.068 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-15 12:19:29.069 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-15 12:19:29.284 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 205 ms. Found 10 JPA repository interfaces.
+2025-09-15 12:19:29.299 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-15 12:19:29.301 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-09-15 12:19:29.323 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.DayMealPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:19:29.323 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.DayWorkoutPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:19:29.323 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.DietPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:19:29.324 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.ExerciseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:19:29.324 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.FoodItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:19:29.324 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.FoodRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:19:29.325 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.MealRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:19:29.325 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:19:29.326 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.WorkoutExerciseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:19:29.326 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.WorkoutPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:19:29.326 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2025-09-15 12:19:29.632 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=fe04e7c3-fb90-36b8-a7e5-f56656427d4d
+2025-09-15 12:19:30.290 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2025-09-15 12:19:30.304 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8083"]
+2025-09-15 12:19:30.306 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-15 12:19:30.307 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-15 12:19:30.366 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-15 12:19:30.367 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2640 ms
+2025-09-15 12:19:30.660 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-15 12:19:30.713 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-15 12:19:30.756 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-15 12:19:31.048 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-15 12:19:31.077 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-15 12:19:31.275 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@62a4a011
+2025-09-15 12:19:31.277 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-15 12:19:31.314 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-15 12:19:31.334 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 17.5
@@ -42,40 +42,671 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-09-05 12:23:34.686 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-05 12:23:40.090 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-05 12:23:40.548 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-09-05 12:23:41.849 [restartedMain] INFO  c.g.plan_service.config.RedisConfig - RedisTemplate configured successfully
-2025-09-05 12:23:43.038 [restartedMain] INFO  c.g.plan_service.config.RedisConfig - Redis CacheManager configured with 7 cache configurations
-2025-09-05 12:23:43.642 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 16 endpoints beneath base path '/actuator'
-2025-09-05 12:23:43.702 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+2025-09-15 12:19:32.618 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-15 12:19:32.775 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2025-09-15 12:19:32.775 [restartedMain] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "ukp8yav1tmd9vvvux2yyhcljfxj" of relation "user_plans" does not exist, skipping
+2025-09-15 12:19:32.818 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-15 12:19:33.179 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-15 12:19:34.348 [restartedMain] INFO  c.g.plan_service.config.RedisConfig - RedisTemplate configured successfully
+2025-09-15 12:19:34.570 [restartedMain] INFO  c.g.p.s.EnhancedNutritionDataService - Initializing comprehensive food database with 450 entries
+2025-09-15 12:19:34.841 [restartedMain] INFO  c.g.p.s.EnhancedNutritionDataService - Successfully saved 201 food entries to database
+2025-09-15 12:19:34.844 [restartedMain] INFO  c.g.p.s.EnhancedNutritionDataService - Initializing comprehensive exercise database with 200 entries
+2025-09-15 12:19:35.022 [restartedMain] INFO  c.g.p.s.EnhancedNutritionDataService - Successfully saved 206 exercise entries to database
+2025-09-15 12:19:35.076 [restartedMain] INFO  c.g.plan_service.config.RedisConfig - Redis CacheManager configured with 7 cache configurations
+2025-09-15 12:19:35.574 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 16 endpoints beneath base path '/actuator'
+2025-09-15 12:19:35.625 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
 
-Using generated security password: 46695bc1-3549-4f1e-a6e1-4236e8740c0e
+Using generated security password: 50b6f868-12c6-42b9-93d4-f47c66d517a5
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
-2025-09-05 12:23:43.720 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2025-09-05 12:23:44.633 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8083"]
-2025-09-05 12:23:44.661 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
-2025-09-05 12:23:44.692 [restartedMain] INFO  c.g.p.PlanServiceApplication - Started PlanServiceApplication in 19.443 seconds (process running for 20.248)
-2025-09-05 15:06:08.398 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h21m34s895ms995µs).
-2025-09-05 15:06:19.206 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@4105a07 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 15:06:29.263 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@247fc867 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 15:06:39.278 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@3aa6d0fb (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 15:06:49.286 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@32810224 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 15:06:59.303 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@15b015e (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 15:07:09.318 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@6ddd7889 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 15:07:19.332 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@8574014 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 15:07:29.348 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@67d548a7 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 15:07:39.368 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@7b958bfd (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 15:07:39.368 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m30s988ms942µs300ns).
-2025-09-05 17:24:38.663 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@e93a616 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 17:24:48.736 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@2374b4ac (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 17:24:48.740 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=58m7s810ms14µs500ns).
-2025-09-05 17:24:58.752 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@46a6ef3b (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 17:25:08.766 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@6ce1d8e7 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 17:25:18.786 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@7a3a2684 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 17:25:28.795 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@4492d35f (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 17:25:38.813 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@42f1ba00 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 17:25:48.836 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@6e7d02e (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2025-09-05 17:25:48.836 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m99ms96µs900ns).
+2025-09-15 12:19:35.633 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-09-15 12:19:36.260 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-15 12:19:36.400 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8083"]
+2025-09-15 12:19:36.418 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
+2025-09-15 12:19:36.449 [restartedMain] INFO  c.g.p.PlanServiceApplication - Started PlanServiceApplication in 9.759 seconds (process running for 10.495)
+2025-09-15 12:19:45.642 [http-nio-8083-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-15 12:19:45.643 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-15 12:19:45.646 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-09-15 12:19:45.840 [http-nio-8083-exec-3] INFO  c.g.p.c.OptimizedFitnessController - Completing (create/update) profile and generating plans for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:19:45.939 [http-nio-8083-exec-3] INFO  c.g.p.c.OptimizedFitnessController - User profile saved for email: sharma2001bhawesh@gmail.com with userId: 1
+2025-09-15 12:19:46.678 [http-nio-8083-exec-3] WARN  c.g.p.service.CacheService - Failed to invalidate user cache for email: sharma2001bhawesh@gmail.com - Unable to connect to Redis
+2025-09-15 12:19:46.701 [http-nio-8083-exec-3] WARN  c.g.p.service.CacheService - Failed to invalidate plans cache for userId: 1 - Unable to connect to Redis
+2025-09-15 12:19:46.726 [http-nio-8083-exec-3] WARN  c.g.p.service.CacheService - Failed to clear food and exercise caches: Unable to connect to Redis
+2025-09-15 12:19:46.726 [http-nio-8083-exec-3] DEBUG c.g.p.service.CacheService - Invalidated all cache for email: sharma2001bhawesh@gmail.com and userId: 1
+2025-09-15 12:19:46.734 [ForkJoinPool.commonPool-worker-1] INFO  c.g.p.service.DietPlanService - Regenerating diet plan for userId=1
+2025-09-15 12:19:46.734 [ForkJoinPool.commonPool-worker-2] INFO  c.g.p.service.WorkoutPlanService - Regenerating workout plan for userId=1
+2025-09-15 12:19:46.758 [ForkJoinPool.commonPool-worker-1] WARN  c.g.p.service.CacheService - Failed to invalidate plans cache for userId: 1 - Unable to connect to Redis
+2025-09-15 12:19:46.765 [ForkJoinPool.commonPool-worker-1] INFO  c.g.p.service.DietPlanService - Deleted 0 diet plans for userId=1
+2025-09-15 12:19:46.767 [ForkJoinPool.commonPool-worker-1] INFO  c.g.p.s.NutritionCalculatorService - Calculating nutritional needs for user: User(userId=1, name=Bhawesh Sharma, email=sharma2001bhawesh@gmail.com, age=25, height=170.0, weight=70.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE, preference=VEG)
+2025-09-15 12:19:46.770 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.s.NutritionCalculatorService - Calculated BMR: 1642.5
+2025-09-15 12:19:46.770 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.s.NutritionCalculatorService - Calculated TDEE (with activity level MODERATELY_ACTIVE): 2545.9
+2025-09-15 12:19:46.770 [ForkJoinPool.commonPool-worker-1] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.9
+2025-09-15 12:19:46.771 [ForkJoinPool.commonPool-worker-1] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 126.0g, Carbs: 407.6g, Fat: 79.1g
+2025-09-15 12:19:46.772 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Calculated needs -> Calories: 2845.9, Protein: 126.0, Carbs: 407.6, Fat: 79.1
+2025-09-15 12:19:46.780 [ForkJoinPool.commonPool-worker-2] WARN  c.g.p.service.CacheService - Failed to invalidate plans cache for userId: 1 - Unable to connect to Redis
+2025-09-15 12:19:46.786 [ForkJoinPool.commonPool-worker-2] INFO  c.g.p.service.WorkoutPlanService - Deleted 0 workout plans for userId=1
+2025-09-15 12:19:46.786 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Determined planType=MUSCLE_GAIN for userId=1
+2025-09-15 12:19:46.786 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Determined difficulty=INTERMEDIATE for userId=1
+2025-09-15 12:19:46.793 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.CacheService - Skipping foods cache lookup for preference: VEG to avoid ClassCastException
+2025-09-15 12:19:46.793 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Resolving diet types for preference: VEG
+2025-09-15 12:19:46.793 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Preloading foods for diet types: [VEG, VEGAN] and meal types: [BREAKFAST, LUNCH, DINNER, SNACK]
+2025-09-15 12:19:46.833 [ForkJoinPool.commonPool-worker-1] WARN  c.g.p.service.DietPlanService - No foods found for meal type DINNER. Using LUNCH foods as fallback.
+2025-09-15 12:19:46.836 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 1 (Monday), focusArea=UPPER_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-15 12:19:46.836 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache lookup for focusArea: UPPER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:19:46.843 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.CacheService - Skipping foods cache for preference: VEG to avoid ClassCastException
+2025-09-15 12:19:46.844 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Cached foods for preference: VEG
+2025-09-15 12:19:46.844 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Monday
+2025-09-15 12:19:46.844 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Monday (Day 1) with calorie target: 2845.9
+2025-09-15 12:19:46.845 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:19:46.845 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:19:46.845 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:19:46.850 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 364.9g [Sourdough Bread (1 slice 28g)] - 284.6 calories
+2025-09-15 12:19:46.852 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:19:46.854 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache for focusArea: UPPER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:19:46.856 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:19:46.857 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:19:46.858 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 378.9g [Buckwheat (cooked)] - 348.6 calories
+2025-09-15 12:19:46.860 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 121.1g [Seitan] - 448.2 calories
+2025-09-15 12:19:46.860 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Fetched 6 exercises for focusArea=UPPER_BODY (difficulty=INTERMEDIATE)
+2025-09-15 12:19:46.861 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 996.5g [Green Bell Pepper] - 199.3 calories
+2025-09-15 12:19:46.863 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:19:46.864 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:19:46.865 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Monday (Day 1): focusArea=UPPER_BODY, restDay=false, exerciseCount=6
+2025-09-15 12:19:46.865 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 420.8g [Roti/Chapati (1 medium)] - 298.8 calories
+2025-09-15 12:19:46.866 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 2 (Tuesday), focusArea=LOWER_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-15 12:19:46.866 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache lookup for focusArea: LOWER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:19:46.866 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 325.6g [Split Peas (cooked)] - 384.2 calories
+2025-09-15 12:19:46.867 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 416.6g [Carrot (raw)] - 170.8 calories
+2025-09-15 12:19:46.868 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:19:46.868 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:19:46.869 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 499.3g [Blueberries] - 284.6 calories
+2025-09-15 12:19:46.869 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache for focusArea: LOWER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:19:46.869 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Fetched 6 exercises for focusArea=LOWER_BODY (difficulty=INTERMEDIATE)
+2025-09-15 12:19:46.871 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Tuesday (Day 2): focusArea=LOWER_BODY, restDay=false, exerciseCount=6
+2025-09-15 12:19:46.872 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Tuesday
+2025-09-15 12:19:46.872 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Day 3 (Wednesday) is marked as REST day for userId=1
+2025-09-15 12:19:46.872 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Tuesday (Day 2) with calorie target: 2845.9
+2025-09-15 12:19:46.872 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Wednesday (Day 3): focusArea=REST, restDay=true, exerciseCount=0
+2025-09-15 12:19:46.872 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:19:46.872 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 4 (Thursday), focusArea=UPPER_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-15 12:19:46.873 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:19:46.873 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache lookup for focusArea: UPPER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:19:46.873 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:19:46.873 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 77.5g [Muesli (unsweetened)] - 284.6 calories
+2025-09-15 12:19:46.873 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:19:46.874 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:19:46.874 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:19:46.874 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 345.1g [Wild Rice (cooked)] - 348.6 calories
+2025-09-15 12:19:46.875 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 111.2g [Cheddar Cheese] - 448.2 calories
+2025-09-15 12:19:46.875 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 1172.4g [Bitter Gourd (Karela)] - 199.3 calories
+2025-09-15 12:19:46.876 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:19:46.876 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:19:46.876 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 138.3g [Red Rice (cooked)] - 298.8 calories
+2025-09-15 12:19:46.877 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 325.6g [Split Peas (cooked)] - 384.2 calories
+2025-09-15 12:19:46.877 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 461.6g [Drumstick (Moringa)] - 170.8 calories
+2025-09-15 12:19:46.891 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:19:46.891 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:19:46.891 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 51.5g [Cashews (raw)] - 284.6 calories
+2025-09-15 12:19:46.893 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Wednesday
+2025-09-15 12:19:46.893 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Wednesday (Day 3) with calorie target: 2845.9
+2025-09-15 12:19:46.893 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:19:46.893 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:19:46.893 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:19:46.895 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 129.4g [Upma (Semolina, cooked)] - 284.6 calories
+2025-09-15 12:19:46.895 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:19:46.895 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:19:46.896 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:19:46.896 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 345.1g [Wild Rice (cooked)] - 348.6 calories
+2025-09-15 12:19:46.896 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 339.5g [Black Beans (cooked)] - 448.2 calories
+2025-09-15 12:19:46.897 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 866.5g [Spinach (raw)] - 199.3 calories
+2025-09-15 12:19:46.897 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:19:46.898 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:19:46.898 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 82.1g [Whole Wheat Flour (Atta)] - 298.8 calories
+2025-09-15 12:19:46.898 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache for focusArea: UPPER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:19:46.898 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 145.0g [Paneer (fresh)] - 384.2 calories
+2025-09-15 12:19:46.898 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Fetched 6 exercises for focusArea=UPPER_BODY (difficulty=INTERMEDIATE)
+2025-09-15 12:19:46.898 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 948.9g [Tomato] - 170.8 calories
+2025-09-15 12:19:46.900 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Thursday (Day 4): focusArea=UPPER_BODY, restDay=false, exerciseCount=6
+2025-09-15 12:19:46.900 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:19:46.900 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 5 (Friday), focusArea=LOWER_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-15 12:19:46.900 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:19:46.900 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache lookup for focusArea: LOWER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:19:46.901 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 50.0g [Hazelnuts] - 284.6 calories
+2025-09-15 12:19:46.901 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Thursday
+2025-09-15 12:19:46.901 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Thursday (Day 4) with calorie target: 2845.9
+2025-09-15 12:19:46.902 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:19:46.902 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:19:46.902 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:19:46.902 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 83.2g [Daliya (Broken Wheat, cooked)] - 284.6 calories
+2025-09-15 12:19:46.903 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:19:46.903 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:19:46.903 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache for focusArea: LOWER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:19:46.903 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:19:46.903 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Fetched 6 exercises for focusArea=LOWER_BODY (difficulty=INTERMEDIATE)
+2025-09-15 12:19:46.904 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 90.1g [Protein Pasta (Chickpea)] - 348.6 calories
+2025-09-15 12:19:46.904 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Friday (Day 5): focusArea=LOWER_BODY, restDay=false, exerciseCount=6
+2025-09-15 12:19:46.904 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 121.1g [Seitan] - 448.2 calories
+2025-09-15 12:19:46.904 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 6 (Saturday), focusArea=FULL_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-15 12:19:46.904 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 797.2g [Cabbage (raw)] - 199.3 calories
+2025-09-15 12:19:46.905 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache lookup for focusArea: FULL_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:19:46.905 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:19:46.905 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:19:46.906 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 93.4g [Paratha (plain, 1 piece)] - 298.8 calories
+2025-09-15 12:19:46.906 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 268.7g [Pinto Beans (cooked)] - 384.2 calories
+2025-09-15 12:19:46.906 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 1004.7g [Zucchini] - 170.8 calories
+2025-09-15 12:19:46.907 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:19:46.907 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:19:46.908 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 459.0g [Grapes] - 284.6 calories
+2025-09-15 12:19:46.908 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Friday
+2025-09-15 12:19:46.908 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Friday (Day 5) with calorie target: 2845.9
+2025-09-15 12:19:46.908 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:19:46.908 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:19:46.909 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:19:46.909 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 79.7g [Cornflakes (plain)] - 284.6 calories
+2025-09-15 12:19:46.909 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:19:46.909 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:19:46.911 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:19:46.911 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 90.1g [Protein Pasta (Chickpea)] - 348.6 calories
+2025-09-15 12:19:46.912 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 131.4g [Black Lentils (Urad Dal, cooked)] - 448.2 calories
+2025-09-15 12:19:46.912 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 905.9g [Turnip (cooked)] - 199.3 calories
+2025-09-15 12:19:46.913 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache for focusArea: FULL_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:19:46.913 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Fetched 6 exercises for focusArea=FULL_BODY (difficulty=INTERMEDIATE)
+2025-09-15 12:19:46.913 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:19:46.913 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:19:46.913 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Saturday (Day 6): focusArea=FULL_BODY, restDay=false, exerciseCount=6
+2025-09-15 12:19:46.914 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Day 7 (Sunday) is marked as REST day for userId=1
+2025-09-15 12:19:46.914 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 251.1g [Millet (cooked)] - 298.8 calories
+2025-09-15 12:19:46.914 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Sunday (Day 7): focusArea=REST, restDay=true, exerciseCount=0
+2025-09-15 12:19:46.915 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 105.5g [Bengal Gram (Chana Dal, cooked)] - 384.2 calories
+2025-09-15 12:19:46.915 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 683.2g [Cauliflower Rice (cooked)] - 170.8 calories
+2025-09-15 12:19:46.916 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:19:46.916 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:19:46.916 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 474.3g [Mango] - 284.6 calories
+2025-09-15 12:19:46.917 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Saturday
+2025-09-15 12:19:46.917 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Saturday (Day 6) with calorie target: 2845.9
+2025-09-15 12:19:46.918 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:19:46.918 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:19:46.918 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:19:46.918 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 218.9g [Poha (Flattened Rice, cooked)] - 284.6 calories
+2025-09-15 12:19:46.918 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:19:46.919 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:19:46.919 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:19:46.919 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 378.9g [Buckwheat (cooked)] - 348.6 calories
+2025-09-15 12:19:46.919 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 131.4g [Black Lentils (Urad Dal, cooked)] - 448.2 calories
+2025-09-15 12:19:46.920 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 866.5g [Cauliflower (cooked)] - 199.3 calories
+2025-09-15 12:19:46.921 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:19:46.921 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:19:46.921 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 114.0g [Naan (1 piece)] - 298.8 calories
+2025-09-15 12:19:46.922 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 274.4g [Navy Beans (cooked)] - 384.2 calories
+2025-09-15 12:19:46.922 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 1004.7g [Bitter Gourd (Karela)] - 170.8 calories
+2025-09-15 12:19:46.923 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:19:46.923 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:19:46.923 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 466.6g [Kiwi] - 284.6 calories
+2025-09-15 12:19:46.925 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Sunday
+2025-09-15 12:19:46.925 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Sunday (Day 7) with calorie target: 2845.9
+2025-09-15 12:19:46.926 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:19:46.926 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:19:46.926 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:19:46.926 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 334.8g [Multigrain Bread (1 slice 28g)] - 284.6 calories
+2025-09-15 12:19:46.927 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:19:46.927 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:19:46.927 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:19:46.927 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 161.4g [Red Rice (cooked)] - 348.6 calories
+2025-09-15 12:19:46.928 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 339.5g [Black Beans (cooked)] - 448.2 calories
+2025-09-15 12:19:46.928 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 1172.4g [Zucchini] - 199.3 calories
+2025-09-15 12:19:46.928 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:19:46.929 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:19:46.929 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 138.3g [Red Rice (cooked)] - 298.8 calories
+2025-09-15 12:19:46.929 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 268.7g [Pinto Beans (cooked)] - 384.2 calories
+2025-09-15 12:19:46.930 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 1067.5g [Radish (raw)] - 170.8 calories
+2025-09-15 12:19:46.930 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:19:46.931 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:19:46.931 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 499.3g [Blueberries] - 284.6 calories
+2025-09-15 12:19:47.074 [ForkJoinPool.commonPool-worker-2] WARN  c.g.p.service.CacheService - Failed to cache for key: workout:plan:1 - Unable to connect to Redis
+2025-09-15 12:19:47.074 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Cached workout plan for userId: 1
+2025-09-15 12:19:47.076 [ForkJoinPool.commonPool-worker-2] INFO  c.g.p.service.WorkoutPlanService - Completed workout plan generation and cached for userId=1 with planId=1
+2025-09-15 12:19:47.138 [ForkJoinPool.commonPool-worker-1] WARN  c.g.p.service.CacheService - Failed to cache for key: diet:plan:1 - Unable to connect to Redis
+2025-09-15 12:19:47.138 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.CacheService - Cached diet plan for userId: 1
+2025-09-15 12:19:47.138 [ForkJoinPool.commonPool-worker-1] INFO  c.g.p.service.DietPlanService - Successfully saved and cached diet plan for userId=1 with planId=1
+2025-09-15 12:19:47.217 [http-nio-8083-exec-3] ERROR c.g.p.c.OptimizedFitnessController - Error completing profile for email: sharma2001bhawesh@gmail.com
+java.util.concurrent.CompletionException: org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis
+	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
+	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1770)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1760)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:387)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1310)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1841)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1806)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:188)
+Caused by: org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.translateException(LettuceConnectionFactory.java:1866)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.getConnection(LettuceConnectionFactory.java:1797)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:1594)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.lambda$getConnection$0(LettuceConnectionFactory.java:1574)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.doInLock(LettuceConnectionFactory.java:1535)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:1571)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:1257)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:1063)
+	at org.springframework.data.redis.cache.DefaultRedisCacheWriter.execute(DefaultRedisCacheWriter.java:401)
+	at org.springframework.data.redis.cache.DefaultRedisCacheWriter.remove(DefaultRedisCacheWriter.java:312)
+	at org.springframework.data.redis.cache.RedisCache.evict(RedisCache.java:257)
+	at org.springframework.cache.interceptor.AbstractCacheInvoker.doEvict(AbstractCacheInvoker.java:174)
+	at org.springframework.cache.interceptor.CacheAspectSupport.performCacheEvicts(CacheAspectSupport.java:718)
+	at org.springframework.cache.interceptor.CacheAspectSupport.processCacheEvicts(CacheAspectSupport.java:699)
+	at org.springframework.cache.interceptor.CacheAspectSupport.evaluate(CacheAspectSupport.java:623)
+	at org.springframework.cache.interceptor.CacheAspectSupport.execute(CacheAspectSupport.java:448)
+	at org.springframework.cache.interceptor.CacheAspectSupport.execute(CacheAspectSupport.java:410)
+	at org.springframework.cache.interceptor.CacheInterceptor.invoke(CacheInterceptor.java:65)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at com.gymai.plan_service.service.DietPlanService$$SpringCGLIB$$0.regenerateDietPlan(<generated>)
+	at com.gymai.plan_service.controller.OptimizedFitnessController.lambda$completeUserProfile$2(OptimizedFitnessController.java:230)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	... 6 common frames omitted
+Caused by: org.springframework.data.redis.connection.PoolException: Could not prepare the pool
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.lambda$getConnection$1(LettucePoolingConnectionProvider.java:105)
+	at java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1708)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.getConnection(LettucePoolingConnectionProvider.java:97)
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.getConnection(LettuceConnectionFactory.java:1795)
+	... 27 common frames omitted
+Caused by: io.lettuce.core.RedisConnectionException: Unable to connect to boss-fly-54398.upstash.io/<unresolved>:6379
+	at io.lettuce.core.RedisConnectionException.create(RedisConnectionException.java:63)
+	at io.lettuce.core.RedisConnectionException.create(RedisConnectionException.java:41)
+	at io.lettuce.core.AbstractRedisClient.getConnection(AbstractRedisClient.java:354)
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:220)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.lambda$getConnection$1(StandaloneConnectionProvider.java:112)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:112)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.lambda$getConnection$0(LettucePoolingConnectionProvider.java:100)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:270)
+	at io.lettuce.core.support.ConnectionPoolSupport$RedisPooledObjectFactory.create(ConnectionPoolSupport.java:257)
+	at org.apache.commons.pool2.BasePooledObjectFactory.makeObject(BasePooledObjectFactory.java:68)
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:557)
+	at org.apache.commons.pool2.impl.GenericObjectPool.ensureIdle(GenericObjectPool.java:630)
+	at org.apache.commons.pool2.impl.GenericObjectPool.ensureMinIdle(GenericObjectPool.java:652)
+	at org.apache.commons.pool2.impl.GenericObjectPool.preparePool(GenericObjectPool.java:970)
+	at org.springframework.data.redis.connection.lettuce.LettucePoolingConnectionProvider.lambda$getConnection$1(LettucePoolingConnectionProvider.java:103)
+	... 30 common frames omitted
+Caused by: io.lettuce.core.RedisConnectionException: Connection closed prematurely
+	at io.lettuce.core.protocol.RedisHandshakeHandler.channelInactive(RedisHandshakeHandler.java:76)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:303)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelInactive(ChannelInboundHandlerAdapter.java:81)
+	at io.lettuce.core.ChannelGroupListener.channelInactive(ChannelGroupListener.java:54)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:303)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelInactive(DefaultChannelPipeline.java:1352)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:301)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelInactive(DefaultChannelPipeline.java:850)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$7.run(AbstractChannel.java:811)
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:173)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:166)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:472)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:566)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-09-15 12:22:05.874 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-09-15 12:22:05.878 [Thread-6] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-15 12:22:05.879 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8083"]
+2025-09-15 12:22:05.896 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-15 12:22:05.898 [Thread-6] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8083"]
+2025-09-15 12:22:05.921 [Thread-6] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-15 12:22:05.924 [Thread-6] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-15 12:22:05.928 [Thread-6] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-09-15 12:22:30.309 [restartedMain] INFO  c.g.p.PlanServiceApplication - Starting PlanServiceApplication using Java 21.0.8 with PID 16452 (C:\Users\padma\Desktop\GymAi\plan-service\target\classes started by padma in C:\Users\padma\Desktop\GymAi\plan-service)
+2025-09-15 12:22:30.310 [restartedMain] DEBUG c.g.p.PlanServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-09-15 12:22:30.311 [restartedMain] INFO  c.g.p.PlanServiceApplication - The following 1 profile is active: "dev"
+2025-09-15 12:22:30.383 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-15 12:22:30.384 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-15 12:22:31.748 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-15 12:22:31.750 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-15 12:22:31.923 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 164 ms. Found 10 JPA repository interfaces.
+2025-09-15 12:22:31.944 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-15 12:22:31.945 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-09-15 12:22:31.963 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.DayMealPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:22:31.964 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.DayWorkoutPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:22:31.964 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.DietPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:22:31.964 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.ExerciseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:22:31.964 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.FoodItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:22:31.966 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.FoodRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:22:31.966 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.MealRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:22:31.967 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:22:31.967 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.WorkoutExerciseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:22:31.968 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.WorkoutPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 12:22:31.968 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2025-09-15 12:22:32.263 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=fe04e7c3-fb90-36b8-a7e5-f56656427d4d
+2025-09-15 12:22:32.835 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2025-09-15 12:22:32.846 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8083"]
+2025-09-15 12:22:32.847 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-15 12:22:32.848 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-15 12:22:32.903 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-15 12:22:32.903 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2518 ms
+2025-09-15 12:22:33.170 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-15 12:22:33.220 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-15 12:22:33.253 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-15 12:22:33.508 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-15 12:22:33.536 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-15 12:22:33.714 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@777013b7
+2025-09-15 12:22:33.716 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-15 12:22:33.752 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-15 12:22:33.771 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-15 12:22:34.881 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-15 12:22:35.354 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-15 12:22:35.657 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-15 12:22:36.538 [restartedMain] INFO  c.g.plan_service.config.RedisConfig - RedisTemplate configured successfully
+2025-09-15 12:22:36.771 [restartedMain] INFO  c.g.plan_service.config.RedisConfig - Redis CacheManager configured with 7 cache configurations
+2025-09-15 12:22:37.218 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 16 endpoints beneath base path '/actuator'
+2025-09-15 12:22:37.265 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 05af7930-a51c-4dc5-9825-63e858837821
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-09-15 12:22:37.273 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-09-15 12:22:37.837 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-15 12:22:37.935 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8083"]
+2025-09-15 12:22:37.954 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
+2025-09-15 12:22:37.984 [restartedMain] INFO  c.g.p.PlanServiceApplication - Started PlanServiceApplication in 8.65 seconds (process running for 9.312)
+2025-09-15 12:22:58.307 [http-nio-8083-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-15 12:22:58.307 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-15 12:22:58.311 [http-nio-8083-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-09-15 12:22:58.559 [http-nio-8083-exec-3] INFO  c.g.p.c.OptimizedFitnessController - Completing (create/update) profile and generating plans for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:22:58.683 [http-nio-8083-exec-3] INFO  c.g.p.c.OptimizedFitnessController - User profile saved for email: sharma2001bhawesh@gmail.com with userId: 1
+2025-09-15 12:22:59.946 [http-nio-8083-exec-3] DEBUG c.g.p.service.CacheService - Invalidated user cache for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:22:59.979 [http-nio-8083-exec-3] DEBUG c.g.p.service.CacheService - Invalidated plans cache for userId: 1
+2025-09-15 12:23:00.008 [http-nio-8083-exec-3] DEBUG c.g.p.service.CacheService - Cleared food and exercise caches
+2025-09-15 12:23:00.010 [http-nio-8083-exec-3] DEBUG c.g.p.service.CacheService - Invalidated all cache for email: sharma2001bhawesh@gmail.com and userId: 1
+2025-09-15 12:23:00.019 [ForkJoinPool.commonPool-worker-1] INFO  c.g.p.service.DietPlanService - Regenerating diet plan for userId=1
+2025-09-15 12:23:00.020 [ForkJoinPool.commonPool-worker-2] INFO  c.g.p.service.WorkoutPlanService - Regenerating workout plan for userId=1
+2025-09-15 12:23:00.052 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.CacheService - Invalidated plans cache for userId: 1
+2025-09-15 12:23:00.053 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Invalidated plans cache for userId: 1
+2025-09-15 12:23:00.163 [ForkJoinPool.commonPool-worker-2] INFO  c.g.p.service.WorkoutPlanService - Deleted 1 workout plans for userId=1
+2025-09-15 12:23:00.246 [ForkJoinPool.commonPool-worker-1] INFO  c.g.p.service.DietPlanService - Deleted 1 diet plans for userId=1
+2025-09-15 12:23:00.260 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Determined planType=MUSCLE_GAIN for userId=1
+2025-09-15 12:23:00.262 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Determined difficulty=INTERMEDIATE for userId=1
+2025-09-15 12:23:00.366 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 1 (Monday), focusArea=UPPER_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-15 12:23:00.366 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache lookup for focusArea: UPPER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:23:00.371 [ForkJoinPool.commonPool-worker-1] INFO  c.g.p.s.NutritionCalculatorService - Calculating nutritional needs for user: User(userId=1, name=Bhawesh Sharma, email=sharma2001bhawesh@gmail.com, age=25, height=170.0, weight=70.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE, preference=VEG)
+2025-09-15 12:23:00.376 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.s.NutritionCalculatorService - Calculated BMR: 1642.5
+2025-09-15 12:23:00.377 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.s.NutritionCalculatorService - Calculated TDEE (with activity level MODERATELY_ACTIVE): 2545.9
+2025-09-15 12:23:00.378 [ForkJoinPool.commonPool-worker-1] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.9
+2025-09-15 12:23:00.378 [ForkJoinPool.commonPool-worker-1] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 126.0g, Carbs: 407.6g, Fat: 79.1g
+2025-09-15 12:23:00.378 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Calculated needs -> Calories: 2845.9, Protein: 126.0, Carbs: 407.6, Fat: 79.1
+2025-09-15 12:23:00.382 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.CacheService - Skipping foods cache lookup for preference: VEG to avoid ClassCastException
+2025-09-15 12:23:00.382 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Resolving diet types for preference: VEG
+2025-09-15 12:23:00.383 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Preloading foods for diet types: [VEG, VEGAN] and meal types: [BREAKFAST, LUNCH, DINNER, SNACK]
+2025-09-15 12:23:00.387 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache for focusArea: UPPER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:23:00.390 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Fetched 6 exercises for focusArea=UPPER_BODY (difficulty=INTERMEDIATE)
+2025-09-15 12:23:00.395 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Monday (Day 1): focusArea=UPPER_BODY, restDay=false, exerciseCount=6
+2025-09-15 12:23:00.395 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 2 (Tuesday), focusArea=LOWER_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-15 12:23:00.395 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache lookup for focusArea: LOWER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:23:00.399 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache for focusArea: LOWER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:23:00.400 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Fetched 6 exercises for focusArea=LOWER_BODY (difficulty=INTERMEDIATE)
+2025-09-15 12:23:00.403 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Tuesday (Day 2): focusArea=LOWER_BODY, restDay=false, exerciseCount=6
+2025-09-15 12:23:00.403 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Day 3 (Wednesday) is marked as REST day for userId=1
+2025-09-15 12:23:00.403 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Wednesday (Day 3): focusArea=REST, restDay=true, exerciseCount=0
+2025-09-15 12:23:00.405 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 4 (Thursday), focusArea=UPPER_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-15 12:23:00.405 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache lookup for focusArea: UPPER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:23:00.415 [ForkJoinPool.commonPool-worker-1] WARN  c.g.p.service.DietPlanService - No foods found for meal type DINNER. Using LUNCH foods as fallback.
+2025-09-15 12:23:00.421 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache for focusArea: UPPER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:23:00.421 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Fetched 6 exercises for focusArea=UPPER_BODY (difficulty=INTERMEDIATE)
+2025-09-15 12:23:00.422 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Thursday (Day 4): focusArea=UPPER_BODY, restDay=false, exerciseCount=6
+2025-09-15 12:23:00.422 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 5 (Friday), focusArea=LOWER_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-15 12:23:00.423 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache lookup for focusArea: LOWER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:23:00.427 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.CacheService - Skipping foods cache for preference: VEG to avoid ClassCastException
+2025-09-15 12:23:00.428 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Cached foods for preference: VEG
+2025-09-15 12:23:00.429 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Monday
+2025-09-15 12:23:00.429 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Monday (Day 1) with calorie target: 2845.9
+2025-09-15 12:23:00.429 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache for focusArea: LOWER_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:23:00.430 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Fetched 6 exercises for focusArea=LOWER_BODY (difficulty=INTERMEDIATE)
+2025-09-15 12:23:00.430 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:23:00.430 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:23:00.430 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:23:00.431 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Friday (Day 5): focusArea=LOWER_BODY, restDay=false, exerciseCount=6
+2025-09-15 12:23:00.431 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generating workout for Day 6 (Saturday), focusArea=FULL_BODY, planType=MUSCLE_GAIN, difficulty=INTERMEDIATE
+2025-09-15 12:23:00.431 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache lookup for focusArea: FULL_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:23:00.432 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 129.4g [Upma (Semolina, cooked)] - 284.6 calories
+2025-09-15 12:23:00.435 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:23:00.439 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:23:00.439 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:23:00.440 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 95.8g [Whole Wheat Flour (Atta)] - 348.6 calories
+2025-09-15 12:23:00.441 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 111.2g [Cheddar Cheese] - 448.2 calories
+2025-09-15 12:23:00.442 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Skipping exercises cache for focusArea: FULL_BODY and difficulty: INTERMEDIATE to avoid ClassCastException
+2025-09-15 12:23:00.442 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Fetched 6 exercises for focusArea=FULL_BODY (difficulty=INTERMEDIATE)
+2025-09-15 12:23:00.442 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 150.0g [Garlic] - 199.3 calories
+2025-09-15 12:23:00.443 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Saturday (Day 6): focusArea=FULL_BODY, restDay=false, exerciseCount=6
+2025-09-15 12:23:00.445 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Day 7 (Sunday) is marked as REST day for userId=1
+2025-09-15 12:23:00.445 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.WorkoutPlanService - Generated workout for Sunday (Day 7): focusArea=REST, restDay=true, exerciseCount=0
+2025-09-15 12:23:00.446 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:23:00.446 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:23:00.446 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 420.8g [Roti/Chapati (1 medium)] - 298.8 calories
+2025-09-15 12:23:00.448 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 145.0g [Paneer (fresh)] - 384.2 calories
+2025-09-15 12:23:00.448 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 854.0g [Asparagus] - 170.8 calories
+2025-09-15 12:23:00.449 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:23:00.449 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:23:00.450 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 646.8g [Indian Gooseberry (Amla)] - 284.6 calories
+2025-09-15 12:23:00.452 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Tuesday
+2025-09-15 12:23:00.454 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Tuesday (Day 2) with calorie target: 2845.9
+2025-09-15 12:23:00.454 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:23:00.454 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:23:00.455 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:23:00.455 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 218.9g [Poha (Flattened Rice, cooked)] - 284.6 calories
+2025-09-15 12:23:00.455 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:23:00.455 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:23:00.455 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:23:00.456 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 378.9g [Buckwheat (cooked)] - 348.6 calories
+2025-09-15 12:23:00.456 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 176.5g [Mozzarella (part-skim)] - 448.2 calories
+2025-09-15 12:23:00.456 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 453.0g [Beetroot (cooked)] - 199.3 calories
+2025-09-15 12:23:00.457 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:23:00.457 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:23:00.458 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 3320.0g [Konjac Noodles (Shirataki)] - 298.8 calories
+2025-09-15 12:23:00.458 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 101.6g [Black Chickpeas (Kala Chana, cooked)] - 384.2 calories
+2025-09-15 12:23:00.459 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 1004.7g [Bitter Gourd (Karela)] - 170.8 calories
+2025-09-15 12:23:00.460 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:23:00.460 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:23:00.461 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 459.0g [Grapes] - 284.6 calories
+2025-09-15 12:23:00.462 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Wednesday
+2025-09-15 12:23:00.462 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Wednesday (Day 3) with calorie target: 2845.9
+2025-09-15 12:23:00.462 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:23:00.462 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:23:00.462 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:23:00.464 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 218.9g [Poha (Flattened Rice, cooked)] - 284.6 calories
+2025-09-15 12:23:00.464 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:23:00.464 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:23:00.465 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:23:00.465 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 108.9g [Paratha (plain, 1 piece)] - 348.6 calories
+2025-09-15 12:23:00.465 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 597.6g [Feta Cheese] - 448.2 calories
+2025-09-15 12:23:00.465 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 1328.7g [Kimchi] - 199.3 calories
+2025-09-15 12:23:00.466 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:23:00.466 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:23:00.466 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 420.8g [Roti/Chapati (1 medium)] - 298.8 calories
+2025-09-15 12:23:00.467 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 103.8g [Seitan] - 384.2 calories
+2025-09-15 12:23:00.467 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 221.8g [Potato (boiled)] - 170.8 calories
+2025-09-15 12:23:00.468 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:23:00.468 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:23:00.468 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 466.6g [Kiwi] - 284.6 calories
+2025-09-15 12:23:00.469 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Thursday
+2025-09-15 12:23:00.470 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Thursday (Day 4) with calorie target: 2845.9
+2025-09-15 12:23:00.470 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:23:00.470 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:23:00.470 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:23:00.470 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 77.5g [Muesli (unsweetened)] - 284.6 calories
+2025-09-15 12:23:00.471 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:23:00.471 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:23:00.471 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:23:00.471 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 283.4g [Barley (cooked)] - 348.6 calories
+2025-09-15 12:23:00.471 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 386.4g [Red Lentils (Masoor Dal, cooked)] - 448.2 calories
+2025-09-15 12:23:00.472 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 905.9g [Mushrooms (Button)] - 199.3 calories
+2025-09-15 12:23:00.472 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:23:00.472 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:23:00.472 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 82.1g [Whole Wheat Flour (Atta)] - 298.8 calories
+2025-09-15 12:23:00.473 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 101.6g [Black Chickpeas (Kala Chana, cooked)] - 384.2 calories
+2025-09-15 12:23:00.473 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 1220.0g [Bottle Gourd (Lauki)] - 170.8 calories
+2025-09-15 12:23:00.473 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:23:00.475 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:23:00.475 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 605.5g [Orange] - 284.6 calories
+2025-09-15 12:23:00.476 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Friday
+2025-09-15 12:23:00.477 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Friday (Day 5) with calorie target: 2845.9
+2025-09-15 12:23:00.477 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:23:00.477 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:23:00.477 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:23:00.478 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 364.9g [Sourdough Bread (1 slice 28g)] - 284.6 calories
+2025-09-15 12:23:00.478 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:23:00.479 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:23:00.479 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:23:00.480 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 108.9g [Paratha (plain, 1 piece)] - 348.6 calories
+2025-09-15 12:23:00.480 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 169.1g [Paneer (fresh)] - 448.2 calories
+2025-09-15 12:23:00.481 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 150.0g [Garlic] - 199.3 calories
+2025-09-15 12:23:00.481 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:23:00.481 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:23:00.482 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 138.3g [Red Rice (cooked)] - 298.8 calories
+2025-09-15 12:23:00.482 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 105.5g [Bengal Gram (Chana Dal, cooked)] - 384.2 calories
+2025-09-15 12:23:00.482 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 348.6g [Kale (raw)] - 170.8 calories
+2025-09-15 12:23:00.483 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:23:00.484 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:23:00.484 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 661.9g [Papaya] - 284.6 calories
+2025-09-15 12:23:00.486 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Saturday
+2025-09-15 12:23:00.487 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Saturday (Day 6) with calorie target: 2845.9
+2025-09-15 12:23:00.487 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:23:00.487 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:23:00.488 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:23:00.488 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 334.8g [Multigrain Bread (1 slice 28g)] - 284.6 calories
+2025-09-15 12:23:00.488 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:23:00.489 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:23:00.489 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:23:00.489 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 283.4g [Barley (cooked)] - 348.6 calories
+2025-09-15 12:23:00.489 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 130.7g [Yellow Lentils (Toor Dal, cooked)] - 448.2 calories
+2025-09-15 12:23:00.490 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 249.1g [Ginger] - 199.3 calories
+2025-09-15 12:23:00.490 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:23:00.490 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:23:00.491 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 114.0g [Naan (1 piece)] - 298.8 calories
+2025-09-15 12:23:00.491 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 302.5g [Kidney Beans (Rajma, cooked)] - 384.2 calories
+2025-09-15 12:23:00.491 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 948.9g [Tomato] - 170.8 calories
+2025-09-15 12:23:00.493 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:23:00.493 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:23:00.494 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 605.5g [Orange] - 284.6 calories
+2025-09-15 12:23:00.495 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating meal plan for Sunday
+2025-09-15 12:23:00.495 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Sunday (Day 7) with calorie target: 2845.9
+2025-09-15 12:23:00.495 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Meal distribution -> Breakfast: 711.5, Lunch: 996.1, Dinner: 853.8, Snack: 284.6
+2025-09-15 12:23:00.495 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating BREAKFAST with target calories: 711.5
+2025-09-15 12:23:00.495 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Breakfast for user: 1
+2025-09-15 12:23:00.496 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 75.1g [Whole Wheat Cereal] - 284.6 calories
+2025-09-15 12:23:00.496 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 366.2g [Whole Egg (1 large 50g)] - 249.0 calories
+2025-09-15 12:23:00.496 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH with target calories: 996.1
+2025-09-15 12:23:00.496 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating LUNCH for user: 1
+2025-09-15 12:23:00.496 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 3873.3g [Konjac Noodles (Shirataki)] - 348.6 calories
+2025-09-15 12:23:00.497 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 131.4g [Black Lentils (Urad Dal, cooked)] - 448.2 calories
+2025-09-15 12:23:00.497 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 569.4g [Green Beans] - 199.3 calories
+2025-09-15 12:23:00.497 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER with target calories: 853.8
+2025-09-15 12:23:00.497 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating DINNER for user: 1
+2025-09-15 12:23:00.498 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added grains: 324.8g [Buckwheat (cooked)] - 298.8 calories
+2025-09-15 12:23:00.498 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added protein: 194.0g [Low-Fat Paneer] - 384.2 calories
+2025-09-15 12:23:00.498 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added vegetables: 683.2g [Arugula (Rocket)] - 170.8 calories
+2025-09-15 12:23:00.498 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating SNACK with target calories: 284.6
+2025-09-15 12:23:00.499 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Generating Snack for user: 1
+2025-09-15 12:23:00.499 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.DietPlanService - Added snack: 102.7g [Dates (Medjool)] - 284.6 calories
+2025-09-15 12:23:00.631 [ForkJoinPool.commonPool-worker-2] DEBUG c.g.p.service.CacheService - Cached workout plan for userId: 1
+2025-09-15 12:23:00.631 [ForkJoinPool.commonPool-worker-2] INFO  c.g.p.service.WorkoutPlanService - Completed workout plan generation and cached for userId=1 with planId=2
+2025-09-15 12:23:00.735 [ForkJoinPool.commonPool-worker-1] DEBUG c.g.p.service.CacheService - Cached diet plan for userId: 1
+2025-09-15 12:23:00.735 [ForkJoinPool.commonPool-worker-1] INFO  c.g.p.service.DietPlanService - Successfully saved and cached diet plan for userId=1 with planId=2
+2025-09-15 12:23:00.803 [http-nio-8083-exec-3] INFO  c.g.p.s.NutritionCalculatorService - Calculating nutritional needs for user: User(userId=1, name=Bhawesh Sharma, email=sharma2001bhawesh@gmail.com, age=25, height=170.0, weight=70.0, gender=MALE, goal=MUSCLE_GAIN, activityLevel=MODERATELY_ACTIVE, preference=VEG)
+2025-09-15 12:23:00.804 [http-nio-8083-exec-3] DEBUG c.g.p.s.NutritionCalculatorService - Calculated BMR: 1642.5
+2025-09-15 12:23:00.804 [http-nio-8083-exec-3] DEBUG c.g.p.s.NutritionCalculatorService - Calculated TDEE (with activity level MODERATELY_ACTIVE): 2545.9
+2025-09-15 12:23:00.804 [http-nio-8083-exec-3] INFO  c.g.p.s.NutritionCalculatorService - Adjusted target calories for goal MUSCLE_GAIN: 2845.9
+2025-09-15 12:23:00.804 [http-nio-8083-exec-3] INFO  c.g.p.s.NutritionCalculatorService - Macro targets -> Protein: 126.0g, Carbs: 407.6g, Fat: 79.1g
+2025-09-15 12:23:00.818 [http-nio-8083-exec-3] DEBUG c.g.p.service.CacheService - Cached nutrition analysis for userId: 1
+2025-09-15 12:23:00.838 [http-nio-8083-exec-3] DEBUG c.g.p.service.CacheService - Cached user profile for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:00.864 [http-nio-8083-exec-3] DEBUG c.g.p.service.CacheService - Cached complete plans response for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:00.864 [http-nio-8083-exec-3] INFO  c.g.p.c.OptimizedFitnessController - Successfully completed profile (create/update) and generated plans for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:15.114 [http-nio-8083-exec-7] INFO  c.g.p.c.OptimizedFitnessController - Fetching optimized plans for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:15.175 [http-nio-8083-exec-7] DEBUG c.g.p.service.CacheService - Retrieved cached plans response for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:15.175 [http-nio-8083-exec-7] INFO  c.g.p.c.OptimizedFitnessController - Retrieved complete plans from cache for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:32.819 [http-nio-8083-exec-6] INFO  c.g.p.c.OptimizedFitnessController - Checking profile status for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:32.834 [http-nio-8083-exec-6] DEBUG c.g.p.service.CacheService - Retrieved cached user profile for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:32.835 [http-nio-8083-exec-6] DEBUG c.g.p.c.OptimizedFitnessController - Found cached profile for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:32.861 [http-nio-8083-exec-8] INFO  c.g.p.c.OptimizedFitnessController - Fetching optimized plans for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:32.957 [http-nio-8083-exec-8] DEBUG c.g.p.service.CacheService - Retrieved cached plans response for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:32.957 [http-nio-8083-exec-8] INFO  c.g.p.c.OptimizedFitnessController - Retrieved complete plans from cache for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:35.910 [http-nio-8083-exec-5] INFO  c.g.p.c.OptimizedFitnessController - Fetching optimized plans for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:35.952 [http-nio-8083-exec-5] DEBUG c.g.p.service.CacheService - Retrieved cached plans response for email: sharma2001bhawesh@gmail.com
+2025-09-15 12:23:35.954 [http-nio-8083-exec-5] INFO  c.g.p.c.OptimizedFitnessController - Retrieved complete plans from cache for email: sharma2001bhawesh@gmail.com
+2025-09-15 13:45:37.162 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-15 13:45:37.186 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-15 13:45:37.260 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-15 13:45:37.273 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-15 13:45:37.278 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-09-15 13:45:58.066 [restartedMain] INFO  c.g.p.PlanServiceApplication - Starting PlanServiceApplication using Java 21.0.8 with PID 9288 (C:\Users\padma\Desktop\GymAi\plan-service\target\classes started by padma in C:\Users\padma\Desktop\GymAi\plan-service)
+2025-09-15 13:45:58.067 [restartedMain] DEBUG c.g.p.PlanServiceApplication - Running with Spring Boot v3.5.4, Spring v6.2.9
+2025-09-15 13:45:58.068 [restartedMain] INFO  c.g.p.PlanServiceApplication - The following 1 profile is active: "dev"
+2025-09-15 13:45:58.138 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-15 13:45:58.138 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-15 13:45:59.533 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-15 13:45:59.535 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-15 13:45:59.725 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 180 ms. Found 10 JPA repository interfaces.
+2025-09-15 13:45:59.773 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-15 13:45:59.775 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-09-15 13:45:59.824 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.DayMealPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 13:45:59.825 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.DayWorkoutPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 13:45:59.825 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.DietPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 13:45:59.827 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.ExerciseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 13:45:59.827 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.FoodItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 13:45:59.828 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.FoodRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 13:45:59.828 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.MealRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 13:45:59.829 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 13:45:59.829 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.WorkoutExerciseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 13:45:59.830 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.gymai.plan_service.repository.WorkoutPlanRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-09-15 13:45:59.830 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 18 ms. Found 0 Redis repository interfaces.
+2025-09-15 13:46:00.147 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=fe04e7c3-fb90-36b8-a7e5-f56656427d4d
+2025-09-15 13:46:00.796 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8083 (http)
+2025-09-15 13:46:00.809 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8083"]
+2025-09-15 13:46:00.811 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-15 13:46:00.812 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-15 13:46:00.875 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-15 13:46:00.876 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2737 ms
+2025-09-15 13:46:01.169 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-15 13:46:01.223 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-15 13:46:01.260 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-15 13:46:01.549 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-15 13:46:01.580 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-15 13:46:01.949 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@27ed6458
+2025-09-15 13:46:01.952 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-15 13:46:01.988 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-15 13:46:02.014 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-15 13:46:03.218 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-15 13:46:03.698 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-15 13:46:04.029 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-15 13:46:05.099 [restartedMain] INFO  c.g.plan_service.config.RedisConfig - RedisTemplate configured successfully
+2025-09-15 13:46:05.365 [restartedMain] INFO  c.g.plan_service.config.RedisConfig - Redis CacheManager configured with 7 cache configurations
+2025-09-15 13:46:05.874 [restartedMain] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 16 endpoints beneath base path '/actuator'
+2025-09-15 13:46:05.930 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: b076a317-567b-4009-81e3-6eeb66a46124
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-09-15 13:46:05.939 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-09-15 13:46:06.564 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-15 13:46:06.669 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8083"]
+2025-09-15 13:46:06.687 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8083 (http) with context path '/'
+2025-09-15 13:46:06.720 [restartedMain] INFO  c.g.p.PlanServiceApplication - Started PlanServiceApplication in 9.65 seconds (process running for 10.491)
