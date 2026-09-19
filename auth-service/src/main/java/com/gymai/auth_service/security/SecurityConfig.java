@@ -126,7 +126,7 @@ public class SecurityConfig {
         String xForwardedHost = request.getHeader("X-Forwarded-Host");
         if (xForwardedHost != null) {
             String protocol = "https"; // Default to HTTPS for production
-            String frontendHost = xForwardedHost.replace("auth-service-", "");
+            String frontendHost = xForwardedHost.split(",")[0].trim();
             return protocol + "://" + frontendHost;
         }
 
@@ -165,24 +165,15 @@ public class SecurityConfig {
         logger.info("Configuring CORS");
         CorsConfiguration config = new CorsConfiguration();
 
-        // Allow all origins during development - be more restrictive in production
         config.setAllowedOriginPatterns(Arrays.asList(
-                "https://*.neelahouse.cloud",
-                "https://*.netlify.app",
-                "https://*.vercel.app",
+                "https://gymai.neelahouse.cloud",
                 "http://localhost:*",
                 "http://127.0.0.1:*"));
 
-        // Specific allowed origins for production
         config.setAllowedOrigins(Arrays.asList(
-                "http://localhost:4200",
-                "http://localhost:3000",
-                "https://gymaibybhawesh.netlify.app",
                 "https://gymai.neelahouse.cloud",
-                "https://gym-ai.vercel.app",
-                // Allow your auth service for OAuth callbacks
-                "http://auth-service-gymai.neelahouse.cloud",
-                "https://auth-service-gymai.neelahouse.cloud"));
+                "http://localhost:4200",
+                "http://localhost:3000"));
 
         // Allow all HTTP methods
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"));

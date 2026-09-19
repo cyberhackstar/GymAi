@@ -5,21 +5,28 @@ spring:
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: false
+    open-in-view: false
+
   web:
     cors:
       allowed-origins:
-        - "https://gymai.neelahouse.cloud"
-        - "https://gymaibybhawesh.netlify.app"
-        - "https://gymaibybhawesh.vercel.app"
-      allowed-methods: "*"
+        - "${FRONTEND_URL:https://gymai.neelahouse.cloud}"
+      allowed-methods: "GET,POST,PUT,DELETE,OPTIONS,PATCH,HEAD"
       allowed-headers: "*"
       allow-credentials: true
       max-age: 3600
 
   rabbitmq:
-    addresses: ${CLOUDAMQP_URL}
+    host: ${RABBITMQ_HOST:rabbitmq}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
     ssl:
-      enabled: true
+      enabled: ${RABBITMQ_SSL_ENABLED:false}
 
   security:
     oauth2:
@@ -29,13 +36,12 @@ spring:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
             scope: [email, profile]
-            redirect-uri: ${REDIRECT_URI:"https://auth-service-gymai.neelahouse.cloud/login/oauth2/code/{registrationId}"}
+            redirect-uri: ${FRONTEND_URL:https://gymai.neelastack.com}/login/oauth2/code/{registrationId}
           github:
             client-id: ${GITHUB_CLIENT_ID}
             client-secret: ${GITHUB_CLIENT_SECRET}
             scope: [user:email, read:user]
-            redirect-uri: ${REDIRECT_URI:"https://auth-service-gymai.neelahouse.cloud/login/oauth2/code/{registrationId}"}
-
+            redirect-uri: ${FRONTEND_URL:https://gymai.neelastack.com}/login/oauth2/code/{registrationId}
         provider:
           google:
             authorization-uri: https://accounts.google.com/o/oauth2/auth
@@ -50,7 +56,7 @@ spring:
 
 logging:
   file:
-    name: /var/log/gymai/auth-service.log
+    name: ${LOG_FILE:/var/log/gymai/auth-service.log}
   level:
     root: WARN
     com.gymai.auth_service: INFO

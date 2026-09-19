@@ -159,7 +159,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             if (xForwardedHost != null) {
                 String protocol = xForwardedProto != null ? xForwardedProto : "https";
                 // Convert auth subdomain to main domain
-                String frontendHost = xForwardedHost.replace("auth-service-", "");
+                String frontendHost = xForwardedHost.split(",")[0].trim();
                 String detectedFrontend = protocol + "://" + frontendHost;
                 log.info("Detected frontend from forwarded headers: {}", detectedFrontend);
                 return detectedFrontend;

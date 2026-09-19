@@ -1,7 +1,6 @@
 server:
-  port: ${SERVER_PORT:8081}
+  port: ${SERVER_PORT:8080}
   forward-headers-strategy: framework
-  use-forward-headers: true
   tomcat:
     remoteip:
       remote-ip-header: x-forwarded-for
@@ -12,25 +11,27 @@ spring:
   application:
     name: auth-service
   profiles:
-    active: dev   # default profile, can be overridden by ENV var
+    default: dev
 
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:false}
     open-in-view: false
     properties:
       hibernate:
-        format_sql: true
+        format_sql: ${JPA_FORMAT_SQL:false}
 
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health,info,metrics
   endpoint:
     health:
-      show-details: always
+      show-details: never
+      probes:
+        enabled: true
 
 jwt:
   secret: ${JWT_SECRET}
@@ -47,6 +48,7 @@ event:
 
 eureka:
   client:
+    enabled: false
     service-url:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
 
@@ -55,13 +57,9 @@ logging:
     name: ${LOG_FILE:logs/auth-service.log}
   level:
     root: INFO
-    com.gymai.auth_service: DEBUG
+    com.gymai.auth_service: INFO
 
 app:
   frontend:
-    default-url: https://gymai.neelahouse.cloud
-    allowed-urls: >
-      https://gymai.neelahouse.cloud,
-      https://gymaibybhawesh.netlify.app,
-      https://gymaibybhawesh.vercel.app,
-      http://localhost:4200
+    default-url: ${FRONTEND_URL:https://gymai.neelastack.com}
+    allowed-urls: ${FRONTEND_ALLOWED_URLS:https://gymai.neelastack.com}

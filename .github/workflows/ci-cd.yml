@@ -1,0 +1,210 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: gymai-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  JAVA_VERSION: "21"
+  NODE_VERSION: "22"
+
+jobs:
+  secret-scan:
+    name: Secret scanning (Gitleaks)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  backend-tests:
+    name: Backend tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [auth-service, plan-service, notification-service]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: maven
+          cache-dependency-path: ${{ matrix.service }}/pom.xml
+      - name: Test ${{ matrix.service }}
+        working-directory: ${{ matrix.service }}
+        run: bash ./mvnw -B -ntp test
+
+  frontend-build-and-test:
+    name: Frontend build + unit tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: GymWeb/package-lock.json
+      - name: Install dependencies
+        working-directory: GymWeb
+        run: npm ci
+      - name: Production build
+        working-directory: GymWeb
+        run: npm run build -- --configuration production
+      - name: Unit tests
+        working-directory: GymWeb
+        run: npx ng test --watch=false --browsers=ChromeHeadless
+
+  nginx-config-test:
+    name: Gateway Nginx validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Nginx syntax
+        run: |
+          docker run --rm \
+            --add-host auth-service:127.0.0.1 \
+            --add-host plan-service:127.0.0.1 \
+            --add-host notification-service:127.0.0.1 \
+            --add-host frontend:127.0.0.1 \
+            -v "$PWD/infra/nginx/gymai.conf:/etc/nginx/conf.d/default.conf:ro" \
+            nginx:1.27-alpine nginx -t
+
+  compose-config-test:
+    name: Production Compose validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Compose interpolation and schema
+        env:
+          GHCR_NAMESPACE: ci
+          IMAGE_TAG: ci
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci-password
+          REDIS_PASSWORD: ci-password
+          RABBITMQ_USERNAME: ci
+          RABBITMQ_PASSWORD: ci-password
+          JWT_SECRET: ci-test-jwt-secret-that-is-long-enough-32-bytes
+          GOOGLE_CLIENT_ID: ci
+          GOOGLE_CLIENT_SECRET: ci
+          GITHUB_CLIENT_ID: ci
+          GITHUB_CLIENT_SECRET: ci
+          GMAIL_USERNAME: ci@example.com
+          GMAIL_APP_PASSWORD: ci-password
+        run: docker compose --env-file .env.example -f docker-compose.prod.yml config --quiet
+
+  deploy:
+    name: Build, scan and deploy ARM64
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-24.04-arm
+    needs: [secret-scan, backend-tests, frontend-build-and-test, nginx-config-test, compose-config-test]
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/setup-buildx-action@v3
+      - name: Build ARM64 images
+        env:
+          OWNER_LC: ${{ github.repository_owner }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          OWNER_LC="$(echo "$OWNER_LC" | tr '[:upper:]' '[:lower:]')"
+          docker buildx build --platform linux/arm64 --load -t "gymai-auth:${{ github.sha }}" ./auth-service
+          docker buildx build --platform linux/arm64 --load -t "gymai-plan:${{ github.sha }}" ./plan-service
+          docker buildx build --platform linux/arm64 --load -t "gymai-notification:${{ github.sha }}" ./notification-service
+          docker buildx build --platform linux/arm64 --load -t "gymai-frontend:${{ github.sha }}" ./GymWeb
+      - name: Scan auth image
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: gymai-auth:${{ github.sha }}
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: '1'
+      - name: Scan plan image
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: gymai-plan:${{ github.sha }}
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: '1'
+      - name: Scan notification image
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: gymai-notification:${{ github.sha }}
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: '1'
+      - name: Scan frontend image
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: gymai-frontend:${{ github.sha }}
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: '1'
+      - name: Push exact SHA tags
+        env:
+          OWNER_LC: ${{ github.repository_owner }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          OWNER_LC="$(echo "$OWNER_LC" | tr '[:upper:]' '[:lower:]')"
+          for image in gymai-auth gymai-plan gymai-notification gymai-frontend; do
+            docker tag "${image}:${{ github.sha }}" "ghcr.io/${OWNER_LC}/${image}:${{ github.sha }}"
+            docker push "ghcr.io/${OWNER_LC}/${image}:${{ github.sha }}"
+          done
+      - name: Verify deployment secrets
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          test -n "$DEPLOY_HOST" || { echo 'Missing DEPLOY_HOST'; exit 1; }
+          test -n "$DEPLOY_SSH_KEY" || { echo 'Missing DEPLOY_SSH_KEY'; exit 1; }
+          test -n "$DEPLOY_KNOWN_HOSTS" || { echo 'Missing DEPLOY_KNOWN_HOSTS'; exit 1; }
+      - name: Deploy over SSH
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          trap 'rm -f deploy_key known_hosts' EXIT
+          printf '%s\n' "$DEPLOY_SSH_KEY" > deploy_key
+          chmod 600 deploy_key
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > known_hosts
+          chmod 644 known_hosts
+          ssh -i deploy_key \
+            -o BatchMode=yes \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile=known_hosts \
+            "$DEPLOY_HOST" \
+            "cd /home/ubuntu/apps/gymai && git fetch --force origin main && git reset --hard '${{ github.sha }}' && test -x ./infra/deploy/deploy.sh && ./infra/deploy/deploy.sh '${{ github.sha }}'"

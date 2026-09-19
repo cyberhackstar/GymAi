@@ -1,3 +1,19 @@
-# Ignore environment files
+# Local/editor files
+.idea/
+.vscode/
+.DS_Store
+
+# Secrets / environment
 .env
 .env.*
+!.env.example
+
+# Build/runtime output
+**/target/
+**/logs/
+**/node_modules/
+**/dist/
+.last_good_sha
+
+# Local/host backup artifacts
+backups/

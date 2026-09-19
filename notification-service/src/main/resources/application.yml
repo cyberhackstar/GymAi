@@ -1,15 +1,17 @@
-# application.yml
 spring:
   application:
     name: notification-service
 
-  # RabbitMQ Configuration (matches your existing setup)
   rabbitmq:
-    addresses: ${CLOUDAMQP_URL:amqps://dnqrhfau:MW512Q4X9oZqYYEmiv2ZnhgG42QS3nOS@puffin.rmq2.cloudamqp.com/dnqrhfau}
+    host: ${RABBITMQ_HOST:rabbitmq}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
     ssl:
-      enabled: true # CloudAMQP requires SSL
+      enabled: ${RABBITMQ_SSL_ENABLED:false}
     listener:
       simple:
+        auto-startup: ${RABBITMQ_LISTENER_ENABLED:true}
         retry:
           enabled: true
           initial-interval: 1000
@@ -18,10 +20,9 @@ spring:
         acknowledge-mode: auto
         prefetch: 10
 
-  # Email Configuration (Gmail example - adjust as needed)
   mail:
-    host: smtp.gmail.com
-    port: 587
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
     username: ${GMAIL_USERNAME}
     password: ${GMAIL_APP_PASSWORD}
     properties:
@@ -33,7 +34,6 @@ spring:
             required: true
         debug: false
 
-# Event Configuration (matches your existing setup)
 event:
   exchange: ${EVENT_EXCHANGE:gymai.events}
   queue:
@@ -44,20 +44,27 @@ event:
     order: ${ORDER_ROUTING_KEY:order.created}
     password-reset: ${PASSWORD_RESET_ROUTING_KEY:user.password.reset}
 
-# App Configuration
 app:
   name: ${APP_NAME:GymAI}
 
-# Logging
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+
 logging:
   file:
     name: ${LOG_FILE:logs/notification-service.log}
   level:
-    com.gymai.email_service: DEBUG
-    org.springframework.amqp: DEBUG
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-
-# Server Configuration
-server:
-  port: ${PORT:8084}
+    root: WARN
+    com.gymai.notification_service: INFO
+    org.springframework.amqp: WARN

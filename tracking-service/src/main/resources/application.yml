@@ -1,20 +1,19 @@
-
 spring:
   application:
     name: tracking-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/progressdb
-    username: postgres
-    password: password
+    url: ${TRACKING_DB_URL}
+    username: ${TRACKING_DB_USER}
+    password: ${TRACKING_DB_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: ${TRACKING_JPA_DDL_AUTO:update}
+    show-sql: ${TRACKING_SHOW_SQL:false}
 
 kafka:
-  bootstrap-servers: localhost:9092
+  bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_URL}

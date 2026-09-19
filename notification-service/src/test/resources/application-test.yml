@@ -1,0 +1,27 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: test
+    password: test
+    listener:
+      simple:
+        auto-startup: false
+  mail:
+    host: localhost
+    port: 2525
+    username: test
+    password: test
+
+app:
+  name: GymAI Test
+
+event:
+  exchange: gymai.events.test
+  queue:
+    email: gymai.email.queue.test
+  routing:
+    registration: user.registration.test
+    login: user.login.test
+    order: order.created.test
+    password-reset: user.password.reset.test

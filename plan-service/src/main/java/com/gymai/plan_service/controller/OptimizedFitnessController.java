@@ -17,7 +17,6 @@ import java.math.RoundingMode;
 
 @RestController
 @RequestMapping("/api/fitness")
-@CrossOrigin(origins = "*")
 @Slf4j
 public class OptimizedFitnessController {
 

@@ -1,11 +1,11 @@
 server:
-  port: ${SERVER_PORT:8083}
+  port: ${SERVER_PORT:8080}
 
 spring:
   application:
     name: plan-service
   profiles:
-    active: dev   # default profile (can be overridden by ENV var)
+    default: dev
 
 jwt:
   secret: ${JWT_SECRET}
@@ -13,20 +13,20 @@ jwt:
 
 services:
   auth:
-    url: ${AUTH_SERVICE_URL:http://localhost:8081}
+    url: ${AUTH_SERVICE_URL:http://auth-service:8080}
   user:
-    url: ${USER_SERVICE_URL:http://localhost:8082}
+    url: ${USER_SERVICE_URL:http://user-service:8080}
   ai:
-    url: ${AI_SERVICE_URL:http://localhost:8000}
+    url: ${AI_SERVICE_URL:http://ai-service:8000}
 
 logging:
   file:
-    name: logs/plan-service.log
+    name: ${LOG_FILE:logs/plan-service.log}
   level:
     root: ${LOG_LEVEL_ROOT:INFO}
-    com.gymai.plan_service: ${LOG_LEVEL_APP:DEBUG}
-    org.springframework.web.client.RestTemplate: ${LOG_LEVEL_REST:DEBUG}
-    org.springframework.http: ${LOG_LEVEL_HTTP:DEBUG}
+    com.gymai.plan_service: ${LOG_LEVEL_APP:INFO}
+    org.springframework.web.client.RestTemplate: ${LOG_LEVEL_REST:INFO}
+    org.springframework.http: ${LOG_LEVEL_HTTP:INFO}
     org.hibernate.SQL: ${LOG_LEVEL_SQL:WARN}
     org.hibernate.type.descriptor.sql.BasicBinder: WARN
     org.springframework.data.redis: ${LOG_LEVEL_REDIS:INFO}
@@ -36,16 +36,12 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
-      cors:
-        allowed-origins:
-          - ${FRONTEND_URL:http://localhost:4200}
-          - ${ADMIN_URL:http://localhost:3000}
-        allowed-methods: "*"
-        allowed-headers: "*"
+        include: health,info,metrics
   endpoint:
     health:
-      show-details: always
+      show-details: never
+      probes:
+        enabled: true
     metrics:
       enabled: true
   health:
@@ -54,14 +50,15 @@ management:
 
 cors:
   allowed-origins:
-    - ${FRONTEND_URL:http://localhost:4200}
-    - ${ADMIN_URL:http://localhost:3000}
+    - ${FRONTEND_URL:https://gymai.neelahouse.cloud}
+    - http://localhost:4200
   allowed-methods:
     - GET
     - POST
     - PUT
     - DELETE
     - OPTIONS
+    - PATCH
   allowed-headers: "*"
   allow-credentials: true
 
@@ -73,7 +70,7 @@ app:
   limits:
     max-plan-regenerations-per-day: ${MAX_PLAN_REGENERATIONS:5}
     max-users-per-batch: ${MAX_USERS_PER_BATCH:100}
-  environment: ${APP_ENVIRONMENT:development}
+  environment: ${APP_ENVIRONMENT:production}
 
 cache:
   redis:

@@ -1,4 +1,3 @@
-// SimplifiedSecurityConfig.java
 package com.gymai.plan_service.config;
 
 import org.springframework.context.annotation.Bean;
@@ -7,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -19,7 +19,7 @@ import java.util.List;
 public class SimplifiedSecurityConfig {
 
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
     http
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .csrf(csrf -> csrf.disable())
@@ -27,8 +27,10 @@ public class SimplifiedSecurityConfig {
         .authorizeHttpRequests(authz -> authz
             .requestMatchers("/api/fitness/health").permitAll()
             .requestMatchers("/actuator/**").permitAll()
-            .requestMatchers("/api/fitness/**").permitAll() // Since frontend sends user data directly
-            .anyRequest().permitAll());
+            .requestMatchers("/api/admin/**", "/api/fitness/admin/**").hasRole("ADMIN")
+            .requestMatchers("/api/fitness/**", "/api/test/**").authenticated()
+            .anyRequest().authenticated())
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }
@@ -36,9 +38,12 @@ public class SimplifiedSecurityConfig {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOriginPatterns(List.of("*"));
+    configuration.setAllowedOriginPatterns(List.of(
+        "https://gymai.neelahouse.cloud",
+        "http://localhost:*",
+        "http://127.0.0.1:*"));
     configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-    configuration.setAllowedHeaders(List.of("*"));
+    configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With"));
     configuration.setAllowCredentials(true);
     configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
 

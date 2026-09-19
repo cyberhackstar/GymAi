@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:gymai_auth_test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  rabbitmq:
+    host: localhost
+    port: 5672
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: test-client
+            client-secret: test-secret
+            scope: [email, profile]
+          github:
+            client-id: test-client
+            client-secret: test-secret
+            scope: [user:email, read:user]
+
+jwt:
+  secret: test-jwt-secret-that-is-long-enough-for-hmac-signing-32-bytes
+  access:
+    expiration: 900000
+  refresh:
+    expiration: 604800000
+
+event:
+  exchange: gymai.events.test
+  routing:
+    registration: user.registration.test
+    login: user.login.test
+
+app:
+  frontend:
+    default-url: http://localhost:4200
+    allowed-urls: http://localhost:4200
