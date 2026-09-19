@@ -26,7 +26,7 @@ Before the first deployment, confirm the GitHub Actions secrets `DEPLOY_HOST`, `
 Add this tunnel ingress entry:
 
 ```yaml
-- hostname: gymai.neelastack.com
+- hostname: gymai.neelahouse.cloud
   service: http://localhost:4001
 ```
 

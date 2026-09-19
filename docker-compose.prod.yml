@@ -3,7 +3,7 @@ services:
     image: postgres:16-alpine
     container_name: gymai-postgres
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:gym_ai}
+      POSTGRES_DB: ${POSTGRES_DB:-gym_ai}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
@@ -62,19 +62,19 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SERVER_PORT: 8080
-      DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:gym_ai}
+      DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-gym_ai}
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
-      JPA_DDL_AUTO: ${JPA_DDL_AUTO:update}
+      JPA_DDL_AUTO: ${JPA_DDL_AUTO:-update}
       JWT_SECRET: ${JWT_SECRET}
-      JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION:900000}
-      JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION:604800000}
+      JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION:-900000}
+      JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION:-604800000}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
       GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
-      FRONTEND_URL: ${FRONTEND_URL:https://gymai.neelahouse.cloud}
-      FRONTEND_ALLOWED_URLS: ${FRONTEND_ALLOWED_URLS:https://gymai.neelahouse.cloud}
+      FRONTEND_URL: ${FRONTEND_URL:-https://gymai.neelastack.com}
+      FRONTEND_ALLOWED_URLS: ${FRONTEND_ALLOWED_URLS:-https://gymai.neelastack.com}
       RABBITMQ_HOST: rabbitmq
       RABBITMQ_PORT: 5672
       RABBITMQ_USERNAME: ${RABBITMQ_USERNAME}
@@ -103,21 +103,21 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SERVER_PORT: 8080
-      POSTGRES_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:gym_ai}
+      POSTGRES_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-gym_ai}
       POSTGRES_USERNAME: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      JPA_DDL_AUTO: ${JPA_DDL_AUTO:update}
+      JPA_DDL_AUTO: ${JPA_DDL_AUTO:-update}
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD}
       REDIS_SSL_ENABLED: "false"
       JWT_SECRET: ${JWT_SECRET}
-      JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION:900000}
-      FRONTEND_URL: ${FRONTEND_URL:https://gymai.neelahouse.cloud}
-      CACHE_ENABLED: ${CACHE_ENABLED:true}
+      JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION:-900000}
+      FRONTEND_URL: ${FRONTEND_URL:-https://gymai.neelastack.com}
+      CACHE_ENABLED: ${CACHE_ENABLED:-true}
       APP_ENVIRONMENT: production
-      LOG_LEVEL_ROOT: ${LOG_LEVEL_ROOT:WARN}
-      LOG_LEVEL_APP: ${LOG_LEVEL_APP:INFO}
+      LOG_LEVEL_ROOT: ${LOG_LEVEL_ROOT:-WARN}
+      LOG_LEVEL_APP: ${LOG_LEVEL_APP:-INFO}
       LOG_FILE: /var/log/gymai/plan-service.log
     depends_on:
       postgres:
@@ -148,8 +148,8 @@ services:
       RABBITMQ_LISTENER_ENABLED: "true"
       GMAIL_USERNAME: ${GMAIL_USERNAME}
       GMAIL_APP_PASSWORD: ${GMAIL_APP_PASSWORD}
-      MAIL_HOST: ${MAIL_HOST:smtp.gmail.com}
-      MAIL_PORT: ${MAIL_PORT:587}
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
       LOG_FILE: /var/log/gymai/notification-service.log
     depends_on:
       rabbitmq:

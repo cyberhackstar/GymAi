@@ -6,8 +6,6 @@ COMPOSE_FILE="docker-compose.prod.yml"
 LAST_GOOD_FILE=".last_good_sha"
 HEALTH_TIMEOUT_SECONDS="${HEALTH_TIMEOUT_SECONDS:-240}"
 HEALTH_POLL_INTERVAL="${HEALTH_POLL_INTERVAL:-5}"
-SITE_BASE_URL="${SITE_BASE_URL:-https://gymai.neelastack.com}"
-LOCAL_URL="http://127.0.0.1:${GYMAI_HTTP_PORT:-4001}"
 CONTAINERS_TO_CHECK=(gymai-postgres gymai-redis gymai-rabbitmq gymai-auth gymai-plan gymai-notification gymai-frontend gymai-gateway)
 
 [[ -f .env ]] || { echo "[deploy] ERROR: .env is missing" >&2; exit 2; }
@@ -15,6 +13,9 @@ set -a
 # shellcheck disable=SC1091
 source .env
 set +a
+
+SITE_BASE_URL="${SITE_BASE_URL:-https://gymai.neelastack.com}"
+LOCAL_URL="http://127.0.0.1:${GYMAI_HTTP_PORT:-4001}"
 
 log() { echo "[deploy] $(date -u '+%Y-%m-%dT%H:%M:%SZ') $*"; }
 
