@@ -29,8 +29,9 @@ services:
       - gymai_redis_data:/data
     networks: [gymai_net]
     healthcheck:
-      test: >-
-        CMD-SHELL redis-cli -a "$${REDIS_PASSWORD}" ping | grep -q PONG
+      test:
+        - CMD-SHELL
+        - 'redis-cli -a "$${REDIS_PASSWORD}" ping | grep -q PONG'
       interval: 10s
       timeout: 5s
       retries: 10
@@ -95,7 +96,7 @@ services:
       start_period: 45s
     restart: unless-stopped
     security_opt: ["no-new-privileges:true"]
-    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
+    logging: { driver: json-file, options: { max-size: "10m", max-file: "3" } }
 
   plan-service:
     image: ghcr.io/${GHCR_NAMESPACE}/gymai-plan:${IMAGE_TAG:-local}
@@ -133,7 +134,7 @@ services:
       start_period: 45s
     restart: unless-stopped
     security_opt: ["no-new-privileges:true"]
-    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
+    logging: { driver: json-file, options: { max-size: "10m", max-file: "3" } }
 
   notification-service:
     image: ghcr.io/${GHCR_NAMESPACE}/gymai-notification:${IMAGE_TAG:-local}
@@ -163,7 +164,7 @@ services:
       start_period: 45s
     restart: unless-stopped
     security_opt: ["no-new-privileges:true"]
-    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
+    logging: { driver: json-file, options: { max-size: "10m", max-file: "3" } }
 
   frontend:
     image: ghcr.io/${GHCR_NAMESPACE}/gymai-frontend:${IMAGE_TAG:-local}
@@ -177,7 +178,7 @@ services:
       start_period: 15s
     restart: unless-stopped
     security_opt: ["no-new-privileges:true"]
-    logging: {driver: json-file, options: {max-size: "5m", max-file: "3"}}
+    logging: { driver: json-file, options: { max-size: "5m", max-file: "3" } }
 
   gateway:
     image: nginx:1.31.6-alpine3.24
@@ -204,7 +205,7 @@ services:
       retries: 10
       start_period: 10s
     restart: unless-stopped
-    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
+    logging: { driver: json-file, options: { max-size: "10m", max-file: "3" } }
 
 networks:
   gymai_net:
