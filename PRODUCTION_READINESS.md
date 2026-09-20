@@ -43,3 +43,6 @@ The current services use `spring.jpa.hibernate.ddl-auto=update` by default becau
 The repository also contains application designs for additional services/features that are not part of the production Compose path above. Those should be wired and tested separately before exposing them through the public gateway.
 
 Rotate any credential that was ever committed before this cleanup, even though the production source no longer contains it.
+## Dependency security baseline
+
+The Java services use Spring Boot 3.5.16 with Spring Cloud 2025.0.3 where applicable. Security-sensitive transitive dependencies that remain newer than Boot's managed baseline are pinned explicitly: pgJDBC 42.7.13 and RabbitMQ Java client 5.36.0. These pins address the vulnerable versions identified by the CI Trivy scan.
