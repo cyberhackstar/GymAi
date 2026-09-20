@@ -73,8 +73,8 @@ services:
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
       GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
-      FRONTEND_URL: ${FRONTEND_URL:-https://gymai.neelastack.com}
-      FRONTEND_ALLOWED_URLS: ${FRONTEND_ALLOWED_URLS:-https://gymai.neelastack.com}
+      FRONTEND_URL: ${FRONTEND_URL:-https://gymai.neelahouse.cloud}
+      FRONTEND_ALLOWED_URLS: ${FRONTEND_ALLOWED_URLS:-https://gymai.neelahouse.cloud}
       RABBITMQ_HOST: rabbitmq
       RABBITMQ_PORT: 5672
       RABBITMQ_USERNAME: ${RABBITMQ_USERNAME}
@@ -95,7 +95,7 @@ services:
       start_period: 45s
     restart: unless-stopped
     security_opt: ["no-new-privileges:true"]
-    logging: { driver: json-file, options: { max-size: "10m", max-file: "3" } }
+    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
 
   plan-service:
     image: ghcr.io/${GHCR_NAMESPACE}/gymai-plan:${IMAGE_TAG:-local}
@@ -113,7 +113,7 @@ services:
       REDIS_SSL_ENABLED: "false"
       JWT_SECRET: ${JWT_SECRET}
       JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION:-900000}
-      FRONTEND_URL: ${FRONTEND_URL:-https://gymai.neelastack.com}
+      FRONTEND_URL: ${FRONTEND_URL:-https://gymai.neelahouse.cloud}
       CACHE_ENABLED: ${CACHE_ENABLED:-true}
       APP_ENVIRONMENT: production
       LOG_LEVEL_ROOT: ${LOG_LEVEL_ROOT:-WARN}
@@ -133,7 +133,7 @@ services:
       start_period: 45s
     restart: unless-stopped
     security_opt: ["no-new-privileges:true"]
-    logging: { driver: json-file, options: { max-size: "10m", max-file: "3" } }
+    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
 
   notification-service:
     image: ghcr.io/${GHCR_NAMESPACE}/gymai-notification:${IMAGE_TAG:-local}
@@ -163,7 +163,7 @@ services:
       start_period: 45s
     restart: unless-stopped
     security_opt: ["no-new-privileges:true"]
-    logging: { driver: json-file, options: { max-size: "10m", max-file: "3" } }
+    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
 
   frontend:
     image: ghcr.io/${GHCR_NAMESPACE}/gymai-frontend:${IMAGE_TAG:-local}
@@ -177,10 +177,10 @@ services:
       start_period: 15s
     restart: unless-stopped
     security_opt: ["no-new-privileges:true"]
-    logging: { driver: json-file, options: { max-size: "5m", max-file: "3" } }
+    logging: {driver: json-file, options: {max-size: "5m", max-file: "3"}}
 
   gateway:
-    image: nginx:1.27-alpine
+    image: nginx:1.31.6-alpine3.24
     container_name: gymai-gateway
     depends_on:
       auth-service:
@@ -204,7 +204,7 @@ services:
       retries: 10
       start_period: 10s
     restart: unless-stopped
-    logging: { driver: json-file, options: { max-size: "10m", max-file: "3" } }
+    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
 
 networks:
   gymai_net:

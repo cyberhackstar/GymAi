@@ -5,7 +5,7 @@ IMAGES=(
   "postgres:16-alpine"
   "redis:7-alpine"
   "rabbitmq:4.1-alpine"
-  "nginx:1.27-alpine"
+  "nginx:1.31.6-alpine3.24"
 )
 
 echo "# Resolved on $(date -u '+%Y-%m-%dT%H:%M:%SZ') for ${PLATFORM}."

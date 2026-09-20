@@ -36,12 +36,12 @@ spring:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
             scope: [email, profile]
-            redirect-uri: ${FRONTEND_URL:https://gymai.neelastack.com}/login/oauth2/code/{registrationId}
+            redirect-uri: ${FRONTEND_URL:https://gymai.neelahouse.cloud}/login/oauth2/code/{registrationId}
           github:
             client-id: ${GITHUB_CLIENT_ID}
             client-secret: ${GITHUB_CLIENT_SECRET}
             scope: [user:email, read:user]
-            redirect-uri: ${FRONTEND_URL:https://gymai.neelastack.com}/login/oauth2/code/{registrationId}
+            redirect-uri: ${FRONTEND_URL:https://gymai.neelahouse.cloud}/login/oauth2/code/{registrationId}
         provider:
           google:
             authorization-uri: https://accounts.google.com/o/oauth2/auth

@@ -21,10 +21,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
 
 <properties>
 <java.version>21</java.version>
+		<netty.version>4.1.138.Final</netty.version>
 		<tomcat.version>10.1.60</tomcat.version>
 		<rabbit-amqp-client.version>5.36.0</rabbit-amqp-client.version>
 <spring-cloud.version>2025.0.3</spring-cloud.version>
 </properties>
+
 
 
 <dependencies>
@@ -132,6 +134,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
 <type>pom</type>
 <scope>import</scope>
 </dependency>
+			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty-bom</artifactId>
+				<version>${netty.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 </dependencies>
 </dependencyManagement>
 

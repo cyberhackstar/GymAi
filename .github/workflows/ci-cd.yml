@@ -87,7 +87,7 @@ jobs:
             --add-host notification-service:127.0.0.1 \
             --add-host frontend:127.0.0.1 \
             -v "$PWD/infra/nginx/gymai.conf:/etc/nginx/conf.d/default.conf:ro" \
-            nginx:1.27-alpine nginx -t
+            nginx:1.31.6-alpine3.24 nginx -t
 
   compose-config-test:
     name: Production Compose validation

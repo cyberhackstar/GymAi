@@ -28,9 +28,22 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<netty.version>4.1.138.Final</netty.version>
 		<tomcat.version>10.1.60</tomcat.version>
 		<rabbit-amqp-client.version>5.36.0</rabbit-amqp-client.version>
 	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty-bom</artifactId>
+				<version>${netty.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 <!-- Spring Boot Starters -->
         <dependency>
