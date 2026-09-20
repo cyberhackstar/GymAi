@@ -131,7 +131,7 @@ public class SecurityConfig {
         }
 
         // Default fallback
-        return "https://gymai.neelahouse.cloud";
+        return "https://gymai.neelastack.com";
     }
 
     @Bean
@@ -166,12 +166,12 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowedOriginPatterns(Arrays.asList(
-                "https://gymai.neelahouse.cloud",
+                "https://gymai.neelastack.com",
                 "http://localhost:*",
                 "http://127.0.0.1:*"));
 
         config.setAllowedOrigins(Arrays.asList(
-                "https://gymai.neelahouse.cloud",
+                "https://gymai.neelastack.com",
                 "http://localhost:4200",
                 "http://localhost:3000"));
 

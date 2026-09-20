@@ -42,7 +42,7 @@ export class Register {
     private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: Token,
-    private router: Router
+    private router: Router,
   ) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
@@ -178,7 +178,7 @@ export class Register {
         } else {
           console.warn(
             'Failed to set frontend origin in session:',
-            response.status
+            response.status,
           );
         }
       })
@@ -219,7 +219,7 @@ export class Register {
       const urlObj = new URL(url);
       const hostname = urlObj.hostname;
 
-      // Extract root domain (e.g., "neelahouse.cloud" from "gymai.neelahouse.cloud")
+      // Extract root domain (e.g., "neelastack.com" from "gymai.neelastack.com")
       const parts = hostname.split('.');
       if (parts.length >= 2) {
         return '.' + parts.slice(-2).join('.');

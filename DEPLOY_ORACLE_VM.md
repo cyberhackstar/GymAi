@@ -26,7 +26,7 @@ Before the first deployment, confirm the GitHub Actions secrets `DEPLOY_HOST`, `
 Add this tunnel ingress entry:
 
 ```yaml
-- hostname: gymai.neelahouse.cloud
+- hostname: gymai.neelastack.com
   service: http://localhost:4001
 ```
 
@@ -36,11 +36,11 @@ Do not add Certbot/Let’s Encrypt or another origin-side HTTPS listener for thi
 
 Change the Google OAuth authorized redirect URI to:
 
-`https://gymai.neelahouse.cloud/login/oauth2/code/google`
+`https://gymai.neelastack.com/login/oauth2/code/google`
 
 Change the GitHub OAuth callback URL to:
 
-`https://gymai.neelahouse.cloud/login/oauth2/code/github`
+`https://gymai.neelastack.com/login/oauth2/code/github`
 
 ## GitHub Actions flow
 
@@ -61,7 +61,7 @@ cd /home/ubuntu/apps/gymai
 docker compose -f docker-compose.prod.yml ps
 curl -I http://127.0.0.1:4001/
 curl -I http://127.0.0.1:4001/api/fitness/health
-curl -I https://gymai.neelahouse.cloud/
+curl -I https://gymai.neelastack.com/
 ```
 
 For service logs:

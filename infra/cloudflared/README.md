@@ -5,7 +5,7 @@ This stack deliberately does not terminate TLS inside Docker. Cloudflare termina
 Add/keep this ingress rule in the native cloudflared configuration on the Oracle VM:
 
 ```yaml
-- hostname: gymai.neelahouse.cloud
+- hostname: gymai.neelastack.com
   service: http://localhost:4001
 ```
 

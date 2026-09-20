@@ -26,7 +26,7 @@ public class EmailServiceImpl implements EmailService {
     private final JavaMailSender mailSender;
 
     // Use a static variable for the custom sender email
-    private static final String SENDER_EMAIL = "gymai@neelahouse.cloud";
+    private static final String SENDER_EMAIL = "gymai@neelastack.com";
 
     @Value("${app.name:GymAI}")
     private String appName;

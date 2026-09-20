@@ -14,7 +14,7 @@ set -a
 source .env
 set +a
 
-SITE_BASE_URL="${SITE_BASE_URL:-https://gymai.neelahouse.cloud}"
+SITE_BASE_URL="${SITE_BASE_URL:-https://gymai.neelastack.com}"
 LOCAL_URL="http://127.0.0.1:${GYMAI_HTTP_PORT:-4001}"
 
 log() { echo "[deploy] $(date -u '+%Y-%m-%dT%H:%M:%SZ') $*"; }

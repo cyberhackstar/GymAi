@@ -36,7 +36,7 @@ export class Team {
         instagram: 'https://instagram.com/',
         whatsapp:
           'https://wa.me/7742261033?text=Hi%20Alex%2C%20I%27m%20interested%20in%20training',
-        email: 'mailto:gymai@neelahouse.cloud',
+        email: 'mailto:gymai@neelastack.com',
       },
     },
     {
@@ -51,7 +51,7 @@ export class Team {
         instagram: 'https://instagram.com/',
         whatsapp:
           'https://wa.me/7742261033?text=Hi%20Sophie%2C%20I%27m%20interested%20in%20yoga%20sessions',
-        email: 'mailto:gymai@neelahouse.cloud',
+        email: 'mailto:gymai@neelastack.com',
       },
     },
     {
@@ -66,7 +66,7 @@ export class Team {
         instagram: 'https://instagram.com/',
         whatsapp:
           'https://wa.me/7742261033?text=Hi%20Daniel%2C%20I%27m%20interested%20in%20CrossFit',
-        email: 'mailto:gymai@neelahouse.cloud',
+        email: 'mailto:gymai@neelastack.com',
       },
     },
     {
@@ -81,7 +81,7 @@ export class Team {
         instagram: 'https://instagram.com/',
         whatsapp:
           'https://wa.me/7742261033?text=Hi%20Emily%2C%20I%27m%20interested%20in%20nutrition%20plans',
-        email: 'mailto:gymai@neelahouse.cloud',
+        email: 'mailto:gymai@neelastack.com',
       },
     },
     {
@@ -96,7 +96,7 @@ export class Team {
         instagram: 'https://instagram.com/',
         whatsapp:
           'https://wa.me/7742261033?text=Hi%20Michael%2C%20I%27m%20interested%20in%20body%20transformation',
-        email: 'mailto:gymai@neelahouse.cloud',
+        email: 'mailto:gymai@neelastack.com',
       },
     },
     {
@@ -111,7 +111,7 @@ export class Team {
         instagram: 'https://instagram.com/',
         whatsapp:
           'https://wa.me/7742261033?text=Hi%20Olivia%2C%20I%27m%20interested%20in%20Pilates',
-        email: 'mailto:gymai@neelahouse.cloud',
+        email: 'mailto:gymai@neelastack.com',
       },
     },
   ];
@@ -137,6 +137,6 @@ export class Team {
   handleSendResumeClick(): void {
     console.log('Send Resume clicked');
     window.location.href =
-      'mailto:gymai@neelahouse.cloud?subject=Resume Submission';
+      'mailto:gymai@neelastack.com?subject=Resume Submission';
   }
 }

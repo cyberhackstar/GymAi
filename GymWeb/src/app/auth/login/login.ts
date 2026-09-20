@@ -40,7 +40,7 @@ export class Login {
     private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: Token,
-    private router: Router
+    private router: Router,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -103,7 +103,7 @@ export class Login {
     const oauthUrl = `${
       environment.authUrl
     }/oauth2/authorization/${provider}?frontend_origin=${encodeURIComponent(
-      currentOrigin
+      currentOrigin,
     )}`;
 
     console.log('Redirecting to OAuth URL:', oauthUrl);
@@ -154,7 +154,7 @@ export class Login {
       const urlObj = new URL(url);
       const hostname = urlObj.hostname;
 
-      // ✅ Extract root domain (e.g., "neelahouse.cloud" from "gymai.neelahouse.cloud")
+      // ✅ Extract root domain (e.g., "neelastack.com" from "gymai.neelastack.com")
       const parts = hostname.split('.');
       if (parts.length >= 2) {
         return '.' + parts.slice(-2).join('.');

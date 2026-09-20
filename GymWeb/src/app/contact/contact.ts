@@ -46,8 +46,8 @@ export class Contact implements OnInit {
     {
       icon: 'fas fa-envelope',
       title: 'Email Us',
-      value: 'gymai@neelahouse.cloud',
-      link: 'mailto:gymai@neelahouse.cloud',
+      value: 'gymai@neelastack.com',
+      link: 'mailto:gymai@neelastack.com',
       linkText: 'We reply within 24 hours',
     },
     {

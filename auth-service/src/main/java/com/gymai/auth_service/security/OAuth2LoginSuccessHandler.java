@@ -31,10 +31,10 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
     private final RabbitMqSender rabbitMqSender;
     private final DirectExchange directExchange;
 
-    @Value("${app.frontend.default-url:https://gymai.neelahouse.cloud}")
+    @Value("${app.frontend.default-url:https://gymai.neelastack.com}")
     private String defaultFrontendUrl;
 
-    @Value("#{'${app.frontend.allowed-urls:https://gymai.neelahouse.cloud}'.split(',')}")
+    @Value("#{'${app.frontend.allowed-urls:https://gymai.neelastack.com}'.split(',')}")
     private List<String> allowedFrontendUrls;
 
     @Value("${event.routing.registration}")

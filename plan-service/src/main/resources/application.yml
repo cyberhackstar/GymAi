@@ -50,7 +50,7 @@ management:
 
 cors:
   allowed-origins:
-    - ${FRONTEND_URL:https://gymai.neelahouse.cloud}
+    - ${FRONTEND_URL:https://gymai.neelastack.com}
     - http://localhost:4200
   allowed-methods:
     - GET
